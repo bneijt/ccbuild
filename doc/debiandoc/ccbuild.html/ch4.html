@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>ccbuild - A strict developer's build utility - Cleaning</title>
+
+</head>
+
+<body>
+
+<p><a name="ch4"></a></p>
+<hr>
+
+<p>
+[ <a href="ch3.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ 4 ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch5.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+<code>ccbuild</code> - A strict developer's build utility
+<br>Chapter 4 - Cleaning
+</h1>
+
+<hr>
+
+<p>
+For cleaning your sourcetree, <code>ccbuild</code> offers two commands:
+<samp>clean</samp> and <samp>distclean</samp>.  Although they might act almost
+the same, they are implement quite different.
+</p>
+
+<p>
+The <samp>distclean</samp> command is totally source independent: it doesn't
+scan sources, nor look for them.  Distclean simply removes all ccbuild related
+file in &quot;o&quot; directories and all &quot;.gch&quot; everywhere.  So it
+will try to remove any file matching: <samp>*/o/*.md5</samp>,
+<samp>*/o/*.o</samp>, <samp>*.gch</samp> and <samp>o</samp>.
+</p>
+
+<p>
+The <samp>clean</samp> command is much more subtle: it reads the sources and
+removes any objects part of the current source tree.  Because it reads the
+sources, using clean will only remove those sources part of the given or
+implied main binary target(s).
+</p>
+
+<p>
+General rule is to use the force command when you want to update everything,
+use the <samp>clean</samp> when you want to remove all files for a local binary
+target (but not any other binary targets in the local directory) and use
+<samp>distclean</samp> to remove everything including old objects and
+precompiled headers.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch3.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ 4 ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch5.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+<code>ccbuild</code> - A strict developer's build utility
+</p>
+
+<address>
+1.4.0<br>
+<br>
+A. Bram Neijt<br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

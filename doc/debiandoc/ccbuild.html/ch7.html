@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>ccbuild - A strict developer's build utility - Problem solving with ccbuild</title>
+
+</head>
+
+<body>
+
+<p><a name="ch7"></a></p>
+<hr>
+
+<p>
+[ <a href="ch6.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ 7 ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="apA.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+<code>ccbuild</code> - A strict developer's build utility
+<br>Chapter 7 - Problem solving with ccbuild
+</h1>
+
+<hr>
+
+<p>
+This is a collection of possible real usage examples for ccbuild.  If you don't
+want to take the time to read the manual pages, this is a more problem oriented
+listing of the same.
+</p>
+
+<hr>
+
+<h2><a name="s7.1"></a>7.1 You changed a class interface</h2>
+
+<p>
+When you change a class interface, a large collection of your code will
+probably break down.  But which parts?  Well, a hint of which files will be
+affected can be seen using <code>ccbuild</code> check.  However, this won't
+show you wether these sources still compile or not.  The only way to test that
+is by simply running <code>ccbuild</code>.
+</p>
+
+<p>
+Solution: Use a deamonizing editor (something that returns after using the
+command).  An example is using the gedit command when you already have a window
+open: new files will be opened in a tab and the gedit command will return
+immediately.  So, using gedit, the easiest way to get an overview of your
+problems would be: <code>ccbuild</code> --brute --xof &quot;gedit&quot;
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch6.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ 7 ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="apA.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+<code>ccbuild</code> - A strict developer's build utility
+</p>
+
+<address>
+1.4.0<br>
+<br>
+A. Bram Neijt<br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

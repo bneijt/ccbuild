@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>ccbuild - A strict developer's build utility - Using ccbuild: building your program</title>
+
+</head>
+
+<body>
+
+<p><a name="ch3"></a></p>
+<hr>
+
+<p>
+[ <a href="ch2.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ 3 ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch4.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+<code>ccbuild</code> - A strict developer's build utility
+<br>Chapter 3 - Using <code>ccbuild</code>: building your program
+</h1>
+
+<hr>
+
+<p>
+To build a configured <code>ccbuild</code> compatible source tree, simple run
+<code>ccbuild</code> in the directory containing the main program.  This will
+compile all programs in the given directory.  However, if you only want to
+compile one given program, issue the command <samp>ccbuild build
+mainsource.cc</samp>, where mainsource.cc should be the name of the main
+sourcefile.
+</p>
+
+<p>
+Once the command is issued, <code>ccbuild</code> will start reading includes
+the source does and gather sources it should compile.  Any sources it can find
+will be compiled and linked to the main program.  Once the <samp>[LINK]
+mainsource</samp> line get's done, without any errors, your main program will
+be done and you can start it with <samp>./mainsource</samp>.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch2.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ 3 ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch4.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+<code>ccbuild</code> - A strict developer's build utility
+</p>
+
+<address>
+1.4.0<br>
+<br>
+A. Bram Neijt<br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

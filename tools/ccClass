@@ -1,0 +1,26 @@
+#!/bin/sh
+#Create a simple class template 
+# It includes the srcHeader file of the first higher src directory.
+CNAME=$1
+CHNAME="$CNAME".hh
+CINAME="$CNAME".ih
+HEADER=`echo $PWD |grep -o "^.*src"`/srcHeader
+echo $CHNAME
+cat < "$HEADER" >> "$CINAME"
+echo "#include \"$CHNAME\"" >> "$CINAME";
+cat < "$HEADER" >> "$CHNAME"
+
+cat >> "$CHNAME" <<EOF
+
+#ifndef _${CNAME}_HH_INCLUDED_
+#define	_${CNAME}_HH_INCLUDED_
+
+class $CNAME
+{
+	public:
+	
+};
+
+#endif
+
+EOF

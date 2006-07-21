@@ -1,0 +1,54 @@
+/*
+	ccbuild - A strict developer's build utility
+	Copyright (C) 2005  A. Bram Neijt <bneijt@gmail.com>
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+*/
+
+#include "System.hh"
+#include "../Compiler/Compiler.hh"
+#include "../Sources/Sources.hh"
+#include "../Resolver/Resolver.hh"
+#include "../FileSystem/FileSystem.hh"
+#include "../Options/Options.hh"
+#include "../Arguments/Arguments.hh"
+#include "../Globals/Globals.hh"
+#include "../MD5Info/MD5Info.hh"
+
+#include <iostream>
+#include <stack>
+#include <set>
+#include <fstream>
+#include <algorithm>
+#include <functional>
+#include <iterator>
+#include <unistd.h>
+#include <cstring>
+#include <wordexp.h>
+#include <cstdlib>
+
+
+//#include <sys/types.h>
+//#include <sys/wait.h>
+
+
+//#define DEBUGLEVEL 3
+
+#include "../Misc/Misc.hh"
+
+
+using namespace std;
+using namespace bneijt;

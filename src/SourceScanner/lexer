@@ -1,0 +1,114 @@
+/*
+	This is scheme is based on an example shown in
+	"C++ Annotations" Version 6.1.0b by Frank B. Brokken
+	Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+*/
+
+%{
+    #define _SKIP_YYFLEXLEXER_
+    #include "SourceScanner.ih"
+    ///\cond
+%}
+
+%option yyclass="SourceScanner" outfile="yylex.cc" c++ 8bit warn noyywrap yylineno
+
+/*
+	Debug is now off... the sourcescanner seems to work ok.
+	%option debug
+*/
+
+%x      comment
+%x      ginclude
+%x      linclude
+%x      iinclude
+%x      quoted
+
+eolnComment			"//".*
+anyChar         .|\n
+
+/* --------------------------------------------------------------------------
+                               Flex rules area:
+                               ~~~~~~~~~~~~~~~~
+     Regular expressions below here define what the lexer will recognize.
+   ----------------------------------------------------------------------- */
+%%
+    /*
+        The comment-rules: comment lines are ignored.
+    */
+
+{eolnComment}
+"/*"                    BEGIN comment;
+<comment>{anyChar}
+<comment>"*/"           BEGIN INITIAL;
+
+"\""                    BEGIN quoted;
+<quoted>[^\"]*
+<quoted>"\""            BEGIN INITIAL;
+
+
+		/*
+				Main function detection
+		*/
+int[ \t\n]+main[ \t\n]*\(					d_hasMainFunction = true;
+
+		/*
+				Define directive detection (disabled)
+^[ \t]*#define[ \t]+        			d_hasDefine = true;
+
+		*/
+
+    /*
+        Ignore includes: "# include"
+    */
+^[ \t]*#" "include[ \t]+[<\"]       BEGIN iinclude;
+<iinclude>[^>\"]*							d_iinclude = yytext;
+<iinclude>[>\"][^\n]*\n       {
+                                 
+                            	   BEGIN INITIAL;
+	                               storeIgnore();
+		                           }
+<iinclude>{anyChar}            throw invalidInclude;
+
+    /*
+        Global includes: #include <file>
+				(All not signle space variants)
+    */
+^[ \t]*#include[ \t]+"<"       BEGIN ginclude;
+^[ \t]*#\tinclude[ \t]+"<"       BEGIN ginclude;
+^[ \t]*#[ \t][ \t]+include[ \t]+"<"       BEGIN ginclude;
+<ginclude>[^>\n]+              d_ginclude = yytext;
+<ginclude>">"[^\n]*\n          {
+                            	   BEGIN INITIAL;
+	                               storeGlobal();
+		                           }
+<ginclude>{anyChar}            throw invalidInclude;
+
+    /*
+        Local includes: #include "file"
+				(All not signle space variants)
+    */
+^[ \t]*#include[ \t]+"\""        BEGIN linclude;
+^[ \t]*#\tinclude[ \t]+"\""        BEGIN linclude;
+^[ \t]*#[ \t][ \t]+include[ \t]+"\""        BEGIN linclude;
+<linclude>[^\"\n]+            	  d_linclude = yytext;
+<linclude>"\""[^\n]*\n              {
+                                  BEGIN INITIAL;
+	                                storeLocal();
+		                            }
+<linclude>{anyChar}             throw invalidInclude;
+
+    /*
+        The default rules: eating all the rest
+    */
+
+{anyChar}
+
+    /*
+        The <<EOF>> rule: terminate the lexer
+    */
+<<EOF>>						yyterminate();
+
+%%
+
+///\endcond
+

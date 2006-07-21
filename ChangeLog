@@ -1,0 +1,300 @@
+1.5.3dev:
+- Faster distclean
+
+1.5.2:
+- Break loop when q is given.
+- Archive only when you have multiple objects
+- Archiving between compile and link failed on me.
+  So moved it to an experimental option.
+
+1.5.1:
+- Archive before link, this produces smaller binaries.
+- Debug information nolonger shows.
+- Start of --xml output support, implemented for check.
+- Small documentation changes.
+
+1.5.0:
+-  Better system() call return status handling
+-  --append now also works for the lib command
+-  Clean all works on both binary and non binary targets (for libraries)
+-  Code cleanup
+-  Dropped the --realman option in favour of cleaner code.
+-  Without sources, the ccbuild will now do nothing
+-  Behaviour change: loop now requests a _return_ before continuing looping.
+    Although this is less of a loop, it removes the problems arising from
+    editing a file while g++ is running and still keeps you from rewritten
+    the commandline arguments and rescanning unchanged files.
+-  Memory leaks plugged for: Globals, MD5, Arguments.
+-  Possible bugfix: local directory to root translation?
+
+1.4.2:
+-  Strip command in install.sh changed, closes bug 1328023.
+
+1.4.1:
+-  Bugfix: moved linker flags to behind the objects in accordance with
+		( http://www.network-theory.co.uk/docs/gccintro/gccintro_18.html )
+
+1.4.0:
+-  The option -V has been added in support of --version.
+-  The --pversion has been added as the only way to enter the library version.
+-  The library command takes only a source as a possible argument, no version.
+!  Bahaviour change: the lib command nolonger takes a version argument.
+!  Bahaviour change: if no binary target is found, build is chained to lib.
+-  Documented the use of -(*)threads under caveats.
+-  New "make help" possible.
+-  Usage manual update.
+-  Full movement to new homepage
+
+1.3.3:
+-  Added clean rule to the Makefile
+-  Moved homepage reference to a variable
+-  Hopefully removed the yylex.cc file before distribution
+-  Bugfix: Makefile output wasn't set next to the source.
+
+1.3.2:
+-  Bugfix: Back to the old Make rules, from back in 0.9.6
+   (where the main target only depends on the directories.)
+-  Added package.sh script, to clean and update before packaging.
+-  Moved Make and A-A-P files to top directory
+-  Optimization set to 2.
+-  Bugfix in distclean where not all .gch files where removed.
+-  Experimental "lib" command
+
+1.3.1:
+-  Bugfix: linking wasn't done when the main program changed.
+
+1.3.0:
+!  Complete rewrite of MD5 sums system
+-  ccResolutions.d files are loaded alphabatically
+-  Added the md5 command, to generate a list of MD5 sums
+-  Rewritten the options class
+-  Doxygen mainpage updated
+
+1.2.0:
+!  Bugfix: -C now works before default argument loading
+   (ccResolutions should be in the directory pointed to by -C).
+!  Behaviour change: ccbuild will now ignore all include
+   statements with a single space after the "#" character.
+-  deps commands shows a line with ignored headers in the center.
+-  dot command in verbose mode shows the ignored headers collected in a box.
+-  Bugfix: the examples were not quoted correctly in the manual page.
+-  In verbose mode, ignored headers are mentioned on the stderr.
+!  Bugfix: found binary targets in subdirectories are nolonger
+   followed.
+-  A-A-P rule rewrite with more variables and seperation.
+
+1.1.0:
+-  Bugfix: first file in aap rule wasn't quoted.
+-  Added the --version commandline option.
+-  A-A-P rules now include "INCLUDE", "DEFINE", "LIBS" and "conf".
+-  Bugfix in MD5 hash storing (Not all were always generated and stored).
+!  Allot of bugfixes regarding MD5 hashes.
+-  Nolonger show MD5 as TESTING in help (although it might still be :-S).
+-  Check command with verbose now shows filetype ccbuild thinks it is.
+-  Dot command with verbose will show all tree targets.
+-  Bugfix: clean command now removes md5 files.
+-  Removed nolonger working icmake buildscript
+
+1.0.1:
+!  Bugfix: Ignore multiple arguments for compiler/linker.
+
+1.0.0:
+!  Added aap command for a-a-p file generation.
+-  MD5 sums are now stored seperately (o/filename.md5).
+-  Warning when expansion results in an empty string.
+-  Complete rewrite of the Compilers argument parser.
+-  Doxygen documentation for all members.
+-  Changed the update checking system (better md5 support).
+-  Code cleanup.
+!  "--add" renamed to "--args".
+-  Better long argument parsing warnings.
+-  In makefiles, objects depend on their ownd output directory.
+!  Added a-a-p script, so installation is may now be cd src; aap install
+
+0.9.6:
+-  Added support for ".CPP" as a source extension.
+!  Added -L to isLinkerArgument, was missing!
+-  Bahaviour change: --recursive-include now also adds -I to the commands.
+-  Behaviour change: exec-on-fail/pass work only on PRE and CC commands.
+-  Documentation update.
+-  icmake slave mode never outputs the local path "."
+-  If a command fails, the MD5Hash is removed from memory.
+-  Cleaner exits, which means better/worse MD5Hash storing,
+   this option still needs more testing.
+
+v0.9.5:
+-  Bugfix: -C argument sometimes got an extra space because of an error in
+     Arguments class.
+-  Removed all rule for single source makefile generations.
+-  Added flex generation fule to default install makefile.
+!  Added MD5 hashing support, as a TESTING feature.
+-  Added removal of o/md5usms files in makefile.
+
+v0.9.0:
+-  Behaviour change: deps now outputs: local include \n\n global includes
+   This will make it scriptable using `ccbuild deps <file>|[head|tail] -n1`
+!  Bugfix: wrong shell expansion caused a segfault. (C functions...)
+!  Bugfix: Resolution was only done on update?
+!  Bugfix: command argument in loop created segfault.
+-  Added --nodefargs option, to stop default arguments.
+-  Added --nodefres option, to stop default resolutions.
+-  Behaviour change: -I is automatically passed on to g++
+-  Behaviour change: In brute mode, rm output files on failure.
+
+v0.8.0:
+-  Cancel brute mode when g++ returns 2.
+-  Dropped a few TODO's.
+-  Makefile with support for all header precompilation.
+!  Bugfix: "Unable to resolve:" message was broken showing pointers.
+!  Bugfix: resolving all showed the same global multiple times
+-  Added the recursive-include option.
+!  Bugfix: clean didn't remove the binary target object file.
+
+v0.7.0:
+-  All precompiled headers are removed when using no precompilation
+    this is needed because forgetting the -p option will make g++
+    use old precompiled headers which can give really weird errors.
+!  Bugfix: last, instead of first, resolution rule was used.
+-  Additional arguments read from ccResolutions' first line
+    if this starts with "#&".
+-  Source tree change in loop forces reload of everything and
+    removes objects of binary targets.
+-  Loop option will only work in combination with build command.
+-  _DebugLevel macro now also outputs "D<debuglevel>"
+-  Internal header precompilation in Makefile.
+-  Added a distclean rule in Makefile.
+-  Bugfix: .PHONY for all rule.
+-  Better memory cleanup on exit.
+
+v0.6.0:
+-  Added the -I option to add local search paths
+-  Made the resolver faster (by chaching expand calls) and more 
+     memory efficient using pointers.
+-  Added a tool script to list all headers for a package and create
+     a resolution file. See tools/genPkgconfigList.sh
+!  Bugfix: distclean nolonger calls cleanAll. So now
+     distclean is truly source independent.
+-  Code cleanup using STL set container.
+-  Speed-up for resolution and global header listing (GO pointers!)
+    (which should also encompass a mem usage cut)
+-  Added an experimental --loop option.
+-  Added the resolve command.
+
+
+v0.5.0:
+!  Bugfix: lexer rules for includes didn't allow comments after includes
+!  Bugfix: headers don't have to end in .hh or any other header extension.
+     Redefined isHeader. This means that sources are identified by extension
+     and headers are now anything which isn't a source.
+-  Transition from "make" utility to "build" utility.
+!  Bugfix: Argument parser could cause an abort.
+-  Rewrite of build, check, makefile, icmake and dot commands.
+-  Code cleaup using by adding UpToDate function
+-  Support for first "not by me" projects!
+!  Bugfix: Include scanning error handling (and detection) was broken.
+
+v0.4.0:
+-  Code cleanup: foreach to _foreach, debugLevel.. to _debugLevel...
+!  Bugfix: "[DONE]" message on stderr instead of stdout.
+-  Added options: real-man, highlight, clearpc, append, exec-on-pass,
+     exec-on-fail.
+-  Repeated options are supported (Arguments class hack).
+-  Added command "check" to check the up to date status of sourcefiles.
+-  Added command "icmake" to act as an icmake slave: output class directories.
+-  New status webpage creation tool, see the tools directory.
+-  Real men can now use: "ccbuild --real-man 2>/dev/null"
+    (Also see: Real Man's Compiler Collection on Freshmeat)
+
+v0.3.5:
+-  Added support for ".H" as header extension.
+-  Added the -C option, which works just like the make -C
+    to change directory before anything else.
+-  Added the "brute" option. To make ccbuild ignore compiler errors.
+-  Added option to precompile all headers, not just internal headers.
+   I noticed that precompiler headers is only faster when you don't use
+   internal headers at all, otherwise it's not that handy.
+!  Behaviour change: precompile before any normal compilation.
+    (due to flattend build algorithm)
+-  Small speed-up (in isReadable code).
+-  The distclean command nolonger uses clean, so it should work
+   without a working source tree again (which is the reason it's there).
+
+v0.3.0:
+!  Bugfix: Internal headers where dependent on .cc files.
+   This made the ccbuild want to precompile internal headers to often.
+!  Bugfix: Loading of ccResolutions.d files might have been broken.
+-  Removed "#define" rule from sourcescanner, g++ should be able to do this
+   at the moment. However we might need it in the future.
+-  Cleaner class has removed in favour of a flat cleaning algorithm.
+-  Link phase has been seperated from binaryTarget compilation.
+-  Precompilation is no longer testing. However the implementation will
+   probably be changed in some future release (see TODO).
+-  Compiler has a cleaner and more "const" interface.
+-  Added a small installation script to make up for not having autotools files.
+
+v0.2.1:
+-  Added all ANSI C++ header files to static ignore list. (Resolver.cc)
+-  Removed default path searches. Now, ccbuild needs a ccResolutions file
+   to be build with ccbuild. It made me notice, and remove, a superflourish
+   include statement in expand.cc already, so it's a good thing ;-)
+!  Wrong line number in resolution errors fixed.
+-  Load all ~/.ccbuild/ccResolutions.d/* files into resolver.
+-  Added a default ccResolutions.d in the tools directory,
+   containing a list of known standard unix headers.
+-  Added the --compiler option to change de base command of the compiler.
+!  Precompilation is now testing code! You need g++ 3.4 or up though,
+   so try using: ccbuild -p --compiler g++-3.4
+
+v0.2.0:
+-  Moved back to "g++ -Wall -g" as default command.
+!  Fixed loading of ~/.ccbuild/ccResolutions, which was broken.
+-  Always say something. ccbuild should now always output something.
+-  All not-linker options are now compiler options. Which _should_ mean
+   more or even all options are interpreted correctly.
+-  Split testtree from distribution and added some libglademm examples to it.
+!  Added evaluation of ccResolution lines, meaning you can now use:
+      gtkmm.h    `/usr/bin/pkg-config --cflags --libs gtkmm-2.0`
+
+v0.1.1:
+-  Not empty leftover arguments after parsing from the resolution file are mentioned.
+-  Code clean-up. Should make building just a few microseconds faster.
+!  Handle the -Wl,... option which was wrongly interpeted as a compile-time option.
+-  Experimental internalHeader precompilation support. Still gives warnings and
+   I still have to run a few benchmarks on it. (see the tools/benchmark script)
+
+v0.1.0:
+-  Moved to "g++ -Wall -ggdb" instead of "g++ -Wall -g" as default command.
+-  Centralized globSourceFiles function, to support all source types (".cc", ".cpp" etc.).
+!  Fixed a bug in building single files (dependencies were not generated).
+-  Argument parser in addArgument function of compiler. No Bash evaluation yet but.
+   using the output from "pkg-config --cflags" in your ccResolution file  shouldn't
+   be a problem.
+-  Added the 'distclean' command, which empties and removes all 'o' directories.
+-  Added a few variables to the generated Makefile.
+-  Changed the interface of the Compiler and Cleaner classes (see rmCompileOptions).
+-  ccResolutions files now may have extra spaces and must have one tab to seperate
+   the values. Also comment lines are possible (start with "#").
+-  Added a new example to the testtree showing the use of something that came out
+   of pkg-config. Added using the following command:
+      echo -e gtkmm.h "\t\t" `pkg-config gtkmm-2.4 --cflags --libs` >> ccResolutions
+   This should, if you have gtkmm-2.4 development files, allow gtkmmbase.cc to build.
+
+v0.0.2:
+-  Fixed header file dependencie in Makefile.
+-  Error message added when a local include isn't found/loadable.
+-  Default compiler command is set to "g++ -Wall -g".
+-  Behavior change: when you add an option (using --add) the defaults are removed.
+-  Unknown commands are mentioned.
+-  Arguments class now has a const interface for flag and argument testing!.
+-  Solved a few //TODO's.
+-  Support for ".cpp" extension.
+
+v0.0.1.1: Emergency repair release...
+!  Directory dependencie of object target rules in Makefile broke it.
+   making make think it always needed to update.
+-  Some documentation changes.
+-  Makefile contains correct version in the ccbuild banner.
+-  All rule for single bintarget Makefiles.
+
+v0.0.1:
+  Initial release!

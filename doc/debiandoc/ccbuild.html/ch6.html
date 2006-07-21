@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>ccbuild - A strict developer's build utility - Moving from ccbuild</title>
+
+</head>
+
+<body>
+
+<p><a name="ch6"></a></p>
+<hr>
+
+<p>
+[ <a href="ch5.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ 6 ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch7.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+<code>ccbuild</code> - A strict developer's build utility
+<br>Chapter 6 - Moving from <code>ccbuild</code>
+</h1>
+
+<hr>
+
+<p>
+There will be a day you want to move away from <code>ccbuild</code>.  When the
+day comes, you would probably only be able to use <code>ccbuild</code> for it's
+dependency generation commands.
+</p>
+
+<p>
+To make <code>ccbuild</code> usefull in these later stages,
+<code>ccbuild</code> has a few commands to help you cope.  Don't forget, you
+can remove all <code>ccbuild</code> generated files using:
+</p>
+
+<pre>
+     	ccbuild distclean;
+     	rm ./ccResolutions;
+</pre>
+
+<p>
+The build script generation commands only read source and, should not generate
+any output.
+</p>
+
+<hr>
+
+<h2><a name="s6.1"></a>6.1 General build file generation</h2>
+
+<p>
+<code>ccbuild</code> can generate a number of different files for different
+build systems.  When you call <code>ccbuild</code> with a build generation
+command without a sourcefile, it will try to create a standalone file for that
+build system.  Which will also contain an all rule.
+</p>
+
+<p>
+For most systems however, you don't want the all rule to be defined.  So,
+<code>ccbuild</code> allows you to state which source you want a build file
+for.  This will then generate a build file without the all rule.  Then simply
+include this build file into your main build file and write the all rule
+yourself.
+</p>
+
+<hr>
+
+<h2><a name="s6.2"></a>6.2 Generating A-A-P files</h2>
+
+<p>
+One of the most usefull generation features is probably the A-A-P file
+generation.  You can use this by calling <code>ccbuild</code> with the aap
+command.  This will generate an A-A-P file on the stdout.
+</p>
+
+<p>
+The most common way of using this aap file is by generating it for a single
+binary target using:
+</p>
+
+<pre>
+     	ccbuild aap mainsource.cc &gt; mainsource.aap
+</pre>
+
+<p>
+Or
+</p>
+
+<pre>
+     	ccbuild aap src/mainsource.cc &gt; mainsource.aap
+</pre>
+
+<p>
+Then create a main.aap file with the following line:
+</p>
+
+<pre>
+     		:include mainsource.aap
+     		
+     		all : ./mainsource
+</pre>
+
+<p>
+Or
+</p>
+
+<pre>
+     		:include mainsource.aap
+     		
+     		all : ./src/mainsource
+</pre>
+
+<p>
+Add any recipes needed and then use aap to generate the main program.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch5.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ 6 ]
+[ <a href="ch7.html">7</a> ]
+[ <a href="apA.html">A</a> ]
+[ <a href="apB.html">B</a> ]
+[ <a href="ch7.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+<code>ccbuild</code> - A strict developer's build utility
+</p>
+
+<address>
+1.4.0<br>
+<br>
+A. Bram Neijt<br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

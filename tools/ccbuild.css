@@ -1,0 +1,15 @@
+passed {
+  color: black;
+  display: none;
+}
+failed {
+  color: red;
+}
+.old {
+  color: darkred;
+  display: block;
+}
+.uptodate {
+  color: darkblue;
+  display: none;
+}

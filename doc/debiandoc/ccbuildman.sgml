@@ -1,0 +1,541 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Based on an example constructed by Colin Watson
+     <email>cjwatson@debian.org</email>, based on a man page template
+     provided by Tom Christiansen <email>tchrist@jhereg.perl.com</email>
+     and a DocBook man page example by Craig Small
+     <email>csmall@debian.org</email>.
+  -->
+
+  <!-- Fill in the various UPPER CASE things here. -->
+  <!ENTITY manfirstname "<firstname>Bram</firstname>">
+  <!ENTITY mansurname   "<surname>Neijt</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY mandate      "<date>2005-11-19</date>">
+  <!-- SECTION should be 1-8, maybe with subsection. Other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY mansection   "<manvolnum>1</manvolnum>">
+  <!ENTITY manemail     "<email>bneijt@gmail.com</email>">
+  <!ENTITY manusername  "bneijt">
+  <!ENTITY manucpackage "<refentrytitle>ccbuild</refentrytitle>">
+  <!ENTITY manpackage   "ccbuild">
+]>
+<!--
+
+        ccbuild - A strict developer&apos;s build utility
+Version 1.5.1, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2
+
+
+-->
+<refentry>
+  <refentryinfo>
+    <address>
+      &manemail;
+    </address>
+    <author>
+      &manfirstname;
+      &mansurname;
+    </author>
+    <copyright>
+      <year>2005</year>
+      <holder>&manusername;</holder>
+    </copyright>
+    &mandate;
+  </refentryinfo>
+  <refmeta>
+    &manucpackage;
+
+    &mansection;
+  </refmeta>
+  <refnamediv>
+    <refname>&manpackage;</refname>
+
+    <refpurpose>Strict C++ developer&apos;s build utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&manpackage;</command>
+
+<!--      <group choice="req"><arg>this</arg><arg>that</arg></group> -->
+      <group choice="opt"><arg>options</arg></group>
+<!--
+      <group choice="opt">
+       <arg><replaceable>command</replaceable></arg>
+      </group>
+-->
+      <group choice="opt"><arg>command</arg></group>
+<!--      <arg rep="repeat" choice="opt"><replaceable>command argument</replaceable></arg> -->
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &ltsomething&gt) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s). <command>&manpackage;</command> reads these files in the order: <filename>./ccResolutions</filename>, <filename>~/.ccbuild/ccResolutions</filename>, <filename>&tilde;/.ccbuild/ccResolutions.d/*</filename>. Only the first mention of a global header file in these files is used.</para>
+    <para>To keep <command>&manpackage;</command> from acting on an include statement, seperate the #-sign and the include statement by one space (&quot;# include&quot;). These will be ignored.</para>
+<!--
+    <refsect2>
+      <title>A Sample Subsection</title>
+      <para></para>
+    </refsect2>
+    <refsect2>
+      <title>Yet Another Sample Subsection</title>
+
+      <para>References to the
+        <citerefentry>
+         <refentrytitle>foo</refentrytitle><manvolnum>SECTION</manvolnum>
+        </citerefentry> (or other) manual page should use the
+        <markup>&lt;citerefentry&gt;</markup> element as here.
+      </para>
+
+      <para>Each paragraph within a section is contained within a
+        <markup>&lt;para&gt;</markup> tag.</para>
+    </refsect2>
+-->
+  </refsect1>
+  <refsect1>
+    <title>COMMANDS</title>
+    <variablelist>
+<!--
+      <varlistentry>
+        <term> [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para></para>
+        </listitem>
+      </varlistentry>
+ -->
+      <varlistentry>
+        <term>build [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Build everything or the given source.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>lib [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build and symbolic links will be created. This currently forces the -fPIC argument addition.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>clean [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Clean everything or the given source.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>distclean</term>
+        <listitem>
+          <para>Recursively remove all &quot;o&quot; directories after removing all .md5 and .o files therein. And removes all .gch files.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>deps [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>List all files this source depends on. It lists three lines seperated by empty lines.
+          The first contains the local dependencies, 
+          the second the ignored headers (for the file) and the last contains all global includes needed.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>dot [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Generate dot graph files for sources on the stdout. If no source filename is given, then for all binary targets in the local directory a .dot file will be created. If the <option>--verbose</option> flag is used
+          the dot graph will also contain all object filenames and their dependencies and lists of ignored headers. Objects will be coloured lightgrey, binary targets lightblue, ignored headers by a red line.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>makefile [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Generate a Makefile on stdout. If no filename is given, an all rule will be generated. Otherwise only the rules for the given file are generated.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>aap [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Generate an A-A-P file on stdout. If the filename is not given, an &quot;all&quot; rule will be added and all local binary targets will be listed.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>tree [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>EXPERIMENTAL: output will probably change in the future. Generate an ascii art tree of your project files.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>check [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Desplay source status and filename on the stdout. Status and source path are seperated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab seperated collumn will be inserted containing a two letter filetype ccbuild identifies it as. This filetype is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>icmake [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para><command>icmake</command> slave mode. This will output used directories, this can be used as a directory or class list within the icmake build script.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>resolve [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>Print all unresoved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>md5 [<replaceable>filename.cc</replaceable>]</term>
+        <listitem>
+          <para>MD5 sum all sources needed to compile all binary targets, or the given source on stdout.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para>Options are used to change the behaviour of the commands. Some options are useless for some commands.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>-f</option> <option>--force-update</option></term>
+        <listitem>
+          <para>Update everything by labeling everything as old.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-h</option> <option>--help</option></term>
+        <listitem>
+          <para>Get a list of options and commands.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--gnutouch</option></term>
+        <listitem>
+          <para>Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-s</option> <option>--no-act</option></term>
+        <listitem>
+          <para>Simulate, don&apos;t really execute any writing commands.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--compiler</option> <replaceable>cmd</replaceable></term>
+        <listitem>
+          <para>Set the compiler command. The default is &quot;g++&quot;.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-a</option> <option>--args</option> <replaceable>argument</replaceable></term>
+        <listitem>
+          <para>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Mulitple uses of this option are concatenated with spaces.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-C</option> <replaceable>path</replaceable></term>
+        <listitem>
+          <para>Change directory before anything else.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-p</option> <option>--precompile-ih</option></term>
+        <listitem>
+          <para>Precompile only internal headers. This requires g++ version 3.4 up.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--precompile-all</option></term>
+        <listitem>
+          <para>Precompile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don&apos;t use internal headers, this precompilation is all you&apos;ve got.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--brute</option></term>
+        <listitem>
+          <para>Continue on compiler errors.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--md5</option></term>
+        <listitem>
+          <para>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only	stored after a clean exit from ccbuild (last line showing &quot;[WR] MD5 data&quot;) or a succesfull compilation.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--real-man</option></term>
+        <listitem>
+          <para>Show command return values per file on stdout. Combine this with &quot;2>/dev/null&quot; appended to the command an you&apos;ll have something for real men. This is a total rip-off from <emphasis>Real Man&apos;s Compiler Collection</emphasis> http://freshmeat.net/projects/rmcc/</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-I</option> <replaceable>path</replaceable></term>
+        <listitem>
+          <para>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--recursive-include</option> <replaceable>path</replaceable></term>
+        <listitem>
+          <para>This is just like <option>-I</option>, but for the given path and every non-empty directory with a name other then &quot;o&quot;.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-l</option> <option>--highlight</option></term>
+        <listitem>
+          <para>Set terminal colour to red before executing the command, then reset to normal at the end of it.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--xof</option> <option>--exec-on-fail</option> <replaceable>command</replaceable></term>
+        <listitem>
+          <para>Execute this command when the command (pre)compilation returns anything but 0.
+           The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don&apos;t want to use the filename, you can append an echo command like &quot;sleep 2; echo&quot;.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--xop</option> <option>--exec-on-pass</option> <replaceable>cmd</replaceable></term>
+        <listitem>
+          <para>This is the same as <option>--exec-on-fail</option>, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--clearpc</option></term>
+        <listitem>
+          <para>Clear the screen just before executing the command (clear per command).</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--append</option> <replaceable>cmd</replaceable></term>
+        <listitem>
+          <para>Append this to every command. This can be used to redirect output or set up pipes for compiler output.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--loop</option></term>
+        <listitem>
+          <para>
+          Loop the system with one second intervals. This only works for the build command at the moment.
+          All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--nodefargs</option></term>
+        <listitem>
+          <para>Do not read the first line of ./ccResolutions for extra arguments.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--nodefres</option></term>
+        <listitem>
+          <para>Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or discover your project&apos;s dependencies with the resolve command.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--addres</option> <replaceable>filename</replaceable></term>
+        <listitem>
+          <para>Load the given resolution file before any other.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--pversion</option> <replaceable>version</replaceable></term>
+        <listitem>
+          <para>Set the program version you are working on to <replaceable>version</replaceable>. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any filesystem special characters like slashes.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--ar</option></term>
+        <listitem>
+          <para>Archive the objects before linking. This should reduce the binary size because it leaves out unused objects.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--verbose</option></term>
+        <listitem>
+          <para>Show commands and produce more output for dot and check commands.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-V</option> <option>--version</option></term>
+        <listitem>
+          <para>Output version number on stdout and copyright/license on stderr.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--xml</option></term>
+        <listitem>
+          <para>Output in XML where supported. Currently this is only the check command.</para>
+        </listitem>
+      </varlistentry>
+<!--
+      <varlistentry>
+        <term><option></option> <option></option> <replaceable></replaceable></term>
+        <listitem>
+          <para></para>
+        </listitem>
+      </varlistentry>
+
+          <para>Pass the user-supplied <replaceable>option</replaceable> to
+            <command>foo</command> to change its behaviour. The fact that
+            <replaceable>option</replaceable> is underlined or in italics
+            means that the user replaces it with a valid value for this
+            option. The [ and ] brackets mean it isn&apos;t required.</para>
+-->
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>RESOLUTION CONFIGURATION</title>
+
+    <para>The ccResolutions file links global headers to compiler arguments. Every line should be either empty, start with a comment character &quot;#&quot; or contain a configuration line. 
+    A configuration line contains the name of the global header, followed by one or more tab characters and then the additional arguments needed when a source depends on this global header.
+    The arguments are POSIX shell expanded.</para>
+<para>
+    If the first line of the ccResolutions file starts with &quot;#&amp;&quot;, the rest of this line is shell expanded and used and appended to the argument list of ccbuild.
+    </para>
+  </refsect1>
+<!--  
+  <refsect1>
+    <title>RETURN VALUE</title>
+
+    <para>What the program or function returns if successful.</para>
+  </refsect1>
+  <refsect1>
+    <title>ERRORS</title>
+
+    <para>Return codes, either exit status or errno settings.</para>
+  </refsect1>
+-->
+  <refsect1>
+    <title>EXAMPLES</title>
+
+    <para>Some, mostly trivial, examples of program use.</para>
+    <variablelist>
+      <varlistentry>
+        <term><command>&manpackage;</command> --brute</term>
+        <listitem>
+          <para>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next &manpackage; call. </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> -p --compiler &apos;g++-3.4&apos; --args -Wall --args &apos;-Wextra -ansi&apos;</term>
+        <listitem>
+          <para>Precompile internal headers using <command>g++-3.4</command> and highlight all compiler output. Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> -f --args -O3</term>
+        <listitem>
+          <para>Recompiling your project for benchmarking tests.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> dot; <command>dotty</command> *.dot</term>
+        <listitem>
+          <para>Graph the dependencies for all local programs. Then view these using <command>dotty</command>.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> --exec-on-fail &apos;gedit&apos;</term>
+        <listitem>
+          <para>Open all error producing sources in gedit. Very usefull for when you change the interface of a class.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> --compiler distcc makefile &gt; Makefile; <command>make</command> -j8</term>
+        <listitem>
+          <para>Combine <command>&manpackage;</command> with <command>distcc</command> using <command>make</command>. This is a work-around because <command>&manpackage;</command> doesn&apos;t support multiprocessing.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><command>&manpackage;</command> --nodefargs -f --args &apos;-Wall -Werror&apos; &amp;&amp; <command>svn</command> commit -m &apos;buildable backup&apos;</term>
+        <listitem>
+          <para>If all the sources are buildable without any warnings, commit everything to the repository using subversion.</para>
+        </listitem>
+      </varlistentry>
+ 		</variablelist>
+  </refsect1>
+<!--  
+  <refsect1>
+    <title>ENVIRONMENT</title>
+
+    <para>Environment variables this program might care about.</para>
+  </refsect1>
+-->
+  <refsect1>
+    <title>FILES</title>
+
+    <para>Configuration files used by <command>&manpackage;</command></para>
+    <variablelist>
+      <varlistentry>
+        <term><filename>./ccResolutions</filename></term>
+        <listitem><para>Local configuration which is project specific.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>&tilde;/.ccbuild/ccResolutions</filename></term>
+        <listitem><para>Global configuration file.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><filename>&tilde;/.ccbuild/ccResolutions.d</filename></term>
+        <listitem><para>The resolution configuration directory. All files in this directory are considered configuration files.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+<!--
+  <refsect1>
+    <title>NOTES</title>
+
+    <para>Miscellaneous commentary.</para>
+  </refsect1>
+-->
+  <refsect1>
+    <title>CAVEATS</title>
+    <para>Don&apos;t place any file into <filename>o</filename> directories, these will be removed when using the distclean command. Also don&apos;t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example &quot;add.cc&quot; and &quot;add.cpp&quot; in the same directory).</para>
+    <para>Currently there is no way to allow one object file to effect the commandline parameters of another. This means that if all objects need a flag, you must use the --args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</para>
+  </refsect1>
+
+<!--
+  <refsect1>
+    <title>DIAGNOSTICS</title>
+    <para></para>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>Every new release removes bugs. Every new feature adds more. So if you want to avoid any bugs, stay away from new features and keep an eye on the changelog. If you find one: update to the newest version, test, then send me a bugreport.</para>
+  </refsect1>
+-->
+
+  <refsect1>
+    <title>RESTRICTIONS</title>
+
+    <para>&manpackage; will not follow or act on any include statements with a single space between the #-sign and the include. So all include statements starting with &quot;#&nbsp;include&quot; will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode these are mentioned as warnings.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>A. Bram Neijt &lt;bneijt@gmail.com&gt;</para>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1)</para>
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

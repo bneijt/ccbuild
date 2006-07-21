@@ -1,0 +1,49 @@
+
+
+Currently there is only one binary, so installation is easy...
+1)
+	Install flex: 2.5.31 works, newer might be ok.
+
+2)
+	If you have absolutly no rights on the system:
+		Run "sh install.sh" as the user you want to develop under.
+		This will use the first writeable PATH path as binary directory
+		and install the configuration files to your home directory.
+
+		Don't forget to awnser "yes" to the final do-you-really-want-this
+		question.
+	If you have some rights on the system and have aap (www.a-a-p.org):
+		cd src
+		aap install
+
+3)
+	For the user of ccbuild, it might be nice to add the standard unix
+	headers as empty resolutions by copying the tools/ccResolutions.d
+	directory to ~/.ccbuild (this is automatically done by the install
+	script but not by the aap script.
+
+If anything (or everything) failes mail me or try the manual way:
+
+==Manually building and installing...
+1) Build ccbuild
+		Using make: type 'make'
+
+2) Install
+		Copy 'ccbuild' to any direcoty given by 'echo $PATH'
+
+3) Default configuration (optional)
+		You can copy the default configuration from the tools directory
+		your local .ccbuild directory:
+		mkdir ~/.ccbuild
+		cp -r tools/ccResolutions.d ~/.ccbuild
+
+4) Source code documentation (optional)
+    Run doxygen in the root directory of ccbuild, this will generate
+		documentation in the ./doc/html directory.
+
+The test sources, usable for examples, are now seperately packaged.
+If you want to try some examples, download the example codes from the
+ccbuild homepage.
+Also, don't forget to place any source you can find in a directory
+ and run ccbuild, you never know, it might just compile!
+See also "Projects using ccbuild" on the ccbuild homepage.

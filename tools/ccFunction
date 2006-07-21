@@ -1,0 +1,19 @@
+#!/bin/sh
+#Create a simple .cc function file for a 
+# class member, whose name is the first argument
+# It includes the srcHeader file of the first higher src directory.
+FNAME=$1
+FILENAME="$FNAME".cc
+CNAME=`basename "$PWD"`
+HEADER=`echo $PWD |grep -o "^.*src"`/srcHeader
+echo $FILENAME
+cat < "$HEADER" >> "$FILENAME"
+cat >> "$FILENAME" <<EOF
+
+#include "$CNAME.ih"
+
+void $CNAME::$FNAME()
+{
+
+}
+EOF
