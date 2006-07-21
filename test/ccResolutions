@@ -1,0 +1,4 @@
+#& -I../src/
+getopt.h	
+png.h	-lstdc++ -lpng -lz
+sqlite3.h	-lsqlite3
