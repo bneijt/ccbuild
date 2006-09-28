@@ -22,5 +22,9 @@
 
 string FileSystem::cwd()
 {
+#ifdef __CYGWIN__
+	return ".";
+#else
   return get_current_dir_name();
+#endif
 }

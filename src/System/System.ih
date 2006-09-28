@@ -40,7 +40,7 @@
 
 #include <cstdlib>
 
-#ifdef _NO_WORDEXP_
+#ifndef _NO_WORDEXP_
 #include <wordexp.h>
 #endif
 
