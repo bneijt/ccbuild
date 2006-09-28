@@ -21,6 +21,9 @@
 #include "Resolver.ih"
 string Resolver::expand(std::string const &name) const
 {
+#ifdef _NO_WORDEXP_
+	return name;
+#else
   ostringstream pathstr("", ios::app);
 
 	wordexp_t p;
@@ -68,5 +71,9 @@ string Resolver::expand(std::string const &name) const
 		//wordfree segfaults if wordexp failed
   	wordfree(&p);
 	}
+
+
   return pathstr.str();
+#endif
+
 }

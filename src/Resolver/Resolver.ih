@@ -32,8 +32,10 @@
 #include <sstream>
 #include <cstdio>
 #include <set>
-#include <wordexp.h>
 
+#ifndef _NO_WORDEXP_
+#include <wordexp.h>
+#endif
 
 using namespace bneijt;
 using namespace std;

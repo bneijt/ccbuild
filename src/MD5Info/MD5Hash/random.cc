@@ -26,5 +26,5 @@ void MD5Hash::random()
 {
 	d_loaded = true;
 	for(unsigned i=0; i < d_size; ++i)
-		d_hash[i] = ::random();
+		d_hash[i] = ::rand();
 }

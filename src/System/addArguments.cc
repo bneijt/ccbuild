@@ -35,8 +35,14 @@ bool System::addArguments(int &argc, char ** &argv)
 	  return false;
 	 
 	confLine = confLine.substr(2);
+
+#ifdef _NO_WORDEXP_	
+	cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp 'bug'.\n";
+	return false;
+#else
 	cerr << "ccbuild: Adding ccResolutions arguments.\n";
 	_debugLevel1("ccbuild: Arugment line: '" << confLine << "'");
+
 	wordexp_t p;
 
 	int retv = wordexp(confLine.c_str(), &p, 0);
@@ -68,10 +74,10 @@ bool System::addArguments(int &argc, char ** &argv)
 		wordfree(&p);
 	   return false;
 	}//If retValue != 0
-	
+
 	//Create a new arguments array
 	char ** newArgs = new char *[argc + p.we_wordc + 1];
-		
+
 	//Copy argv values
 	for(int i = 0; i < argc; ++i)
 	{
@@ -96,6 +102,8 @@ bool System::addArguments(int &argc, char ** &argv)
 	//!!! Start of possible memory leak. We new it here, does anybody delete it?
 	argv = newArgs;	
 	argc += p.we_wordc;
-	 	
+
+#endif	 	
+
 	return true;
 }
