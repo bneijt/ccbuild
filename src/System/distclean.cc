@@ -56,6 +56,7 @@ void System::distclean()
 		//All /o/*.md5 and /o/*.o
 		FileSystem::globFilesInto(&fileList, dir + "/o/*.md5");
 		FileSystem::globFilesInto(&fileList, dir + "/o/*.o");
+		FileSystem::globFilesInto(&fileList, dir + "/o/*.rpo");
 		
 		_foreach(target, fileList)
 		{

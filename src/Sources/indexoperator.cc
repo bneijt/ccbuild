@@ -63,7 +63,7 @@ Source *Sources::operator[](std::string const &filename)
 	if(pos == d_sources.end())
 	{
 		//Not found
-		_debugLevel4("Not found: " << filename);
+		_debugLevel4("Not found: " << filename << ' so inserting it');
 		d_sources.insert(s);
 		return s;
 	}

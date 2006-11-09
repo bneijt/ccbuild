@@ -1,5 +1,10 @@
-1.5.3dev:
+1.5.4dev:
+
+
+1.5.3:
 - Faster distclean
+- Remove o/*.rpo files in distclean
+- cleanPath bug fixed, eliminating bugs in find "../../" headers.
 
 1.5.2:
 - Break loop when q is given.

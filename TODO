@@ -3,6 +3,7 @@ Tree beter maken
 
 The features that may set of a new release and things to look out for:
 	- Enable a seperate version of wordexp / write my own.
+  - Update Filesystem/cwd.cc to correctly work on cygwin.
   - Use __CYGWIN__ to exclude wordexp usage
   -  If two program files depend on the same objects, the update of the
   	first will cause the second not to re-link as nothing had to be recompiled.

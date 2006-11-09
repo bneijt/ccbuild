@@ -26,7 +26,7 @@ std::string FileSystem::directoryName(string const &filename)
   if(lastSlashPos == string::npos)
     return ".";
 
-	_debugLevel2("dir(" + d_filename + " = " + d_filename.substr(0, lastSlashPos));
+	_debugLevel2("dir(" + filename + ") = " + filename.substr(0, lastSlashPos));
 
   return filename.substr(0, lastSlashPos);
 }

@@ -35,5 +35,3 @@ ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild distclean
 
-#Done, finish with my signature
-sign MD5SUMS

@@ -60,7 +60,7 @@ void Source::genDeps()
 	 	
 	 	if(s == 0)
 	 	{
-	 		cerr << "ccbuild: Unable to read '" << *li << "'\n";
+	 		cerr << "ccbuild: Unable to read '" << directory() <<  "/" << *li << "'\n";
 	 		cerr << "ccbuild:   mentioned in '" << filename() << "'\n";
 	 		continue;
 	 	}

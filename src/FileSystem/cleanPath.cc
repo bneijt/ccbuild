@@ -25,9 +25,11 @@ std::string FileSystem::cleanPath(string const &filename)
 
 	
  	//Strip filename of excess ../ parts
+ 	_debugLevel2("Clean path from: " << filename);
+ 	
  	istringstream f(filename);
  	vector<string> path;
-
+	
  	while(true)
  	{
 		string part;
@@ -38,7 +40,7 @@ std::string FileSystem::cleanPath(string const &filename)
 			
 		//Delete the last part, before the ".." with the ".." if
 		//the last pushed part isn't "."
-		if(part == ".." && path.size() > 0 && path.back() != "./")
+		if(part == ".." && path.size() > 0 && path.back() != "./" && path.back() != "../")
  	  {
 			if(!path.empty())
 				path.pop_back();
@@ -51,6 +53,7 @@ std::string FileSystem::cleanPath(string const &filename)
 
  	//Strip last "/"
  	clean = clean.substr(0, clean.length() -1);
+	_debugLevel2("Cleaned path to: " << clean);
 
   return clean;
 }
