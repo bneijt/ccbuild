@@ -11,7 +11,7 @@
   <!ENTITY manfirstname "<firstname>Bram</firstname>">
   <!ENTITY mansurname   "<surname>Neijt</surname>">
   <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY mandate      "<date>2006-07-21</date>">
+  <!ENTITY mandate      "<date>2006-11-10</date>">
   <!-- SECTION should be 1-8, maybe with subsection. Other parameters are
        allowed: see man(7), man(1). -->
   <!ENTITY mansection   "<manvolnum>1</manvolnum>">
@@ -23,7 +23,7 @@
 <!--
 
         ccbuild - A strict developer&apos;s build utility
-Version 1.5.1, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+Version 1.5.3, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
 ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2
 
 
