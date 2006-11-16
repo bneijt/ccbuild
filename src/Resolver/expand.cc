@@ -21,7 +21,7 @@
 #include "Resolver.ih"
 string Resolver::expand(std::string const &name) const
 {
-#ifdef _NO_WORDEXP_
+#ifdef __CYGWIN__
 	return name;
 #else
   ostringstream pathstr("", ios::app);
@@ -75,5 +75,4 @@ string Resolver::expand(std::string const &name) const
 
   return pathstr.str();
 #endif
-
 }
