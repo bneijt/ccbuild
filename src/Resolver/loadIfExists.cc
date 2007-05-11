@@ -31,6 +31,7 @@ void Resolver::loadIfExists(std::string const &confFile, bool report)
 	
   if(!file.is_open())
   {
+  	_debugLevel1("Unable to open: " << confFile);
   	if(report)
   		cerr << "ccbuild: Unable to open: '" << confFile << "'\n";
   	return;

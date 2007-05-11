@@ -17,8 +17,20 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
-
 #include "Resolver.ih"
+
+namespace {
+bool hasSpaces(char const *w)
+{
+	if(w)
+	for(size_t i = 0; w[i] != '\0'; ++i)
+		if(w[i] == ' ')
+			return true;
+	return false;
+}
+}
+
+
 string Resolver::expand(std::string const &name) const
 {
 #ifdef __CYGWIN__
@@ -64,10 +76,19 @@ string Resolver::expand(std::string const &name) const
 	else
 	{
   	w = p.we_wordv;
-		pathstr  << "\"" << w[0] << "\"";
+ 		if(hasSpaces(w[0]))
+			pathstr << "\"" << w[0] << "\"";
+		else
+			pathstr << w[0];
+		
   	for (unsigned i = 1; i < p.we_wordc; ++i)
-		 	pathstr << " \"" << w[i] << "\"";
-	
+  	{
+  		//Quick patch: quote only on words with spaces
+  		if(hasSpaces(w[i]))
+			 	pathstr << " \"" << w[i] << "\"";
+			else			
+			 	pathstr << " " << w[i];
+		}
 		//wordfree segfaults if wordexp failed
   	wordfree(&p);
 	}

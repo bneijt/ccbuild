@@ -3,6 +3,6 @@
 #	be installed on any POSIX Linux system.
 # Dependency !Flex
 #	The quotes are only there to show the tab seperation.
-FlexLexer.h	""
-getopt.h	""
+FlexLexer.h	
+getopt.h	
 
