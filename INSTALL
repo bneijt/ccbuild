@@ -6,15 +6,20 @@ Currently there is only one binary, so installation is easy...
 
 2)
 	If you have absolutly no rights on the system:
-		Run "sh install.sh" as the user you want to develop under.
+		Run "sh localinstall.sh" as the user you want to develop under.
 		This will use the first writeable PATH path as binary directory
 		and install the configuration files to your home directory.
 
 		Don't forget to awnser "yes" to the final do-you-really-want-this
 		question.
+		
 	If you have some rights on the system and have aap (www.a-a-p.org):
 		cd src
 		aap install
+	If you are an autotools fan, try
+		./configure
+		make
+		sudo make install
 
 3)
 	For the user of ccbuild, it might be nice to add the standard unix
@@ -26,7 +31,7 @@ If anything (or everything) failes mail me or try the manual way:
 
 ==Manually building and installing...
 1) Build ccbuild
-		Using make: type 'make'
+		Using make: type 'make -f Makefile.human'
 
 2) Install
 		Copy 'ccbuild' to any direcoty given by 'echo $PATH'

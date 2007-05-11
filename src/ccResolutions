@@ -1,8 +1,7 @@
 #& -l -p --args "-Wall -g -Werror --ansi" --md5
 #	Some options have no resolution, they should
-#	be installed on any POSIX Linux system.
-# Dependency !Flex
-#	The quotes are only there to show the tab seperation.
+#	be installed on any POSIX Linux system and don't
+#  require extra options, for example: Flex, GNU GetOpt
 FlexLexer.h	
 getopt.h	
 
