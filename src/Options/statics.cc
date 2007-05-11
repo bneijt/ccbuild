@@ -20,7 +20,7 @@
 
 #include "Options.ih"
 
-std::string Options::version("1.5.3");
+std::string Options::version("1.5.4");
 std::string Options::CC("g++");
 std::string Options::execOnPass("");
 std::string Options::extraArgs("");

@@ -1,6 +1,8 @@
-1.5.4svn:
+1.5.4:
 - Closed ~/.ccbuild/ccResolutions~/ loading problem
 - Autotools installation script added
+- Relink every target after the first link is needed
+  closes bug 1424010
 
 1.5.3:
 - Faster distclean

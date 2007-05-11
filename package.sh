@@ -35,8 +35,10 @@ ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild distclean
 
-echo ]]] Configure scripts for distribution (create, distclean, create)
+echo ]]] Configure scripts for distribution: create, distclean, create
 sh bootstrap
 ./configure
 sh bootstrap clean
 sh bootstrap
+
+rm $YYLEX
