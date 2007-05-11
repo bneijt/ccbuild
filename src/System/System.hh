@@ -39,8 +39,11 @@ namespace bneijt
 ///The actual system, wich loads sources and starts building. This is a static class containing all needed functions for the commands
 class System
 {
-  public:
+  	//Force linking for builds
+		static bool forceLink;
 
+  public:
+		
 		//Scanning experimental command
 		static void tree(std::ostream &str);
 		static void tree(Source *source, std::ostream &str);

@@ -28,7 +28,7 @@ void System::build(Source *source)
 
 void System::build(Source *source, Compiler &cc)
 {
-  bool needLink = Options::defaultUpdate;
+  bool needLink = Options::defaultUpdate || forceLink;
 
   vector<Source *> srcList, objectTargets, localHeaders, internalHeaders;
   
@@ -105,6 +105,7 @@ void System::build(Source *source, Compiler &cc)
 
   if(needLink)
   {
+  	forceLink = true;	//Force linking of other builds
 		if(! cc.objects().empty() && Options::interAr)
 		{
 	  	//Archive, clear object, add archive, links
