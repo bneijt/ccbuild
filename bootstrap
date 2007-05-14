@@ -27,8 +27,9 @@ ${PNAME}_SOURCES = ${SOURCES}
 
 
 #Flex it!
-./src/SourceScanner/yylex.cc: ./src/SourceScanner/lexer
-	\${LEX} -o $@ $<
+src/SourceScanner/yylex.cc: src/SourceScanner/lexer
+	\${LEX} \$<
+	mv yylex.cc \$@
 
 EOF
 
