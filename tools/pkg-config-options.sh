@@ -1,4 +1,4 @@
-
+#!/bin/sh
 ##
 #This script should give a list of options we might encounter in the Compiler/addArguments function
 
