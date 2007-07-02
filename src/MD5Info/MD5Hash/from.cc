@@ -28,9 +28,20 @@ void MD5Hash::from(std::string const &filename)
 //	if(Options::option<bool>("verbose"))
 //		cerr << "[MD5] " << filename << "\n";
 	ifstream file(filename.c_str());
-	MD5 algo(file);
-	unsigned char *digest = algo.raw_digest();
-	for(unsigned i = 0; i < d_size; ++i)
-		d_hash[i] = digest[i];
-	delete[] digest;
+	GCrypt algo(GCRY_MD_MD5);
+	
+	//Feed it the file
+	static unsigned const blockSize(1024);
+	char data[blockSize];
+	unsigned read(0);
+	while(true)
+	{
+		file.read(&data[0], blockSize);
+		read = file.gcount();
+		if(file.eof())
+			break;
+		algo.update(&data[0], read);
+	}
+	algo.finalize();
+	algo.rawInto(d_hash);
 }

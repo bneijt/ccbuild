@@ -1,5 +1,5 @@
 /*
-	ccbuild - A strict developer's build utility
+	This file is part of the metalink program
 	Copyright (C) 2005  A. Bram Neijt <bneijt@gmail.com>
 
 	This program is free software; you can redistribute it and/or
@@ -17,21 +17,14 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
-
-#include "MD5Hash.hh"
+#include "GCrypt.hh"
 
 #include <iostream>
 #include <iomanip>
-#include <iterator>
-#include <algorithm>
+
 #include <sstream>
 
-#include <cstdlib>
-
-#include "GCrypt/GCrypt.hh"
-
-//#define DEBUGLEVEL 3
-#include "../../Misc/Misc.hh"
+#include <algorithm>	//transform
+#include <cctype>	//tolower
 
 using namespace bneijt;
-using namespace std;

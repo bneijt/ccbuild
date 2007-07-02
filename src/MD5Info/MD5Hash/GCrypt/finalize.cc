@@ -1,5 +1,5 @@
 /*
-	ccbuild - A strict developer's build utility
+	This file is part of the metalink program
 	Copyright (C) 2005  A. Bram Neijt <bneijt@gmail.com>
 
 	This program is free software; you can redistribute it and/or
@@ -18,20 +18,19 @@
 
 */
 
-#include "MD5Hash.hh"
+#include "GCrypt.ih"
 
-#include <iostream>
-#include <iomanip>
-#include <iterator>
-#include <algorithm>
-#include <sstream>
+void GCrypt::finalize()
+{
+	//Finalize hash
+	gcry_md_final(d_hash);
+	unsigned char *digest = gcry_md_read (d_hash, d_algo);
 
-#include <cstdlib>
-
-#include "GCrypt/GCrypt.hh"
-
-//#define DEBUGLEVEL 3
-#include "../../Misc/Misc.hh"
-
-using namespace bneijt;
-using namespace std;
+	//Convert to hex
+	std::ostringstream str("");
+	for(unsigned i=0; i < gcry_md_get_algo_dlen(d_algo); ++i)
+		str << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(digest[i]);
+	//Store result
+	d_value = str.str();
+	gcry_md_reset(d_hash);
+}
