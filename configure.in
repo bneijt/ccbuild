@@ -9,7 +9,9 @@ AC_PROG_CXX
 
 dnl Library tests
 AC_PROG_LEX
-AC_CHECK_HEADERS([wordexp.h])
+AC_CHECK_HEADERS(wordexp.h getopt.h,,AC_MSG_ERROR([Required header file missing.]))
+
+AM_PATH_LIBGCRYPT()
 
 AC_OUTPUT(Makefile)
 

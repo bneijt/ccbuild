@@ -42,3 +42,4 @@ sh bootstrap clean
 sh bootstrap
 
 rm $YYLEX
+rm -rf autom4te.cache

@@ -1,4 +1,7 @@
-1.5.5svn:
+1.5.5:
+- Move to libgcrypt for the MD5 implementation to allow ccbuild to be packaged
+- Remove automate.cache from distribution source package
+- Bashisms removed from tools/*.sh
 
 1.5.4:
 - Closed ~/.ccbuild/ccResolutions~/ loading problem
