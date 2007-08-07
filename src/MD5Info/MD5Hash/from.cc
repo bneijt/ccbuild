@@ -33,12 +33,11 @@ void MD5Hash::from(std::string const &filename)
 	//Feed it the file
 	static unsigned const blockSize(1024);
 	char data[blockSize];
-	unsigned read(0);
+	unsigned int read(0);
 	while(true)
 	{
-		file.read(&data[0], blockSize);
-		read = file.gcount();
-		if(file.eof())
+		read = file.readsome(&data[0], blockSize);
+		if(!read)
 			break;
 		algo.update(&data[0], read);
 	}

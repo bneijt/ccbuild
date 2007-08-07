@@ -33,19 +33,16 @@ class GCrypt
 {
 		std::string d_value;
 		gcry_md_hd_t d_hash;
+		unsigned char *d_raw;
 		int d_algo;
 		
 	public:
-		GCrypt(int algo)
-			:
-			d_algo(algo)
-		{
-			gcry_md_open(&d_hash, d_algo, 0);
-		}
+		GCrypt(int algo);
 		
 		~GCrypt()
 		{
 			gcry_md_close(d_hash);
+			delete[] d_raw;
 		}
 
 		unsigned size()
@@ -55,10 +52,9 @@ class GCrypt
 		
 		void rawInto(unsigned char *target)
 		{
-			unsigned char *dg = ::gcry_md_read(d_hash, d_algo);
 			unsigned int s = size();
 			for(unsigned i = 0; i < s; ++i)
-				target[i] = dg[i];
+				target[i] = d_raw[i];
 		}
 		
 		void from(char const *data, unsigned len, unsigned char* key) const;

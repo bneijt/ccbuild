@@ -29,8 +29,12 @@ void GCrypt::finalize()
 	//Convert to hex
 	std::ostringstream str("");
 	for(unsigned i=0; i < gcry_md_get_algo_dlen(d_algo); ++i)
+	{
 		str << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(digest[i]);
+		d_raw[i] = digest[i];
+	}
 	//Store result
 	d_value = str.str();
+	_debugLevel1("Finalizing hash with: " << d_value);
 	gcry_md_reset(d_hash);
 }

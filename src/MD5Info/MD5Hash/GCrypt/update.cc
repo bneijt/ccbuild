@@ -22,5 +22,7 @@
 
 void GCrypt::update(char const *bytes, unsigned numbytes)
 {
+	_debugLevel3("Update with " << numbytes << " bytes");
+	_debugLevel4("Update data : " << bytes);
 	gcry_md_write(d_hash, bytes, numbytes);
 }
