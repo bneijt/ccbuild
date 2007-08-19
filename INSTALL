@@ -1,4 +1,5 @@
 
+Shortcut: ./configure && make && sudo make install
 
 Currently there is only one binary, so installation is easy...
 1)

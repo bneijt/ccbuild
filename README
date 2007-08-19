@@ -52,7 +52,7 @@ These are very obvious, but just to overcome any problems that might occur.
 
 The following is a list of things you shouldn't do when using ccbuild:
 * Place important documents or sources in a directory called "o" within your
-  source tree. This will be removed when calling "ccbuild distclean".
+  source tree. This might be removed when calling "ccbuild distclean".
 * Don't mix extensions for files with the same basename. So don't place
   a file called "main.cc" in the same directory as "main.cpp" because the
   objects in the o directory won't be seperated.

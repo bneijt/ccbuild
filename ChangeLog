@@ -1,3 +1,7 @@
+1.5.6:
+- Fix MD5 sum bug, created with moving to libgcrypt
+- Moved doc/debiandoc to doc/ccbuild
+
 1.5.5:
 - Move to libgcrypt for the MD5 implementation to allow ccbuild to be packaged
 - Remove automate.cache from distribution source package
