@@ -3,7 +3,7 @@ ccbuild distclean
 
 echo ]]] Documentation
 rm -rf doc/html
-make -C doc/debiandoc
+make -C doc/ccbuild
 
 YYLEX=src/SourceScanner/yylex.cc
 ROOT=$PWD
@@ -23,6 +23,7 @@ if [ -f $YYLEX ];	then
 	cd $ROOT;
 else
 	echo NO YYLEX.cc FOR SCRIPT GENERATION;
+	echo use "make -f Makefile.human src/SourceScanner/yylex.cc"
 	exit 1;
 fi;
 
