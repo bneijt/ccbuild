@@ -39,6 +39,9 @@
 ///\endcode
 
 //No include guards, to keep the defenitions as much up to date as possible, due to the dependencie on DEBUGLEVEL.
+#ifdef NODEBUG
+  #define DEBUGLEVEL 0
+#endif
 
 #if DEBUGLEVEL > 0
 #include <iostream>
