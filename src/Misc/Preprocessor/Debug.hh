@@ -40,6 +40,9 @@
 
 //No include guards, to keep the defenitions as much up to date as possible, due to the dependencie on DEBUGLEVEL.
 #ifdef NODEBUG
+  #ifdef DEBUGLEVEL
+    #undef DEBUGLEVEL
+  #endif
   #define DEBUGLEVEL 0
 #endif
 
