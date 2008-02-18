@@ -1,5 +1,5 @@
 a6251e63de701efea3fe619d456373f0  src/ccbuild.cc
-b1a424952058b808e7dd9f0fa94d138f  src/Misc/Preprocessor/Debug.hh
+c62358f7a2e4312fc43940505ebf61aa  src/Misc/Preprocessor/Debug.hh
 7e6e1aaf985a9fec063f1256194f5666  src/MD5Info/MD5Info.hh
 1de7b2a663d07051056e0981dc0a3440  src/MD5Info/statics.cc
 06662817087c8c64271e180302c87e33  src/MD5Info/MD5Info.ih
@@ -175,9 +175,8 @@ c445ff35eedeb39c9f43a3a5ec00f4fa  src/Source/buildBinTarget.cc
 52380f89f838f91130e78c26e07333c2  src/Source/basename.cc
 f19c954a58b927252fedbfb7452c5026  src/Source/Source.cc
 db508eef8ceffb8852c3cf6b6e29d956  src/SourceScanner/SourceScanner.hh
-de9aaad67b6c28d9d444e987f37c9b85  src/SourceScanner/yylex.cc
-b35fceb16b0fd6eebdd4984b716bef0b  src/SourceScanner/SourceScanner.ih
 cc812c44f5cdddde0cd20f7522b0db72  src/SourceScanner/storeLocal.cc
+b35fceb16b0fd6eebdd4984b716bef0b  src/SourceScanner/SourceScanner.ih
 d788bb002e0be7afeb335084273d31f9  src/SourceScanner/storeIgnore.cc
 0892d842160b561551286b9bce0a9f12  src/SourceScanner/storeGlobal.cc
 1b6538057dc01eef2852611f9ff0cef2  src/SourceScanner/includes.cc

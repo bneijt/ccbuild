@@ -9,9 +9,14 @@ AC_PROG_CXX
 
 dnl Library tests
 AC_PROG_LEX
+dnl AC_PATH_PROG(LEX, lex, no)
+dnl if test "x$LEX" = "xno"; then
+dnl        AC_MSG_ERROR([Lex could not be found])
+dnl fi
+
 AC_CHECK_HEADERS(wordexp.h getopt.h,,AC_MSG_ERROR([Required header file missing.]))
 
-AM_PATH_LIBGCRYPT()
+AM_PATH_LIBGCRYPT(1:0,, AC_MSG_ERROR([libgcrypt was not found but is required])
 
 AC_OUTPUT(Makefile)
 

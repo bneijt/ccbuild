@@ -35,6 +35,19 @@ string Resolver::expand(std::string const &name) const
 {
 #ifdef __CYGWIN__
 	return name;
+#elif defined(__APPLE_C__) or defined(__APPLE__)
+	ostringstream pathstr("", ios::app);
+	string echo("echo " + name);
+	ostringstream os;
+	FILE *f = popen(echo.c_str(), "r");
+	assert(f != 0);
+	int read = 0;
+	char buf[2]; // read 1 byte at the time
+	buf[1] = 0; // null terminated
+	while ((read = fread(buf, 1, 1, f) != 0)) 
+		pathstr << buf;
+
+	return pathstr.str();
 #else
   ostringstream pathstr("", ios::app);
 
