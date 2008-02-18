@@ -24,6 +24,11 @@
 #include <vector>
 #include <sys/types.h>
 
+#ifndef GLOB_ONLYDIR
+#define GLOB_ONLYDIR 0
+#endif
+
+
 namespace bneijt
 {
 ///\brief FileSystem

@@ -25,6 +25,7 @@ string FileSystem::cwd()
 #ifdef __CYGWIN__
 	return ".";
 #else
-  return get_current_dir_name();
+	// getcwd on linux libc4/libc5/glibc will work correctly with NULL buffer
+	return getcwd(0, 0);
 #endif
 }
