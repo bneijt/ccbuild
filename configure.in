@@ -1,22 +1,30 @@
 dnl Process this file with autoconf to produce a configure script.
 
 dnl Boilerplate
-AC_INIT(ccbuild, 1.5.4)
+AC_INIT(ccbuild, 1.5.7)
 AC_CONFIG_SRCDIR(src/ccbuild.cc)
 AM_INIT_AUTOMAKE
 
 AC_PROG_CXX
 
-dnl Library tests
-AC_PROG_LEX
-dnl AC_PATH_PROG(LEX, lex, no)
-dnl if test "x$LEX" = "xno"; then
-dnl        AC_MSG_ERROR([Lex could not be found])
-dnl fi
+AM_PROG_LEX
+if ! test "y$LEX" = "yflex"; then
+    if ! test "y$LEX" = "ylex"; then
+        AC_MSG_FAILURE([*** flex or lex required])
+    fi
+fi
 
 AC_CHECK_HEADERS(wordexp.h getopt.h,,AC_MSG_ERROR([Required header file missing.]))
 
-AM_PATH_LIBGCRYPT(1:0,, AC_MSG_ERROR([libgcrypt was not found but is required])
+dnl libgcrypt
+gcrypt=0
+AC_MSG_CHECKING(for libgcrypt)
+AM_PATH_LIBGCRYPT(1.2.0, gcrypt=1)
+
+if test $gcrypt = 0
+then
+  AC_MSG_ERROR([ccbuild needs libgcrypt for the MD5 algoritm])
+fi
 
 AC_OUTPUT(Makefile)
 

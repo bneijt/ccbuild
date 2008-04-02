@@ -23,8 +23,8 @@
 <!--
 
         ccbuild - A strict developer&apos;s build utility
-Version 1.5.3, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
-ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2
+Version 1.5.7, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
 
 
 -->
@@ -428,9 +428,9 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> dot; <command>dotty</command> *.dot</term>
+        <term><command>&manpackage;</command> --verbose dot; <command>dotty</command> *.dot</term>
         <listitem>
-          <para>Graph the dependencies for all local programs. Then view these using <command>dotty</command>.</para>
+          <para>Graph the dependencies for all programs with colours. Then view these using <command>dotty</command>. This can help you to discover irregular dependencies and what test programs use.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -490,6 +490,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2
     <title>CAVEATS</title>
     <para>Don&apos;t place any file into <filename>o</filename> directories, these will be removed when using the distclean command. Also don&apos;t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example &quot;add.cc&quot; and &quot;add.cpp&quot; in the same directory).</para>
     <para>Currently there is no way to allow one object file to effect the commandline parameters of another. This means that if all objects need a flag, you must use the --args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</para>
+		<para>ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file.</para>    
   </refsect1>
 
 <!--

@@ -60,9 +60,14 @@ void Resolver::loadIfExists(std::string const &confFile, bool report)
 
     if(i == string::npos)
     {
-    	cerr << "ccbuild: Error: Non empty configuration line " << linenr << " without tab character,\n";
-    	cerr << "ccbuild: Error: in file:  '" << confFile << "'.\n";
-      continue;
+    	//Try to recover with a space seperation
+	    i = line.find_first_of(" ");
+	    if(i == string::npos)
+	    {
+	    	cerr << "ccbuild: Error: Non empty configuration line " << linenr << " without space or tab character,\n";
+	    	cerr << "ccbuild: Error: in file:  '" << confFile << "'.\n";
+	      continue;
+			}
 		}
 
 		global = line.substr(0, i);
