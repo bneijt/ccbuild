@@ -116,10 +116,10 @@ try
   //See Options/statics.cc Options::version = "...";
 
   Arguments::Option options[] = {
-    {"f force-update", 0, "Force an update of everything"},
-    {"h help", 0, "Get this help message"},
-    {"gnutouch", 0, "Do the GNU touch (NEWS, README, etc.)"},
-    {"s no-act", 0, "Simulate, don't execute any writing commands"},
+    {"f force-update", "", "Force an update of everything"},
+    {"h help", "", "Get this help message"},
+    {"gnutouch", "", "Do the GNU touch (NEWS, README, etc.)"},
+    {"s no-act", "", "Simulate, don't execute any writing commands"},
     {"compiler", "<cmd>", "Set the compiler command (Default: g++)"},
     {"a args", "<arguments>", "Use these as base compiler arguments (Default: -Wall -g)"},
     {"C", "<path>", "Change directory before anything else"},
@@ -139,16 +139,16 @@ try
     {"nodefres", "", "Don't load any ccResolutions files but ./ccResolutions"},
     {"addres", "<file>", "Also load this resolution file"},
     {"pversion", "<version>", "Set the program version you are working on (used by the lib command)"},
-    {"ar", 0, "Archive before link [EXPERIMENTAL]"},
-    {"verbose", 0, "Show executed commands and produce more output for dot and check commands"},
-    {"V version", 0, "Output ccbuild version number to stdout"},
-    {"xml", 0, "Where supported, produce XML output"},
-    {0, 0, 0}	//End of list
+    {"ar", "", "Archive before link [EXPERIMENTAL]"},
+    {"verbose", "", "Show executed commands and produce more output for dot and check commands"},
+    {"V version", "", "Output ccbuild version number to stdout"},
+    {"xml", "", "Where supported, produce XML output"},
+    {"", "", ""}	//End of list
   };
 
   int retValue = 0;
   
-  //First find C option and change before anything else
+  //First find C option and change directory before anything else
   Arguments::initialize(options, argc, argv);
   Arguments &tempArg = Arguments::getInstance();
   
@@ -204,7 +204,7 @@ try
     if(FileSystem::fileExists("./src"))
       offset = "";
 
-    char *gnufiles[] = {"AUTHORS", "NEWS", "README", "INSTALL", "COPYING", "TODO", "ChangeLog"};
+    string gnufiles[] = {"AUTHORS", "NEWS", "README", "INSTALL", "COPYING", "TODO", "ChangeLog"};
     for(unsigned i = 0; i < 7; ++i)
     {
       cerr << "[TOUCH] " << offset << gnufiles[i];
@@ -220,12 +220,17 @@ try
   vector<string> &rest = arg.rest();
 
 
-
   if(rest.size() == 0)
   {
     cerr << "Implicit build\n";
     rest.push_back("build");
   }  
+  else if(rest.size() == 1 && FileSystem::fileExists(*rest.begin()))
+  {
+    cerr << "Implicit build because first an only command is a file\n";
+    rest.insert(rest.begin(), "build");    	
+  }
+
 
 
   Sources &sources = Sources::getInstance();
@@ -241,7 +246,7 @@ try
       skipArgument = false;
       continue;
     }
-    
+        
     if(*argument == "icmake")
     {
       cerr << "[" << *argument << "]\n";

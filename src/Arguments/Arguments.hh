@@ -113,9 +113,9 @@ class Arguments
 		///\brief A structure containing the defenition of a commandline option
 		struct Option
 		{
-			char *flags;	///<All flags it can be called with, space seperated ("f force" will allow "-f" and "--force")
-			char *value;	///<The value, if any, the argument of the option is called. "<value>" for required, "[value]" for optional.
-			char *helpText;	///< The help text, describing this option. This is used when generating the help output.
+			std::string flags;	///<All flags it can be called with, space seperated ("f force" will allow "-f" and "--force")
+			std::string value;	///<The value, if any, the argument of the option is called. "<value>" for required, "[value]" for optional.
+			std::string helpText;	///< The help text, describing this option. This is used when generating the help output.
 		};
 
 

@@ -1,11 +1,11 @@
 /*
-	This file is part of the metalink program
+	ccbuild - A strict developer's build utility
 	Copyright (C) 2005  A. Bram Neijt <bneijt@gmail.com>
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 2
-	of the License, or (at your option) any later version.
+	as published by the Free Software Foundation; version 2
+	of the License.
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,18 +17,14 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
-#include "GCrypt.hh"
 
-#include <iostream>
-#include <iomanip>
+#include "GCrypt.ih"
 
-#include <sstream>
-#include <cassert>
-#include <algorithm>	//transform
-#include <cctype>	//tolower
-
-//#define DEBUGLEVEL 3
-#include "../../../Misc/Preprocessor/Debug.hh"
-
-
-using namespace bneijt;
+GCrypt::GCrypt(int algo)
+	:
+	d_algo(algo)
+{
+	gcry_md_open(&d_hash, d_algo, 0);
+	assert(gcry_md_is_enabled(d_hash, d_algo));
+	d_raw = new unsigned char[size()];
+}

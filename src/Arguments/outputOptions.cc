@@ -33,7 +33,7 @@ void Arguments::outputOptions(ostream &str) const
 	{
 		Option const * curOption = &d_options[optionIndex];
 
-		if(curOption->flags == 0 && curOption->value == 0 && curOption->helpText == 0)
+		if(curOption->flags.empty() && curOption->value.empty() && curOption->helpText.empty())
 			break;
 
 		istringstream givenFlags(string(curOption->flags) + " ");	//Needed extra space for eof in while loop below
@@ -62,10 +62,10 @@ void Arguments::outputOptions(ostream &str) const
 
 		str << " ";
 		++alreadyOut;
-		if(curOption->value && strlen(curOption->value) > 0)
+		if(curOption->value.length() > 0)
 		{
 			str << curOption->value;
-			alreadyOut += strlen(curOption->value);
+			alreadyOut += curOption->value.length();
 		}
 
 
@@ -78,7 +78,7 @@ void Arguments::outputOptions(ostream &str) const
 
 
 
-		if(curOption->helpText)
+		if(curOption->helpText.length() >  0)
 		{
 			istringstream helpText(string(curOption->helpText) + " ");
 			unsigned maxLen = 79 - spacerLen;

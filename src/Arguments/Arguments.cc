@@ -50,14 +50,14 @@ Arguments::Arguments(Option const *options, int argc, char *argv[])
 
 
 		//Done yet??
-		if(curOption->flags == 0 && curOption->value == 0 && curOption->helpText == 0)
+		if(curOption->flags.empty() && curOption->value.empty() && curOption->helpText.empty())
 			break;
 
 
 		istringstream givenFlags(string(curOption->flags) + " ");	
 		//^^ Needed extra space for eof in while loop below
 
-		if(curOption->value != 0 && curOption->value[0] != '\0')
+		if(curOption->value.length() > 0 && curOption->value[0] != '\0')
 		{
 			mustHaveArgument = curOption->value[0] == '<';
 			hasArgument = curOption->value[0] == '[' || mustHaveArgument;
