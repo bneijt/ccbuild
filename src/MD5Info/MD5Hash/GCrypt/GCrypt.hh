@@ -38,12 +38,7 @@ class GCrypt
 		
 	public:
 		GCrypt(int algo);
-		
-		~GCrypt()
-		{
-			gcry_md_close(d_hash);
-			delete[] d_raw;
-		}
+		~GCrypt();
 
 		unsigned size()
 		{

@@ -54,6 +54,7 @@ struct Options
 	static bool loadGlobalRes;				///<Global resolution loading flag
 	static bool xml;				///<Wether to produce xml where possible
 	static bool interAr;				///<Wether to archive inbetween compile and link
+	static bool noWarn;				///<Wether or not to warn the developer
 
 	static bool makefileHeaderDone;				///<Wether the Makefile header has been outputted
 	static bool aapHeaderDone;				///<Wether the A-A-P header has been outputted

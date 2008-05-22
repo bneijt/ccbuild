@@ -21,6 +21,11 @@
 
 Arguments::Arguments(Option const *options, int argc, char *argv[])
 	:
+	d_flags(),
+	d_values(),
+	d_rest(),
+	d_errors(),
+	d_emptyList(),
 	d_empty(""),
 	d_options(options)
 {

@@ -33,6 +33,7 @@ bool System::parseArguments(Arguments &arg)
   Options::loadGlobalRes = ! (arg.flagged("nodefres"));
   Options::xml = arg.flagged("xml");
   Options::interAr = arg.flagged("ar");
+  Options::noWarn = arg.flagged("nowarn");
 
   Options::execOnFail = arg.value("exec-on-fail");
   Options::execOnPass = arg.value("exec-on-pass");

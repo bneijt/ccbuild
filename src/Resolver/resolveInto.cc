@@ -26,8 +26,9 @@ bool Resolver::resolveInto(std::string *include, Compiler & cc, bool quiet) cons
   //TODO: use exceptions??
   if(argument == "FAIL")
   {
-  	if(! quiet)
-	  	cerr << "ccbuild: Unable to resolve: \"" << *include << "\"\n";
+    if(not Options::noWarn)
+  	  if(! quiet)
+	  	  cerr << "ccbuild: Unable to resolve: \"" << *include << "\"\n";
     return false;
   }
   if(argument.size() > 0)

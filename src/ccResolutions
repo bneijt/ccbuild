@@ -5,3 +5,11 @@
 FlexLexer.h	
 getopt.h	
 gcrypt.h	`libgcrypt-config --cflags --libs`
+errno.h	
+glob.h	
+inttypes.h	
+sys/stat.h	
+sys/time.h	
+sys/types.h	
+unistd.h	
+wordexp.h	

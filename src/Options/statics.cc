@@ -46,6 +46,7 @@ bool Options::makefileHeaderDone(false);
 bool Options::aapHeaderDone(false);
 bool Options::xml(false);
 bool Options::interAr(false);
+bool Options::noWarn(false);
 //bool Options::(false);
 //bool Options::(false);
 

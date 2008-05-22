@@ -28,3 +28,9 @@ GCrypt::GCrypt(int algo)
 	assert(gcry_md_is_enabled(d_hash, d_algo));
 	d_raw = new unsigned char[size()];
 }
+
+GCrypt::~GCrypt()
+{
+	gcry_md_close(d_hash);
+	delete[] d_raw;
+}

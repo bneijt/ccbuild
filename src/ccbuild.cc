@@ -109,12 +109,11 @@ class ArgsDestroy
 /**
   The main program function: call argument parser and go through the commands using a large if-then-else block.
 */
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 try
 {
   //See Options/statics.cc Options::CC = "g++";
   //See Options/statics.cc Options::version = "...";
-
   Arguments::Option options[] = {
     {"f force-update", "", "Force an update of everything"},
     {"h help", "", "Get this help message"},
@@ -143,6 +142,7 @@ try
     {"verbose", "", "Show executed commands and produce more output for dot and check commands"},
     {"V version", "", "Output ccbuild version number to stdout"},
     {"xml", "", "Where supported, produce XML output"},
+    {"nowarn", "", "Leave out most warnings"},
     {"", "", ""}	//End of list
   };
 
