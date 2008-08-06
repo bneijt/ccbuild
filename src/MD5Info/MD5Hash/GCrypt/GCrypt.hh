@@ -38,14 +38,15 @@ class GCrypt
 		
 	public:
 		GCrypt(int algo);
+		GCrypt(const GCrypt&);
 		~GCrypt();
-
-		unsigned size()
+    
+		unsigned size() const
 		{
 			return gcry_md_get_algo_dlen(d_algo);
 		}
 		
-		void rawInto(unsigned char *target)
+		void rawInto(unsigned char *target) const
 		{
 			unsigned int s = size();
 			for(unsigned i = 0; i < s; ++i)
@@ -57,6 +58,10 @@ class GCrypt
 		void finalize();
 		
 		std::string const &value() const;
+
+  private:
+    GCrypt& operator=(const bneijt::GCrypt&); //NI
+
 };
 }//namespace
 #endif

@@ -22,7 +22,7 @@
 
 
 #include "Compiler.ih"
-Compiler const &Compiler::operator+(Compiler const &rvalue)
+Compiler const Compiler::operator+(Compiler const &rvalue)
 {
 	//Adding two compilers will merge their options
 	//Copying only the needed parts.

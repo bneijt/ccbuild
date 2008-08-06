@@ -22,7 +22,7 @@
 
 Globals::Globals()
 	:
-	std::map<std::string, std::string *>()
+	d_map()
 {
 }
 

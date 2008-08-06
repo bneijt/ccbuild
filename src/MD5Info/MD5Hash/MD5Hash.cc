@@ -21,11 +21,15 @@
 #include "MD5Hash.ih"
 
 MD5Hash::MD5Hash()
+  :
+  d_loaded(false)
 {
 	clear();
 }
 
 MD5Hash::MD5Hash(std::string const &word)
+  :
+  d_loaded(false)
 {
 	from(word);
 }

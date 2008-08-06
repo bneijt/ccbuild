@@ -22,11 +22,26 @@
 
 GCrypt::GCrypt(int algo)
 	:
+	d_value(),
+	d_hash(0),
+	d_raw(0),
 	d_algo(algo)
 {
 	gcry_md_open(&d_hash, d_algo, 0);
 	assert(gcry_md_is_enabled(d_hash, d_algo));
 	d_raw = new unsigned char[size()];
+}
+
+GCrypt::GCrypt(const bneijt::GCrypt& o)
+	:
+	d_value(),
+	d_hash(0),
+	d_raw(0),
+	d_algo(o.d_algo)
+{
+  gcry_md_copy(&d_hash, o.d_hash);
+	d_raw = new unsigned char[o.size()];
+	o.rawInto(d_raw);
 }
 
 GCrypt::~GCrypt()

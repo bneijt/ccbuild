@@ -31,10 +31,10 @@ namespace bneijt
 
 ///\brief Globals singleton. List of all loaded Globals
 ///
-class Globals: public std::map<std::string, std::string *>
+class Globals
 {
 		static Globals *s_instance;	///<Static pointer to the instance
-
+    std::map<std::string, std::string *> d_map;
 	public:
 		///\brief Get the instance of the Globals class
 		static Globals &getInstance();
@@ -44,6 +44,16 @@ class Globals: public std::map<std::string, std::string *>
 		
 		///\brief Overwrite the index operator of map
 		std::string * const operator[](std::string const &global);
+		
+		std::map<std::string, std::string *>::iterator begin()
+		{
+		  return d_map.begin();
+		}
+
+		std::map<std::string, std::string *>::iterator end()
+		{
+		  return d_map.end();
+		}
 		
 	private:
 		Globals();

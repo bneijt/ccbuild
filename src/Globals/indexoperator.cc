@@ -22,11 +22,11 @@
 
 std::string * const Globals::operator[](std::string const &global)
 {
-	string *p = map<std::string, std::string*>::operator[](global);
+	string *p = d_map[global];
 	if(p == 0)
 	{
 	   p = new string(global);
-	   map<std::string, std::string*>::operator[](global) = p;
+	   d_map[global] = p;
 	}
 	return p;
 }

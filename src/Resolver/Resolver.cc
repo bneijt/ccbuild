@@ -22,6 +22,9 @@
 #include "Resolver.ih"
 
 Resolver::Resolver()
+  :
+  d_staticLinks(),
+  d_empty("")
 {
 	//Load commandline given extra resolution files
 	_foreach(xr, Options::extraResolutions)

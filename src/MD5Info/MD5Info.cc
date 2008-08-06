@@ -21,6 +21,10 @@
 #include "MD5Info.ih"
 
 MD5Info::MD5Info()
+  :
+  d_old(),
+  d_new(),
+  d_content()
 {}
 
 MD5Info::~MD5Info()

@@ -24,7 +24,12 @@ Source::Source(string const filename)
    :
    d_filename(filename),
    d_inoDev(make_pair(0,0)),
+   d_modTime(0),
+   d_deps(),
+   d_globalDeps(),
+   d_ignored(),
    d_depsDone(false),
+   d_update(0),
    d_hasMainFunction(false),
    d_done(false),
    d_srcType(Unknown)
@@ -57,7 +62,12 @@ Source::Source()
    :
    d_filename(""),
    d_inoDev(make_pair(0,0)),
+   d_modTime(0),
+   d_deps(),
+   d_globalDeps(),
+   d_ignored(),
    d_depsDone(false),
+   d_update(0),
    d_hasMainFunction(false),
    d_done(false),
    d_srcType(Unknown)
