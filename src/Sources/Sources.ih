@@ -24,7 +24,7 @@
 
 
 #include <iostream>
-
+#include <algorithm>
 
 //#define DEBUGLEVEL 8
 #include "../Misc/Misc.hh"

@@ -7,6 +7,26 @@ AM_INIT_AUTOMAKE
 
 AC_PROG_CXX
 
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT8_T
+AC_TYPE_SIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT8_T
+
+# Checks for library functions.
+AC_HEADER_STDC
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_FUNC_STAT
+AC_CHECK_FUNCS([getcwd memset mkdir])
+
+
 AM_PROG_LEX
 if ! test "y$LEX" = "yflex"; then
     if ! test "y$LEX" = "ylex"; then

@@ -61,6 +61,7 @@
 #include <cstring>
 #include <vector>
 #include <cassert>
+#include <typeinfo>
 
 //#define DEBUGLEVEL 20
 #include "Misc/Preprocessor/Debug.hh"

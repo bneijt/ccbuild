@@ -46,6 +46,7 @@ GlobalHeadersForCcbuild = \
 	"sys/stat.h"
 	"sys/time.h"
 	"sys/types.h"
+	"typeinfo"
 	"unistd.h"
 	"utility"
 	"vector"

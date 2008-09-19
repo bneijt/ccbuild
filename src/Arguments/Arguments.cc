@@ -210,7 +210,6 @@ Arguments::Arguments(Option const *options, int argc, char *argv[])
 					d_values[flagPointer].push_back(::optarg);
 		}
 	}
-	delete[] flagVal;
 
 	//Get the rest of the options
 	for(; ::optind < argc; ++(::optind))
@@ -227,6 +226,9 @@ Arguments::Arguments(Option const *options, int argc, char *argv[])
 	for(unsigned i = 0; i < nlongOpts; ++i)
 		if(longOpts[i].name)
 			delete[] longOpts[i].name;
+
+	//Delete arrays
+	delete[] flagVal;
 	delete[] longOpts;
 
 }
