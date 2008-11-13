@@ -27,6 +27,7 @@
 #include "../Arguments/Arguments.hh"
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
+#include "../VectorRing/VectorRing.hh"
 
 #include <iostream>
 #include <stack>
@@ -37,8 +38,10 @@
 #include <iterator>
 #include <unistd.h>
 #include <cstring>
-
+#include <bobcat/process>
 #include <cstdlib>
+#include <omp.h>
+#include <numeric>
 
 #ifndef _NO_WORDEXP_
 #include <wordexp.h>

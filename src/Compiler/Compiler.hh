@@ -69,7 +69,7 @@ class Compiler
 	  {}
 
 
-		///\brief Return the sum of to compilers
+		///\brief Return the sum of two compilers
 	  Compiler const operator+(Compiler const &rvalue);
 
 		///\brief Add the folowing object as a link option to the commandline

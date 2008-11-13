@@ -25,17 +25,32 @@
 
 int System::system(std::string const &command, bool simulate) throw (Problem)
 {
+	VectorRing<string> output(1024);
   if(Options::showCommands)
   	cout << command << "\n";
-  	
+  
+  //Run command caching output
+	int status = 0;
+	if(!simulate)
+	{  
+		//status = ::system(command.c_str());
+    FBB::Process process(command, FBB::Process::CIN |
+                                  FBB::Process::COUT |
+                                  FBB::Process::MERGE_COUT_CERR);
+    process.start(FBB::Process::USE_PATH);
+    //TODO Rewrite to copy call with back_inserter
+		string line;
+		while(getline(process, line))
+		  output.push_back(line);
+		status = process.stop();	
+	}
+
 	//Highlight ON
   if(Options::highlight)
 	  cerr << "\x1b\x5b\x33\x31\x6d" << flush; //\e[31m
 
-	int status = 0;
-	if(!simulate)  
-		status = ::system(command.c_str());
-	 
+  copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
+
 	//Highlight OFF
   if(Options::highlight)
 	  cerr << "\x1b\x5b\x30\x6d" << flush; //\\e[0m

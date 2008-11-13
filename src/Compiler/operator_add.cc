@@ -26,7 +26,13 @@ Compiler const Compiler::operator+(Compiler const &rvalue)
 {
 	//Adding two compilers will merge their options
 	//Copying only the needed parts.
-	cerr << "NOT IMPLEMENTED YET!\n";
+  //Keep base command: d_baseCommand(other.d_baseCommand),
+	//Add objects
+	copy(rvalue.d_objects.begin(), rvalue.d_objects.end(), back_inserter(d_objects));
+	//Add compiler arguments
+	copy(rvalue.d_compile.begin(), rvalue.d_compile.end(), back_inserter(d_compile));
+	//Add linking arguments
+	copy(rvalue.d_link.begin(), rvalue.d_link.end(), back_inserter(d_link));
 
 	return *this;
 }

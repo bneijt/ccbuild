@@ -15,3 +15,4 @@ sys/types.h
 unistd.h	
 wordexp.h	
 omp.h -fopenmp -lgomp
+bobcat/process -lbobcat

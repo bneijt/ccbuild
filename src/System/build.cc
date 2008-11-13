@@ -62,7 +62,7 @@ void System::build(Source *source, Compiler &cc)
 	  }
 
 	  //Precompile all internal headers
-	  _foreach(src, internalHeaders)
+	  __foreach(src, internalHeaders)
 	  {
     	_debugLevel4("Precompiling: " << (*src)->filename());
       (*src)->build(cc);
@@ -84,14 +84,37 @@ void System::build(Source *source, Compiler &cc)
 	}
 
   //Build the objects and add them as links to the compiler
-  _foreach(src, objectTargets)
+/*
+  //OLD SYSTEM
+  __foreach(src, objectTargets)
   {
    	_debugLevel4("Building: " << (*src)->filename());
    	needLink = ((*src)->upToDate()) ? needLink : true;
     (*src)->build(cc);
     cc.rmCompileOptions();
   }
+*/
 
+  {//Encaps iterator
+    //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index
+    vector<Compiler> compilers(objectTargets.size(), cc);
+    size_t numNeedLink = 0;
+    int size = static_cast<int>(objectTargets.size());
+    #pragma omp parallel for
+    for(int i = 0; i < size; ++i) ///MUST BE SIGNED??? WTF ARE THEY THINKING!!
+    {
+      //_debugLevel4("Building: " << (*src)->filename());
+      if(!objectTargets[i]->upToDate())
+        ++numNeedLink;
+      objectTargets[i]->build(compilers[i]);
+      compilers[i].rmCompileOptions();
+    }
+    //Test wether linking is needed
+    needLink = numNeedLink > 0 ? needLink : true;
+    //Summate the compilers
+    cc = accumulate(compilers.begin(), compilers.end(), cc);
+    
+  }//encaps iter
 
 	//Build the binTarget object if needed
   needLink = (source->upToDate()) ? needLink : true;
