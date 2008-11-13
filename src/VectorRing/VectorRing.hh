@@ -17,6 +17,7 @@
 
 */
 
+
 #ifndef __VectorRing_HH_INCLUDED
 #define	__VectorRing_HH_INCLUDED
 
