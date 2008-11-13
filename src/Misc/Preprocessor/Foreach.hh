@@ -21,8 +21,8 @@
 ///\brief Preprosessor macro to define a STL iterator for loop: _foreach(iterator, container)
 
 
-#ifndef _ccsys_FOREACH_H_INCLUDED_
-#define _ccsys_FOREACH_H_INCLUDED_
+#ifndef __ccsys_FOREACH_H_INCLUDED
+#define __ccsys_FOREACH_H_INCLUDED
 
 //
 // The triple expansion may seem daring, but it is needed to fully expand the __LINE__
@@ -38,7 +38,7 @@
 ///\code
 ///vector<usnigned> numbers;
 ///numbers.push_back(10);
-///_foreach(number, numbers)
+///__foreach(number, numbers)
 ///  cout << *number << "\n";
 ///\endcode
 ///
@@ -50,6 +50,14 @@
 #endif
 
 #define _foreach( iter, cont) for( __typeof__((cont).begin()) iter = (cont).begin(); iter != (cont).end(); ++iter)
+
+
+#ifdef __foreach
+#error __foreach already defined! This macro may have gone wild!
+#endif
+
+#define __foreach( iter, cont) for( __typeof__((cont).begin()) iter = (cont).begin(); iter != (cont).end(); ++iter)
+
 
 //_INCLUDED
 #endif

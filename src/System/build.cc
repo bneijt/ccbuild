@@ -36,7 +36,7 @@ void System::build(Source *source, Compiler &cc)
 	collectTargets(srcList);
 
 	//Seperate sources into lists
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 	{
 		if((*src)->isObjectTarget())
 			objectTargets.push_back(*src);
@@ -54,7 +54,7 @@ void System::build(Source *source, Compiler &cc)
 		//Also do local headers
 		//This will slow the build down it the source tree uses internal headers already
 		if(Options::precompileAll)
-	  _foreach(src, localHeaders)
+	  __foreach(src, localHeaders)
 	  {
     	_debugLevel4("Precompiling: " << (*src)->filename());
       (*src)->build(cc);
@@ -76,10 +76,10 @@ void System::build(Source *source, Compiler &cc)
 		//However, having a broken build is even worse then anything else, YES??
 		//Whahaha... I say it IS.
 		//Are you having as much fun reading this, as I'm having writing it?
-		_foreach(src, localHeaders)
+		__foreach(src, localHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 			
-		_foreach(src, internalHeaders)
+		__foreach(src, internalHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 	}
 

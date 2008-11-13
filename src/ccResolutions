@@ -1,4 +1,5 @@
 #& -l -p --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi " --md5
+# This file now requires ccbuild > 1.5.7
 #	Some options have no resolution, they should
 #	be installed on any POSIX Linux system and don't
 #  require extra options, for example: Flex, GNU GetOpt
@@ -13,3 +14,4 @@ sys/time.h
 sys/types.h	
 unistd.h	
 wordexp.h	
+omp.h -fopenmp -lgomp
