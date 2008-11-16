@@ -24,6 +24,7 @@
 #include <string>
 #include <map>
 #include <set>
+#include "../OpenMP/Lock/Lock.hh"
 
 namespace bneijt
 {
@@ -41,6 +42,7 @@ namespace bneijt
 */
 class MD5Info
 {
+    OpenMP::Lock d_lock;
 		static MD5Info *s_instance;	///<Static pointer to the instance
 		
 		std::map<std::string, std::string> d_old;	///< A map of filename-hashstring for containing cached information

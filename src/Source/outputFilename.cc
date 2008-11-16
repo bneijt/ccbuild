@@ -24,8 +24,15 @@
 std::string Source::outputFilename() const
 {
 	if(isObjectTarget() || isBinTarget())
-		return directory() + "/o/" + basename() + ".o";
-
+	{
+	  //Output into a seperate directory with path in filename
+		// OLD per directory output directory directory() + "/o/" + basename() + ".o";
+		String oname = String(directory()).replace('/', '_') + "_" + basename() + ".o";
+		//Strip any ._ beginning
+		if(oname.startsWith("._"))
+		  oname = oname.substr(2);
+		return "o/objects/" + oname;
+  }
 	if(isHeader())
 		return filename() + ".gch";
 

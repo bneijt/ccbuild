@@ -96,8 +96,9 @@ void System::build(Source *source, Compiler &cc)
   }
 */
 
+  if(objectTargets.size())
   {//Encaps iterator
-    //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index
+    //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
     size_t numNeedLink = 0;
     int size = static_cast<int>(objectTargets.size());

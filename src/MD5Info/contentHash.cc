@@ -23,6 +23,7 @@
 
 std::string const &MD5Info::contentHash(std::string const &filename)
 {
+  OpenMP::ScopedLock lock(d_lock);
 	if(d_content.count(filename) == 0)
 	{
 //		if(Options::option<bool>("showCommands"))

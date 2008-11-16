@@ -23,17 +23,20 @@
 
 void FileSystem::ensureDirectory(std::string const &directoryName)
 {
-		
-		//Check for object directory existence (exists("o"))
-	  if(!fileExists(directoryName))
+
+		//Check for object directory existence
+	  if(directoryName != "." && !fileExists(directoryName))
 		{
 			//S_IRUSR    00400     owner has read permission
 	    //S_IWUSR    00200     owner has write permission
 	    //S_IXUSR    00100     owner has execute permission
 	    cerr << "[MKDIR] " << directoryName << "\n";
-
 	    if(!Options::simulate)
+	    {
+	      //Check base directory existence and create them if needed
+	      ensureDirectory(FileSystem::directoryName(directoryName));
 				if(mkdir(directoryName.c_str(), S_IRUSR | S_IWUSR | S_IXUSR) != 0 )
 					cerr << "ccbuild: Warning: Unable to create directory \"" << directoryName << "\"\n";
+			}
 		}
 }

@@ -23,5 +23,5 @@
 
 std::string MD5Info::hashFilenameFor(std::string const &filename)
 {
-	return FileSystem::directoryName(filename) + "/o/" + FileSystem::fileName(filename) + ".md5";
+	return "o/meta/md5/" + FileSystem::cleanPath(filename) + ".md5";
 }

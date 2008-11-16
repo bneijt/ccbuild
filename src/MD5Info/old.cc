@@ -23,6 +23,7 @@
 
 std::string const &MD5Info::old(std::string const &filename)
 {
+  OpenMP::ScopedLock lock(d_lock);
 	//Try to load it from disk
 	if(d_old.count(filename) == 0)
 		load(filename);

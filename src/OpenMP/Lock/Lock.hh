@@ -17,27 +17,40 @@
 
 */
 
+#ifndef __Lock_HH_INCLUDED
+#define	__Lock_HH_INCLUDED
+#include <omp.h>
 
-
-#include "Source.ih"
-void Source::build(Compiler & cc)
+namespace bneijt
 {
-  if(!FileSystem::isReadable(d_filename))
-  {
-    cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
-    return;
-  }
+namespace OpenMP
+{
+class Lock
+{
+    omp_lock_t d_lock;
+	public:
+	  Lock()
+	  {
+	    omp_init_lock(&d_lock);
+	  }
+    ~Lock()
+    {
+	    omp_destroy_lock(&d_lock);    
+    }
+    /*
+    omp_lock_t *operator*()
+    {
+      return &d_lock;
+    } */
+    void set()
+    {
+      omp_set_lock(&d_lock);
+    }
+    void unset()
+    {
+      omp_unset_lock(&d_lock);
+    }
+};
+}} //Namespace
+#endif
 
-	if(isHeader())
-  {
-    buildHeader(cc);
-  }
-  else if(isObjectTarget())
-  {
-    buildObjectTarget(cc);
-  }
-  else
-  {
-    cerr << "ccbuild: Error: Unknown file type: " << d_filename << "\n";
-  }
-}

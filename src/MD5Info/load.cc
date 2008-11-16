@@ -58,4 +58,5 @@ void MD5Info::load(std::string const &filename)
   }
 
   file.close();
+  
 }

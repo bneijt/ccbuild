@@ -28,10 +28,10 @@ MD5Hash::MD5Hash()
 	clear();
 }
 
-MD5Hash::MD5Hash(std::string const &word)
+MD5Hash::MD5Hash(std::string const &filename)
   :
   d_loaded(false)
 {
-	from(word);
+	from(filename);
 }
 

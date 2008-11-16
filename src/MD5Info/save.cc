@@ -42,5 +42,4 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
 
 	file << d_old[filename] << "\n";
 	file.close();
-
 }

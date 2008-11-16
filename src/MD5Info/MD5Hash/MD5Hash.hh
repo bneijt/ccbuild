@@ -31,7 +31,6 @@ namespace bneijt
 ///\brief Simple one-run MD5 hashing class
 class MD5Hash
 {
-			
 		static unsigned const d_size = 16; ///<The size, in bytes, of the hash
 		unsigned char d_hash[d_size];	///<The hash in bytes
 		bool d_loaded;	///< Wether the hash was loaded

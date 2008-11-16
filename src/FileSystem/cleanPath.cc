@@ -54,6 +54,9 @@ std::string FileSystem::cleanPath(string const &filename)
 
  	//Strip last "/"
  	clean = clean.substr(0, clean.length() -1);
+ 	//Strip superflourous './' for local path
+ 	if(clean[0] == '.' && clean[1] == '/')
+ 	  clean = clean.substr(2);
 	_debugLevel2("Cleaned path to: " << clean);
 
   return clean;

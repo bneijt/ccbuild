@@ -36,7 +36,7 @@ void Source::buildObjectTarget(Compiler &cc)
   if(!upToDate(srcList))
   {
   	//Need an update
-	  string outputDirectory = directory() + "/o";
+	  string outputDirectory = FileSystem::directoryName(outputFilename());//OLD directory() + "/o";
 
 	  //Check for object directory existence (exists("o"))
 	  FileSystem::ensureDirectory(outputDirectory);

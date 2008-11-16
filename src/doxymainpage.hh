@@ -62,7 +62,7 @@
   \subsection dependencies	ccbuild dependencies
   Compile time:
    - flex 2.5.31	(newer might work, this is the version that I use)
-  
+   - As of >= 1.5.7 this is going to change.. please read the README
 
   \section hacking Hacking the ccbuild source
   \subsection link_ident Linker argument detection

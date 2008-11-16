@@ -17,27 +17,30 @@
 
 */
 
+#include "String.hh"
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <typeinfo>
 
-
-#include "Source.ih"
-void Source::build(Compiler & cc)
+using namespace std;
+using namespace bneijt;
+int main(int argc, char **argv)
+try
 {
-  if(!FileSystem::isReadable(d_filename))
-  {
-    cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
-    return;
-  }
-
-	if(isHeader())
-  {
-    buildHeader(cc);
-  }
-  else if(isObjectTarget())
-  {
-    buildObjectTarget(cc);
-  }
-  else
-  {
-    cerr << "ccbuild: Error: Unknown file type: " << d_filename << "\n";
-  }
+  String s("a hello b");
+#define REP(a,b) std::cout << "Replace '" << a << "' with '" << b << "': " << s.replace(a,b) << "\n"
+  REP("a","b");
+  REP("a", "hello");
+  REP("hello", "billy");
+  cout << "\n";
+  return 0;
+}
+catch(const std::exception &e)
+{
+	//All is LOST... nothing to do here but die
+  cerr << "Caught std::exception (" << typeid(e).name() << "): " << e.what();
+  cerr << "\nPlease report this as a bug.\n";
 }

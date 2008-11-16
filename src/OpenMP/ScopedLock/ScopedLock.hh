@@ -17,27 +17,29 @@
 
 */
 
+#ifndef __ScopedLock_HH_INCLUDED
+#define	__ScopedLock_HH_INCLUDED
 
-
-#include "Source.ih"
-void Source::build(Compiler & cc)
+namespace bneijt
 {
-  if(!FileSystem::isReadable(d_filename))
-  {
-    cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
-    return;
-  }
+namespace OpenMP
+{
+class ScopedLock
+{
+    Lock &d_lock;
+    
+	public:
+	  ScopedLock(Lock &l)
+	    :
+	    d_lock(l)
+	  {
+	    d_lock.set();
+	  }
+	  ~ScopedLock()
+	  {
+	    d_lock.unset();
+	  }
+};
+}} //Namespaces
+#endif
 
-	if(isHeader())
-  {
-    buildHeader(cc);
-  }
-  else if(isObjectTarget())
-  {
-    buildObjectTarget(cc);
-  }
-  else
-  {
-    cerr << "ccbuild: Error: Unknown file type: " << d_filename << "\n";
-  }
-}
