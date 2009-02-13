@@ -38,6 +38,8 @@ void System::distclean()
 	directoryStack.push(".");
 	vector<string> rmList;
 	
+	//TODO: Rewrite to rm -rf o (but smarter) and the old rm */*/*.gch
+	
 	//Generate a list of directories
 	while(directoryStack.size() > 0)
 	{

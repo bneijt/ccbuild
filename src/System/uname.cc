@@ -17,50 +17,23 @@
 
 */
 
-
-
 #include "System.ih"
-
-void System::clean()
+ 
+/** Get information from host 
+      #include <sys/utsname.h>
+      
+      Field is a character which is the same as uname:
+      'm' == `uname -m`
+      'n' == `uname -n`
+*/
+std::string System::uname(char const field)
 {
-  vector<string> files;
-
-  Sources &s = Sources::getInstance();
-
-  FileSystem::globSourceFilesInto(&files, ".");
-
-  __foreach(file, files)
+  switch(field)
   {
-    Source *target = s[*file];
-
-    //Error loading source??
-    if(target == 0)
-    {
-      cout << "Error loading '" << *file << "'\n";
-      continue;
-    }
-
-
-    System::inspect(target);
-
-    System::clean(target);
+    case 'm':
+      return "x86";
+    case 'h':
+      return "notrealyet";
   }
+  return "";
 }
-void System::clean(Source *source)
-{
-	cerr << "Cleaning: " << source->filename() << "\n";
-
-	vector<Source *> srcList;
-	srcList.push_back(source);
-	collectTargets(srcList);
-	
-	__foreach(src, srcList)
-	{
-		//Remove output from:
-		FileSystem::rmIfExists((*src)->outputFilename());
-		FileSystem::rmIfExists(MD5Info::hashFilenameFor((*src)->filename()));
-	}
-
-}
-
-

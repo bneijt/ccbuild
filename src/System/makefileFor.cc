@@ -42,10 +42,10 @@ void System::makefileFor(Source *root, ostream &str)
 		
 		str << ".PHONY: distclean\n";
 		str << "distclean:\n";
-		str << "\tfind ./ -type f -path \"*/o/*.o\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
-		str << "\tfind ./ -type f -path \"*/o/*.md5\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
-		str << "\tfind ./ -type f -name \"*.gch\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
-		str << "\tfind ./ -depth -type d -name \"o\" -exec \"rmdir\" \"{}\" \\;\n";
+		str << "\trm -rf o;\n";
+		//str << "\tfind ./ -type f -path \"*/o/*.md5\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
+		//str << "\tfind ./ -type f -name \"*.gch\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
+		//str << "\tfind ./ -depth -type d -name \"o\" -exec \"rmdir\" \"{}\" \\;\n";
 		str << "\n";
 	}
 
@@ -68,7 +68,7 @@ void System::makefileFor(Source *root, ostream &str)
 	{
 		if((*src)->isObjectTarget())
 		{
-			dirs.push_back((*src)->directory() + "/o/");
+			dirs.push_back(FileSystem::directoryName((*src)->outputFilename()));
 			
 			str << (*src)->outputFilename() << ": " << (*src)->filename();
 			vector<string *> global;
@@ -101,7 +101,7 @@ void System::makefileFor(Source *root, ostream &str)
 		}
 		else if((*src)->isInternalHeader() && Options::precompile)
 		{
-			str << (*src)->outputFilename() << ": " <<  (*src)->directory() + "/o/ " <<  (*src)->filename();
+			str << (*src)->outputFilename() << ": " <<  (*src)->filename();
 			vector<string *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
@@ -126,7 +126,7 @@ void System::makefileFor(Source *root, ostream &str)
 		}
 		else if((*src)->isHeader() && Options::precompileAll)
 		{
-			str << (*src)->outputFilename() << ": " <<  (*src)->directory() + "/o/ " <<  (*src)->filename();
+			str << (*src)->outputFilename() << ": " <<  (*src)->filename();
 			vector<string *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...

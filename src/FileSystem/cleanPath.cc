@@ -23,12 +23,11 @@
 std::string FileSystem::cleanPath(string const &filename)
 {
 	//TODO Use a standard function for this, I might overlook something here
-
 	
  	//Strip filename of excess ../ parts
  	_debugLevel2("Clean path from: " << filename);
- 	
  	istringstream f(filename);
+
  	vector<string> path;
 	
  	while(true)
@@ -55,9 +54,10 @@ std::string FileSystem::cleanPath(string const &filename)
  	//Strip last "/"
  	clean = clean.substr(0, clean.length() -1);
  	//Strip superflourous './' for local path
- 	if(clean[0] == '.' && clean[1] == '/')
+ if(clean[0] == '.' && clean[1] == '/')
  	  clean = clean.substr(2);
-	_debugLevel2("Cleaned path to: " << clean);
-
+ 	_debugLevel2("Clean path from: " << filename);
+  _debugLevel2("Cleaned path to: " << clean);
+  
   return clean;
 }

@@ -221,6 +221,8 @@ class System
 			the current directory is named "src", the directory above it.
 		*/
 		static std::string projectName();
+		
+		static std::string uname(char const field);
 };
 
 }	//namespace

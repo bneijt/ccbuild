@@ -29,7 +29,7 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
   ifstream file(d_filename.c_str());
   if(!file)
   {
-    cout << "\n\nSource::scan.cc:  THIS SHOULD NOT BE POSSIBLE!!!\n\n";
+    cerr << "\n\nSource::scan.cc:  THIS SHOULD NOT BE POSSIBLE!!!\n\n";
     return;
   }
 

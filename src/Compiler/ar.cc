@@ -25,7 +25,7 @@ int Compiler::ar(std::string pwd, std::string target) const
 {
 
 	//Construct ar command
-  ostringstream command("ar rcs ", ios::ate);
+  ostringstream command("ar cs ", ios::ate);
   command << " " << pwd << "/" << target;
 
   _foreach(obj, d_objects)

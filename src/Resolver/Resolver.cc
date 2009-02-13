@@ -31,7 +31,8 @@ Resolver::Resolver()
 		loadIfExists(*xr, true);//Load if exists, reporting errors
 
 	//Load default
-	loadIfExists("./ccResolutions");
+	//Try hostname dependent, try architecture dependent, try default
+	loadIfExists("./ccResolutions."+ System::uname('n')) || loadIfExists("./ccResolutions."+System::uname('n'))	|| loadIfExists("./ccResolutions");
 
 
 	//Load global resolution files

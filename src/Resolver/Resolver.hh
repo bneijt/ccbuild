@@ -65,8 +65,9 @@ class Resolver
 		
 			\param confFile The configuration file to load
 			\param report	Wether to report errors
+			\return Wether the file was loaded or not
 		*/
-		void loadIfExists(std::string const &confFile, bool report = false);
+		bool loadIfExists(std::string const &confFile, bool report = false);
 
 		/**\brief Resolve the given include and return the commandline options
 		

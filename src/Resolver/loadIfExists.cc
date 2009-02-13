@@ -20,7 +20,7 @@
 
 #include <iomanip>
 #include "Resolver.ih"
-void Resolver::loadIfExists(std::string const &confFile, bool report)
+bool Resolver::loadIfExists(std::string const &confFile, bool report)
 {
 	//Load a configuration file if it exists
   ifstream file(confFile.c_str());
@@ -35,7 +35,7 @@ void Resolver::loadIfExists(std::string const &confFile, bool report)
   	_debugLevel1("Unable to open: " << confFile);
   	if(report)
   		cerr << "ccbuild: Unable to open: '" << confFile << "'\n";
-  	return;
+  	return false;
   }
 
 	unsigned linenr=0;
@@ -100,4 +100,5 @@ void Resolver::loadIfExists(std::string const &confFile, bool report)
 	//Clean up expand cache??
 	//NO The pointer part is stored in d_staticLinks
 	// and will be deleted when the Resolver is destroyed.
+	return true;
 }
