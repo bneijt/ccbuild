@@ -28,12 +28,21 @@
 */
 std::string System::uname(char const field)
 {
-  switch(field)
+  std::string rvalue;
+  utsname sysinfo;
+  if(::uname(&sysinfo) == 0)
   {
-    case 'm':
-      return "x86";
-    case 'h':
-      return "notrealyet";
+    switch(field)
+    {
+      case 'm':
+        rvalue = sysinfo.machine;
+        break;
+      case 'n':
+        rvalue = sysinfo.nodename;
+        break;
+      default:
+        throw Problem(Problem::Unable, "Not implemented field requisted from uname.");
+    }
   }
-  return "";
+  return rvalue;
 }

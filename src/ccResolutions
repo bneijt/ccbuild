@@ -16,3 +16,4 @@ unistd.h
 wordexp.h	
 omp.h -fopenmp -lgomp
 bobcat/process -lbobcat
+sys/utsname.h	

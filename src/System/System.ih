@@ -43,6 +43,7 @@
 #include <cstdlib>
 #include <omp.h>
 #include <numeric>
+#include <sys/utsname.h>
 
 #ifndef _NO_WORDEXP_
 #include <wordexp.h>

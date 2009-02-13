@@ -5,7 +5,7 @@
 <book>
 	<title>&ccb; - A strict developer's build utility
 	<author>A. Bram Neijt
-	<version>1.5.7
+	<version>1.5.8SVN
 	<abstract>This document is a general usage manual to &ccb;. It will introduce some simple tools and general ways of
 	using &ccb;. It will also try to explain the &ccb; behaviour in more words then the manual does.
 	The newest version of ccbuild can be found at the <url name="http://ccbuild.sourceforge.net" id="http://ccbuild.sourceforge.net">

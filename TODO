@@ -1,7 +1,11 @@
 
 The features that may set of a new release and things to look out for:
+  - Create a single "o" directory with all files in there,
+    make sure all files are named uniquely by using md5hash(dirname)_filename.o as output.
+  - Insert BOOST as argument parser, file handler and smart-pointer thingy.
   - Update, freshen, the tree command output
 	- Enable a seperate version of wordexp / write my own.
+	  maybe steal it from elmo: http://www.filewatcher.com/p/elmo-1.3.2.tar.gz.536768/elmo-1.3.2/ChangeLog.html 
   - Update Filesystem/cwd.cc to correctly work on cygwin.
   - Use __CYGWIN__ to exclude wordexp usage
   -  Write documentation on the ordering of library linking arguments.

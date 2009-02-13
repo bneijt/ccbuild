@@ -32,7 +32,7 @@ Resolver::Resolver()
 
 	//Load default
 	//Try hostname dependent, try architecture dependent, try default
-	loadIfExists("./ccResolutions."+ System::uname('n')) || loadIfExists("./ccResolutions."+System::uname('n'))	|| loadIfExists("./ccResolutions");
+	loadIfExists("./ccResolutions."+ System::uname('n')) || loadIfExists("./ccResolutions."+System::uname('m'))	|| loadIfExists("./ccResolutions");
 
 
 	//Load global resolution files
