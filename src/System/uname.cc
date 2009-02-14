@@ -40,6 +40,9 @@ std::string System::uname(char const field)
       case 'n':
         rvalue = sysinfo.nodename;
         break;
+      case 's':
+        rvalue = sysinfo.sysname;
+        break;
       default:
         throw Problem(Problem::Unable, "Not implemented field requisted from uname.");
     }

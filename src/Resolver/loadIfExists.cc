@@ -17,8 +17,6 @@
 
 */
 
-
-#include <iomanip>
 #include "Resolver.ih"
 bool Resolver::loadIfExists(std::string const &confFile, bool report)
 {
