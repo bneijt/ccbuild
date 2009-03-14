@@ -1,5 +1,8 @@
 
 The features that may set of a new release and things to look out for:
+  - Add an interactive gui
+  - Add transition paths to various install/distribution systems (autotools, icmake, aap etc)
+  - Move from MD5 to SHA1 (just because MD5 is not secure and everybody should move away from it, just to be sure)
   - Create a single "o" directory with all files in there,
     make sure all files are named uniquely by using md5hash(dirname)_filename.o as output.
   - Insert BOOST as argument parser, file handler and smart-pointer thingy.

@@ -124,7 +124,7 @@ void System::build(Source *source, Compiler &cc)
 
 
 	//Relink if any object is newer then the link target
-	string outputFilename = source->directory() + "/" + source->basename();
+	string outputFilename = FileSystem::cleanPath(source->directory() + "/" + source->basename());
 	if(! FileSystem::fileExists(outputFilename))
 		needLink = true;
 
