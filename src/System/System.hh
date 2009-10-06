@@ -24,7 +24,7 @@
 
 #include "../Source/Source.hh"
 #include "../Compiler/Compiler.hh"
-#include "../Arguments/arguments.hh"
+#include "../arguments/arguments.hh"
 #include "../Problem/Problem.hh"
 
 #include <string>

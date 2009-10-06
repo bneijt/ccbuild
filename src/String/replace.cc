@@ -2,7 +2,7 @@
 std::string String::replace(char from, char to) const
 {
 				std::string copy(*this);
-			_foreach(c, copy)
+			__foreach(c, copy)
 				if(*c == from)
 					*c = to;
 			return copy;

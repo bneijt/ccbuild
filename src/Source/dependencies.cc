@@ -42,7 +42,7 @@ void Source::dependencies(std::vector<Source *> &srcList)
     current->directDeps(deps);
 
     //Push all sources to the stack
-    _foreach(dep, deps)
+    __foreach(dep, deps)
 				srcStack.push(*dep);
 
 		//Never collect this in the list
@@ -77,7 +77,7 @@ void Source::dependencies(std::vector<Source *> &srcList, std::vector<std::strin
 
 
     //Push all sources to the stack
-    _foreach(dep, deps)
+    __foreach(dep, deps)
 				srcStack.push(*dep);
 
     //Copy new global includes to the list.

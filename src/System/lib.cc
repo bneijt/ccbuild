@@ -40,7 +40,7 @@ int System::lib(std::string const &version, Source *src)
 	collectTargets(srcList);	//Collect sub objects
 
 	//Seperate sources into lists
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 	{
 		if((*src)->isObjectTarget())
 			objectTargets.push_back(*src);
@@ -58,7 +58,7 @@ int System::lib(std::string const &version, Source *src)
 		//Also do local headers
 		//This will slow the build down it the source tree uses internal headers already
 		if(Options::precompileAll)
-		  _foreach(src, localHeaders)
+		  __foreach(src, localHeaders)
 		  {
  		    _debugLevel4("Precompiling: " << (*src)->filename());
  	      (*src)->build(cc);
@@ -66,7 +66,7 @@ int System::lib(std::string const &version, Source *src)
 		  }
 
 	  //Precompile all internal headers
-	  _foreach(src, internalHeaders)
+	  __foreach(src, internalHeaders)
 	  {
     	_debugLevel4("Precompiling: " << (*src)->filename());
       (*src)->build(cc);
@@ -80,15 +80,15 @@ int System::lib(std::string const &version, Source *src)
 		//However, having a broken build is even worse then anything else, YES??
 		//Whahaha... I say it IS.
 		//Are you having as much fun reading this, as I'm having writing it?
-		_foreach(src, localHeaders)
+		__foreach(src, localHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 			
-		_foreach(src, internalHeaders)
+		__foreach(src, internalHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 	}
 
   //Build the objects and add them as links to the compiler
-  _foreach(src, objectTargets)
+  __foreach(src, objectTargets)
   {
    	_debugLevel4("Building: " << (*src)->filename());
    	needLink = ((*src)->upToDate()) ? needLink : true;

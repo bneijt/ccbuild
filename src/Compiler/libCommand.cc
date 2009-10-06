@@ -28,7 +28,7 @@ string Compiler::libCommand(std::string pwd,
   command << " -shared -Wl,-soname,\"" << target << "\"" << Options::extraArgs << " ";
 
 
-  _foreach(obj, d_objects)
+  __foreach(obj, d_objects)
     command << " \"" << (*obj) << "\" ";
 
   copy(d_link.begin(), d_link.end(), ostream_iterator<string>(command, " "));

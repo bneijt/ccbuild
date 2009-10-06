@@ -74,7 +74,7 @@ void System::aapFor(Source *root, ostream &str)
 		{
 			str << "# Default includes from ccbuild call\n";
 			str << "CcbuildDefaultIncludes += \\\n";
-			_foreach(p, incPaths)
+			__foreach(p, incPaths)
 				str << "\t-I\"" << *p << "\"\n";
 			str << "\n";
 		}
@@ -100,18 +100,18 @@ void System::aapFor(Source *root, ostream &str)
 	Resolver &resolver = Resolver::getInstance();
 	set<string> globals;
 	Compiler cc;
-	_foreach(src, targets)
+	__foreach(src, targets)
 	{
 		vector<string *> global;
 		vector<Source *> local;
 		(*src)->dependencies(local, global);
 		
 		//Fill the compiler.
-		_foreach(gl, global)
+		__foreach(gl, global)
 			resolver.resolveInto(*gl, cc);
 
 		//Store a global set
-		_foreach(gl, global)
+		__foreach(gl, global)
 			globals.insert(**gl);
 	}
 
@@ -178,7 +178,7 @@ void System::aapFor(Source *root, ostream &str)
 	{
 		str << "# Sorted list of used global headers\n";
 		str << "GlobalHeadersFor" << rootIdent << " = \\\n";
-		_foreach(global, globals)
+		__foreach(global, globals)
 			str << "\t\"" << *global << "\"\n";//Optional if :conf lang is dropped use {language = C++}\n";
 		str << "\n";
 	
@@ -206,7 +206,7 @@ void System::aapFor(Source *root, ostream &str)
 	str << "\t{ var_INCLUDE = $IncludeFor" << rootIdent << "}\n";
 	str << "\t{ var_DEFINE = $DefineFor" << rootIdent << "}\n";
 	str << "\t\"" << root->filename() << "\"";
-	_foreach(src, targets)
+	__foreach(src, targets)
 	{
 		if((*src)->isObjectTarget())
 			str << "\n\t\"" << (*src)->filename() << "\"";

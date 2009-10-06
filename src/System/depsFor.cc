@@ -29,7 +29,7 @@ void System::depsFor(ostream &str)
 
   FileSystem::globSourceFilesInto(&files, ".");
 
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 
@@ -55,13 +55,13 @@ void System::depsFor(Source * s, ostream &str)
 	s->ignoredDeps(ignored);
 
 
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 		str << (*src)->filename() << " ";
   str << "\n\n";
 	copy(ignored.begin(), ignored.end(), ostream_iterator<string>(str, " "));
   str << "\n\n";
 
-	_foreach(src, globalList)
+	__foreach(src, globalList)
 		str << (**src) << " ";
 	str << "\n";
 }

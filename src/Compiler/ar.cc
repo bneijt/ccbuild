@@ -28,7 +28,7 @@ int Compiler::ar(std::string pwd, std::string target) const
   ostringstream command("ar rcs ", ios::ate);
   command << " " << pwd << "/" << target;
 
-  _foreach(obj, d_objects)
+  __foreach(obj, d_objects)
     command << " \"" << (*obj) << "\"";
 
 	cls();

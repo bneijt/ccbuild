@@ -44,7 +44,7 @@ bool System::parseArguments(Arguments &arg)
 	if(arg.errors().size() > 0)
 	{
 		vector<string> &err = arg.errors();
-		_foreach(e, err)
+		__foreach(e, err)
 			cerr << "ccbuild: Error: Error parsing command line argument '" << *e << "'\n";
 		cerr << "ccbuild:   Use '-h' for help\n";
 	
@@ -76,7 +76,7 @@ bool System::parseArguments(Arguments &arg)
 	if(arg.flagged("I"))
 	{
 		vector<string> paths = arg.values("I");
-		_foreach(path, paths)
+		__foreach(path, paths)
 		{
 			//Strip last slash
 			if(path->find_last_of('/') == path->size() -1)
@@ -104,7 +104,7 @@ bool System::parseArguments(Arguments &arg)
 		vector<string> paths = arg.values("recursive-include");
 		vector<string> &includePaths = Options::includePaths;
 		
-		_foreach(path, paths)
+		__foreach(path, paths)
 		{
 			//Strip last slash
 			if((*path).find_last_of('/') == (*path).size() -1)
@@ -112,7 +112,7 @@ bool System::parseArguments(Arguments &arg)
 			
 			vector<string> dirList;
 			FileSystem::recursiveGlobDirectoriesInto(&dirList, *path);
-			_foreach(dir, dirList)
+			__foreach(dir, dirList)
 			{
 				//Skip "o" directories
 			  if(dir->size() > 1 && dir->substr(dir->size() - 2) == "/o")

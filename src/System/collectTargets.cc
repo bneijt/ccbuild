@@ -58,7 +58,7 @@ void System::collectTargets(vector<Source *> &sources, bool skipBin)
 			Sources &mainSrcList = Sources::getInstance();
 			vector<string> files;
 			FileSystem::globSourceFilesInto(&files, src->directory());
-			_foreach(file, files)
+			__foreach(file, files)
 			{
 				//Load file using sources
 				Source *loadedSrc = mainSrcList[*file];

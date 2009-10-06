@@ -29,7 +29,7 @@
 // Which is needed for code like: foreach(iter, arrayOfVectors[0])
 //
 
-///\brief Preprosessor macro to define a STL iterator for loop: _foreach(iterator, container)
+///\brief Preprosessor macro to define a STL iterator for loop: __foreach(iterator, container)
 ///
 ///The preprosessor instruction foreach takes a variable name and an iterator name and translates
 ///into a default for loop using the != operator. It should work with any forward iterator.
@@ -60,18 +60,16 @@ for (iter = (cont).begin(); iter != (cont).end(); ++iter)
 
 
 */
-#ifdef _foreach
-#error _foreach already defined! This macro may have gone wild!
-#endif
-
-#define _foreach( iter, cont) for( __typeof__((cont).begin()) iter = (cont).begin(); iter != (cont).end(); ++iter)
-
 
 #ifdef __foreach
 #error __foreach already defined! This macro may have gone wild!
 #endif
 
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#define __foreach( iter, cont) for(auto iter = (cont).begin(); iter != (cont).end(); ++iter)
+#else
 #define __foreach( iter, cont) for( __typeof__((cont).begin()) iter = (cont).begin(); iter != (cont).end(); ++iter)
+#endif
 
 //#define __foreachMP( iter, cont, block) #pragma omp parallell private (oter)
 

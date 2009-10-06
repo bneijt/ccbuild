@@ -29,7 +29,7 @@ void System::tree(std::ostream &str)
 
 	FileSystem::globSourceFilesInto(&files, ".");
 
-	_foreach(file, files)
+	__foreach(file, files)
 	{
 		Source *target = s[*file];
 
@@ -65,7 +65,7 @@ void System::tree(Source *source, std::ostream &str)
 	
 	str << "] " << source->filename() << "\n";
 
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 	{
 	  str << "\t";
 		currentClass = (*src)->directory();

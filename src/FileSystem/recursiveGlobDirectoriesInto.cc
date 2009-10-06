@@ -36,7 +36,7 @@ void FileSystem::recursiveGlobDirectoriesInto(vector<string> *list, string const
 		directoryStack.pop();
 
 		FileSystem::globDirectoriesInto(&list, dir + "/*");
-		_foreach(d, list)
+		__foreach(d, list)
 			if(!directories.count(*d))
 				directoryStack.push(*d);
 				

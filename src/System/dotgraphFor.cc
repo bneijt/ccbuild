@@ -57,7 +57,7 @@ void System::dotgraphFor(Source *target, ostream &str)
 	}
 	
 	//Set colours
-  _foreach(src, srcList)
+  __foreach(src, srcList)
   	if((*src)->isBinTarget())
 	  	str << "\t\"" << (*src)->filename() << "\" [color=lightblue, style=filled];\n";
 	  else if((*src)->isObjectTarget())
@@ -65,13 +65,13 @@ void System::dotgraphFor(Source *target, ostream &str)
 	  	
 	
   //Connect all found dependecies and their direct deps
-  _foreach(src, srcList)
+  __foreach(src, srcList)
   {
 	  vector<Source *> locals;
 	  (*src)->directDeps(locals);
 	  
   	//Connectie tussen directDeps en target
-  	_foreach(l, locals)
+  	__foreach(l, locals)
   	{
   		(*l)->genDeps();
  			str << "\t\"" << (*src)->filename() << "\" -> \""

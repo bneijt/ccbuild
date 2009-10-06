@@ -27,15 +27,15 @@ void Arguments::clear()
 	std::set<bool *> pointerList;
 
 	//std::map<std::string, bool * > d_flags;
-	_foreach(flag, d_flags)
+	__foreach(flag, d_flags)
 		pointerList.insert((*flag).second);
 
 	//std::map<bool *, std::string> d_value;
-	_foreach(flag, d_values)
+	__foreach(flag, d_values)
 		pointerList.insert((*flag).first);
 
 	//Kill all boolean pointers
-	_foreach(p, pointerList)
+	__foreach(p, pointerList)
 		delete *p;
 
 	d_rest.clear();

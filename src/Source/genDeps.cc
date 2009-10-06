@@ -38,10 +38,10 @@ void Source::genDeps()
   scan(&localIncludes, &globalDeps);
 
 	Globals &globs = Globals::getInstance();
-	_foreach(globalDep, globalDeps)
+	__foreach(globalDep, globalDeps)
 		d_globalDeps.insert(globs[*globalDep]);
 		
-  _foreach(li, localIncludes)
+  __foreach(li, localIncludes)
 	{
 	 	Source *s = sources[directory() + "/" + *li];
 	 	//if it's not there, try it from the local directory (The -I. might be used on the source tree)
@@ -49,7 +49,7 @@ void Source::genDeps()
     
     //-I option for ccbuild local resolution
     vector<string> includePaths(Options::includePaths);
-    _foreach(path, includePaths)
+    __foreach(path, includePaths)
     {
     	_debugLevel4("Trying path: " << *path << " for " << *li);
     	if(s != 0)

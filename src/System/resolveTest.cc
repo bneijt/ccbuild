@@ -37,10 +37,10 @@ void System::resolveTest(Source * s, set<string> *globals)
 	Resolver const &resolver = Resolver::getInstance();
 	
 	collectTargets(srcList);
-	_foreach(source, srcList)
+	__foreach(source, srcList)
 	{
 		(*source)->directDeps(localList, globalList);
-		_foreach(gi, globalList)
+		__foreach(gi, globalList)
 			if(resolver.resolve(**gi) == "FAIL" && globals->count(**gi) == 0)
 			{
 				cerr << "ccbuild: Unable to resolve \"" << **gi << "\"\n";
@@ -59,7 +59,7 @@ void System::resolveTest(ostream &str)
 	
   FileSystem::globSourceFilesInto(&files, ".");
 	set<string> globals;
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 

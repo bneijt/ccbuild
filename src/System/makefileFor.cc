@@ -64,7 +64,7 @@ void System::makefileFor(Source *root, ostream &str)
 	vector<string> dirs;
 	
 	//All the object rules..
-	_foreach(src, targets)
+	__foreach(src, targets)
 	{
 		if((*src)->isObjectTarget())
 		{
@@ -74,7 +74,7 @@ void System::makefileFor(Source *root, ostream &str)
 			vector<string *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
-			_foreach(l, local)
+			__foreach(l, local)
 			{
 				str << " " << (*l)->filename();
 				if((*l)->isInternalHeader() && Options::precompile)
@@ -85,7 +85,7 @@ void System::makefileFor(Source *root, ostream &str)
 			str << "\n";
 
 			//Fill the compiler.
-			_foreach(gl, global)
+			__foreach(gl, global)
 				resolver.resolveInto(*gl, cc);
 
 			str << "\t" << cc.compileCommand(
@@ -105,12 +105,12 @@ void System::makefileFor(Source *root, ostream &str)
 			vector<string *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
-			_foreach(l, local)
+			__foreach(l, local)
 					str << " " << (*l)->filename();
 			str << "\n";
 
 			//Fill the compiler.
-			_foreach(gl, global)
+			__foreach(gl, global)
 				resolver.resolveInto(*gl, cc);
 
 			str << "\t" << cc.precompileCommand(
@@ -130,12 +130,12 @@ void System::makefileFor(Source *root, ostream &str)
 			vector<string *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
-			_foreach(l, local)
+			__foreach(l, local)
 					str << " " << (*l)->filename() << "";
 			str << "\n";
 
 			//Fill the compiler.
-			_foreach(gl, global)
+			__foreach(gl, global)
 			{
 				resolver.resolveInto(*gl, cc);
 			}
@@ -157,7 +157,7 @@ void System::makefileFor(Source *root, ostream &str)
 	vector<Source *> deps;
 	vector<string *> global;
 	root->dependencies(deps, global);
-	_foreach(l, deps)
+	__foreach(l, deps)
 	{
 		if((*l)->isInternalHeader() && Options::precompile)
 			str << " " << (*l)->filename() << ".gch";
@@ -168,7 +168,7 @@ void System::makefileFor(Source *root, ostream &str)
 	str << "\n";
 
 	//Fill the compiler.
-	_foreach(gl, global)
+	__foreach(gl, global)
 		resolver.resolveInto(*gl, cc);
 
 	str << "\t" << cc.compileCommand(
@@ -195,13 +195,13 @@ void System::makefileFor(Source *root, ostream &str)
 
 	//Depend on objects
 	vector<string> const &objects = cc.objects();
-	_foreach(obj, objects)
+	__foreach(obj, objects)
 		str << " " << *obj;
 
 	str << "\n";
 
 	//Fill the compiler.
-	_foreach(gl, global)
+	__foreach(gl, global)
 		resolver.resolveInto(*gl, cc);
 
 	str << "\t" << cc.linkCommand(

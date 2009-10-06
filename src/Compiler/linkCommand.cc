@@ -38,7 +38,7 @@ string Compiler::linkCommand(std::string pwd,
   command << " " << Options::extraArgs << " ";
 
 
-  _foreach(obj, d_objects)
+  __foreach(obj, d_objects)
     command << "\"" << (*obj) << "\" ";
 
   copy(d_link.begin(), d_link.end(), ostream_iterator<string>(command, " "));

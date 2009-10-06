@@ -48,7 +48,7 @@ void System::distclean()
 		directoryStack.pop();
 
 		FileSystem::globDirectoriesInto(&list, dir + "/*");
-		_foreach(d, list)
+		__foreach(d, list)
 			if(find(rmList.begin(), rmList.end(), *d) == rmList.end())
 				directoryStack.push(*d);
 
@@ -61,7 +61,7 @@ void System::distclean()
 		FileSystem::globFilesInto(&fileList, dir + "/o/*.o");
 		FileSystem::globFilesInto(&fileList, dir + "/o/*.rpo");
 		
-		_foreach(target, fileList)
+		__foreach(target, fileList)
 		{
 			cerr << "[RM] '" << *target << "'\n";
 			if(unlink((*target).c_str()) != 0)

@@ -31,7 +31,7 @@ void System::aapForAll(ostream &str)
 
 
   string allRule = "all :";
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 
@@ -54,7 +54,7 @@ void System::aapForAll(ostream &str)
 
 	str << allRule << "\n\n";
 	
-	_foreach(target, targets)
+	__foreach(target, targets)
 	{
 		aapFor(*target, str);
 	}

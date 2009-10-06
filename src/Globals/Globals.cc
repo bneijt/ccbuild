@@ -29,7 +29,7 @@ Globals::Globals()
 
 Globals::~Globals()
 {
-	_foreach(link, *this)
+	__foreach(link, *this)
 		if(link->second)
 			delete link->second;
 		

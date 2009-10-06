@@ -46,7 +46,7 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
     
 		if(Options::verbose && ignore->size() > 0)
 		{
-			_foreach(ig, *ignore)
+			__foreach(ig, *ignore)
 				cerr << "ccbuild: warning: ignoring \"" << *ig << "\" in \"" << filename() << "\"\n";
 		}
   }

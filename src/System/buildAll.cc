@@ -28,7 +28,7 @@ void System::buildAll()
 
   FileSystem::globSourceFilesInto(&files, ".");
   unsigned nbuilds(0);
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 

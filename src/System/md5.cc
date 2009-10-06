@@ -26,7 +26,7 @@ void System::md5(Source *source)
   srcList.push_back(source);
   collectTargets(srcList);
   MD5Info &md5i = MD5Info::getInstance();
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 	{
 		cout << md5i.contentHash((*src)->filename()) << "  " << (*src)->filename() << "\n";
 	}	
@@ -40,7 +40,7 @@ void System::md5()
 
   FileSystem::globSourceFilesInto(&files, ".");
 
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 

@@ -30,7 +30,7 @@ void Source::buildObjectTarget(Compiler &cc)
 
   Resolver &resolver = Resolver::getInstance();
   //Resolve all globals into the compiler
-  _foreach(global, globalList)
+  __foreach(global, globalList)
   	resolver.resolveInto(*global, cc);
 
   if(!upToDate(srcList))
@@ -52,7 +52,7 @@ void Source::buildObjectTarget(Compiler &cc)
 			
 			vector<Source *> srcList;
 			dependencies(srcList);
-			_foreach(src, srcList)
+			__foreach(src, srcList)
 				collectedHash += md5i.contentHash((*src)->filename());
 			
 			md5i.save(filename(), collectedHash);

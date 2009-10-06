@@ -58,7 +58,7 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 		MD5Info &md5i = MD5Info::getInstance();
 		string collectedHash = md5i.contentHash(filename());
 		
-		_foreach(src, srcList)
+		__foreach(src, srcList)
 			collectedHash += md5i.contentHash((*src)->filename());
 		
 		needUpdate = (collectedHash != md5i.old(filename()));
@@ -66,7 +66,7 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 	else
 	{
 		//Normal timestamp check system
-		_foreach(src, srcList)
+		__foreach(src, srcList)
 		{
 			//General update rule: any newer dependency / changed dependency
 			if((*src)->changed(outputFilename()))

@@ -49,7 +49,7 @@
 #include "Options/Options.hh"
 
 //Singletons...
-#include "Arguments/arguments.hh"
+#include "arguments/arguments.hh"
 #include "Sources/Sources.hh"
 #include "MD5Info/MD5Info.hh"
 
@@ -241,7 +241,7 @@ try
   Sources &sources = Sources::getInstance();
   
   bool skipArgument(false);
-  _foreach(argument, rest)
+  __foreach(argument, rest)
   {
     vector<string>::iterator next = argument;
     ++next;

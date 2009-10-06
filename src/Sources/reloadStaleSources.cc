@@ -23,7 +23,7 @@
 
 void Sources::reloadStaleSources()
 {
-	_foreach(src, d_sources)
+	__foreach(src, d_sources)
 	{
 	 	if((*src)->stale())
 	 	{
@@ -39,7 +39,7 @@ void Sources::reloadStaleSources()
 			MD5Info::destroy();
 
 			//Remove the object of any binary target to ensure relinking
-			_foreach(i, d_sources)
+			__foreach(i, d_sources)
 			{
 				if((*i)->isBinTarget())
 				{
@@ -49,7 +49,7 @@ void Sources::reloadStaleSources()
 			
 			//Cleanup
 			//Remove all dependency knowledge because of stale pointers...
-			_foreach(i, d_sources)
+			__foreach(i, d_sources)
 				delete *i;
 			d_sources.clear();
 			break;		

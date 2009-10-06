@@ -31,7 +31,7 @@ void System::makefileForAll(ostream &str)
 
 
   string allRule = ".PHONY: all\nall:";
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 
@@ -53,7 +53,7 @@ void System::makefileForAll(ostream &str)
 
 	str << allRule << "\n\n";
 	
-	_foreach(target, targets)
+	__foreach(target, targets)
 		makefileFor(*target, str);
 
 }

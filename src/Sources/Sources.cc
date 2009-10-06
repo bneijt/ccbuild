@@ -28,7 +28,7 @@ Sources::Sources()
 
 Sources::~Sources()
 {
-	_foreach(src, d_sources)
+	__foreach(src, d_sources)
 	{
 		delete *src;
 	}

@@ -27,7 +27,7 @@ Resolver::Resolver()
   d_empty("")
 {
 	//Load commandline given extra resolution files
-	_foreach(xr, Options::extraResolutions)
+	__foreach(xr, Options::extraResolutions)
 		loadIfExists(*xr, true);//Load if exists, reporting errors
 
 	//Load default
@@ -49,7 +49,7 @@ Resolver::Resolver()
 
 		FileSystem::globFilesInto(&files, "~/.ccbuild/ccResolutions.d/*", true);
 
-		_foreach(file, files)
+		__foreach(file, files)
 			loadIfExists(*file);
 	}
 	
@@ -121,12 +121,12 @@ Resolver::~Resolver()
 	//Todo: cleanup using unique_copy etc.
 	set<std::string *> pointers;
 	
-	_foreach(link, d_staticLinks)
+	__foreach(link, d_staticLinks)
 			pointers.insert((*link).second);
 
 	pointers.erase(&d_empty);
 	
-	_foreach(pointer, pointers)
+	__foreach(pointer, pointers)
 		delete (*pointer);
 	
 }

@@ -30,7 +30,7 @@ void System::dotgraphForAll()
 
   FileSystem::globSourceFilesInto(&files, ".");
 
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 

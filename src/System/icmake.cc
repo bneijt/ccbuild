@@ -28,7 +28,7 @@ void System::icmake()
 
   FileSystem::globSourceFilesInto(&files, ".");
 
-  _foreach(file, files)
+  __foreach(file, files)
   {
     Source *target = s[*file];
 
@@ -60,7 +60,7 @@ void System::icmake(Source *source)
 
 	//Get the directories for all the files needed by this source
   set<string> dirList;
-	_foreach(src, srcList)
+	__foreach(src, srcList)
 		dirList.insert(FileSystem::baseName((*src)->directory()));
 
 	//Never include the local directory "."
