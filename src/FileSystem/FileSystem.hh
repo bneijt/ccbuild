@@ -81,7 +81,8 @@ class FileSystem
       );
 
 		///\brief Returns true if the file exists, in any form (it may be a directory)
-    static bool fileExists(std::string const &filename	///< The filename of the file to check
+    static bool fileExists(std::string const &filename,	///< The filename of the file to check
+    	      bool noDir = false ///< The file is not a directory
     	);
 
 		///\brief Remove the file it it exitst, return true on succes.

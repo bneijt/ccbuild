@@ -32,9 +32,10 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
 	if(!simulate)
 	{  
 		//status = ::system(command.c_str());
-    FBB::Process process(command, FBB::Process::CIN |
+    FBB::Process process(FBB::Process::CIN |
                                   FBB::Process::COUT |
-                                  FBB::Process::MERGE_COUT_CERR);
+                                  FBB::Process::MERGE_COUT_CERR,
+                         command);
     process.start(FBB::Process::USE_PATH);
     //TODO Rewrite to copy call with back_inserter
 		string line;

@@ -230,7 +230,7 @@ try
     cerr << "Implicit build\n";
     rest.push_back("build");
   }  
-  else if(rest.size() == 1 && FileSystem::fileExists(*rest.begin()))
+  else if(rest.size() == 1 && FileSystem::fileExists(*rest.begin(), /*noDir=*/true))
   {
     cerr << "Implicit build because first an only command is a file\n";
     rest.insert(rest.begin(), "build");    	

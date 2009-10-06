@@ -21,8 +21,16 @@
 
 #include "FileSystem.ih"
 
-bool FileSystem::fileExists(std::string const &filename)
+bool FileSystem::fileExists(std::string const &filename, bool noDir)
 {
 	struct stat a;
-	return stat(filename.c_str(), &a) == 0;
+	int rcode = stat(filename.c_str(), &a);
+
+	if(rcode != 0) //Stat failed
+	  return false;
+
+	if(noDir and S_ISDIR(a.st_mode))
+	  return false;
+
+	return true;
 }
