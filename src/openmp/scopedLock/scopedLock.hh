@@ -17,40 +17,31 @@
 
 */
 
-#ifndef __Lock_HH_INCLUDED
-#define	__Lock_HH_INCLUDED
-#include <omp.h>
+#ifndef __ScopedLock_HH_INCLUDED
+#define	__ScopedLock_HH_INCLUDED
+
+#include "../lock/lock.hh"
 
 namespace bneijt
 {
 namespace OpenMP
 {
-class Lock
+class ScopedLock
 {
-    omp_lock_t d_lock;
+    Lock &d_lock;
+    
 	public:
-	  Lock()
+	  ScopedLock(Lock &l)
+	    :
+	    d_lock(l)
 	  {
-	    omp_init_lock(&d_lock);
+	    d_lock.set();
 	  }
-    ~Lock()
-    {
-	    omp_destroy_lock(&d_lock);    
-    }
-    /*
-    omp_lock_t *operator*()
-    {
-      return &d_lock;
-    } */
-    void set()
-    {
-      omp_set_lock(&d_lock);
-    }
-    void unset()
-    {
-      omp_unset_lock(&d_lock);
-    }
+	  ~ScopedLock()
+	  {
+	    d_lock.unset();
+	  }
 };
-}} //Namespace
+}} //Namespaces
 #endif
 

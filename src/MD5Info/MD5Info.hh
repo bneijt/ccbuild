@@ -24,7 +24,7 @@
 #include <string>
 #include <map>
 #include <set>
-#include "../OpenMP/Lock/Lock.hh"
+#include "../openmp/lock/lock.hh"
 
 namespace bneijt
 {

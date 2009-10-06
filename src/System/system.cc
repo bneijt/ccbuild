@@ -23,7 +23,7 @@
 
 int System::system(std::string const &command, bool simulate) throw (Problem)
 {
-	boost::circular_buffer_space_optimized<string> output(1024); //TODO use boost circular buffer
+	boost::circular_buffer_space_optimized<string> output(1024);
   if(Options::showCommands)
   	cout << command << "\n";
   
@@ -48,6 +48,7 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
   if(Options::highlight)
 	  cerr << "\x1b\x5b\x33\x31\x6d" << flush; //\e[31m
 
+  //TODO Multithread mutex lock output
   copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
 
 	//Highlight OFF

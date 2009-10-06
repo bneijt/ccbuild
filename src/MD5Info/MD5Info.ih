@@ -20,7 +20,7 @@
 #include "MD5Info.hh"
 #include "../FileSystem/FileSystem.hh"
 #include "../System/System.hh"
-#include "../OpenMP/ScopedLock/ScopedLock.hh"
+#include "../openmp/scopedLock/scopedLock.hh"
 #include "MD5Hash/MD5Hash.hh"
 
 #include <sstream>
