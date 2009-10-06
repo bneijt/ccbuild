@@ -14,3 +14,17 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#ifndef globallocks_hh_included_
+#define	globallocks_hh_included_
+
+#include "../openmp/lock/lock.hh"
+
+namespace bneijt
+{
+
+static OpenMP::Lock cerrLock;
+
+} //Namespace
+#endif
+

@@ -44,16 +44,19 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
 		status = process.stop();	
 	}
 
+  cerrLock.set();
+
 	//Highlight ON
   if(Options::highlight)
 	  cerr << "\x1b\x5b\x33\x31\x6d" << flush; //\e[31m
 
-  //TODO Multithread mutex lock output
   copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
 
 	//Highlight OFF
   if(Options::highlight)
 	  cerr << "\x1b\x5b\x30\x6d" << flush; //\\e[0m
+
+  cerrLock.unset();
 
 	//On normal termination return the exit status, otherwise throw a problem
 	if(!WIFEXITED(status))

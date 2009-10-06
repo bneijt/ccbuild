@@ -19,42 +19,28 @@
 
 
 
-#include "System.hh"
-#include "../Sources/Sources.hh"
-#include "../Resolver/Resolver.hh"
-#include "../FileSystem/FileSystem.hh"
-#include "../Options/Options.hh"
-#include "../Globals/Globals.hh"
-#include "../MD5Info/MD5Info.hh"
-#include "../globallocks/globallocks.hh"
+#include "arguments.hh"
 
-#include <iostream>
-#include <stack>
-#include <set>
-#include <fstream>
-#include <algorithm>
-#include <functional>
-#include <iterator>
-#include <unistd.h>
+#include <string>
+
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#include <getopt.h>
+
+
+#include <sstream>
 #include <cstring>
-#include <bobcat/process>
-#include <cstdlib>
-#include <omp.h>
+#include <iostream>
+
+#include <algorithm>
 #include <numeric>
-#include <sys/utsname.h>
-#include <boost/circular_buffer.hpp>
+#include <iterator>
 
-#include "../posix/wordexp.h"
-//#ifndef _NO_WORDEXP_
-//#include <wordexp.h>
-//#endif
-
-//#include <sys/types.h>
-//#include <sys/wait.h>
+#include <set>
 
 
-//#define DEBUGLEVEL 3
-
+//#define DEBUGLEVEL 1
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"
 

@@ -44,7 +44,7 @@
 #include "System/System.hh"
 #include "Source/Source.hh"
 #include "FileSystem/FileSystem.hh"
-
+#include "globallocks/globallocks.hh"
 #include "misc/foreach.hh"
 #include "Options/Options.hh"
 
@@ -178,6 +178,7 @@ try
 
   if(Options::showCommands)
   {
+    cerrLock.set();
     cerr << "Command:";
     for(int i = 0; i < argc; i++)
     {
@@ -187,6 +188,7 @@ try
         cerr << " " << argv[i];
     }
     cerr << "\n";
+    cerrLock.unset();
   }
 
   if(destroy)
