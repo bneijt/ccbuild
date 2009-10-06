@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 bool System::addArguments(int &argc, char ** &argv)
 {
 	ifstream ccResolutions("ccResolutions");

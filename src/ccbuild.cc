@@ -41,7 +41,7 @@
   </pre>
 */
 
-#include "System/System.hh"
+#include "System/system.hh"
 #include "Source/Source.hh"
 #include "FileSystem/FileSystem.hh"
 #include "globallocks/globallocks.hh"
@@ -117,6 +117,7 @@ class ArgsDestroy
 int main(int argc, char **argv)
 try
 {
+  //TODO Clean up main
   //See Options/statics.cc Options::CC = "g++";
   //See Options/statics.cc Options::version = "...";
   Arguments::Option options[] = {

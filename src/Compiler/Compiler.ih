@@ -38,7 +38,7 @@
 
 #include "../Options/Options.hh"
 #include "../FileSystem/FileSystem.hh"
-#include "../System/System.hh"
+#include "../System/system.hh"
 #include "../Problem/Problem.hh"
 
 //#define DEBUGLEVEL 5

@@ -19,7 +19,7 @@
 
 
 //Read: http://www-128.ibm.com/developerworks/linux/library/l-shobj/
-#include "System.ih"
+#include "system.ih"
 
 int System::lib(std::string const &version, Source *src)
 {

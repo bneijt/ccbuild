@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 
 void System::makefileFor(Source *root, ostream &str)
 {

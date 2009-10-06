@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 
 int System::system(std::string const &command, bool simulate) throw (Problem)
 {
@@ -37,6 +37,9 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
                                   FBB::Process::MERGE_COUT_CERR,
                          command);
     process.start(FBB::Process::USE_PATH);
+    //Close input
+    process.close();
+    
     //TODO Rewrite to copy call with back_inserter
 		string line;
 		while(getline(process, line))

@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 
 void System::build(Source *source)
 {
@@ -76,7 +76,6 @@ void System::build(Source *source, Compiler &cc)
 		//This will slow down the total build process... so maybe we shouldn't???
 		//However, having a broken build is even worse then anything else, YES??
 		//Whahaha... I say it IS.
-		//Are you having as much fun reading this, as I'm having writing it?
 		__foreach(src, localHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 			
@@ -101,9 +100,9 @@ void System::build(Source *source, Compiler &cc)
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
     size_t numNeedLink = 0;
-    int size = static_cast<int>(objectTargets.size());
+    size_t size = objectTargets.size();
     #pragma omp parallel for
-    for(int i = 0; i < size; ++i) ///MUST BE SIGNED??? WTF ARE THEY THINKING!!
+    for(size_t i = 0; i < size; ++i)
     {
       //_debugLevel4("Building: " << (*src)->filename());
       if(!objectTargets[i]->upToDate())
@@ -111,9 +110,9 @@ void System::build(Source *source, Compiler &cc)
       objectTargets[i]->build(compilers[i]);
       compilers[i].rmCompileOptions();
     }
-    //Test wether linking is needed
+    //Test whether linking is needed
     needLink = numNeedLink > 0 ? needLink : true;
-    //Summate the compilers
+    //Acuumulate the compilers
     cc = accumulate(compilers.begin(), compilers.end(), cc);
     
   }//encaps iter
@@ -123,7 +122,7 @@ void System::build(Source *source, Compiler &cc)
 
 
 
-	//Relink if any object is newer then the link target
+	//Re-link if any object is newer then the link target
 	string outputFilename = FileSystem::cleanPath(source->directory() + "/" + source->basename());
 	if(! FileSystem::fileExists(outputFilename))
 		needLink = true;
@@ -149,8 +148,10 @@ void System::build(Source *source, Compiler &cc)
   }
   else
   {
+    cerrLock.set();
   	if(Options::clearPerCommand)
   	  cerr << "\33[H\33[2J";
     cerr << "[DONE]\t" << source->filename() << "\n";
+    cerrLock.unset();
   }
 }

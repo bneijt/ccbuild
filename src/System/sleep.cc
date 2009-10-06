@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 //This function is only here to keep ccbuild header list smaller
 unsigned System::sleep(unsigned const seconds)
 {

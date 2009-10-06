@@ -19,7 +19,7 @@
 
 
 
-#include "System.ih"
+#include "system.ih"
 std::string System::trimmed(std::string const &arg)
 {
 	string argument = arg;

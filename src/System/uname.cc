@@ -17,7 +17,7 @@
 
 */
 
-#include "System.ih"
+#include "system.ih"
  
 /** Get information from host 
       #include <sys/utsname.h>
