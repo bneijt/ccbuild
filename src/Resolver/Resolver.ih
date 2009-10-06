@@ -23,10 +23,10 @@
 #include "../FileSystem/FileSystem.hh"
 #include "../System/System.hh"
 #include "../Globals/Globals.hh"
-#include "../Misc/Preprocessor/Foreach.hh"
+#include "../misc/foreach.hh"
 
 //#define DEBUGLEVEL 1
-#include "../Misc/Preprocessor/Debug.hh"
+#include "../misc/debug.hh"
 
 #include <fstream>
 #include <iostream>

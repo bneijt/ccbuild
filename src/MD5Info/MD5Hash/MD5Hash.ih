@@ -32,7 +32,8 @@
 #include "GCrypt/GCrypt.hh"
 
 //#define DEBUGLEVEL 3
-#include "../../Misc/Misc.hh"
+#include "../../misc/debug.hh"
+#include "../../misc/foreach.hh"
 
 using namespace bneijt;
 using namespace std;

@@ -29,7 +29,7 @@
 #include <cctype>	//tolower
 
 //#define DEBUGLEVEL 3
-#include "../../../Misc/Preprocessor/Debug.hh"
+#include "../../../misc/debug.hh"
 
 
 using namespace bneijt;

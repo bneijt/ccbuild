@@ -32,10 +32,10 @@
 
 #include "../Options/Options.hh"
 
-#include "../Misc/Preprocessor/Foreach.hh"
+#include "../misc/foreach.hh"
 
 //#define DEBUGLEVEL 6
-#include "../Misc/Preprocessor/Debug.hh"
+#include "../misc/debug.hh"
 
 using namespace bneijt;
 using namespace std;

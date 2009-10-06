@@ -42,7 +42,8 @@
 #include "../Problem/Problem.hh"
 
 //#define DEBUGLEVEL 5
-#include "../Misc/Misc.hh"
+#include "../misc/debug.hh"
+#include "../misc/foreach.hh"
 
 using namespace std;
 using namespace bneijt;

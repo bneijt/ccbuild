@@ -48,7 +48,8 @@
 
 //#define DEBUGLEVEL 2
 
-#include "../Misc/Misc.hh"
+#include "../misc/debug.hh"
+#include "../misc/foreach.hh"
 
 
 

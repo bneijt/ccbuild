@@ -45,7 +45,7 @@
 #include "Source/Source.hh"
 #include "FileSystem/FileSystem.hh"
 
-#include "Misc/Preprocessor/Foreach.hh"
+#include "misc/foreach.hh"
 #include "Options/Options.hh"
 
 //Singletons...
@@ -64,7 +64,7 @@
 #include <typeinfo>
 
 //#define DEBUGLEVEL 20
-#include "Misc/Preprocessor/Debug.hh"
+#include "misc/debug.hh"
 
 using namespace bneijt;
 using namespace std;

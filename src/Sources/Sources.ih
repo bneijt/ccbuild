@@ -28,7 +28,8 @@
 #include <algorithm>
 
 //#define DEBUGLEVEL 8
-#include "../Misc/Misc.hh"
+#include "../misc/debug.hh"
+#include "../misc/foreach.hh"
 
 
 using namespace bneijt;

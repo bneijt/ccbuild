@@ -19,7 +19,7 @@
 */
 #include "String.hh"
 
-#include "../Misc/Preprocessor/Foreach.hh"
+#include "../misc/foreach.hh"
 
 #include <algorithm>
 

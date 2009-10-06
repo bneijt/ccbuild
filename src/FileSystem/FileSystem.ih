@@ -35,12 +35,12 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "../Misc/Preprocessor/Foreach.hh"
+#include "../misc/foreach.hh"
 #include "../Options/Options.hh"
 
 
 //#define DEBUGLEVEL 5
-#include "../Misc/Preprocessor/Debug.hh"
+#include "../misc/debug.hh"
 
 using namespace std;
 using namespace bneijt;
