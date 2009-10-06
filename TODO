@@ -13,6 +13,7 @@ The features that may set of a new release and things to look out for:
 	  maybe steal it from elmo: http://www.filewatcher.com/p/elmo-1.3.2.tar.gz.536768/elmo-1.3.2/ChangeLog.html 
   - Update Filesystem/cwd.cc to correctly work on cygwin.
   - Use __CYGWIN__ to exclude wordexp usage
+  - Add auditing command: look for common problems, like including headers in both .hh and .ih of the same class.
   -  Write documentation on the ordering of library linking arguments.
       Showing that global header usage influences this and that it's
       a real problem with a solution in ccResolutions (force sequence

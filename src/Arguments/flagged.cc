@@ -19,7 +19,7 @@
 
 
 
-#include "Arguments.ih"
+#include "arguments.ih"
 
 bool Arguments::flagged(std::string const &optionName) const
 {

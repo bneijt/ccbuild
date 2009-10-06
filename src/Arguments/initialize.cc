@@ -20,7 +20,7 @@
 
 
 
-#include "Arguments.ih"
+#include "arguments.ih"
 
 void Arguments::initialize(Option const *options, int argc, char *argv[])
 {

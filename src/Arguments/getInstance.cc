@@ -19,7 +19,7 @@
 
 
 
-#include "Arguments.ih"
+#include "arguments.ih"
 
 Arguments &Arguments::getInstance()
 {

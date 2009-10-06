@@ -49,7 +49,7 @@
 #include "Options/Options.hh"
 
 //Singletons...
-#include "Arguments/Arguments.hh"
+#include "Arguments/arguments.hh"
 #include "Sources/Sources.hh"
 #include "MD5Info/MD5Info.hh"
 

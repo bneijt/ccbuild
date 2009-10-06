@@ -13,14 +13,14 @@ Thank you for downloading ccbuild!
 
 === Documentation
 All documentation can be found in the doc directory. If you want to hack ccbuild, don't forget to run doxygen first.
-Although the manual is currently not installed, a precompiled version can be found here: doc/debiandoc/ccbuild.1
+Although the manual is currently not installed, a pre-compiled version can be found here: doc/debiandoc/ccbuild.1
 You can also use the online versions of these documents via the homepage, most easily found using 
   http://ccbuild.sourceforge.net
 
 
 === Program usage
 
-The program is ment to be run in the same directory as your main program resides.
+The program is meant to be run in the same directory as your main program resides.
 For ccbuild self, this is the src directory.
 The default behaviour of ccbuild is to find any sourcefile containing an "int main" function and start compiling it.
 
@@ -56,7 +56,7 @@ The following is a list of things you shouldn't do when using ccbuild:
 * Don't mix extensions for files with the same basename. So don't place
   a file called "main.cc" in the same directory as "main.cpp" because the
   objects in the o directory won't be seperated.
-* Expect any warrenty of any kind.
+* Don't expect any warrenty of any kind (read the license).
 
 == Hacking the code, possible start-up problems
 - Flex scanner must be generated, use:

@@ -20,12 +20,10 @@
 
 
 #include "System.hh"
-#include "../Compiler/Compiler.hh"
 #include "../Sources/Sources.hh"
 #include "../Resolver/Resolver.hh"
 #include "../FileSystem/FileSystem.hh"
 #include "../Options/Options.hh"
-#include "../Arguments/Arguments.hh"
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../VectorRing/VectorRing.hh"
