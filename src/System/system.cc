@@ -23,7 +23,7 @@
 
 int System::system(std::string const &command, bool simulate) throw (Problem)
 {
-	VectorRing<string> output(1024); //TODO use boost circular buffer
+	boost::circular_buffer_space_optimized<string> output(1024); //TODO use boost circular buffer
   if(Options::showCommands)
   	cout << command << "\n";
   

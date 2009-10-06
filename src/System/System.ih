@@ -26,7 +26,6 @@
 #include "../Options/Options.hh"
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
-#include "../VectorRing/VectorRing.hh"
 
 #include <iostream>
 #include <stack>
@@ -42,6 +41,7 @@
 #include <omp.h>
 #include <numeric>
 #include <sys/utsname.h>
+#include <boost/circular_buffer.hpp>
 
 #include "../posix/wordexp.h"
 //#ifndef _NO_WORDEXP_
@@ -56,7 +56,6 @@
 
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"
-
 
 using namespace std;
 using namespace bneijt;

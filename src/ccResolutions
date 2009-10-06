@@ -18,3 +18,4 @@ bobcat/process -lbobcat
 sys/utsname.h	
 features.h	
 stddef.h	
+boost/circular_buffer.hpp	
