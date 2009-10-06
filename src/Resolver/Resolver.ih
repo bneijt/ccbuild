@@ -35,9 +35,10 @@
 #include <set>
 #include <iomanip>
 
-#ifndef __CYGWIN__
-#include <wordexp.h>
-#endif
+#include "../posix/wordexp.h"
+//#ifndef __CYGWIN__
+//#include <wordexp.h>
+//#endif
 
 using namespace bneijt;
 using namespace std;
