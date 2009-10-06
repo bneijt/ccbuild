@@ -57,3 +57,11 @@ The following is a list of things you shouldn't do when using ccbuild:
   a file called "main.cc" in the same directory as "main.cpp" because the
   objects in the o directory won't be seperated.
 * Expect any warrenty of any kind.
+
+== Hacking the code, possible start-up problems
+- Flex scanner must be generated, use:
+    rm src/SourceScanner/yylex.cc; make -f Makefile.human src/SourceScanner/yylex.cc
+  Use this if the compiler complains about something with SourceScanner
+- If the compiler complains about FFB::Process constructor called incorrectly,
+  make sure you have libbobcat 2.02.03 or higher.
+

@@ -1,0 +1,2 @@
+These files where taken from eglibc-2.10.1
+apt-get source libc6-dev

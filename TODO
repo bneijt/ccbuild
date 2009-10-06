@@ -1,5 +1,7 @@
 
 The features that may set of a new release and things to look out for:
+  - Move to lowercase filenames
+  - Remove all author mentions (copyright me) from source files to make it more patchable for others.
   - Add an interactive gui
   - Add transition paths to various install/distribution systems (autotools, icmake, aap etc)
   - Move from MD5 to SHA1 (just because MD5 is not secure and everybody should move away from it, just to be sure)
