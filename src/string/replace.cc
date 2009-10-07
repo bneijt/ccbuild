@@ -1,4 +1,4 @@
-#include "String.ih"
+#include "string.ih"
 std::string String::replace(char from, char to) const
 {
 				std::string copy(*this);

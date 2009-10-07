@@ -27,7 +27,7 @@
 #include "../Options/Options.hh"
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
-#include "../String/String.hh"
+#include "../string/string.hh"
 
 #include <iostream>
 #include <fstream>
