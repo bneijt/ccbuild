@@ -138,6 +138,7 @@ bool System::parseArguments(Arguments &arg)
 	
 	if(arg.flagged("h"))
 	{
+	  coutLock.set();
 		cout << "\tccbuild - A strict developer's build utility\n";
 		cout << "Version " << Options::version << ", Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>\n";
 		cout << "ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2\n";
@@ -161,18 +162,19 @@ bool System::parseArguments(Arguments &arg)
 		cout << " 'something.h<tab> `/usr/bin/pkg-config --libs --cflags package`'\n";
 		cout << "'#'=comment start, '#&' at first line appends ccbuild arguments.\n";
 		cout << "Resolution files are (in order):\n './ccResolutions' '~/.ccbuild/ccResolutions' '~/.ccbuild/ccResolutions.d/*'\n";
-
-
+	  coutLock.unset();
 
 		return true;
 	}
 	if(arg.flagged("V"))
 	{
+    cerrLock.set();
 		cerr << "\tccbuild - A strict developer's build utility\n";
 		cerr << " Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>\n";
 		cerr << " ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL version 2\n";
 		cerr << "Version number is" << endl;
 		cout << Options::version << "\n";
+    cerrLock.unset();
 		return true; 
 	}
 

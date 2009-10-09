@@ -100,9 +100,8 @@ void System::build(Source *source, Compiler &cc)
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
     size_t numNeedLink = 0;
-    size_t size = objectTargets.size();
     #pragma omp parallel for
-    for(size_t i = 0; i < size; ++i)
+    for(vector<Source *>::size_type i = 0; i < objectTargets.size(); ++i)
     {
       //_debugLevel4("Building: " << (*src)->filename());
       if(!objectTargets[i]->upToDate())

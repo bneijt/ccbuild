@@ -24,6 +24,7 @@ namespace bneijt
 {
 
 static OpenMP::Lock cerrLock;
+static OpenMP::Lock coutLock;
 
 } //Namespace
 #endif

@@ -17,7 +17,7 @@
 
 */
 
-#include "String.hh"
+#include "string.hh"
 #include <string>
 #include <vector>
 #include <iostream>
