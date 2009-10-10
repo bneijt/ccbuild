@@ -38,8 +38,8 @@
 
 #include "../Options/Options.hh"
 #include "../FileSystem/FileSystem.hh"
-#include "../System/system.hh"
-#include "../Problem/Problem.hh"
+#include "../system/system.hh"
+#include "../problem/problem.hh"
 
 //#define DEBUGLEVEL 5
 #include "../misc/debug.hh"

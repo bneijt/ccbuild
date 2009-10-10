@@ -41,7 +41,8 @@
   </pre>
 */
 
-#include "System/system.hh"
+#include "problem/problem.hh"
+#include "system/system.hh"
 #include "source/source.hh"
 #include "FileSystem/FileSystem.hh"
 #include "globallocks/globallocks.hh"

@@ -21,7 +21,7 @@
 
 #include "Resolver.hh"
 #include "../FileSystem/FileSystem.hh"
-#include "../System/system.hh"
+#include "../system/system.hh"
 #include "../Globals/Globals.hh"
 #include "../misc/foreach.hh"
 

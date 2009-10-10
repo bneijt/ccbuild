@@ -18,6 +18,12 @@
 */
 
 
-#include "Problem.hh"
 
-using namespace bneijt;
+#include "problem.ih"
+
+Problem::Problem(Id id, std::string const &message, int status) throw()
+	:
+	d_stat(status),
+	d_msg(message),
+	d_id(id)
+{}

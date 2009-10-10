@@ -25,7 +25,7 @@
 #include "../source/source.hh"
 #include "../Compiler/Compiler.hh"
 #include "../arguments/arguments.hh"
-#include "../Problem/Problem.hh"
+#include "../problem/problem.hh"
 
 #include <string>
 #include <iosfwd>
