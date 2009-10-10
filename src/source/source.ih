@@ -19,44 +19,39 @@
 
 
 
-#include "system.hh"
-#include "../sources/sources.hh"
+#include "source.hh"
 #include "../Resolver/Resolver.hh"
+#include "../sources/sources.hh"
+#include "../SourceScanner/SourceScanner.hh"
 #include "../FileSystem/FileSystem.hh"
 #include "../Options/Options.hh"
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
-#include "../globallocks/globallocks.hh"
+#include "../string/string.hh"
 
 #include <iostream>
-#include <stack>
-#include <set>
 #include <fstream>
-#include <algorithm>
+#include <sstream>
 #include <functional>
-#include <iterator>
-#include <unistd.h>
-#include <cstring>
-#include <bobcat/process>
-#include <cstdlib>
-#include <omp.h>
+#include <algorithm>
 #include <numeric>
-#include <sys/utsname.h>
-#include <boost/circular_buffer.hpp>
+#include <iterator>
+#include <glob.h>
+#include <stack>
+#include <cassert>
 
-#include "../posix/wordexp.h"
-//#ifndef _NO_WORDEXP_
-//#include <wordexp.h>
-//#endif
-
-//#include <sys/types.h>
-//#include <sys/wait.h>
+// (2) stat includes
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 
-//#define DEBUGLEVEL 3
+//#define DEBUGLEVEL 2
 
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"
+
+
 
 using namespace std;
 using namespace bneijt;

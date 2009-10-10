@@ -18,11 +18,11 @@
 */
 
 
-#ifndef _System_H_INCLUDED_
-#define _System_H_INCLUDED_
+#ifndef System_H_INCLUDED_
+#define System_H_INCLUDED_
 
 
-#include "../Source/Source.hh"
+#include "../source/source.hh"
 #include "../Compiler/Compiler.hh"
 #include "../arguments/arguments.hh"
 #include "../Problem/Problem.hh"

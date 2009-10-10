@@ -19,44 +19,18 @@
 
 
 
-#include "system.hh"
-#include "../sources/sources.hh"
-#include "../Resolver/Resolver.hh"
+#include "sources.hh"
 #include "../FileSystem/FileSystem.hh"
-#include "../Options/Options.hh"
-#include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
-#include "../globallocks/globallocks.hh"
+
 
 #include <iostream>
-#include <stack>
-#include <set>
-#include <fstream>
 #include <algorithm>
-#include <functional>
-#include <iterator>
-#include <unistd.h>
-#include <cstring>
-#include <bobcat/process>
-#include <cstdlib>
-#include <omp.h>
-#include <numeric>
-#include <sys/utsname.h>
-#include <boost/circular_buffer.hpp>
 
-#include "../posix/wordexp.h"
-//#ifndef _NO_WORDEXP_
-//#include <wordexp.h>
-//#endif
-
-//#include <sys/types.h>
-//#include <sys/wait.h>
-
-
-//#define DEBUGLEVEL 3
-
+//#define DEBUGLEVEL 8
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"
 
-using namespace std;
+
 using namespace bneijt;
+using namespace std;

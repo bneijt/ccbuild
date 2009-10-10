@@ -42,7 +42,7 @@
 */
 
 #include "System/system.hh"
-#include "Source/Source.hh"
+#include "source/source.hh"
 #include "FileSystem/FileSystem.hh"
 #include "globallocks/globallocks.hh"
 #include "misc/foreach.hh"
@@ -50,7 +50,7 @@
 
 //Singletons...
 #include "arguments/arguments.hh"
-#include "Sources/Sources.hh"
+#include "sources/sources.hh"
 #include "MD5Info/MD5Info.hh"
 
 
