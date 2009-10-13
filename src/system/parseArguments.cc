@@ -136,6 +136,10 @@ bool System::parseArguments(Arguments &arg)
 		}
 	}
 	
+	if(arg.flagged("j")) //Multiple processing, number of threads to use
+	{
+	  omp_set_num_threads(boost::lexical_cast<int>(arg.value("j")));
+	}
 	
 	if(arg.flagged("h"))
 	{
@@ -178,6 +182,7 @@ bool System::parseArguments(Arguments &arg)
     cerrLock.unset();
 		return true; 
 	}
+
 
 	return false;
 }

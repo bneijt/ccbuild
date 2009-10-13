@@ -150,6 +150,7 @@ try
     {"V version", "", "Output ccbuild version number to stdout"},
     {"xml", "", "Where supported, produce XML output"},
     {"nowarn", "", "Leave out most warnings"},
+    {"j", "<integer>", "Set number of processes to use."},
     {"", "", ""}	//End of list
   };
 

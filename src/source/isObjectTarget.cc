@@ -23,6 +23,6 @@
 #include "source.ih"
 bool Source::isObjectTarget() const
 {
-	//Everything with a source extension but which isn't a binary target must be an object target.
-  return !isBinTarget() && hasSourceExtension();
+	//It is an object target is it has a source extension
+  return hasSourceExtension();
 }

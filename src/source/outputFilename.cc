@@ -28,14 +28,11 @@ std::string Source::outputFilename() const
 	{
 	  //Output into a seperate directory with path in filename
 		// OLD per directory output directory directory() + "/o/" + basename() + ".o";
-		String oname = String(directory()).replace('/', '_') + "_" + basename() + ".o";
-		//Strip any ._ beginning
-		if(oname.startsWith("._"))
-		  oname = oname.substr(2);
+		String oname = directory() +"/"+ basename() + ".o";
 		return "o/objects/" + oname;
   }
 	if(isHeader())
 		return filename() + ".gch";
-
+  throw Problem(Problem::Unable, "Output filename could not be determined. This is an internal error and should be reported as a bug.");
 	return "";
 }

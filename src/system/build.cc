@@ -15,12 +15,16 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
+
+namespace {
+
+bool sourceIsBinaryTarget(Source const *src)
+{
+  return src->isBinTarget();
+}
+}
+
 
 void System::build(Source *source)
 {
@@ -35,8 +39,13 @@ void System::build(Source *source, Compiler &cc)
   vector<Source *> srcList, objectTargets, localHeaders, internalHeaders;
   
 	srcList.push_back(source);
-	collectTargets(srcList);
+	collectTargets(srcList); //Recursive search for all sources we need
 
+  //Remove any of the sources that are binTargets because they would introduce a second main at link time
+  auto last = remove_if(srcList.begin(), srcList.end(), sourceIsBinaryTarget);
+  srcList.erase(last, srcList.end());//TODO do a real check for memory leaks on this, but I think Sources will track this.
+  srcList.push_back(source);//Add the root binTarget again
+  
 	//Seperate sources into lists
 	__foreach(src, srcList)
 	{
@@ -85,18 +94,6 @@ void System::build(Source *source, Compiler &cc)
 	}
 
   //Build the objects and add them as links to the compiler
-/*
-  //OLD SYSTEM
-  __foreach(src, objectTargets)
-  {
-   	_debugLevel4("Building: " << (*src)->filename());
-   	needLink = ((*src)->upToDate()) ? needLink : true;
-    (*src)->build(cc);
-    cc.rmCompileOptions();
-  }
-*/
-
-  if(objectTargets.size())
   {//Encaps iterator
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
@@ -112,6 +109,7 @@ void System::build(Source *source, Compiler &cc)
     }
     //Test whether linking is needed
     needLink = numNeedLink > 0 ? needLink : true;
+    
     //Acuumulate the compilers
     cc = accumulate(compilers.begin(), compilers.end(), cc);
     
@@ -141,9 +139,6 @@ void System::build(Source *source, Compiler &cc)
   		cc.addObject(source->directory() + "/o/" + source->basename() + ".ar.o");
 		}
 		
-		//Build the main source
-  	source->buildBinTarget(cc);
-  	
     cc.link(source->directory(), outputFilename);
   }
   else

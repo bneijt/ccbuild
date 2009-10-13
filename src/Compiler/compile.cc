@@ -37,7 +37,9 @@ int Compiler::compile(std::string pwd, std::string target,
 
   if(retValue != 0)
   {
+    cerrLock.set();
     cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    cerrLock.unset();
 
     if(!Options::execOnFail.empty())
     	System::system((Options::execOnFail + " \"" + target + "\"").c_str());

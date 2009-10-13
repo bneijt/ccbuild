@@ -36,10 +36,11 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
     FBB::Process process(FBB::Process::CIN |
                                   FBB::Process::COUT |
                                   FBB::Process::MERGE_COUT_CERR,
+                         FBB::Process::USE_PATH,
                          command);
-    process.start(FBB::Process::USE_PATH);
+    process.start();
     //Close input
-    process.close();
+    process.close(); //We specified CIN so this should be ok.
     
     //TODO Rewrite to copy call with back_inserter
 		string line;

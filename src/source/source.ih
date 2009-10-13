@@ -28,6 +28,7 @@
 #include "../Globals/Globals.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../string/string.hh"
+#include "../problem/problem.hh"
 
 #include <iostream>
 #include <fstream>

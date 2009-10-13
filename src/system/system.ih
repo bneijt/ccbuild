@@ -43,6 +43,7 @@
 #include <numeric>
 #include <sys/utsname.h>
 #include <boost/circular_buffer.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include "../posix/wordexp.h"
 //#ifndef _NO_WORDEXP_

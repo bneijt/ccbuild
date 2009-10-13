@@ -18,8 +18,8 @@
 */
 
 
-#ifndef _Problem_HH_INCLUDED_
-#define	_Problem_HH_INCLUDED_
+#ifndef Problem_HH_INCLUDED_
+#define	Problem_HH_INCLUDED_
 
 #include <string>
 
