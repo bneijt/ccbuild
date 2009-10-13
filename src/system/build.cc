@@ -42,7 +42,7 @@ void System::build(Source *source, Compiler &cc)
 	collectTargets(srcList); //Recursive search for all sources we need
 
   //Remove any of the sources that are binTargets because they would introduce a second main at link time
-  auto last = remove_if(srcList.begin(), srcList.end(), sourceIsBinaryTarget);
+  auto last = remove_if(srcList.begin(), srcList.end(), sourceIsBinaryTarget); //I want lambda functions... I want lambda functions..
   srcList.erase(last, srcList.end());//TODO do a real check for memory leaks on this, but I think Sources will track this.
   srcList.push_back(source);//Add the root binTarget again
   
@@ -55,7 +55,7 @@ void System::build(Source *source, Compiler &cc)
 			internalHeaders.push_back(*src);
 		else if((*src)->isHeader())
 			localHeaders.push_back(*src);
-		//Rest are main targets, leave these out.
+	  //TODO: Maybe use a target identifier bitset (can be both object and main) and a switch
 	}
 	srcList.clear();
 
@@ -107,17 +107,17 @@ void System::build(Source *source, Compiler &cc)
       objectTargets[i]->build(compilers[i]);
       compilers[i].rmCompileOptions();
     }
+
     //Test whether linking is needed
-    needLink = numNeedLink > 0 ? needLink : true;
+    needLink = (numNeedLink > 0 ? true : needLink);
     
     //Acuumulate the compilers
     cc = accumulate(compilers.begin(), compilers.end(), cc);
     
   }//encaps iter
-
 	//Build the binTarget object if needed
   needLink = (source->upToDate()) ? needLink : true;
-
+  
 
 
 	//Re-link if any object is newer then the link target
@@ -128,15 +128,16 @@ void System::build(Source *source, Compiler &cc)
   if(needLink)
   {
   	forceLink = true;	//Force linking of other builds
-		if(! cc.objects().empty() && Options::interAr)
+		if(Options::interAr)
 		{
 	  	//Archive, clear object, add archive, links
   		FileSystem::ensureDirectory(source->directory() + "/o");
-			cc.ar(source->directory() + "/o", source->basename() + ".ar.o");
-			cc.rmObjects();
+  		std::string arName(source->directory() + "/o/" + source->basename() + ".ar.o");
+			cc.ar(arName);
+      cc.rmObjects();
 			
 			//Add archive as object to compiler
-  		cc.addObject(source->directory() + "/o/" + source->basename() + ".ar.o");
+      cc.addObject(arName);
 		}
 		
     cc.link(source->directory(), outputFilename);

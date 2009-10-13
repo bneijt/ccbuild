@@ -22,12 +22,12 @@
 
 #include "Compiler.ih"
 
-int Compiler::ar(std::string pwd, std::string target) const
+int Compiler::ar(std::string target) const
 {
-
 	//Construct ar command
-  ostringstream command("ar rcs ", ios::ate);
-  command << " " << pwd << "/" << target;
+	//  ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]
+  ostringstream command("ar qcs ", ios::ate);
+  command << " " << target;
 
   __foreach(obj, d_objects)
     command << " \"" << (*obj) << "\"";
@@ -36,8 +36,9 @@ int Compiler::ar(std::string pwd, std::string target) const
 	
   //Remove the output file
   FileSystem::rmIfExists(target);
-
+  cerrLock.set();
   cerr << "[AR] " << target << "\n";
+  cerrLock.unset();
 
 	//Run ar command
 	int retValue = System::system(command.str().c_str());
@@ -45,10 +46,12 @@ int Compiler::ar(std::string pwd, std::string target) const
 
   if(retValue != 0)
   {
+    cerrLock.set();
     cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    cerrLock.unset();
 
     if(!Options::brute)
-    	throw Problem(Problem::Subfailure, "Archiving failed on " + target, retValue);
+    	throw Problem(Problem::Subfailure, "Ar failed to create " + target, retValue);
   }
 
   return retValue;

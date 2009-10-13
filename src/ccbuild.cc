@@ -145,7 +145,7 @@ try
     {"nodefres", "", "Don't load any ccResolutions files but ./ccResolutions"},
     {"addres", "<file>", "Also load this resolution file"},
     {"pversion", "<version>", "Set the program version you are working on (used by the lib command)"},
-    {"ar", "", "Archive before link [EXPERIMENTAL]"},
+    {"ar", "", "Archive before link (can shrink size for release)"},
     {"verbose", "", "Show executed commands and produce more output for dot and check commands"},
     {"V version", "", "Output ccbuild version number to stdout"},
     {"xml", "", "Where supported, produce XML output"},

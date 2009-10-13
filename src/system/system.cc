@@ -53,13 +53,13 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
 
 	//Highlight ON
   if(Options::highlight)
-	  cerr << "\x1b\x5b\x33\x31\x6d" << flush; //\e[31m
+	  cerr << "\x1b\x5b\x33\x31\x6d"; //\e[31m
 
   copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
 
 	//Highlight OFF
   if(Options::highlight)
-	  cerr << "\x1b\x5b\x30\x6d" << flush; //\\e[0m
+	  cerr << "\x1b\x5b\x30\x6d"; //\\e[0m
 
   cerrLock.unset();
 

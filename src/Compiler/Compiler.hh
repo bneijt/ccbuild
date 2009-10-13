@@ -112,10 +112,9 @@ class Compiler
 
 	  /**\brief Create an archive from all the objects
 	  
-	  	\param pwd Working directory to use
 	  	\param outputFile The file to use for output
 	  */
-	  int ar(std::string pwd,	std::string outputFile) const;
+	  int ar(std::string outputFile) const;
 
 		/**\brief Return the library creation command to create a library
 

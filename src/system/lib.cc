@@ -110,15 +110,17 @@ int System::lib(std::string const &version, Source *src)
 
   if(needLink)
   {
-  		cc.ar(".", outputAr);
+  		cc.ar(outputAr);
   		if(!version.empty())
   			cc.lib(".", "lib" + pn + ".so", version);
   }
   else
   {
+    cerrLock.set();
   	if(Options::clearPerCommand)
   	  cerr << "\33[H\33[2J";
     cerr << "[DONE LIB]\n";
+    cerrLock.unset();
   }
   return 0;
 }
