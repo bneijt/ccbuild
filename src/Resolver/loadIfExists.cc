@@ -58,20 +58,14 @@ bool Resolver::loadIfExists(std::string const &confFile, bool report)
     //Find a seperating tab
     string::size_type i = line.find_first_of("\t");
 
-    if(i == string::npos)
-    {
-    	//Try to recover with a space seperation
+    if(i == string::npos) //Try to recover with a space seperation
 	    i = line.find_first_of(" ");
-	    if(i == string::npos)
-	    {
-	    	cerr << "ccbuild: Error: Non empty configuration line " << linenr << " without space or tab character,\n";
-	    	cerr << "ccbuild: Error: in file:  '" << confFile << "'.\n";
-	      continue;
-			}
-		}
 
 		global = line.substr(0, i);
-		arguments = line.substr(i + 1);
+
+		arguments = "";
+		if(i != string::npos)
+  		arguments = line.substr(i + 1);
 
 		System::trim(&global);
 		System::trim(&arguments);
