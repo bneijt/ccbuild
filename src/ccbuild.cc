@@ -606,4 +606,5 @@ catch(const std::exception &e)
 	//All is LOST... nothing to do here but die
   cerr << "Caught std::exception (" << typeid(e).name() << "): " << e.what();
   cerr << "\nPlease report this as a bug.\n";
+  return 1;
 }

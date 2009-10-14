@@ -18,7 +18,10 @@
 #include "system.ih"
 
 namespace {
-
+bool byMTime(Source const *a, Source const *b)
+{
+  return FileSystem::modTime(a->filename()) < FileSystem::modTime(b->filename());
+}
 bool sourceIsBinaryTarget(Source const *src)
 {
   return src->isBinTarget();
@@ -92,6 +95,10 @@ void System::build(Source *source, Compiler &cc)
 		__foreach(src, internalHeaders)
 			FileSystem::rmIfExists((*src)->outputFilename());
 	}
+
+  //Sort objects by mtime
+  sort(objectTargets.rbegin(), objectTargets.rend(), byMTime);
+
 
   //Build the objects and add them as links to the compiler
   {//Encaps iterator

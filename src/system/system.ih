@@ -54,7 +54,7 @@
 //#include <sys/wait.h>
 
 
-//#define DEBUGLEVEL 3
+//#define DEBUGLEVEL 5
 
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"

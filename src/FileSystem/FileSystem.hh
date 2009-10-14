@@ -24,6 +24,9 @@
 #include <vector>
 #include <sys/types.h>
 
+#include "../problem/problem.hh"
+
+
 #ifndef GLOB_ONLYDIR
 #define GLOB_ONLYDIR 0
 #endif
@@ -126,7 +129,7 @@ class FileSystem
     static bool newer(std::string const &file1, std::string const &file2);
     
     ///\brief Return the modification time for the given file
-		static time_t modTime(std::string const &file);
+		static time_t modTime(std::string const &file) throw (Problem);
 		
     ///\brief Returns true when the given file is readable
     static bool isReadable(std::string const &file);

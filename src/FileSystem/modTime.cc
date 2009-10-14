@@ -15,16 +15,14 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "FileSystem.ih"
-time_t FileSystem::modTime(string const &file)
+time_t FileSystem::modTime(string const &file) throw (Problem)
 {
   struct stat statbuff;
   if(stat(file.c_str(), &statbuff) != 0)
+  {
+    throw Problem(Problem::Missing, "Could not stat \"" + file +"\"\n\tFailed to get requested modTime.");
   	return 0;
+  }
   return statbuff.st_mtime;
 }

@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 int System::system(std::string const &command, bool simulate) throw (Problem)
@@ -30,6 +25,7 @@ int System::system(std::string const &command, bool simulate) throw (Problem)
   
   //Run command caching output
 	int status = 0;
+	_debugLevel3((simulate ? "Simulation on" : "Simulation off"));
 	if(!simulate)
 	{  
 		//status = ::system(command.c_str());

@@ -35,8 +35,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "../misc/foreach.hh"
 #include "../Options/Options.hh"
+
+#include "../misc/foreach.hh"
 
 
 //#define DEBUGLEVEL 5
