@@ -67,8 +67,10 @@ void System::icmake(Source *source)
 	//Never include the local directory "."
 	if(dirList.count(".") != 0)
 		dirList.erase(".");
-	
-	copy(dirList.begin(), dirList.end(), ostream_iterator<string>(cout, " "));
+
+	coutLock.set();
+	copy(dirList.begin(), dirList.end(), ostream_iterator<string>(cout, "\n"));
+	coutLock.unset();
 }
 
 
