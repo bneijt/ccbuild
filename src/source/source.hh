@@ -34,7 +34,6 @@
 
 #include "../Compiler/Compiler.hh"
 
-
 namespace bneijt
 {
 

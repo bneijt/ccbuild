@@ -30,6 +30,7 @@
 #include "../string/string.hh"
 #include "../problem/problem.hh"
 #include "../globallocks/globallocks.hh"
+#include "../openmp/scopedLock/scopedLock.hh"
 
 #include <iostream>
 #include <fstream>

@@ -30,10 +30,10 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
   ifstream file(d_filename.c_str());
   if(!file)
   {
-    cerr << "\n\nSource::scan.cc:  THIS SHOULD NOT BE POSSIBLE!!!\n\n";
+    cerr << "Could not open the source file for scanning: " << d_filename << endl;
     return;
   }
-
+  OpenMP::ScopedLock fl(flexLock);
   SourceScanner *scanner = new SourceScanner(&file);
   try
   {
@@ -47,15 +47,19 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
     
 		if(Options::verbose && ignore->size() > 0)
 		{
+		  cerrLock.set();
 			__foreach(ig, *ignore)
 				cerr << "ccbuild: warning: ignoring \"" << *ig << "\" in \"" << filename() << "\"\n";
+		  cerrLock.unset();
 		}
   }
   catch(SourceScanner::Error err)
   {
   	//Errors are seen just after they are encountered, thus decrement lineno.
+  	coutLock.set();
     cout << "Include scanning error on line " << scanner->lineno() - 1
     		 << " in file " << d_filename << "\n";
+  	coutLock.unset();
   }
 
   delete scanner;
