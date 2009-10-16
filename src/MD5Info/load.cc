@@ -49,8 +49,9 @@ void MD5Info::load(std::string const &filename)
 		hashInfo = line;
 
     _debugLevel4("Recall: " << hashInfo << " for '" << filename << "'");
-    OpenMP::ScopedLock a(d_lock);
+    d_oldLock.set();
     d_old[filename] = hashInfo;
+    d_oldLock.unset();
   }
 
   file.close();

@@ -23,14 +23,16 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
 	//Save information out of current
 	std::string hashFilename = hashFilenameFor(filename);
 	
-  OpenMP::ScopedLock a(d_lock);
-	d_old[filename] = hash;
+	d_oldLock.set();
+  d_old[filename] = hash;
+	d_oldLock.unset();
 
+  
 	//Ensure directory	
 	FileSystem::ensureDirectory(FileSystem::directoryName(hashFilename));
 
 	//Open and write file	
-	ofstream file(hashFilename, ios::trunc);
+	std::ofstream file(hashFilename, ios::trunc);
 
 	if(!file.is_open())
 	{
@@ -38,7 +40,7 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
 		return;
 	}
 
-	file << d_old[filename] << "\n";
+	file << hash << "\n";
 	file.close();
 }
 

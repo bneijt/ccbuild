@@ -15,19 +15,17 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 std::string const &MD5Info::old(std::string const &filename)
 {
-  OpenMP::ScopedLock lock(d_lock);
+  d_oldLock.set();
+	bool available = d_old.count(filename) == 0;
+  d_oldLock.unset();
 	//Try to load it from disk
-	if(d_old.count(filename) == 0)
-		load(filename);
-
+	if(not available)
+  	load(filename);
+	
+  OpenMP::ScopedLock lock(d_oldLock);
 	return d_old[filename];
 }

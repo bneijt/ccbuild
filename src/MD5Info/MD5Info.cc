@@ -16,10 +16,6 @@
 */
 
 
-
-
-
-
 #include "MD5Info.ih"
 
 MD5Info::MD5Info()

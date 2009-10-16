@@ -21,7 +21,7 @@
 #include "../FileSystem/FileSystem.hh"
 #include "../system/system.hh"
 #include "../openmp/scopedLock/scopedLock.hh"
-#include "MD5Hash/MD5Hash.hh"
+//#include "MD5Hash/MD5Hash.hh"
 
 #include <sstream>
 
@@ -29,12 +29,15 @@
 #include <iterator>
 #include <iostream>
 #include <cassert>
+#include <openssl/evp.h>
+#include <fstream>
+#include <cstdio>
 
 #include "../Options/Options.hh"
 
 #include "../misc/foreach.hh"
 
-//#define DEBUGLEVEL 6
+#define DEBUGLEVEL 6
 #include "../misc/debug.hh"
 
 using namespace bneijt;

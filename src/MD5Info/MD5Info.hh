@@ -42,16 +42,18 @@ namespace bneijt
 */
 class MD5Info
 {
-    OpenMP::Lock d_lock;
 		static MD5Info *s_instance;	///<Static pointer to the instance
 		
 		std::map<std::string, std::string> d_old;	///< A map of filename-hashstring for containing cached information
+    OpenMP::Lock d_oldLock;
 		std::map<std::string, std::string> d_new;	///< A map of filename-hashstring for the new md5sum information
+    OpenMP::Lock d_newLock;
 
 		/**\brief The cached content hash of the file on disk.
 		*/
 		std::map<std::string, std::string> d_content;
-		
+    OpenMP::Lock d_contentLock;
+
 	public:
 		/**\brief Get the instance
 		

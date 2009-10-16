@@ -1,7 +1,7 @@
 Currently ccbuild depends on the following libraries:
   libbobcat 2.0 or higher
   libgomp 1.0+ (OpenMP)
-	libgcrypt 1.4.4+ (MD5 algorithm)
+	libopenssl (MD5 algorithm)
 
 Shortcut: ./configure && make && sudo make install
 
