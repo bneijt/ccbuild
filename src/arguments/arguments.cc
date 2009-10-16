@@ -15,10 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
 #include "arguments.ih"
 
 Arguments::Arguments(Option const *options, int argc, char *argv[])

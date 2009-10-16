@@ -45,7 +45,7 @@ void System::build(Source *source, Compiler &cc)
 	collectTargets(srcList); //Recursive search for all sources we need
 
   //Remove any of the sources that are binTargets because they would introduce a second main at link time
-  auto last = remove_if(srcList.begin(), srcList.end(), sourceIsBinaryTarget); //I want lambda functions... I want lambda functions..
+  std::vector<Source *>::iterator last = remove_if(srcList.begin(), srcList.end(), sourceIsBinaryTarget); //I want lambda functions... I want lambda functions..
   srcList.erase(last, srcList.end());//TODO do a real check for memory leaks on this, but I think Sources will track this.
   srcList.push_back(source);//Add the root binTarget again
   

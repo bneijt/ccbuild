@@ -32,7 +32,7 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
 	FileSystem::ensureDirectory(FileSystem::directoryName(hashFilename));
 
 	//Open and write file	
-	std::ofstream file(hashFilename, ios::trunc);
+	std::ofstream file(hashFilename.c_str(), ios::trunc);
 
 	if(!file.is_open())
 	{

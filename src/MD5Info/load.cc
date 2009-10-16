@@ -23,7 +23,7 @@ void MD5Info::load(std::string const &filename)
 	//Load a configuration file if it exists
 	std::string const confFile = hashFilenameFor(filename);
 	
-  ifstream file(confFile);
+  ifstream file(confFile.c_str());
   _debugLevel1("Loading: '" << confFile << "'");
 	
   if(!file.is_open())

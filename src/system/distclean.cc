@@ -111,7 +111,7 @@ void System::distclean()
 		directoryDeathList.push_back(dir);
 		
 	}
-	auto end = unique(directoryDeathList.begin(), directoryDeathList.end());
+	vector<string>::iterator end = unique(directoryDeathList.begin(), directoryDeathList.end());
 	directoryDeathList.erase(end, directoryDeathList.end());
 	sort(directoryDeathList.rbegin(), directoryDeathList.rend(), stringLength);
 	
