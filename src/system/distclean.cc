@@ -30,13 +30,17 @@ bool leaveDirectory(std::string const &rvalue)
 		return true;
 	return rvalue.compare(rvalue.size() -2, 2, "/o") != 0;
 }
+
+bool stringLength(std::string const &a, std::string const &b)
+{
+  return a.size() < b.size();
 }
 
-void System::distclean()
+void recursivelyRemoveGCH()
 {
-	//Clean everything
+  	//Clean everything
 	stack<string> directoryStack;
-	directoryStack.push(".");
+	directoryStack.push(Options::cacheRoot);
 	vector<string> rmList;
 	
 	//TODO: Rewrite to rm -rf o (but smarter) and the old rm */*/*.gch
@@ -57,10 +61,46 @@ void System::distclean()
 		vector<string> fileList;
 		FileSystem::globFilesInto(&fileList, dir + "/*.gch");
 
-		//All /o/*.md5 and /o/*.o
-		FileSystem::globFilesInto(&fileList, dir + "/o/*.md5");
-		FileSystem::globFilesInto(&fileList, dir + "/o/*.o");
-		FileSystem::globFilesInto(&fileList, dir + "/o/*.rpo");
+		__foreach(target, fileList)
+		{
+			cerr << "[RM] '" << *target << "'\n";
+			if(unlink((*target).c_str()) != 0)
+				cerr << "[RM] failed on '" << *target << "'\n";
+		}
+	}
+
+}
+}
+
+void System::distclean()
+{
+  //Remove all GCH files
+  recursivelyRemoveGCH();
+  
+	//Clean everything else in the O directory
+	stack<string> directoryStack;
+	directoryStack.push(Options::cacheRoot);
+	vector<string> rmList;
+	vector<string> directoryDeathList;
+	
+	//Generate a list of directories
+	while(directoryStack.size() > 0)
+	{
+		vector<string> list;
+		string dir = directoryStack.top();
+		directoryStack.pop();
+
+		FileSystem::globDirectoriesInto(&list, dir + "/*");
+		__foreach(d, list)
+			if(find(rmList.begin(), rmList.end(), *d) == rmList.end())
+				directoryStack.push(*d);
+
+		//Clear local files out of the directory
+		vector<string> fileList;
+
+		//All *.md5 and *.o
+		FileSystem::globFilesInto(&fileList, dir + "/*.md5");
+		FileSystem::globFilesInto(&fileList, dir + "/*.o");
 		
 		__foreach(target, fileList)
 		{
@@ -68,14 +108,18 @@ void System::distclean()
 			if(unlink((*target).c_str()) != 0)
 				cerr << "[RM] failed on '" << *target << "'\n";
 		}
+		directoryDeathList.push_back(dir);
 		
-		//Remove if it's an 'o' directory.
-		if(! leaveDirectory(dir))
-		{
-			cerr << "[RMDIR] " << dir << "\n";
-			if(rmdir((dir).c_str()) != 0)
-				cerr << "ccbuild: rmdir failed on '" << dir << "'\n";
-		}
 	}
-
+	auto end = unique(directoryDeathList.begin(), directoryDeathList.end());
+	directoryDeathList.erase(end, directoryDeathList.end());
+	sort(directoryDeathList.rbegin(), directoryDeathList.rend(), stringLength);
+	
+  __foreach(dir, directoryDeathList)
+  {
+		//Remove if it's an 'o' directory.
+		cerr << "[RMDIR] " << *dir << "\n";
+		if(rmdir(dir->c_str()) != 0)
+			cerr << "ccbuild: rmdir failed on '" << *dir << "'\n";
+  }
 }
