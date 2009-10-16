@@ -37,7 +37,7 @@
 
 #include "../misc/foreach.hh"
 
-#define DEBUGLEVEL 6
+//#define DEBUGLEVEL 6
 #include "../misc/debug.hh"
 
 using namespace bneijt;
