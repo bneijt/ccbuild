@@ -1,4 +1,4 @@
-#& -l -p --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -std=c++0x" --md5
+#& -l --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -std=c++0x" --md5
 # This file now requires ccbuild > 1.5.7
 #	Some options have no resolution, they should
 #	be installed on any POSIX Linux system and don't

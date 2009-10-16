@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 
 std::string Source::outputFilename() const
@@ -28,8 +23,8 @@ std::string Source::outputFilename() const
 	{
 	  //Output into a seperate directory with path in filename
 		// OLD per directory output directory directory() + "/o/" + basename() + ".o";
-		String oname = directory() +"/"+ basename() + ".o";
-		return "o/objects/" + oname;
+		String oname = FileSystem::absolutePath(directory()) +"/"+ basename() + ".o";
+		return Options::cacheRoot + "/objects/" + oname.substr(1);
   }
 	if(isHeader())
 		return filename() + ".gch";

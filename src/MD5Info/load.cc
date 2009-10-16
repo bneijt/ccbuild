@@ -15,23 +15,17 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 void MD5Info::load(std::string const &filename)
 {
 
 	//Load a configuration file if it exists
-	string confFile = hashFilenameFor(filename);
+	std::string const confFile = hashFilenameFor(filename);
 	
-  ifstream file(confFile.c_str());
+  ifstream file(confFile);
   _debugLevel1("Loading: '" << confFile << "'");
 	
-
   if(!file.is_open())
   {
   	_debugLevel1("Unable to open: '" << confFile << "'");
@@ -55,6 +49,7 @@ void MD5Info::load(std::string const &filename)
 		hashInfo = line;
 
     _debugLevel4("Recall: " << hashInfo << " for '" << filename << "'");
+    OpenMP::ScopedLock a(d_lock);
     d_old[filename] = hashInfo;
   }
 

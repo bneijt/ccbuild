@@ -23,6 +23,7 @@
 
 #include <string>
 #include <vector>
+
 namespace bneijt
 {
 /**\brief A collection of static variables containing options
@@ -39,6 +40,7 @@ struct Options
 	static std::string commandAppend;				///<To append to every compiled command (--append)
 	static std::string homepage;				///<The homepage to mention in scripts
 	static std::string progVersion;				///<The version (of the library) as given by --version.
+	static std::string cacheRoot;				///<The root of the cache, defaults to 'o'
 
 
 	static bool md5;				///<Wether to use MD5 checks

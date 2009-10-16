@@ -87,7 +87,7 @@ class MD5Info
 		the cleaning part of the program.
 		*/
 		static std::string hashFilenameFor(std::string const &filename);
-
+    
 	private:
 		
 		///\brief Load the hash for the given file from the default place

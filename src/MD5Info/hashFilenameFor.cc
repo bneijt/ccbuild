@@ -15,14 +15,10 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 std::string MD5Info::hashFilenameFor(std::string const &filename)
 {
-	return "o/meta/md5/" + FileSystem::cleanPath(filename) + ".md5";
+	return Options::cacheRoot + "/md5/" + FileSystem::absolutePath(filename).substr(1);
 }
+

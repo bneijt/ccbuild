@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "Options.ih"
 
 std::string Options::version("1.5.8SVN");
@@ -30,7 +25,7 @@ std::string Options::commandAppend("");
 std::string Options::execOnFail("");
 std::string Options::homepage("http://ccbuild.sourceforge.net");
 std::string Options::progVersion("");
-//std::string Options::("");
+std::string Options::cacheRoot("o");
 //std::string Options::("");
 
 bool Options::md5(false);

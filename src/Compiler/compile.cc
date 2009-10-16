@@ -27,7 +27,9 @@ int Compiler::compile(std::string pwd, std::string target,
 {
 	cls();
 
+  cerrLock.set();
   cerr << "[CC] " << target << "\n";
+  cerrLock.unset();
 
   string command = compileCommand(pwd, target, outputFile);
 

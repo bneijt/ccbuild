@@ -15,25 +15,22 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 void MD5Info::save(std::string const &filename, std::string const &hash)
 {
+  
 	//Save information out of current
-	string hashFilename = hashFilenameFor(filename);
+	std::string hashFilename = hashFilenameFor(filename);
 	
+  OpenMP::ScopedLock a(d_lock);
 	d_old[filename] = hash;
 
 	//Ensure directory	
 	FileSystem::ensureDirectory(FileSystem::directoryName(hashFilename));
 
 	//Open and write file	
-	ofstream file(hashFilename.c_str(), ios::trunc);
+	ofstream file(hashFilename, ios::trunc);
 
 	if(!file.is_open())
 	{
@@ -44,3 +41,4 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
 	file << d_old[filename] << "\n";
 	file.close();
 }
+

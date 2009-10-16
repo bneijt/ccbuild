@@ -54,7 +54,7 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 		//MD5 sum concatenated hash check
 		//If the concatenated hash of this and it's deps changed
 		//  then we are not up to date
-		//TODO Optimize with halfway unequal check.
+		//TODO Optimize with halfway unequal check?
 		
 		MD5Info &md5i = MD5Info::getInstance();
 		string collectedHash = md5i.contentHash(filename());

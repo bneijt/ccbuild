@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "FileSystem.ih"
 
 bool FileSystem::rmIfExists(std::string const &filename)
@@ -42,3 +37,4 @@ bool FileSystem::rmIfExists(std::string const &filename)
 
 	return true;
 }
+

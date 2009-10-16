@@ -38,6 +38,7 @@ void Sources::reloadStaleSources()
 
 			//Forget all memory resident hashes
 			MD5Info::destroy();
+			MD5Info::getInstance();
 
 			//Remove the object of any binary target to ensure relinking
 			__foreach(i, d_sources)

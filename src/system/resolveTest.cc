@@ -30,7 +30,7 @@ void System::resolveTest(Source * s, ostream &str)
 
 void System::resolveTest(Source * s, set<string> *globals)
 {
-	cerr << "ccbuild: Resolving '" << s->filename() << "'" << endl;	//Flush, to get streams
+	//cerr << "ccbuild: Resolving '" << s->filename() << "'" << endl;	//Flush, to get streams
 	vector<Source *> srcList, localList;
 	srcList.push_back(s);
 	vector<string *> globalList;

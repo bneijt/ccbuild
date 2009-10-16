@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "FileSystem.ih"
 
 bool FileSystem::touch(std::string const &filename)

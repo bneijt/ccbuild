@@ -101,6 +101,15 @@ class FileSystem
 			\param filename The filename of the file to check
 		*/
     static std::string directoryName(std::string const &filename);
+
+		/**\brief Returns cleanPath(cwd + "/" + filename)
+			\param filename The filename of the file to check
+		*/
+    static std::string absolutePath(std::string const &filename)
+    {
+      return FileSystem::cleanPath(FileSystem::cwd() +"/"+ filename);
+    }
+
     	
 		/**\brief Returns base of the filename (filename, withouth path, without extension)
 		

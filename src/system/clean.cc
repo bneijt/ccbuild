@@ -54,7 +54,6 @@ void System::clean(Source *source)
 	vector<Source *> srcList;
 	srcList.push_back(source);
 	collectTargets(srcList);
-	
 	__foreach(src, srcList)
 	{
 		//Remove output from:

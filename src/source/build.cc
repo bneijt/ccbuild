@@ -25,8 +25,9 @@ void Source::build(Compiler & cc)
 {
   if(!FileSystem::isReadable(d_filename))
   {
+    cerrLock.set();
     cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
-    return;
+    cerrLock.unset();
   }
 
 	if(isHeader())
