@@ -76,12 +76,20 @@ void System::build(Source *source, Compiler &cc)
 	  }
 
 	  //Precompile all internal headers
+    vector<Compiler> compilers(internalHeaders.size(), cc);
+    #pragma omp parallel for
+    for(vector<Source *>::size_type i = 0; i < internalHeaders.size(); ++i)
+      internalHeaders[i]->build(compilers[i]);
+    //The compiler does not need to be influenced here, so we can just destroy the compilers list
+
+	  /*
 	  __foreach(src, internalHeaders)
 	  {
     	_debugLevel4("Precompiling: " << (*src)->filename());
       (*src)->build(cc);
       cc.rmCompileOptions();
 	  }
+	  */
 	}
 	else
 	{
@@ -111,8 +119,6 @@ void System::build(Source *source, Compiler &cc)
       //_debugLevel4("Building: " << (*src)->filename());
       if(!objectTargets[i]->upToDate())
         ++numNeedLink;
-      if(Options::showProgress)
-        cout << i << "/" << objectTargets.size() << " ";
       objectTargets[i]->build(compilers[i]);
       compilers[i].rmCompileOptions();
     }

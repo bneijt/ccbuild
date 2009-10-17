@@ -41,7 +41,7 @@
 #ifdef USE_IN_LIBIO
 # include <wchar.h>
 #endif
-#include <wordexp.h>
+#include "wordexp.h"
 #include <kernel-features.h>
 
 #include <bits/libc-lock.h>
