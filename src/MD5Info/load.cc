@@ -32,16 +32,18 @@ void MD5Info::load(std::string const &filename)
   	return;
   }
 
-  while(true)
+  while(file)
   {
   	//TODO Optimize or extend with extra options
    	string line;
    	string hashInfo;
 		
     getline(file, line);
+    
+    /* Does not work for the last line in the file ???
     if(file.eof())
 			break;
-
+    */
 		//Try the next line if there aren't enough characters
 		if(line.size() < 32)
 			continue;

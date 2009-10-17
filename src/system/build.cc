@@ -111,6 +111,8 @@ void System::build(Source *source, Compiler &cc)
       //_debugLevel4("Building: " << (*src)->filename());
       if(!objectTargets[i]->upToDate())
         ++numNeedLink;
+      if(Options::showProgress)
+        cout << i << "/" << objectTargets.size() << " ";
       objectTargets[i]->build(compilers[i]);
       compilers[i].rmCompileOptions();
     }
@@ -138,8 +140,8 @@ void System::build(Source *source, Compiler &cc)
 		if(Options::interAr)
 		{
 	  	//Archive, clear object, add archive, links
-  		FileSystem::ensureDirectory(source->directory() + "/o");
-  		std::string arName(source->directory() + "/o/" + source->basename() + ".ar.o");
+  		FileSystem::ensureDirectory(Options::cacheRoot);
+  		std::string arName(	Options::cacheRoot + "/" + FileSystem::absolutePath(source->filename()).substr(1) + ".a");
 			cc.ar(arName);
       cc.rmObjects();
 			

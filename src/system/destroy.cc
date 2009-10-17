@@ -24,10 +24,10 @@
 
 void System::destroy() throw()
 {
-	//Destory singletons...
-	Sources::destroy();
+	//Destroy singletons...
+	Sources::destroy(); //Thread Safe
 	Arguments::destroy();
-	Resolver::destroy();
+	Resolver::destroy(); //TS
 	Globals::destroy();
-	MD5Info::destroy();
+	MD5Info::destroy(); //TS
 }

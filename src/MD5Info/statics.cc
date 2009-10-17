@@ -17,3 +17,4 @@
 
 #include "MD5Info.ih"
 MD5Info *MD5Info::s_instance(0); ///<Static member of MD5Info to keep the pointer to the singleton
+OpenMP::Lock MD5Info::s_instanceLock; ///<Instance pointer mutex

@@ -19,6 +19,6 @@
 
 std::string MD5Info::hashFilenameFor(std::string const &filename)
 {
-	return Options::cacheRoot + "/md5/" + FileSystem::absolutePath(filename).substr(1) + ".md5";
+	return Options::cacheRoot + "/" + FileSystem::absolutePath(filename).substr(1) + ".md5";
 }
 

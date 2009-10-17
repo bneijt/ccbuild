@@ -25,6 +25,7 @@
 #include <string>
 #include <map>
 
+#include "../openmp/lock/lock.hh"		
 #include "../Compiler/Compiler.hh"
 
 namespace bneijt
@@ -40,6 +41,8 @@ class Resolver
 		std::string d_empty;	///<An empty string
 
 		static Resolver *s_instance;///<Static pointer to the instance
+		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
+		
 	public:
 		///\brief	Get the instance of the Resolver
 		static Resolver &getInstance();

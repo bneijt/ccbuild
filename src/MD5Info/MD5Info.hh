@@ -43,6 +43,7 @@ namespace bneijt
 class MD5Info
 {
 		static MD5Info *s_instance;	///<Static pointer to the instance
+		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 		
 		std::map<std::string, std::string> d_old;	///< A map of filename-hashstring for containing cached information
     OpenMP::Lock d_oldLock;

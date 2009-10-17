@@ -1,4 +1,4 @@
-#& -l --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi" --md5
+#& -l --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi" --md5 -p
 # -std=c++0x
 # This file now requires ccbuild > 1.5.7
 #	Some options have no resolution, they should

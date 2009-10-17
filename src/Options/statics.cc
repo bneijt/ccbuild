@@ -36,6 +36,7 @@ bool Options::verbose(false);
 bool Options::defaultUpdate(false);
 bool Options::highlight(false);
 bool Options::showCommands(false);
+bool Options::showProgress(false);
 bool Options::brute(false);
 bool Options::clearPerCommand(false);
 bool Options::loadGlobalRes(false);

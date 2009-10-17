@@ -26,7 +26,7 @@
 #include <utility>
 #include <string>
 #include <set>
-
+#include "../openmp/lock/lock.hh"
 
 #include "../source/source.hh"
 
@@ -40,7 +40,7 @@ class Sources
 		std::set<Source *> d_sources;	///< A list of all loaded
 
 		static Sources *s_instance;///< Static instance pointer
-
+		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
 	public:
 		///\brief Get the instance of the sources class

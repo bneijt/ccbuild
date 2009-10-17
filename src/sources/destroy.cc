@@ -24,6 +24,7 @@
 
 void Sources::destroy()
 {
+  OpenMP::ScopedLock instantiateLock(s_instanceLock);
 	if(s_instance)
 		delete s_instance;
 	else

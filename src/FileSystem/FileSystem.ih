@@ -36,6 +36,7 @@
 #include <unistd.h>
 
 #include "../Options/Options.hh"
+#include "../globallocks/globallocks.ih"
 
 #include "../misc/foreach.hh"
 

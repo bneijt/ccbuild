@@ -25,8 +25,12 @@ bool Source::changed()	const
 {
 	//Without output, we can't check. So we probably are old
 	if(producesOutput() && !FileSystem::fileExists(outputFilename()))
+	{
+	  _debugLevel1("File changed because it produces output and the output does not exist\n"
+	    << "  filename: " << outputFilename()
+	     );
 		return true;
-
+  }
 	//MD5 check
 	if(Options::md5)
 	{
@@ -40,7 +44,7 @@ bool Source::changed()	const
 }
 bool Source::changed(std::string const &relativeToThis)	const
 {
-	//MD5 Checksumming system check here
+	//Relative changes are only checkable with timestamps currently
 	assert(Options::md5 == false);
 
 	//Wether we create output or not, we can check our status

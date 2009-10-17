@@ -1,7 +1,8 @@
 Currently ccbuild depends on the following libraries:
-  libbobcat 2.0 or higher
+  libbobcat 2.0 or higher (correct API of Process class)
   libgomp 1.0+ (OpenMP)
 	libopenssl (MD5 algorithm)
+	libboost 1.35 or higher (for circular_buffer)
 
 Shortcut: ./configure && make && sudo make install
 

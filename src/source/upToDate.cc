@@ -61,7 +61,7 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 		
 		__foreach(src, srcList)
 			collectedHash += md5i.contentHash((*src)->filename());
-		
+		_debugLevel3("Current collected hash value: " << collectedHash << "\n" << "  old: " << md5i.old(filename()));
 		needUpdate = (collectedHash != md5i.old(filename()));
 	}
 	else

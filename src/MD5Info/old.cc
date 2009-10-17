@@ -20,12 +20,13 @@
 std::string const &MD5Info::old(std::string const &filename)
 {
   d_oldLock.set();
-	bool available = d_old.count(filename) == 0;
+	bool available = (d_old.count(filename) > 0);
   d_oldLock.unset();
 	//Try to load it from disk
 	if(not available)
   	load(filename);
 	
   OpenMP::ScopedLock lock(d_oldLock);
+  _debugLevel3("Found old content hash: " << d_old[filename]);
 	return d_old[filename];
 }

@@ -24,7 +24,7 @@ std::string Source::outputFilename() const
 	  //Output into a seperate directory with path in filename
 		// OLD per directory output directory directory() + "/o/" + basename() + ".o";
 		String oname = FileSystem::absolutePath(directory()) +"/"+ basename() + ".o";
-		return Options::cacheRoot + "/objects/" + oname.substr(1);
+		return Options::cacheRoot + "/" + oname.substr(1);
   }
 	if(isHeader())
 		return filename() + ".gch";

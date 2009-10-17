@@ -31,7 +31,10 @@ bool FileSystem::rmIfExists(std::string const &filename)
 
 	if(retValue != 0)
 	{
+	  cerrLock.set();
 	  cerr << "Non zero exit status for unlink: status " << retValue << "\n";
+	  cerr << "    could not remove: " << filename << "\n";
+	  cerrLock.unset();
 	  return false;
 	}
 

@@ -51,6 +51,7 @@ struct Options
 	static bool defaultUpdate;				///<Wether the force option is given
 	static bool highlight;				///<Wether to highlight g++ output
 	static bool showCommands;				///<Wether to show commands (part of verbose)
+	static bool showProgress;				///<Wether to show the progress of the build (x/total)
 	static bool brute;				///<Brute flag
 	static bool clearPerCommand;				///<Clear per command flag
 	static bool loadGlobalRes;				///<Global resolution loading flag

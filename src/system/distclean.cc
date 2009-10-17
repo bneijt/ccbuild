@@ -76,6 +76,14 @@ void System::distclean()
 {
   //Remove all GCH files
   recursivelyRemoveGCH();
+
+  //Remove archives
+  {
+		vector<string> fileList;
+  	FileSystem::globFilesInto(&fileList, Options::cacheRoot + "/*.a");
+  	__foreach(target, fileList)
+  		FileSystem::rmIfExists(*target);
+  }
   
 	//Clean everything else in the O directory
 	stack<string> directoryStack;
@@ -103,11 +111,7 @@ void System::distclean()
 		FileSystem::globFilesInto(&fileList, dir + "/*.o");
 		
 		__foreach(target, fileList)
-		{
-			cerr << "[RM] '" << *target << "'\n";
-			if(unlink((*target).c_str()) != 0)
-				cerr << "[RM] failed on '" << *target << "'\n";
-		}
+			FileSystem::rmIfExists(*target);
 		directoryDeathList.push_back(dir);
 		
 	}
