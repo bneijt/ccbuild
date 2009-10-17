@@ -1,12 +1,12 @@
 dnl Process this file with autoconf to produce a configure script.
 
 dnl Boilerplate
-AC_INIT(ccbuild, 1.5.7)
+AC_INIT(ccbuild, 2.0.0alpha)
 AC_CONFIG_SRCDIR(src/ccbuild.cc)
 AM_INIT_AUTOMAKE
 
 AC_PROG_CXX
-
+AC_PROG_CXXCPP
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -26,7 +26,6 @@ AC_FUNC_REALLOC
 AC_FUNC_STAT
 AC_CHECK_FUNCS([getcwd memset mkdir])
 
-
 AM_PROG_LEX
 if ! test "y$LEX" = "yflex"; then
     if ! test "y$LEX" = "ylex"; then
@@ -34,17 +33,27 @@ if ! test "y$LEX" = "yflex"; then
     fi
 fi
 
-AC_CHECK_HEADERS(wordexp.h getopt.h,,AC_MSG_ERROR([Required header file missing.]))
+#Below you can use the last line of ccbuild deps (ccbuild deps |tail -n1)
+#AC_CHECK_HEADERS(sys/types.h set iosfwd map typeinfo cassert vector cstring string sstream iostream functional utility omp.h,,AC_MSG_ERROR([Required header file missing.]))
+#globalHeaders="`ccbuild -C src deps|tail -n1`"
+#AC_CHECK_HEADERS($globalHeaders,,AC_MSG_ERROR([Required header file missing.]))
+AC_CHECK_HEADERS(sys/types.h string.h omp.h,,AC_MSG_ERROR([Required header file missing.]))
 
-dnl libgcrypt
-gcrypt=0
-AC_MSG_CHECKING(for libgcrypt)
-AM_PATH_LIBGCRYPT(1.2.0, gcrypt=1)
+dnl Check for openssl
+PKG_CHECK_MODULES(DEPS, openssl >= 0.9.0)
+AC_SUBST(DEPS_CFLAGS)
+AC_SUBST(DEPS_LIBS)
 
-if test $gcrypt = 0
-then
-  AC_MSG_ERROR([ccbuild needs libgcrypt for the MD5 algoritm])
-fi
+
+#dnl libgcrypt
+#gcrypt=0
+#AC_MSG_CHECKING(for libgcrypt)
+#AM_PATH_LIBGCRYPT(1.2.0, gcrypt=1)
+
+#if test $gcrypt = 0
+#then
+#  AC_MSG_ERROR([ccbuild needs libgcrypt for the MD5 algoritm])
+#fi
 
 AC_OUTPUT(Makefile)
 
