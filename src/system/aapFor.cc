@@ -178,17 +178,17 @@ void System::aapFor(Source *root, ostream &str)
 			str << "\t\"" << *global << "\"\n";//Optional if :conf lang is dropped use {language = C++}\n";
 		str << "\n";
 	
-		str << "# Configuration generation (use by including config/basename.hh in your program)\n";
-		str << "ConfigurationFilenameFor" << rootIdent << " ?= " << root->directory() << "/config/" << root->basenameWithoutExtension() << ".hh\n";
-		str << "$ConfigurationFilenameFor" << rootIdent << " :\n";
-		str << "\t:conf init\n";
-		str << "\t_conf.INCLUDE += $IncludeFor" << rootIdent << "\n";
-		str << "\t:conf language C++\n";
-		str << "\t:conf header {required} $GlobalHeadersFor" << rootIdent << "\n";
-		str << "\t:touch {exist} `os.path.dirname(_no.ConfigurationFilenameFor" << rootIdent << ")` {directory}\n";
-		str << "\t:conf write header $ConfigurationFilenameFor" << rootIdent << "\n";
-		str << "CLEANFILES += $ConfigurationFilenameFor" << rootIdent << "\n";
-		str << "\n";
+		str << "# Configuration generation (use by including config/basename.hh in your program)\n" 
+		    << "ConfigurationFilenameFor" << rootIdent << " ?= " << root->directory() << "/config/" << root->basenameWithoutExtension() << ".hh\n" 
+		    << "$ConfigurationFilenameFor" << rootIdent << " :\n" 
+		    << "\t:conf init\n" 
+		    << "\t_conf.INCLUDE += $IncludeFor" << rootIdent << "\n" 
+		    << "\t:conf language C++\n" 
+		    << "\t:conf header {required} $GlobalHeadersFor" << rootIdent << "\n" 
+		    << "\t:touch {exist} `os.path.dirname(_no.ConfigurationFilenameFor" << rootIdent << ")` {directory}\n" 
+		    << "\t:conf write header $ConfigurationFilenameFor" << rootIdent << "\n" 
+		    << "CLEANFILES += $ConfigurationFilenameFor" << rootIdent << "\n" 
+		    << "\n";
 	}
 
 
@@ -201,16 +201,12 @@ void System::aapFor(Source *root, ostream &str)
 	str << "\t\t: \n";
 	str << "\t{ var_INCLUDE = $IncludeFor" << rootIdent << "}\n";
 	str << "\t{ var_DEFINE = $DefineFor" << rootIdent << "}\n";
-	str << "\t\"" << root->filename() << "\"";
+	//Already in objectTargets str << "\t\"" << root->filename() << "\"";
 	__foreach(src, targets)
 	{
 		if((*src)->isObjectTarget())
 			str << "\n\t\"" << (*src)->filename() << "\"";
 	}
 	str << "\n\n";
-
-
-
 }
-
 

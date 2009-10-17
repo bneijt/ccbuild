@@ -15,12 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
 #include "FileSystem.ih"
 
 //Using the path given, add all globstring results to the string vector list

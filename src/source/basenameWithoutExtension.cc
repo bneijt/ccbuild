@@ -22,7 +22,7 @@ std::string Source::basenameWithoutExtension() const
   std::string::size_type i = basename.rfind('.');
   if(i == string::npos)
   {
-    throw Problem(Problem::Missing, "Can not find extension in a file which was requested without extension. Filename: " + d_filename);
+    throw Problem(Problem::Missing, "Can not find extension in a file which was requested without extension. Basename: " + basename);
   }
   return basename.substr(0, i);
 }

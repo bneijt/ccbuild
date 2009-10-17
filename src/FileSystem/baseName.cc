@@ -15,16 +15,12 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
 #include "FileSystem.ih"
 std::string FileSystem::baseName(string const &filename)
 {
-  string::size_type i = filename.find_last_of('/') + 1;
-  if(i == string::npos)
+  string::size_type i = filename.rfind('/') + 1;
+  if(i == string::npos || i == filename.size())
   	i = 0;
 
-  return filename.substr(i, filename.find_last_of('.') - i);
+  return filename.substr(i);
 }
