@@ -14,12 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "system.ih"
 
 void System::dotgraphForAll()
@@ -47,7 +41,7 @@ void System::dotgraphForAll()
     //isBinTarget test can only be done after the inspect
     if(!target->isBinTarget())
       continue;
-		string output = target->directory() + "/" + target->basename() + ".dot";
+		string output = target->directory() + "/" + target->basenameWithoutExtension() + ".dot";
     cerr << "Graphing: " << target->filename() << " to " << output << "\n";
 
 		if(Options::simulate)

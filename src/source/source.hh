@@ -93,7 +93,7 @@ class Source
 		//No destructor needed yet, default will do.
 
 		///\brief The basename of the filename
-		std::string basename() const;
+		std::string basenameWithoutExtension() const;
 
 		///\brief Give a list of all the sources that this source depends on.
 		void dependencies(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps);

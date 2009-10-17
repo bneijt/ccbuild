@@ -49,7 +49,7 @@ void System::makefileForAll(ostream &str)
       continue;
 
    	targets.push_back(target);
-		allRule += " " + target->directory() + "/" + target->basename();
+		allRule += " " + target->directory() + "/" + target->basenameWithoutExtension();
   }
 
 	str << allRule << "\n\n";

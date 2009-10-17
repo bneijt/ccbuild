@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "Compiler.ih"
 
 int Compiler::compile(std::string pwd, std::string target,
@@ -30,7 +25,7 @@ int Compiler::compile(std::string pwd, std::string target,
   cerrLock.set();
   cerr << "[CC] " << target << "\n";
   cerrLock.unset();
-
+  assert(target != outputFile);
   string command = compileCommand(pwd, target, outputFile);
 
 	//If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)

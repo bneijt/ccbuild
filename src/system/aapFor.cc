@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 
@@ -119,7 +114,7 @@ void System::aapFor(Source *root, ostream &str)
 	//Argument parsing and listing
 	vector<string> arguments;
 	vector<string>::iterator it;
-	string rootIdent = root->basename();
+	string rootIdent = root->basenameWithoutExtension();
 	rootIdent[0] = toupper(rootIdent[0]);
 
 	//Compile arguments
@@ -184,7 +179,7 @@ void System::aapFor(Source *root, ostream &str)
 		str << "\n";
 	
 		str << "# Configuration generation (use by including config/basename.hh in your program)\n";
-		str << "ConfigurationFilenameFor" << rootIdent << " ?= " << root->directory() << "/config/" << root->basename() << ".hh\n";
+		str << "ConfigurationFilenameFor" << rootIdent << " ?= " << root->directory() << "/config/" << root->basenameWithoutExtension() << ".hh\n";
 		str << "$ConfigurationFilenameFor" << rootIdent << " :\n";
 		str << "\t:conf init\n";
 		str << "\t_conf.INCLUDE += $IncludeFor" << rootIdent << "\n";
@@ -198,7 +193,7 @@ void System::aapFor(Source *root, ostream &str)
 
 
 	//Main program rule
-	str << ":program " << root->directory() << "/" << root->basename() << "\n";
+	str << ":program " << root->directory() << "/" << root->basenameWithoutExtension() << "\n";
 	str << "\t{ comment = \"ccbuild "
 			<< Options::version 
 			<< " generated program recipe for " << root->filename() << "\"}\n";

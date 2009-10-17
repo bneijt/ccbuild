@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 void System::aapForAll(ostream &str)
@@ -50,7 +45,7 @@ void System::aapForAll(ostream &str)
       continue;
 
    	targets.push_back(target);
-		allRule += " " + target->directory() + "/" + target->basename();
+		allRule += " " + target->directory() + "/" + target->basenameWithoutExtension();
   }
 
 	str << allRule << "\n\n";

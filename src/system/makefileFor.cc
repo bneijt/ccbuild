@@ -188,7 +188,7 @@ void System::makefileFor(Source *root, ostream &str)
 	dirs.push_back(root->directory() + "/o/");
 	
 	//The root rule: Depend on all objects
-	str << root->directory() << "/" << root->basename() << ": ";
+	str << root->directory() << "/" << root->basenameWithoutExtension() << ": ";
 
 	//Depend on directories
 	sort(dirs.begin(), dirs.end());
@@ -207,7 +207,7 @@ void System::makefileFor(Source *root, ostream &str)
 
 	str << "\t" << cc.linkCommand(
 											root->directory(),
-											root->basename()
+											root->basenameWithoutExtension()
 											)
 							 << "\n\n";
 

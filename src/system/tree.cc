@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 void System::tree(std::ostream &str)
@@ -62,7 +57,7 @@ void System::tree(Source *source, std::ostream &str)
 	str << "[target";
 	
 	if (Options::verbose)
-		cout << ":" << source->basename();
+		str << ":" << source->basenameWithoutExtension();
 	
 	str << "] " << source->filename() << "\n";
 
