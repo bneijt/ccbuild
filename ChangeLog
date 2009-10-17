@@ -1,8 +1,13 @@
+2.0.0alpha:
+- Multi-threading support using OpenMP (try -j 5)
+- Sub-process invocation and caching using bobcat::Process
+- Header file lines in ccResolutions do not need to contain spaces anymore
+-
+
 1.5.7:
 - Mac OSX patches by sent in by Michiel Holtkamp
 - Flex detection in autotools configure stage
-- Added --nowarn to suppress warnings about unknown includes
-- 
+- Added --nowarn to suppress warnings about unknown includes 
 
 1.5.6:
 - Fix MD5 sum bug, created with moving to libgcrypt
