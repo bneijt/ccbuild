@@ -183,7 +183,7 @@ class System
 		static bool parseArguments(Arguments &arg	///<The Arguments class to load the options from
 				);
 		
-		///\brief Call destory, then exit with retValue
+		///\brief Call destroy, then exit with retValue
 		static void exit(int retValue);
 		
 		///\brief Delete the singletons

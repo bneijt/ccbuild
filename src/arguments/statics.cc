@@ -14,12 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "arguments.ih"
 
 Arguments *Arguments::s_instance(0);
+OpenMP::Lock Arguments::s_instanceLock; ///<Instance pointer mutex

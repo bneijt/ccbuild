@@ -14,16 +14,11 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "Globals.ih"
 
 Globals &Globals::getInstance()
 {
+  OpenMP::ScopedLock instantiateLock(s_instanceLock);
 	if(s_instance == 0)
 		s_instance = new Globals();
 	return *s_instance;

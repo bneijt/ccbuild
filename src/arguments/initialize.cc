@@ -15,16 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
 #include "arguments.ih"
 
 void Arguments::initialize(Option const *options, int argc, char *argv[])
 {
+  Arguments::destroy();
 	s_instance = new Arguments(options, argc, argv);
 	return;
 }

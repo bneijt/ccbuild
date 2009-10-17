@@ -14,20 +14,14 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "system.ih"
 
 void System::destroy() throw()
 {
 	//Destroy singletons...
 	Sources::destroy(); //Thread Safe
-	Arguments::destroy();
+	Arguments::destroy(); //TS
 	Resolver::destroy(); //TS
-	Globals::destroy();
+	Globals::destroy(); //TS
 	MD5Info::destroy(); //TS
 }

@@ -17,7 +17,6 @@
 
 */
 
-
 //Globals map singleton. There to make sure globals only have one pointer to their name
 
 #ifndef _Globals_H_INCLUDED_
@@ -25,6 +24,7 @@
 #include <sys/types.h>
 #include <string>
 #include <map>
+#include "../openmp/scopedLock/scopedLock.hh"
 
 namespace bneijt
 {
@@ -34,6 +34,8 @@ namespace bneijt
 class Globals
 {
 		static Globals *s_instance;	///<Static pointer to the instance
+		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
+
     std::map<std::string, std::string *> d_map;
 	public:
 		///\brief Get the instance of the Globals class

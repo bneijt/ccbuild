@@ -39,6 +39,7 @@
 
 #include <set>
 
+#include "../openmp/scopedLock/scopedLock.hh"
 
 //#define DEBUGLEVEL 1
 #include "../misc/debug.hh"

@@ -15,16 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 std::string Source::basename() const
 {
-  string::size_type i = d_filename.find_last_of('/') + 1;
-  if(i == string::npos)
-  	i = 0;
-  return d_filename.substr(i, d_filename.find_last_of('.') - i);
+  return FileSystem::baseName(d_filename);
 }

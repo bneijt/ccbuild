@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 void MD5Info::destroy()
@@ -28,6 +23,6 @@ void MD5Info::destroy()
 	if(s_instance)
 		delete s_instance;
 	else
-		_debugLevel1("Already destoryed!!");
+		_debugLevel1("Already destroyed, but not a problem.");
 	s_instance = 0;
 }

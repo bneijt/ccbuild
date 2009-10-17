@@ -27,7 +27,7 @@
 #include <map>
 #include <vector>
 #include <iosfwd>
-
+#include "../openmp/lock/lock.hh"
 
 namespace bneijt
 {
@@ -93,8 +93,6 @@ int main(int argc, char *argv[])
 }
 \endcode
 
-
-
 */
 class Arguments
 {
@@ -107,6 +105,7 @@ class Arguments
 		std::string d_empty;										///<A non const empty string
 
 		static Arguments *s_instance;	///<Pointer to the singleton instance
+		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
 
 	public:

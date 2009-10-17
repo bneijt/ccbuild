@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "Resolver.ih"
 Resolver *Resolver::s_instance;
 OpenMP::Lock Resolver::s_instanceLock; ///<Instance pointer mutex
