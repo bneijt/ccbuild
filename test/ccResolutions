@@ -2,3 +2,14 @@
 getopt.h	
 png.h	-lstdc++ -lpng -lz
 sqlite3.h	-lsqlite3
+#Disable OpenMP support (don't add any linker or compiler arguments)
+omp.h	
+bobcat/process	-lbobcat
+doublespace	
+stdio.h	
+stdlib.h	
+string.h	
+sys/time.h	
+tab	
+time.h	
+unistd.h	

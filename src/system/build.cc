@@ -77,19 +77,12 @@ void System::build(Source *source, Compiler &cc)
 
 	  //Precompile all internal headers
     vector<Compiler> compilers(internalHeaders.size(), cc);
+    #ifdef _OPENMP
     #pragma omp parallel for
+    #endif
     for(vector<Source *>::size_type i = 0; i < internalHeaders.size(); ++i)
       internalHeaders[i]->build(compilers[i]);
     //The compiler does not need to be influenced here, so we can just destroy the compilers list
-
-	  /*
-	  __foreach(src, internalHeaders)
-	  {
-    	_debugLevel4("Precompiling: " << (*src)->filename());
-      (*src)->build(cc);
-      cc.rmCompileOptions();
-	  }
-	  */
 	}
 	else
 	{
@@ -113,7 +106,9 @@ void System::build(Source *source, Compiler &cc)
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
     size_t numNeedLink = 0;
+    #ifdef _OPENMP
     #pragma omp parallel for
+    #endif
     for(vector<Source *>::size_type i = 0; i < objectTargets.size(); ++i)
     {
       //_debugLevel4("Building: " << (*src)->filename());

@@ -4,9 +4,11 @@ Currently ccbuild depends on the following libraries:
 	libopenssl (MD5 algorithm)
 	libboost 1.35 or higher (for circular_buffer)
 
+As far as I know, ccbuild will not correctly function on anything else appart from plain, vanilla, Linux.
+
 Shortcut: ./configure && make && sudo make install
 
-Currently there is only one binary, so installation is easy...
+Currently there is only one binary, so installation should be easy...
 1)
 	Install flex: 2.5.31 works, newer might be ok.
 

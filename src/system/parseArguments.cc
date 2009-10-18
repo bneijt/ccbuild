@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 bool System::parseArguments(Arguments &arg)
@@ -45,10 +40,11 @@ bool System::parseArguments(Arguments &arg)
 	if(arg.errors().size() > 0)
 	{
 		vector<string> &err = arg.errors();
+		cerrLock.set();
 		__foreach(e, err)
 			cerr << "ccbuild: Error: Error parsing command line argument '" << *e << "'\n";
 		cerr << "ccbuild:   Use '-h' for help\n";
-	
+		cerrLock.unset();
 		return true;
 	}
 
@@ -135,11 +131,12 @@ bool System::parseArguments(Arguments &arg)
 			}
 		}
 	}
-	
+#ifdef _OPENMP	
 	if(arg.flagged("j")) //Multiple processing, number of threads to use
 	{
 	  omp_set_num_threads(boost::lexical_cast<int>(arg.value("j")));
 	}
+#endif
 	
 	if(arg.flagged("h"))
 	{

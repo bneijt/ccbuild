@@ -19,12 +19,25 @@
 
 #ifndef __Lock_HH_INCLUDED
 #define	__Lock_HH_INCLUDED
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 
 namespace bneijt
 {
 namespace OpenMP
 {
+
+#ifndef _OPENMP
+//Use an empty class if OpenMP is disabled (no -fopenmp)
+class Lock
+{
+  public:
+    Lock() {} //To make sure that OpenMP::Lock a; is not a declaration.
+    void set() {}
+    void unset() {}    
+};
+#else
 class Lock
 {
     omp_lock_t d_lock;
@@ -46,6 +59,7 @@ class Lock
       omp_unset_lock(&d_lock);
     }
 };
+#endif //OpenMP enabled/disabled block
 }} //Namespace
 #endif
 

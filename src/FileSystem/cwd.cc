@@ -14,20 +14,28 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "FileSystem.ih"
 
 string FileSystem::cwd()
 {
-#ifdef __CYGWIN__
-	return ".";
+#ifdef _GNU_SOURCE
+  char *cwd = get_current_dir_name();
+  std::string wd(cwd);
+  free(cwd);
+  return wd;
 #else
-	// getcwd on linux libc4/libc5/glibc will work correctly with NULL buffer
-	return getcwd(0, 0);
+  #ifndef PATH_MAX
+  #define PATH_MAX 1024
+  #endif
+    char *cwd = new char[PATH_MAX];
+    if(getcwd(cwd, PATH_MAX) == 0)
+    {
+      delete[] cwd;
+      throw Problem(Problem::Unable, "Unable to correctly get the current working directory");
+    }
+    std::string wd(cwd);
+    delete[] cwd;
+    return wd;
 #endif
+
 }

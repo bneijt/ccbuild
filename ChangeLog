@@ -1,7 +1,12 @@
 2.0.0alpha:
 - Multi-threading support using OpenMP (try -j 5)
-- Sub-process invocation and caching using bobcat::Process
+- Sub-process invocation using bobcat::Process (libbobcat 2.0+ required)
 - Header file lines in ccResolutions do not need to contain spaces anymore
+- Build last modified file first
+- Use OpenSSL library for MD5 instead of libgcrypt
+- Use a single top-level "o" directory, instead of a per directory option
+- Use of intermediate archive is nolonger experimental
+- libboost is now required for build, currently headers only
 -
 
 1.5.7:

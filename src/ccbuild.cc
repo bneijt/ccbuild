@@ -150,7 +150,9 @@ try
     {"V version", "", "Output ccbuild version number to stdout"},
     {"xml", "", "Where supported, produce XML output"},
     {"nowarn", "", "Leave out most warnings"},
+#ifdef _OPENMP
     {"j", "<integer>", "Set number of processes to use."},
+#endif
     {"", "", ""}	//End of list
   };
 

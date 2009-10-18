@@ -37,6 +37,8 @@ std::string const &MD5Info::contentHash(std::string const &filename)
       ifile.read(buffer, bufferSize);
   	  EVP_DigestUpdate(&context, buffer, ifile.gcount());
     }
+    delete[] buffer;
+    
     unsigned int size;
 	  EVP_DigestFinal(&context, &md[0], &size); //context is automatically cleaned-up
 	  char hex_hash[(EVP_md5()->md_size * 2) + 1];
