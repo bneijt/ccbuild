@@ -1,10 +1,39 @@
-#!/bin/sh
+#!/bin/bash
+#  This file is part of ccbuild.
+
+#  ccbuild is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+
+#  ccbuild is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+#  You should have received a copy of the GNU General Public License
+#  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
+#
+HELP="
+Create a simple .cc function file for a class member.
+It includes the srcHeader file of the first higher directory named src.
+The function file name is given on stdout.
+
+Usage: $0 <class member function name, case sensitive>
+Example: gedit \`ccFunction myFunctionName\`
+"
+if [ -z "$1" ];then
+	echo "$HELP"
+	exit
+fi
 #Create a simple .cc function file for a 
 # class member, whose name is the first argument
 # It includes the srcHeader file of the first higher src directory.
 FNAME=$1
 FILENAME="$FNAME".cc
 CNAME=`basename "$PWD"`
+#Uppercase first character is probably the class name
+UCNAME=`echo "${CNAME:0:1}" |tr '[:lower:]' '[:upper:]' `${CNAME:1}
 HEADER=`echo $PWD |grep -o "^.*src"`/srcHeader
 echo $FILENAME
 cat < "$HEADER" >> "$FILENAME"
@@ -12,7 +41,7 @@ cat >> "$FILENAME" <<EOF
 
 #include "$CNAME.ih"
 
-void $CNAME::$FNAME()
+void $UCNAME::$FNAME()
 {
 
 }

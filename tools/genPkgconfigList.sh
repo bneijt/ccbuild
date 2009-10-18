@@ -20,7 +20,7 @@
 # PLEASE NOTE: This creates large list. Only use when you are really lazy :-)
 HELP="Usage: $0 <pkg-config package name>"
 if [ -z "$1" ];then
-	echo $HELP
+	echo "$HELP"
 	exit
 fi
 

@@ -1,26 +1,59 @@
-#!/bin/sh
-#Create a simple class template 
-# It includes the srcHeader file of the first higher src directory.
+#!/bin/bash
+#  This file is part of ccbuild.
+
+#  ccbuild is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+
+#  ccbuild is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+#  You should have received a copy of the GNU General Public License
+#  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
+#
+HELP="
+Create a simple class template.
+It includes the srcHeader file of the first higher directory named src.
+The header file name is given on stdout.
+
+Usage: $0 <class name>
+Example: gedit \`ccClass myFunctionName\`
+"
+if [ -z "$1" ];then
+	echo "$HELP"
+	exit
+fi.
 CNAME=$1
-CHNAME="$CNAME".hh
-CINAME="$CNAME".ih
+LNAME=`echo $CNAME|tr '[:upper:]' '[:lower:]'`
+CHNAME="$LNAME".hh
+CINAME="$LNAME".ih
+EHNAME=`echo $CHNAME|tr '.' '_'`
 HEADER=`echo $PWD |grep -o "^.*src"`/srcHeader
 echo $CHNAME
 cat < "$HEADER" >> "$CINAME"
 echo "#include \"$CHNAME\"" >> "$CINAME";
+echo "" >> "$CINAME";
+echo "using namespace bneijt;" >> "$CINAME";
+
 cat < "$HEADER" >> "$CHNAME"
 
 cat >> "$CHNAME" <<EOF
 
-#ifndef _${CNAME}_HH_INCLUDED_
-#define	_${CNAME}_HH_INCLUDED_
+#ifndef ${EHNAME}_included_
+#define	${EHNAME}_included_
+
+namespace bneijt
+{
 
 class $CNAME
 {
 	public:
 	
 };
-
+} //Namespace
 #endif
 
 EOF

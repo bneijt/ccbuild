@@ -1,4 +1,5 @@
 #!/bin/sh
+##
 #  This file is part of ccbuild.
 
 #  ccbuild is free software: you can redistribute it and/or modify
@@ -14,18 +15,13 @@
 #  You should have received a copy of the GNU General Public License
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 #
-#
-# Write a file with the mean of 200 `time COMMAND` results.
-#  Uses AWK to collect and mean the results
+#This script should give a list of options we might encounter in the Compiler/addArguments function
+#This script is for debugging purposes only
 
-COMMAND=$@
-
-echo "#BENCHMARK RESULTS FOR: " "$COMMAND" > benchmark.result.txt
-
-for i in {1..200}; do
-	(time -p $COMMAND ) 2>&1 |tail -n3 >> benchmark.result.txt
-done
-
-awk -- "/^real.*/{ rlt += \$2; rltn++;}/^user.*/{ ust += \$2; ustn++;}/^sys.*/{ syt += \$2; sytn++;} END{ print \"real\", rlt/rltn, \"[\" rltn \"]\";print \"user\", ust/ustn, \"[\" ustn \"]\"; print \"sys\", syt/sytn, \"[\" sytn \"]\";}" < benchmark.result.txt
-
+PKG=pkg-config
+$PKG --list-all |awk -- "//{system(\"$PKG --cflags --libs \" \$1); }" |sed -e "s/ \-/\n-/g"| sort --unique
+echo
+echo ======
+echo
+$PKG --list-all |awk -- "//{system(\"$PKG --cflags --libs \" \$1); }"
 
