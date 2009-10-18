@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>ccbuild - A strict developer's build utility - The tools directory</title>
+
+<link href="index.html" rel="start">
+<link href="ch7.html" rel="prev">
+<link href="apB.html" rel="next">
+<link href="index.html#contents" rel="contents">
+<link href="index.html#copyright" rel="copyright">
+<link href="ch1.html" rel="chapter" title="1 Introduction">
+<link href="ch2.html" rel="chapter" title="2 How it works">
+<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>: building your program">
+<link href="ch4.html" rel="chapter" title="4 Cleaning">
+<link href="ch5.html" rel="chapter" title="5 Moving to <code>ccbuild</code>">
+<link href="ch6.html" rel="chapter" title="6 Moving from <code>ccbuild</code>">
+<link href="ch7.html" rel="chapter" title="7 Problem solving with ccbuild">
+<link href="apA.html" rel="appendix" title="A The tools directory">
+<link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
+<link href="ch5.html#s5.1" rel="section" title="5.1 Strictness to adhere to">
+<link href="ch5.html#s5.2" rel="section" title="5.2 Setting up your configuration file">
+<link href="ch6.html#s6.1" rel="section" title="6.1 General build file generation">
+<link href="ch6.html#s6.2" rel="section" title="6.2 Generating A-A-P files">
+<link href="ch7.html#s7.1" rel="section" title="7.1 You changed a class interface">
+<link href="apA.html#sA.1" rel="section" title="A.1 genPkgconfigList.sh">
+<link href="apA.html#sA.2" rel="section" title="A.2 ccbuildStatusPage.sh">
+
+</head>
+
+<body>
+
+<p><a name="apA"></a></p>
+<hr>
+
+<p>
+[ <a href="ch7.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ A ]
+[ <a href="apB.html">B</a> ]
+[ <a href="apB.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+<code>ccbuild</code> - A strict developer's build utility
+<br>Appendix A - The tools directory</h1>
+
+<hr>
+
+<p>
+The <samp>tools</samp> directory contains a few scripts and default files that
+may come in handy.  These are not meant to be used a lot and are mostly there
+as examples of using <code>ccbuild</code> in combination with other programs.
+These utilities are often crude and come with NO WARRANTY WHATSOEVER.
+</p>
+
+<p>
+Bottom line: read them before you use them and enjoy.
+</p>
+
+<hr>
+
+<h2><a name="sA.1"></a>A.1 genPkgconfigList.sh</h2>
+
+<p>
+This script will generate a list of includes that might be part of the given
+package.  The scripts needs to get a valid package name as it's first argument.
+It will then call pkg-config to get a list of include paths used for the
+package.  All these paths are searched and all files found are linked to the
+package using pkg-config in a way that is compatible with ccResolutions syntax.
+</p>
+
+<p>
+This list will be very large, and it's not, generally, a good idea to add this
+list to your local ccResolutions file.  A better way of using this is by adding
+the file to your ccResolutions.d directory under the name of the package.
+</p>
+
+<p>
+Using this is of course a brute way of handling resolutions, because it's much
+nicer to only resolve the ones you need.
+</p>
+
+<hr>
+
+<h2><a name="sA.2"></a>A.2 ccbuildStatusPage.sh</h2>
+
+<p>
+This is a small ccbuild status page creation script.  All commandline arguments
+you give it will be passed to ccbuild directly.  It runs &quot;ccbuild
+check&quot; to check which files are up to date and which aren't.  Then using
+AWK it translates this into a small auto-refreshing webpage.  The webpage uses
+ccbuild.css as it's stylesheet.
+</p>
+
+<p>
+General usage for a single run is:
+</p>
+
+<pre>
+         sh ccbuildStatusPage.sh -C &quot;someproject/src&quot;
+</pre>
+
+<p>
+Then use your favorite browser to open the generated html file:
+ccbuildstatus.html.
+</p>
+
+<p>
+You can easily loop it in the background using:
+</p>
+
+<pre>
+         while [[ 1 ]];
+           do sleep 5;
+           nice sh ccbuildStatusPage.sh -C &quot;someproject/src&quot;;
+         done;
+</pre>
+
+<p>
+By default the up to date files aren't shown by using &quot;display: none&quot;
+in the ccbuild.css.  Remove this line from ccbuild.css to show all up to date
+files as well.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch7.html">previous</a> ]
+[ <a href="index.html#contents">Contents</a> ]
+[ <a href="ch1.html">1</a> ]
+[ <a href="ch2.html">2</a> ]
+[ <a href="ch3.html">3</a> ]
+[ <a href="ch4.html">4</a> ]
+[ <a href="ch5.html">5</a> ]
+[ <a href="ch6.html">6</a> ]
+[ <a href="ch7.html">7</a> ]
+[ A ]
+[ <a href="apB.html">B</a> ]
+[ <a href="apB.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+<code>ccbuild</code> - A strict developer's build utility
+</p>
+
+<address>
+1.5.8SVN<br>
+<br>
+A. Bram Neijt<br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+
