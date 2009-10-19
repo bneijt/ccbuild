@@ -37,6 +37,12 @@ void System::build(Source *source)
 
 void System::build(Source *source, Compiler &cc)
 {
+  if(!source->hasSourceExtension() and !Options::noWarn)
+  {
+    cerr << "Warning: main source file \""<< source->filename() << "\" does not have a known source extension.\n"
+         << "\tBut I'll try to parse it because you want me to." << endl;
+  }
+  
   bool needLink = Options::defaultUpdate || forceLink;
 
   vector<Source *> srcList, objectTargets, localHeaders, internalHeaders;

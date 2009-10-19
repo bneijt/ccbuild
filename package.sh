@@ -62,3 +62,6 @@ sh bootstrap
 
 rm $YYLEX
 rm -rf autom4te.cache
+
+echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
+

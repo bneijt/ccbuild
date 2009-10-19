@@ -103,6 +103,10 @@ Show commands and produce more output for dot and check commands.
 Output version number on stdout and copyright/license on stderr. 
 .IP "\fB\-\-xml\fP" 10 
 Output in XML where supported. Currently this is only the check command. 
+.IP "\fB\-\-nowarn\fP" 10 
+Leave out most warnings. 
+.IP "\fB-j\fP \fInumber_threads\fR" 10 
+Set the maximum number of threads used during build. Only available when OpenMP is enabled. 
 .SH "RESOLUTION CONFIGURATION" 
 .PP 
 The ccResolutions file links global headers to compiler arguments. Every line should be either empty, start with a comment character "#" or contain a configuration line.  
@@ -153,4 +157,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Sun 18 Oct 2009, 22:49 
+.\" created by instant / docbook-to-man, Mon 19 Oct 2009, 16:36 

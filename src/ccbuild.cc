@@ -151,7 +151,7 @@ try
     {"xml", "", "Where supported, produce XML output"},
     {"nowarn", "", "Leave out most warnings"},
 #ifdef _OPENMP
-    {"j", "<integer>", "Set number of processes to use."},
+    {"j", "<integer>", "Set the maximum number of threads used during build"},
 #endif
     {"", "", ""}	//End of list
   };

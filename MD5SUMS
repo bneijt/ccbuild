@@ -1,4 +1,4 @@
-faadeb7cf475d69bb91b98dd4e66756e  src/ccbuild.cc
+3a27ab05cb0989754c89122d0d0f59eb  src/ccbuild.cc
 550dbca0cc69211c45b0a095be4bf05e  src/misc/debug.hh
 de4b2bb556cd5d97bdac32f3d4f1f037  src/MD5Info/MD5Info.hh
 3b272e86b3554736af6e6709d3bf123f  src/MD5Info/statics.cc
@@ -9,14 +9,14 @@ bd0233df1e934eb0ce4a7a98aa91e5a1  src/MD5Info/save.cc
 2e0a00ea671d1c007264045ff384327d  src/MD5Info/hashFilenameFor.cc
 e87ce263bedf88d4b4ba9e5072bd6727  src/MD5Info/getInstance.cc
 cf77c6bb20800e0ed5019d558e987ce6  src/MD5Info/destroy.cc
-b5a69e36f0951f0ad727222a898dd9a9  src/MD5Info/contentHash.cc
+2dfd0360304a84db30920e049878d785  src/MD5Info/contentHash.cc
 89de8c5fc05dc988a61bc2b0ae221833  src/MD5Info/MD5Info.cc
 93238dd1e1b084a5c9cf2f247d702dde  src/misc/foreach.hh
 3582bb0cfa76f2cca03d76f0116b1458  src/Options/Options.hh
 344ee23daa54b40da73a664e454c1e19  src/Options/statics.cc
 ee93cc187838fe2dc27aabbf753f5708  src/Options/Options.ih
 4f59235af3d706eb788a8803689231e3  src/openmp/scopedLock/scopedLock.hh
-7e4784f724680dafe53d45ed0976855e  src/openmp/lock/lock.hh
+4a0e4c2309785fea495defb4854e6949  src/openmp/lock/lock.hh
 48cefc9c1db495feed7764db9f629366  src/system/system.hh
 c76993faea350932c80b16e1f08a4fd4  src/system/uname.cc
 6ee110cf26cd65c4a10fd7fd1f201349  src/system/system.ih
@@ -28,7 +28,7 @@ e95c7e83a1febc484095460026c66579  src/system/statics.cc
 f340288a06aada6ddc980d89f6596bbb  src/system/sleep.cc
 daac03e032940b3f0a0d1244dd94dfe1  src/system/resolveTest.cc
 9c276c908b6124424928079e7d470766  src/system/projectName.cc
-8ed794a8fe8349714846547c8ffd2678  src/system/parseArguments.cc
+8dc5f237220497fdfcf4ce8c8927b1a1  src/system/parseArguments.cc
 a828565e44a655b3f531f552f3c38bbf  src/system/md5.cc
 92c7cce17f6e2b70b66be45817ddd7c7  src/system/makefileForAll.cc
 c9dab59ef232c35db09b20e53911e231  src/system/makefileFor.cc
@@ -47,7 +47,7 @@ f8cc9d661e3861f1ffc1ed193384726a  src/system/clean.cc
 bb2c32ad5fcc92a134597a46a1680adf  src/system/check.cc
 28fc3d7ca72e9659737577d9bbbc6c6b  src/system/changeTo.cc
 7bbd9a0e6002c4fe8be18f155338dfd7  src/system/buildAll.cc
-571536b4a7c85507b5ad1beadc5caf5d  src/system/build.cc
+4011cdb06528663f14313f6186fdfb55  src/system/build.cc
 83ec2ee2e9ac0e21a61a416d9199ae3e  src/system/addArguments.cc
 c441562b4cca42ae8ccd5df1420f16d1  src/system/aapForAll.cc
 eccc3a7940ebe3f602c3859693da92fd  src/system/aapFor.cc
@@ -78,7 +78,7 @@ ad49ce3803bd67bdf9c718607c453282  src/FileSystem/globDirectoriesInto.cc
 5f6a26e9f9745172382d670851a701cc  src/FileSystem/fileExists.cc
 7a921d164979aa4c0757f5c09ee59a74  src/FileSystem/ensureDirectory.cc
 975134c0b16fb7434695dcb7a1ad5041  src/FileSystem/directoryName.cc
-1ffbfcf4263b1b199d8a9d09cdc17fe0  src/FileSystem/cwd.cc
+24531f4c8731a3f1db5964d0b9f7ea03  src/FileSystem/cwd.cc
 93f96734001bcf4e001d2a041bc01872  src/FileSystem/cleanPath.cc
 a19f9d4cd67678b63de0636225dc57aa  src/FileSystem/baseName.cc
 eed31cb956bcbc2586861b266232a831  src/problem/problem.hh
@@ -92,12 +92,12 @@ ee1ace0318533cf6dadb0305a09388bb  src/Resolver/resolve.cc
 8404bc53c5f984f52e80493ff092becb  src/Resolver/loadIfExists.cc
 35d2efd79beeab44eb573f3a86a13346  src/Resolver/getInstance.cc
 20d9c4875f8641f95f928800ce0bcc7e  src/Resolver/expand.cc
-b0a0357bfa422f927054e05c9c3a9562  src/Resolver/destroy.cc
+9aa9ca1c462b0c81d586720aad4c16fe  src/Resolver/destroy.cc
 8fd78e4a1f6ebacb8a3f56d2a557fedd  src/Resolver/Resolver.cc
 5acf2809eed6c0d74c89d80ec86deafc  src/Compiler/Compiler.hh
 5035322eccbdb87471e75d4a34a5bd83  src/Compiler/statics.cc
 07eb9f8245a2c14665d44f65e9dfdf42  src/Compiler/Compiler.ih
-3cd23a9dbf294a6f49674046c30eff76  src/Compiler/splitInto.cc
+bee054e9e173f2f37c934ce9679737d5  src/Compiler/splitInto.cc
 ddd6cd5e620db878c1f8db52799722dd  src/Compiler/precompileCommand.cc
 73bdaeff5e278139c95e5a2c6bc4729e  src/Compiler/precompile.cc
 8aaef2c7319b54641a54a819455c6c60  src/Compiler/operator_add.cc
@@ -152,9 +152,8 @@ ecdc31b38074273434daaa0c4f370eb0  src/source/buildBinTarget.cc
 fbd01496a95b1e78d7971fc3d80dd5fa  src/string/string.ih
 668d36bdaf3394e616a2c3ecae1abf88  src/string/replace.cc
 6b64f0e1b5cb0bbde7fcbc8706a40a2b  src/SourceScanner/SourceScanner.hh
-cae57e321d97dd6f907ea28312f59b61  src/SourceScanner/yylex.cc
-ab1ffd757fddcd61c9f1da9eb55c252d  src/SourceScanner/SourceScanner.ih
 b40510dc1df247f2403654b0acf20030  src/SourceScanner/storeLocal.cc
+ab1ffd757fddcd61c9f1da9eb55c252d  src/SourceScanner/SourceScanner.ih
 632b10b00a8d97e0030f4e55cce6f040  src/SourceScanner/storeIgnore.cc
 f3289f88e144404ea1fc7eae73cedaee  src/SourceScanner/storeGlobal.cc
 bb39a4b0b06f7086855681a7ac3cd7cc  src/SourceScanner/includes.cc

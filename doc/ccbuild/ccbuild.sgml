@@ -12,11 +12,18 @@
 
 	<copyright>Copyright &copy; 2005 A. Bram Neijt
     <p>
-      This manual is free software; you may redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; version 2.
-<p>
-This is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose. See the GNU General Public License for more details.
-<p>
-A copy of the GNU General Public License is available as /usr/share/common-licenses/GPL in the Debian GNU/Linux distribution or on the World Wide Web at http://www.gnu.org/copyleft/gpl.html. You can also obtain it by writing to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+  This manual is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  <p>
+  It is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <p>
+  You should have received a copy of the GNU General Public License
+  along with ccbuild.  If not, see http://www.gnu.org/licenses/.    
 
 <toc>
 
@@ -24,8 +31,8 @@ A copy of the GNU General Public License is available as /usr/share/common-licen
 <p>First of all, programming is fun. However, it should not become a administrative task where you have to run update tools and add filenames to scripts. Apart from the possible typos, it's just no fun.
 <p>Using most of the tools on the net I found myself either adding filenames to scripts (and removing them) or digging deep into the core of some weird scripting language to try automate my builds. I ended up with a clumsy, to say the least, collection of <tt>find</tt>, <tt>grep</tt>, <tt>sed</tt> and <tt>bash</tt>. Then after having run my script generating script, I had to run <tt>./configure</tt> to get the new scripts to generate real Makefiles. Then, the only thing left to do was to run <tt>make</tt>.
 <p>This was a depressing way to develop, because most additions to the project I made required me to run all those scripts. This would take about 30 seconds, or so it felt.
-<p>You would say, well why not use an IDE? Well, trouble here was I wanted to seperate my code... a lot. Not only do I seperate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, regester it as source, set is as part of the main program, etc).
-<p>Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900 lines of code in a single file, only accesible through a specially equipped text editor or full scale IDE. But then I found another problem: I had to list the libraries I needed in some box somewhere! <prgn>icmake</prgn> was one solution, however it had two small drawbacks: object files weren't read for dependencies, you needed to mention your classes and you couldn't use directories in directories. So, I decided to create a fast and simple program to solve my problem.
+<p>You would say, well why not use an IDE? Well, trouble here was I wanted to split up my code in speparate files... a lot of separate files. Not only do I seperate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, register it as source, set is as part of the main program, etc).
+<p>Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900 lines of code in a single file, only accesible through a specially equipped text editor or full scale IDE. But then I found another problem: I had to list the libraries I needed in some box somewhere! <prgn>icmake</prgn> was one solution, however it had two small drawbacks: you needed to mention your classes and you couldn't use directories in directories. So, I decided to create a fast and simple program to solve my problem.
 <p>Although you have to keep some standards to get &ccb; to work on your program, I found it made my programming fun again: write your program, wait a few seconds for &ccb; to catch up and start testing!
 </chapt>
 
@@ -37,7 +44,7 @@ We will now consider what happens when &ccb; is called without any arguments.
 <p>First &ccb; will find all source files in the current directory (using the list of source extensions to find them.)
 All these files are scanned which gives an in memory list of include statements and whether it has a main function.
 <p>
-If it has a main function, it is a binary target: &ccb; will try to make a program from this.
+If it has a main function, it is considered a binary target: &ccb; will try to make a program from this.
 <p>
 To find all the object files that need to be linked to the main program, &ccb; will follow all local include statements (warning if any fail). Then it will scan all files in the same directory as the included files. If they are object targets (don't have a <tt>int main</tt> function) they will be compiled and linked to the main program.
 <p>

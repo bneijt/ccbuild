@@ -14,8 +14,7 @@ sys/stat.h
 sys/time.h	
 sys/types.h	
 unistd.h	
-omp.h 
-#-fopenmp -lgomp
+omp.h	-fopenmp -lgomp
 bobcat/process -lbobcat
 sys/utsname.h	
 features.h	

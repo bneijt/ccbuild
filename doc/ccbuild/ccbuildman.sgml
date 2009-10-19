@@ -6,12 +6,10 @@
      and a DocBook man page example by Craig Small
      <email>csmall@debian.org</email>.
   -->
-
-  <!-- Fill in the various UPPER CASE things here. -->
   <!ENTITY manfirstname "<firstname>Bram</firstname>">
   <!ENTITY mansurname   "<surname>Neijt</surname>">
   <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY mandate      "<date>2006-11-10</date>">
+  <!ENTITY mandate      "<date>2009-10-19</date>">
   <!-- SECTION should be 1-8, maybe with subsection. Other parameters are
        allowed: see man(7), man(1). -->
   <!ENTITY mansection   "<manvolnum>1</manvolnum>">
@@ -23,7 +21,7 @@
 <!--
 
         ccbuild - A strict developer&apos;s build utility
-Version 1.5.7, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+Version 2.0.0, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
 ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
 
 
@@ -364,6 +362,18 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         <term><option>--xml</option></term>
         <listitem>
           <para>Output in XML where supported. Currently this is only the check command.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--nowarn</option></term>
+        <listitem>
+          <para>Leave out most warnings.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-j</option> <replaceable>number_threads</replaceable></term>
+        <listitem>
+          <para>Set the maximum number of threads used during build. Only available when OpenMP is enabled.</para>
         </listitem>
       </varlistentry>
 <!--
