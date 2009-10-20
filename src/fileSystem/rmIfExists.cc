@@ -14,28 +14,30 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "FileSystem.ih"
 
-string FileSystem::cwd()
+#include "fileSystem.ih"
+
+bool FileSystem::rmIfExists(std::string const &filename)
 {
-#ifdef _GNU_SOURCE
-  char *cwd = get_current_dir_name();
-  std::string wd(cwd);
-  free(cwd);
-  return wd;
-#else
-  #ifndef PATH_MAX
-  #define PATH_MAX 1024
-  #endif
-    char *cwd = new char[PATH_MAX];
-    if(getcwd(cwd, PATH_MAX) == 0)
-    {
-      delete[] cwd;
-      throw Problem(Problem::Unable, "Unable to correctly get the current working directory");
-    }
-    std::string wd(cwd);
-    delete[] cwd;
-    return wd;
-#endif
+  if(! FileSystem::fileExists(filename))
+  	return false;
 
+  cerr << "[RM] " << filename << "\n";
+  
+  if(Options::simulate)
+		return true;
+
+	int retValue = unlink(filename.c_str());
+
+	if(retValue != 0)
+	{
+	  cerrLock.set();
+	  cerr << "Non zero exit status for unlink: status " << retValue << "\n";
+	  cerr << "    could not remove: " << filename << "\n";
+	  cerrLock.unset();
+	  return false;
+	}
+
+	return true;
 }
+

@@ -37,7 +37,7 @@
 #include <ctime>
 
 #include "../Options/Options.hh"
-#include "../FileSystem/FileSystem.hh"
+#include "../fileSystem/fileSystem.hh"
 #include "../system/system.hh"
 #include "../problem/problem.hh"
 #include "../globallocks/globallocks.hh"

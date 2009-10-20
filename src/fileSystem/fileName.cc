@@ -15,11 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-#include "FileSystem.ih"
+#include "fileSystem.ih"
 std::string FileSystem::fileName(string const &filename)
 {
   string::size_type i = filename.find_last_of('/') + 1;

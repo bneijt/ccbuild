@@ -15,12 +15,20 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "FileSystem.ih"
+#include "fileSystem.ih"
 
-bool FileSystem::touch(std::string const &filename)
+void FileSystem::globSourceFilesInto(vector<string> *list, string const &directory)
 {
-  ofstream file(filename.c_str(), ios::app);
-  bool succes = file.is_open();
-  file.close();
-  return succes;
+	//C++ source files
+	globFilesInto(list, directory + "/*.cc");
+  globFilesInto(list, directory + "/*.cp");
+  globFilesInto(list, directory + "/*.cxx");
+  globFilesInto(list, directory + "/*.cpp");
+  globFilesInto(list, directory + "/*.CPP");
+  globFilesInto(list, directory + "/*.c++");
+  globFilesInto(list, directory + "/*.C");
+
+  //C source files ???
+  //globFilesInto(list, directory + "/*.c");
+
 }

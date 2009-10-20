@@ -20,7 +20,7 @@
 
 
 #include "Resolver.hh"
-#include "../FileSystem/FileSystem.hh"
+#include "../fileSystem/fileSystem.hh"
 #include "../system/system.hh"
 #include "../Globals/Globals.hh"
 #include "../openmp/scopedLock/scopedLock.hh"

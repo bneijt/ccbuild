@@ -13,7 +13,7 @@ cf77c6bb20800e0ed5019d558e987ce6  src/MD5Info/destroy.cc
 89de8c5fc05dc988a61bc2b0ae221833  src/MD5Info/MD5Info.cc
 93238dd1e1b084a5c9cf2f247d702dde  src/misc/foreach.hh
 3582bb0cfa76f2cca03d76f0116b1458  src/Options/Options.hh
-344ee23daa54b40da73a664e454c1e19  src/Options/statics.cc
+e030e3ff478b57797f58a2d20c2a130c  src/Options/statics.cc
 ee93cc187838fe2dc27aabbf753f5708  src/Options/Options.ih
 4f59235af3d706eb788a8803689231e3  src/openmp/scopedLock/scopedLock.hh
 4a0e4c2309785fea495defb4854e6949  src/openmp/lock/lock.hh
@@ -47,7 +47,7 @@ f8cc9d661e3861f1ffc1ed193384726a  src/system/clean.cc
 bb2c32ad5fcc92a134597a46a1680adf  src/system/check.cc
 28fc3d7ca72e9659737577d9bbbc6c6b  src/system/changeTo.cc
 7bbd9a0e6002c4fe8be18f155338dfd7  src/system/buildAll.cc
-4011cdb06528663f14313f6186fdfb55  src/system/build.cc
+6e4e708b8f3242e63a379d308d53119b  src/system/build.cc
 83ec2ee2e9ac0e21a61a416d9199ae3e  src/system/addArguments.cc
 c441562b4cca42ae8ccd5df1420f16d1  src/system/aapForAll.cc
 eccc3a7940ebe3f602c3859693da92fd  src/system/aapFor.cc
@@ -152,8 +152,9 @@ ecdc31b38074273434daaa0c4f370eb0  src/source/buildBinTarget.cc
 fbd01496a95b1e78d7971fc3d80dd5fa  src/string/string.ih
 668d36bdaf3394e616a2c3ecae1abf88  src/string/replace.cc
 6b64f0e1b5cb0bbde7fcbc8706a40a2b  src/SourceScanner/SourceScanner.hh
-b40510dc1df247f2403654b0acf20030  src/SourceScanner/storeLocal.cc
+cae57e321d97dd6f907ea28312f59b61  src/SourceScanner/yylex.cc
 ab1ffd757fddcd61c9f1da9eb55c252d  src/SourceScanner/SourceScanner.ih
+b40510dc1df247f2403654b0acf20030  src/SourceScanner/storeLocal.cc
 632b10b00a8d97e0030f4e55cce6f040  src/SourceScanner/storeIgnore.cc
 f3289f88e144404ea1fc7eae73cedaee  src/SourceScanner/storeGlobal.cc
 bb39a4b0b06f7086855681a7ac3cd7cc  src/SourceScanner/includes.cc

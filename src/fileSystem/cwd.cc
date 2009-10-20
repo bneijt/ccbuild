@@ -14,23 +14,28 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "fileSystem.ih"
 
+string FileSystem::cwd()
+{
+#ifdef _GNU_SOURCE
+  char *cwd = get_current_dir_name();
+  std::string wd(cwd);
+  free(cwd);
+  return wd;
+#else
+  #ifndef PATH_MAX
+  #define PATH_MAX 1024
+  #endif
+    char *cwd = new char[PATH_MAX];
+    if(getcwd(cwd, PATH_MAX) == 0)
+    {
+      delete[] cwd;
+      throw Problem(Problem::Unable, "Unable to correctly get the current working directory");
+    }
+    std::string wd(cwd);
+    delete[] cwd;
+    return wd;
+#endif
 
-
-
-
-
-#include "FileSystem.ih"
-std::string FileSystem::directoryName(string const &filename)
-{  
-	//TODO allow for slash escaping of the character??
-  string::size_type lastSlashPos = filename.find_last_of("/");
-  if(lastSlashPos == string::npos)
-    return ".";
-  if(lastSlashPos == 0)
-    return "/"; //Last slash is the root
- 
-	_debugLevel2("dir(" + filename + ") = " + filename.substr(0, lastSlashPos));
-
-  return filename.substr(0, lastSlashPos);
 }

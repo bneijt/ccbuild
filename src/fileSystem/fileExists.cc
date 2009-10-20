@@ -20,7 +20,7 @@
 
 
 
-#include "FileSystem.ih"
+#include "fileSystem.ih"
 
 bool FileSystem::fileExists(std::string const &filename, bool noDir)
 {

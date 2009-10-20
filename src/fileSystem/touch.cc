@@ -15,14 +15,12 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "fileSystem.ih"
 
-
-
-
-
-#include "FileSystem.ih"
-bool FileSystem::isReadable(string const &filename)
+bool FileSystem::touch(std::string const &filename)
 {
-	_debugLevel4("Readable test on '" << filename << "'");
-  return access(filename.c_str(), R_OK) == 0;
+  ofstream file(filename.c_str(), ios::app);
+  bool succes = file.is_open();
+  file.close();
+  return succes;
 }

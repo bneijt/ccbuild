@@ -15,29 +15,9 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "FileSystem.ih"
-
-bool FileSystem::rmIfExists(std::string const &filename)
+#include "fileSystem.ih"
+bool FileSystem::isReadable(string const &filename)
 {
-  if(! FileSystem::fileExists(filename))
-  	return false;
-
-  cerr << "[RM] " << filename << "\n";
-  
-  if(Options::simulate)
-		return true;
-
-	int retValue = unlink(filename.c_str());
-
-	if(retValue != 0)
-	{
-	  cerrLock.set();
-	  cerr << "Non zero exit status for unlink: status " << retValue << "\n";
-	  cerr << "    could not remove: " << filename << "\n";
-	  cerrLock.unset();
-	  return false;
-	}
-
-	return true;
+	_debugLevel4("Readable test on '" << filename << "'");
+  return access(filename.c_str(), R_OK) == 0;
 }
-

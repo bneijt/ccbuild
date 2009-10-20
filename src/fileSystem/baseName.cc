@@ -15,34 +15,12 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
-#include "FileSystem.ih"
-
-
-void FileSystem::recursiveGlobDirectoriesInto(vector<string> *list, string const &directory)
+#include "fileSystem.ih"
+std::string FileSystem::baseName(string const &filename)
 {
-	stack<string> directoryStack;
-	directoryStack.push(directory);
-	set<string> directories;
+  string::size_type i = filename.rfind('/') + 1;
+  if(i == string::npos || i == filename.size())
+  	i = 0;
 
-	while(directoryStack.size() > 0)
-	{
-		vector<string> list;
-		string dir = directoryStack.top();
-		directoryStack.pop();
-
-		FileSystem::globDirectoriesInto(&list, dir + "/*");
-		__foreach(d, list)
-			if(!directories.count(*d))
-				directoryStack.push(*d);
-				
-		directories.insert(dir);
-	}
-	
-	copy(directories.begin(), directories.end(), back_inserter(*list));
+  return filename.substr(i);
 }

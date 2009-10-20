@@ -44,7 +44,7 @@
 #include "problem/problem.hh"
 #include "system/system.hh"
 #include "source/source.hh"
-#include "FileSystem/FileSystem.hh"
+#include "fileSystem/fileSystem.hh"
 #include "globallocks/globallocks.hh"
 #include "misc/foreach.hh"
 #include "Options/Options.hh"

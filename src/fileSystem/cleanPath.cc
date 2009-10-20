@@ -15,12 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "FileSystem.ih"
+#include "fileSystem.ih"
 std::string FileSystem::cleanPath(string const &filename)
 {
 	//TODO Use a standard function for this, I might overlook something here

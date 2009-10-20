@@ -20,21 +20,17 @@
 
 
 
+#include "fileSystem.ih"
+std::string FileSystem::directoryName(string const &filename)
+{  
+	//TODO allow for slash escaping of the character??
+  string::size_type lastSlashPos = filename.find_last_of("/");
+  if(lastSlashPos == string::npos)
+    return ".";
+  if(lastSlashPos == 0)
+    return "/"; //Last slash is the root
+ 
+	_debugLevel2("dir(" + filename + ") = " + filename.substr(0, lastSlashPos));
 
-#include "FileSystem.ih"
-
-void FileSystem::globSourceFilesInto(vector<string> *list, string const &directory)
-{
-	//C++ source files
-	globFilesInto(list, directory + "/*.cc");
-  globFilesInto(list, directory + "/*.cp");
-  globFilesInto(list, directory + "/*.cxx");
-  globFilesInto(list, directory + "/*.cpp");
-  globFilesInto(list, directory + "/*.CPP");
-  globFilesInto(list, directory + "/*.c++");
-  globFilesInto(list, directory + "/*.C");
-
-  //C source files ???
-  //globFilesInto(list, directory + "/*.c");
-
+  return filename.substr(0, lastSlashPos);
 }

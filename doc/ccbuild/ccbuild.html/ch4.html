@@ -70,16 +70,16 @@ the same, they are implemented quite different.
 <p>
 The <samp>distclean</samp> command is totally source independent: it doesn't
 scan sources, nor look for them.  Distclean simply removes all ccbuild related
-file in &quot;o&quot; directories and all &quot;.gch&quot; everywhere.  So it
-will try to remove any file matching: <samp>*/o/*.md5</samp>,
-<samp>*/o/*.o</samp>, <samp>*.gch</samp> and <samp>o</samp>.
+file in the &quot;o&quot; directory and all &quot;.gch&quot; files everywhere.
+If the &quot;o&quot; directory is empty after that, the directory is removed as
+well.
 </p>
 
 <p>
 The <samp>clean</samp> command is much more subtle: it reads the sources and
 removes any objects part of the current source tree.  Because it reads the
 sources, using clean will only remove those sources part of the given or
-implied main binary target(s).
+implied main binary target(s).  This command will not remove any directories.
 </p>
 
 <p>
@@ -114,7 +114,7 @@ precompiled headers.
 </p>
 
 <address>
-1.5.8SVN<br>
+2.0.0<br>
 <br>
 A. Bram Neijt<br>
 <br>

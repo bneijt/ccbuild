@@ -18,7 +18,7 @@
 */
 
 #include "sources.hh"
-#include "../FileSystem/FileSystem.hh"
+#include "../fileSystem/fileSystem.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../openmp/scopedLock/scopedLock.hh"
 

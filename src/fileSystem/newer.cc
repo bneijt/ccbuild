@@ -15,12 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "FileSystem.ih"
+#include "fileSystem.ih"
 bool FileSystem::newer(string const &file1, string const &file2)
 {
   struct stat stat1, stat2;

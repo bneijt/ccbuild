@@ -15,32 +15,28 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "fileSystem.ih"
 
 
-
-
-
-
-#include "FileSystem.ih"
-
-void FileSystem::globInto(vector<string> *list, string const &pattern, bool sort)
+void FileSystem::recursiveGlobDirectoriesInto(vector<string> *list, string const &directory)
 {
+	stack<string> directoryStack;
+	directoryStack.push(directory);
+	set<string> directories;
 
-	glob_t globbuf;	//Needs to be globfreed at the end
+	while(directoryStack.size() > 0)
+	{
+		vector<string> list;
+		string dir = directoryStack.top();
+		directoryStack.pop();
 
-	//Use glob to get canditates
-	if(sort)
-		::glob(pattern.c_str(), GLOB_TILDE, NULL, &globbuf);
-	else
-		::glob(pattern.c_str(), GLOB_TILDE | GLOB_NOSORT, NULL, &globbuf);
+		FileSystem::globDirectoriesInto(&list, dir + "/*");
+		__foreach(d, list)
+			if(!directories.count(*d))
+				directoryStack.push(*d);
+				
+		directories.insert(dir);
+	}
 	
-
-	//Copy all the matches
-	copy(&globbuf.gl_pathv[0],
-			 &globbuf.gl_pathv[globbuf.gl_pathc],
-			 back_inserter(*list)
-			 );
-
-	//Cleanup
-	globfree(&globbuf);
+	copy(directories.begin(), directories.end(), back_inserter(*list));
 }

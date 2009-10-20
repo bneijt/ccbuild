@@ -17,13 +17,13 @@
 
 #include "Options.ih"
 
-std::string Options::version("2.0.0aplha");
+std::string Options::version(VERSION);
 std::string Options::CC("g++");
 std::string Options::execOnPass("");
 std::string Options::extraArgs("");
 std::string Options::commandAppend("");
 std::string Options::execOnFail("");
-std::string Options::homepage("http://ccbuild.sourceforge.net");
+std::string Options::homepage("http://www.logfish.net/pr/ccbuild/");
 std::string Options::progVersion("");
 std::string Options::cacheRoot("o");
 //std::string Options::("");

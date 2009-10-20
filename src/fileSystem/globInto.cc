@@ -14,15 +14,26 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "fileSystem.ih"
 
-#include "FileSystem.ih"
-time_t FileSystem::modTime(string const &file) throw (Problem)
+void FileSystem::globInto(vector<string> *list, string const &pattern, bool sort)
 {
-  struct stat statbuff;
-  if(stat(file.c_str(), &statbuff) != 0)
-  {
-    throw Problem(Problem::Missing, "Could not stat \"" + file +"\"\n\tFailed to get requested modTime.");
-  	return 0;
-  }
-  return statbuff.st_mtime;
+
+	glob_t globbuf;	//Needs to be globfreed at the end
+
+	//Use glob to get canditates
+	if(sort)
+		::glob(pattern.c_str(), GLOB_TILDE, NULL, &globbuf);
+	else
+		::glob(pattern.c_str(), GLOB_TILDE | GLOB_NOSORT, NULL, &globbuf);
+	
+
+	//Copy all the matches
+	copy(&globbuf.gl_pathv[0],
+			 &globbuf.gl_pathv[globbuf.gl_pathc],
+			 back_inserter(*list)
+			 );
+
+	//Cleanup
+	globfree(&globbuf);
 }

@@ -5,9 +5,9 @@
 <book>
 	<title>&ccb; - A strict developer's build utility
 	<author>A. Bram Neijt
-	<version>1.5.8SVN
-	<abstract>This document is a general usage manual to &ccb;. It will introduce some simple tools and general ways of
-	using &ccb;. It will also try to explain the &ccb; behaviour in more words then the manual does.
+	<version>2.0.0
+	<abstract>This document is a general usage manual to &ccb;. It will introduce general ways of
+	using &ccb;. It will also explain &ccb;'s behaviour in more words then the manual does.
 	The newest version of ccbuild can be found at the <url name="http://ccbuild.sourceforge.net" id="http://ccbuild.sourceforge.net">
 
 	<copyright>Copyright &copy; 2005 A. Bram Neijt
@@ -68,9 +68,9 @@ Once the command is issued, &ccb; will start reading includes the source does an
 <p>For cleaning your sourcetree, &ccb; offers two commands: <tt>clean</tt> and <tt>distclean</tt>. Although they might act almost the same, they are implemented quite different.
 
 <p>
-The <tt>distclean</tt> command is totally source independent: it doesn't scan sources, nor look for them. Distclean simply removes all ccbuild related file in "o" directories and all ".gch" everywhere. So it will try to remove any file matching: <tt>*/o/*.md5</tt>, <tt>*/o/*.o</tt>, <tt>*.gch</tt> and <tt>o</tt>.
+The <tt>distclean</tt> command is totally source independent: it doesn't scan sources, nor look for them. Distclean simply removes all ccbuild related file in the "o" directory and all ".gch" files everywhere. If the "o" directory is empty after that, the directory is removed as well.
 <p>
-The <tt>clean</tt> command is much more subtle: it reads the sources and removes any objects part of the current source tree. Because it reads the sources, using clean will only remove those sources part of the given or implied main binary target(s).
+The <tt>clean</tt> command is much more subtle: it reads the sources and removes any objects part of the current source tree. Because it reads the sources, using clean will only remove those sources part of the given or implied main binary target(s). This command will not remove any directories.
 <p>
 General rule is to use the force command when you want to update everything, use the <tt>clean</tt> when you want to remove all files for a local binary target (but not any other binary targets in the local directory) and use <tt>distclean</tt> to remove everything including old objects and precompiled headers.
 </chapt>
