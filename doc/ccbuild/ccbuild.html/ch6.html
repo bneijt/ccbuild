@@ -6,27 +6,29 @@
 
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 
-<title>ccbuild - A strict developer's build utility - Moving from ccbuild</title>
+<title>ccbuild - A strict developer's build utility - Problem solving with ccbuild</title>
 
 <link href="index.html" rel="start">
 <link href="ch5.html" rel="prev">
-<link href="ch7.html" rel="next">
+<link href="apA.html" rel="next">
 <link href="index.html#contents" rel="contents">
 <link href="index.html#copyright" rel="copyright">
 <link href="ch1.html" rel="chapter" title="1 Introduction">
 <link href="ch2.html" rel="chapter" title="2 How it works">
-<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>: building your program">
-<link href="ch4.html" rel="chapter" title="4 Cleaning">
-<link href="ch5.html" rel="chapter" title="5 Moving to <code>ccbuild</code>">
-<link href="ch6.html" rel="chapter" title="6 Moving from <code>ccbuild</code>">
-<link href="ch7.html" rel="chapter" title="7 Problem solving with ccbuild">
+<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>">
+<link href="ch4.html" rel="chapter" title="4 Moving to <code>ccbuild</code>">
+<link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
+<link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
 <link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
-<link href="ch5.html#s5.1" rel="section" title="5.1 Strictness to adhere to">
-<link href="ch5.html#s5.2" rel="section" title="5.2 Setting up your configuration file">
-<link href="ch6.html#s6.1" rel="section" title="6.1 General build file generation">
-<link href="ch6.html#s6.2" rel="section" title="6.2 Generating A-A-P files">
-<link href="ch7.html#s7.1" rel="section" title="7.1 You changed a class interface">
+<link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
+<link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
+<link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
+<link href="ch4.html#s4.1" rel="section" title="4.1 Strictness to adhere to">
+<link href="ch4.html#s4.2" rel="section" title="4.2 Setting up your configuration file">
+<link href="ch5.html#s5.1" rel="section" title="5.1 General build file generation">
+<link href="ch5.html#s5.2" rel="section" title="5.2 Generating A-A-P files">
+<link href="ch6.html#s6.1" rel="section" title="6.1 You changed a class interface">
 <link href="apA.html#sA.1" rel="section" title="A.1 genPkgconfigList.sh">
 <link href="apA.html#sA.2" rel="section" title="A.2 ccbuildStatusPage.sh">
 
@@ -46,111 +48,44 @@
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ 6 ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
-[ <a href="ch7.html">next</a> ]
+[ <a href="apA.html">next</a> ]
 </p>
 
 <hr>
 
 <h1>
 <code>ccbuild</code> - A strict developer's build utility
-<br>Chapter 6 - Moving from <code>ccbuild</code>
+<br>Chapter 6 - Problem solving with ccbuild
 </h1>
 
 <hr>
 
 <p>
-There will be a day you want to move away from <code>ccbuild</code>.  When the
-day comes, you would probably only be able to use <code>ccbuild</code> for it's
-dependency generation commands.
-</p>
-
-<p>
-To make <code>ccbuild</code> usefull in these later stages,
-<code>ccbuild</code> has a few commands to help you cope.  Don't forget, you
-can remove all <code>ccbuild</code> generated files using:
-</p>
-
-<pre>
-     	ccbuild distclean;
-     	rm ./ccResolutions;
-</pre>
-
-<p>
-The build script generation commands only read source and, should not generate
-any output.
+This is a collection of possible real usage examples for ccbuild.  If you don't
+want to take the time to read the manual pages, this is a more problem oriented
+listing of the same.
 </p>
 
 <hr>
 
-<h2><a name="s6.1"></a>6.1 General build file generation</h2>
+<h2><a name="s6.1"></a>6.1 You changed a class interface</h2>
 
 <p>
-<code>ccbuild</code> can generate a number of different files for different
-build systems.  When you call <code>ccbuild</code> with a build generation
-command without a sourcefile, it will try to create a standalone file for that
-build system.  Which will also contain an all rule.
+When you change a class interface, a large collection of your code will
+probably break down.  But which parts?  Well, a hint of which files will be
+affected can be seen using <code>ccbuild</code> <samp>check</samp>.  However,
+this won't show you whether these sources still compile or not.  The only way
+to test that is by simply running <code>ccbuild</code>.
 </p>
 
 <p>
-For most systems however, you don't want the all rule to be defined.  So,
-<code>ccbuild</code> allows you to state which source you want a build file
-for.  This will then generate a build file without the all rule.  Then simply
-include this build file into your main build file and write the all rule
-yourself.
-</p>
-
-<hr>
-
-<h2><a name="s6.2"></a>6.2 Generating A-A-P files</h2>
-
-<p>
-One of the most usefull generation features is probably the A-A-P file
-generation.  You can use this by calling <code>ccbuild</code> with the aap
-command.  This will generate an A-A-P file on the stdout.
-</p>
-
-<p>
-The most common way of using this aap file is by generating it for a single
-binary target using:
-</p>
-
-<pre>
-     	ccbuild aap mainsource.cc &gt; mainsource.aap
-</pre>
-
-<p>
-Or
-</p>
-
-<pre>
-     	ccbuild aap src/mainsource.cc &gt; mainsource.aap
-</pre>
-
-<p>
-Then create a main.aap file with the following line:
-</p>
-
-<pre>
-     		:include mainsource.aap
-     		
-     		all : ./mainsource
-</pre>
-
-<p>
-Or
-</p>
-
-<pre>
-     		:include mainsource.aap
-     		
-     		all : ./src/mainsource
-</pre>
-
-<p>
-Add any recipes needed and then use aap to generate the main program.
+Solution: Use a daemonizing editor (something that returns after using the
+command).  An example is using the gedit command when you already have a window
+open: new files will be opened in a tab and the gedit command will return
+immediately.  So, using gedit, the easiest way to get an overview of your
+problems would be: <code>ccbuild</code> --brute --xof &quot;gedit&quot;
 </p>
 
 <hr>
@@ -164,10 +99,9 @@ Add any recipes needed and then use aap to generate the main program.
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ 6 ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
-[ <a href="ch7.html">next</a> ]
+[ <a href="apA.html">next</a> ]
 </p>
 
 <hr>

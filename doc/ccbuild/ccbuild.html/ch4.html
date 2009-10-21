@@ -6,7 +6,7 @@
 
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 
-<title>ccbuild - A strict developer's build utility - Cleaning</title>
+<title>ccbuild - A strict developer's build utility - Moving to ccbuild</title>
 
 <link href="index.html" rel="start">
 <link href="ch3.html" rel="prev">
@@ -15,18 +15,20 @@
 <link href="index.html#copyright" rel="copyright">
 <link href="ch1.html" rel="chapter" title="1 Introduction">
 <link href="ch2.html" rel="chapter" title="2 How it works">
-<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>: building your program">
-<link href="ch4.html" rel="chapter" title="4 Cleaning">
-<link href="ch5.html" rel="chapter" title="5 Moving to <code>ccbuild</code>">
-<link href="ch6.html" rel="chapter" title="6 Moving from <code>ccbuild</code>">
-<link href="ch7.html" rel="chapter" title="7 Problem solving with ccbuild">
+<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>">
+<link href="ch4.html" rel="chapter" title="4 Moving to <code>ccbuild</code>">
+<link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
+<link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
 <link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
-<link href="ch5.html#s5.1" rel="section" title="5.1 Strictness to adhere to">
-<link href="ch5.html#s5.2" rel="section" title="5.2 Setting up your configuration file">
-<link href="ch6.html#s6.1" rel="section" title="6.1 General build file generation">
-<link href="ch6.html#s6.2" rel="section" title="6.2 Generating A-A-P files">
-<link href="ch7.html#s7.1" rel="section" title="7.1 You changed a class interface">
+<link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
+<link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
+<link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
+<link href="ch4.html#s4.1" rel="section" title="4.1 Strictness to adhere to">
+<link href="ch4.html#s4.2" rel="section" title="4.2 Setting up your configuration file">
+<link href="ch5.html#s5.1" rel="section" title="5.1 General build file generation">
+<link href="ch5.html#s5.2" rel="section" title="5.2 Generating A-A-P files">
+<link href="ch6.html#s6.1" rel="section" title="6.1 You changed a class interface">
 <link href="apA.html#sA.1" rel="section" title="A.1 genPkgconfigList.sh">
 <link href="apA.html#sA.2" rel="section" title="A.2 ccbuildStatusPage.sh">
 
@@ -46,7 +48,6 @@
 [ 4 ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch5.html">next</a> ]
@@ -56,39 +57,141 @@
 
 <h1>
 <code>ccbuild</code> - A strict developer's build utility
-<br>Chapter 4 - Cleaning
+<br>Chapter 4 - Moving to <code>ccbuild</code>
 </h1>
 
 <hr>
 
 <p>
-For cleaning your sourcetree, <code>ccbuild</code> offers two commands:
-<samp>clean</samp> and <samp>distclean</samp>.  Although they might act almost
-the same, they are implemented quite different.
+To be able to use <code>ccbuild</code>, you as a developer will have to adhere
+to some strict(er) rules then using something like autotools.  Here is a list
+of things you should keep in mind when moving to <code>ccbuild</code>.
+</p>
+
+<hr>
+
+<h2><a name="s4.1"></a>4.1 Strictness to adhere to</h2>
+<ul>
+<li>
+<p>
+<code>ccbuild</code> only reads local includes
 </p>
 
 <p>
-The <samp>distclean</samp> command is totally source independent: it doesn't
-scan sources, nor look for them.  Distclean simply removes all ccbuild related
-file in the &quot;o&quot; directory and all &quot;.gch&quot; files everywhere.
-If the &quot;o&quot; directory is empty after that, the directory is removed as
-well.
+When creating your source, make sure that all sources that <code>ccbuild</code>
+should care about can be found using local includes.  This means you should
+stricly use system wide includes only for actual system wide include files.  So
+any header file which is part or your packages should be included using a local
+include statement.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Preprocessing isn't helping
 </p>
 
 <p>
-The <samp>clean</samp> command is much more subtle: it reads the sources and
-removes any objects part of the current source tree.  Because it reads the
-sources, using clean will only remove those sources part of the given or
-implied main binary target(s).  This command will not remove any directories.
+To speed up <code>ccbuild</code>, it doesn't go around looking for system wide
+headers.  This also means that it won't know all the preprocessing directives
+from these headers.  This results in preprocessor excludes of local headers
+cannot be used.  This is no problem if you are compiling for a single platform,
+but when you need configuration using preprocessor directives, you're going to
+get into trouble.
 </p>
 
 <p>
-General rule is to use the force command when you want to update everything,
-use the <samp>clean</samp> when you want to remove all files for a local binary
-target (but not any other binary targets in the local directory) and use
-<samp>distclean</samp> to remove everything including old objects and
-precompiled headers.
+The only way to keep <code>ccbuild</code> from reading these sources is by
+making sure there is a single space between the <samp>#</samp> and the
+<samp>include</samp> statement.  So the include <samp># include
+&quot;something/hello.hh&quot;</samp> will be ingored by <code>ccbuild</code>.
+To test this, run <code>ccbuild</code> in verbose mode (<samp>--verbose</samp>)
+and watch for the warning which state that the file in not included.  You can
+also use the <samp>deps</samp> command to get a list for all binary targets.
 </p>
+</li>
+</ul>
+
+<hr>
+
+<h2><a name="s4.2"></a>4.2 Setting up your configuration file</h2>
+
+<p>
+To set up your ccResolutions file, it's best to do the following steps:
+</p>
+<ol type="1" start="1" >
+<li>
+<p>
+Check your local includes span over your whole source
+</p>
+
+<p>
+To make sure <code>ccbuild</code> was able to follow your local includes, use
+the <samp>deps</samp> command.  This will list all the local and global
+dependencies of a file.  You may also use the dot command to get a graphical
+interpertation of the same information.
+</p>
+
+<p>
+All paths that <code>ccbuild</code> needs to search for local includes should
+be added to the first line of your ccResolutions file.  Using <samp>-l</samp>
+in this first line will make <code>ccbuild</code> highlight all compiler
+output.
+</p>
+
+<pre>
+     	#&amp; -I../tools -I. -l
+</pre>
+</li>
+</ol>
+<ol type="1" start="2" >
+<li>
+<p>
+Add packages to your global ccResolutions
+</p>
+
+<p>
+You can add a package to your global resolution configuration using the
+genPkgconfigList.sh tool.  This will find all files in the include path of a
+package's include paths and add them to a resolution file.  See the Tools
+section for more information.
+</p>
+</li>
+</ol>
+<ol type="1" start="3" >
+<li>
+<p>
+Check the global includes are resolved
+</p>
+
+<p>
+To make sure the global includes are resolved, use the resolve command.
+</p>
+
+<pre>
+     	ccbuild resolve |sort &gt;&gt; ccResolutions
+</pre>
+
+<p>
+Now all unresolved global headers are listed in your ccResolutions file.  When
+you run <code>ccbuild</code> now, it won't complain about any global includes
+missing.  However, g++ might complain because the needed extra arguments aren't
+in place.  You should now add the needed arguments to your ccResolutions file
+by using, for example, <samp>`pkg-config --cflags --libs
+&lt;packagename&gt;`</samp> with the needed packagei in place.
+</p>
+
+<p>
+If you have a lot of resolution rules in your defaults
+(<samp>~/.ccbuild/</samp>), then it might be hard to see what your project
+actually depends on.  Passing <code>ccbuild</code> the option
+<samp>--nodefres</samp> will cause it to skip loading these files and will
+allow you to see which resolutions fail.  This might give you some hints on
+what packages your program depends on.
+</p>
+</li>
+</ol>
 
 <hr>
 
@@ -101,7 +204,6 @@ precompiled headers.
 [ 4 ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch5.html">next</a> ]

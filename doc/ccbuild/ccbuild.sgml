@@ -6,9 +6,9 @@
 	<title>&ccb; - A strict developer's build utility
 	<author>A. Bram Neijt
 	<version>2.0.0
-	<abstract>This document is a general usage manual to &ccb;. It will introduce general ways of
+	<abstract>This document is a general usage manual to &ccb;. It will introduce ways of
 	using &ccb;. It will also explain &ccb;'s behaviour in more words then the manual does.
-	The newest version of ccbuild can be found at the <url name="http://ccbuild.sourceforge.net" id="http://ccbuild.sourceforge.net">
+	The newest version of ccbuild can be found at the <url name="http://www.logfish.net/pr/ccbuild/" id="http://www.logfish.net/pr/ccbuild/">
 
 	<copyright>Copyright &copy; 2005 A. Bram Neijt
     <p>
@@ -23,22 +23,21 @@
   GNU General Public License for more details.
   <p>
   You should have received a copy of the GNU General Public License
-  along with ccbuild.  If not, see http://www.gnu.org/licenses/.    
+  along with ccbuild.  If not, see <url name="http://www.gnu.org/licenses/" id="http://www.gnu.org/licenses/">.
 
 <toc>
 
 <chapt>Introduction
-<p>First of all, programming is fun. However, it should not become a administrative task where you have to run update tools and add filenames to scripts. Apart from the possible typos, it's just no fun.
-<p>Using most of the tools on the net I found myself either adding filenames to scripts (and removing them) or digging deep into the core of some weird scripting language to try automate my builds. I ended up with a clumsy, to say the least, collection of <tt>find</tt>, <tt>grep</tt>, <tt>sed</tt> and <tt>bash</tt>. Then after having run my script generating script, I had to run <tt>./configure</tt> to get the new scripts to generate real Makefiles. Then, the only thing left to do was to run <tt>make</tt>.
-<p>This was a depressing way to develop, because most additions to the project I made required me to run all those scripts. This would take about 30 seconds, or so it felt.
-<p>You would say, well why not use an IDE? Well, trouble here was I wanted to split up my code in speparate files... a lot of separate files. Not only do I seperate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, register it as source, set is as part of the main program, etc).
-<p>Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900 lines of code in a single file, only accesible through a specially equipped text editor or full scale IDE. But then I found another problem: I had to list the libraries I needed in some box somewhere! <prgn>icmake</prgn> was one solution, however it had two small drawbacks: you needed to mention your classes and you couldn't use directories in directories. So, I decided to create a fast and simple program to solve my problem.
-<p>Although you have to keep some standards to get &ccb; to work on your program, I found it made my programming fun again: write your program, wait a few seconds for &ccb; to catch up and start testing!
+<p>Programming should not become an administrative task. With most of the tools on the net I found myself either adding filenames to scripts (and removing them) or digging deep into the core of some scripting language to try automate my builds. At first I ended up with a clumsy, to say the least, collection of <tt>find</tt>, <tt>grep</tt>, <tt>sed</tt> and <tt>bash</tt>. Combined they formed a script to generate Makefiles dispatched over multiple directories. The complexity quickly grew out of hand and it left me with a lot of clutter around my source. The second incarnation helped to generate autotools scripts. I had to run <tt>./configure</tt> to get the new scripts to generate real Makefiles, followed by make. If you commonly add and remove files, updates are slow.
+<p>It was a depressing way to develop, because most additions to the project I made required me to run all those scripts. On top of that, it would take about 30 seconds, or so it felt.
+<p>You would say, well why not use an IDE? Well, trouble here was I wanted to split up my code in speparate files... a lot of separate files. Not only do I seperate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, register it as source, set is as part of the main program, etc). Those who did, often used autotools in the background and would have to re-autotool on every added file. Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900+ lines of code in a single file, only accesible through a specially equipped text editor or full scale IDE.
+<p>The closest thing to perfection out there was <prgn>icmake</prgn>. This only requires you to mention the directories you use and will keep your development tree clean, however it had two small drawbacks: you needed to mention your classes and you couldn't use directories in directories. So, I decided to create a fast and simple program to solve my problem.
+<p>Although you have to keep some standards (split source over directories) to get &ccb; to work on your program, I found it almost completely eliminated my interaction with the build system. Better yet, it helps with bootstrapping other build systems.
 </chapt>
 
 <chapt>How it works
 <p>To know how to work with &ccb; is of course the most important thing (if you want to). So
-here is a quick and simple review of what it does.
+here is a quick and simple review of the internals.
 <p>
 We will now consider what happens when &ccb; is called without any arguments.
 <p>First &ccb; will find all source files in the current directory (using the list of source extensions to find them.)
@@ -56,15 +55,65 @@ src/Compiler/countFirstLinkerArguments.cc</tt> for the meantime. This file conta
 </chapt>
 
 
-<chapt>Using &ccb;: building your program
+<chapt>Using &ccb;
+<sect>Organizing your source
+<p>&ccb; will read your local includes (#include &quot;something&quot;) and compile any source next to it into your program or library. For every class you want to use, make sure you create a separate directory. Every directory contains source files which define the different members of your class.
+<p>Because every member of a class has it's own file, each of these files will have an approximately equal header. To keep us from typing "using namespace" and "include &lt;iostream&gt;" for each of these files, a so called internal header file is created. The internal header file is the only file the member implementation include and is identified by the extension <tt>.ih</tt>.
+<p>An example member implementation is given <tt>fileSystem/touch.cc</tt>:
+<example>
+#include "fileSystem.ih"
+
+bool FileSystem::touch(std::string const &amp;filename)
+{
+  ofstream file(filename.c_str(), ios::app);
+  bool succes = file.is_open();
+  file.close();
+  return succes;
+}
+</example>
+<p>The internal header file, <tt>fileSystem/fileSystem.ih</tt>:
+<example>
+#include "fileSystem.hh"
+#include &lt;fstream&gt;
+
+#include "../options/options.hh"
+
+using namespace std;
+using namespace bneijt;
+</example>
+<p>The header file defines the <tt>FileSystem</tt> class in the <tt>bneijt</tt> namespace and includes only what is needed for it's declaration.
+<p>Splitting the source up like this will get you a lot of files, but will make editing and hacking your code simple. The functions are easy to find, quick to open and easy to grasp. Futhermore, version control software will encounter less collisions and patches will merge more easily on quicker moving code.
+<p>The main program is in the root of the source. &ccb; has the following listing:
+<example>
+./fileSystem/touch.cc
+./fileSystem/fileSystem.ih
+./fileSystem/isDirectory.cc
+./fileSystem/cleanPath.cc
+./fileSystem/modTime.cc
+./fileSystem/fileExists.cc
+./fileSystem/isReadable.cc
+./fileSystem/absolutePath.cc
+./ccResolutions
+./string/replace.cc
+./string/test.cc
+./string/string.ih
+./string/toUpper.cc
+./string/string.hh
+./options/options.hh
+./options/options.ih
+./options/statics.cc
+./ccbuild.cc
+</example>
+<p>The top most file is <tt>ccbuild.cc</tt>, which contains a special function: <tt>int main</tt>. &ccb; does not care about the arguments the main function takes, but it does care about it being <tt>int main</tt>. This is what &ccb; calls a binary target, a file that is the root of a binary.
+
+
+<sect>Building a program
 <p>To build a configured &ccb; compatible source tree, simple run &ccb; in the directory containing the main program. This will compile all programs in the given directory. However, if you only want to compile one given program, issue the command <tt>ccbuild build mainsource.cc</tt>, where mainsource.cc should be the name of the main sourcefile.
 <p>
 Once the command is issued, &ccb; will start reading includes the source does and gather sources it should compile. Any sources it can find will be compiled and linked to the main program. Once the <tt>[LINK] mainsource</tt> line get's done, without any errors, your main program will be done and you can start it with <tt>./mainsource</tt>.
-</chapt>
+</sect>
 
-
-
-<chapt>Cleaning
+<sect>Cleaning up
 <p>For cleaning your sourcetree, &ccb; offers two commands: <tt>clean</tt> and <tt>distclean</tt>. Although they might act almost the same, they are implemented quite different.
 
 <p>
@@ -73,6 +122,9 @@ The <tt>distclean</tt> command is totally source independent: it doesn't scan so
 The <tt>clean</tt> command is much more subtle: it reads the sources and removes any objects part of the current source tree. Because it reads the sources, using clean will only remove those sources part of the given or implied main binary target(s). This command will not remove any directories.
 <p>
 General rule is to use the force command when you want to update everything, use the <tt>clean</tt> when you want to remove all files for a local binary target (but not any other binary targets in the local directory) and use <tt>distclean</tt> to remove everything including old objects and precompiled headers.
+</sect>
+
+
 </chapt>
 
 

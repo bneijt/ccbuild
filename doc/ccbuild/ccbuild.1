@@ -6,14 +6,16 @@ ccbuild \(em Strict C++ developer\&'s build utility
 \fBccbuild\fR [options ]  [command ]  
 .SH "DESCRIPTION" 
 .PP 
-\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s). \fBccbuild\fR reads these files in the order: \fB./ccResolutions\fP, \fB~/.ccbuild/ccResolutions\fP, \fB~/.ccbuild/ccResolutions.d/*\fP. Only the first mention of a global header file in these files is used. 
+\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. \fBccbuild\fR reads these files in the order: \fB./ccResolutions\fP, \fB~/.ccbuild/ccResolutions\fP, \fB~/.ccbuild/ccResolutions.d/*\fP. Only the first mention of a global header file in these files is used. 
 .PP 
-To keep \fBccbuild\fR from acting on an include statement, seperate the #\-sign and the include statement by one space ("# include"). These will be ignored. 
+\fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, seperate the #\-sign and the include statement by a single space ("# include"). 
 .SH "COMMANDS" 
 .IP "build [\fIfilename.cc\fR]" 10 
 Build everything or the given source. 
 .IP "lib [\fIfilename.cc\fR]" 10 
-Collect all objects into an archive. If a version is given, using \-\-pversion, then a shared library is also build and symbolic links will be created. This currently forces the \-fPIC argument addition. 
+Collect all objects into an archive. If a version is given, using \-\-pversion, then a shared library is also build with symbolic links. This currently forces the \-fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src. 
+.IP "" 10 
+Example: create an empty .cc file which simply includes all the local libraries, run ccbuild \-\-pversion 0.0.1 lib thatfile.cc 
 .IP "clean [\fIfilename.cc\fR]" 10 
 Clean everything or the given source. 
 .IP "distclean" 10 
@@ -63,12 +65,10 @@ Precompile both internal headers and normal headers. This requires g++ version 3
 Continue on compiler errors. 
 .IP "\fB\-\-md5\fP" 10 
 Use MD5 hashes to check for file changes. The hashes are store in "o/filename.md5" for every file. These sums are only	stored after a clean exit from ccbuild (last line showing "[WR] MD5 data") or a succesfull compilation. 
-.IP "\fB\-\-real-man\fP" 10 
-Show command return values per file on stdout. Combine this with "2>/dev/null" appended to the command an you\&'ll have something for real men. This is a total rip-off from \fIReal Man\&'s Compiler Collection\fP http://freshmeat.net/projects/rmcc/ 
 .IP "\fB-I\fP \fIpath\fR" 10 
 Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument). 
 .IP "\fB\-\-recursive-include\fP \fIpath\fR" 10 
-This is just like \fB-I\fP, but for the given path and every non-empty directory with a name other then "o". 
+This is just like \fB-I\fP, but for the given path and every non-empty directory with a name other then "o". Make sure you do not come to depend on this behavior, that would be bad practice. 
 .IP "\fB-l\fP \fB\-\-highlight\fP" 10 
 Set terminal colour to red before executing the command, then reset to normal at the end of it. 
 .IP "\fB\-\-xof\fP \fB\-\-exec-on-fail\fP \fIcommand\fR" 10 
@@ -115,21 +115,25 @@ If the first line of the ccResolutions file starts with "#&", the rest of this l
  
 .SH "EXAMPLES" 
 .PP 
-Some, mostly trivial, examples of program use. 
+Examples of program use. 
+.IP "\fBccbuild\fR resolve >> ccResolutions" 10 
+Add any of the unknown global headers to the ccResolutions file. You can also use \-\-nowarn to keep \fBccbuild\fR quiet, but you will have to think twice if you get compilation errors. 
 .IP "\fBccbuild\fR \-\-brute" 10 
-Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call.  
+Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call. 
 .IP "\fBccbuild\fR \-p \-\-compiler \&'g++\-3.4\&' \-\-args \-Wall \-\-args \&'\-Wextra \-ansi\&'" 10 
-Precompile internal headers using \fBg++\-3.4\fR and highlight all compiler output. Also give all compiler commands the parameters "\-Wall \-Wextra \-ansi". 
+Precompile internal headers using \fBg++\-3.4\fR and highlight all compiler output (\-l). Also give all compiler commands the parameters "\-Wall \-Wextra \-ansi". 
 .IP "\fBccbuild\fR \-f \-\-args \-O3" 10 
-Recompiling your project for benchmarking tests. 
+Recompiling your project for benchmarking tests. Forces the update of all code (\-f) and sets the compiler argument to \-O3. 
 .IP "\fBccbuild\fR \-\-verbose dot; \fBdotty\fR *.dot" 10 
 Graph the dependencies for all programs with colours. Then view these using \fBdotty\fR. This can help you to discover irregular dependencies and what test programs use. 
-.IP "\fBccbuild\fR \-\-exec-on-fail \&'gedit\&'" 10 
-Open all error producing sources in gedit. Very usefull for when you change the interface of a class. 
-.IP "\fBccbuild\fR \-\-compiler distcc makefile > Makefile; \fBmake\fR \-j8" 10 
-Combine \fBccbuild\fR with \fBdistcc\fR using \fBmake\fR. This is a work-around because \fBccbuild\fR doesn\&'t support multiprocessing. 
+.IP "\fBccbuild\fR \-\-xof \&'gedit\&'" 10 
+Try to compile the program and open the first file that does not compile correctly.Open all error producing sources in gedit. Very usefull for when you change the interface of a class. 
+.IP "\fBccbuild\fR \-\-compiler distcc \-j 20" 10 
+Use 20 distcc compilers to compile the project. 
 .IP "\fBccbuild\fR \-\-nodefargs \-f \-\-args \&'\-Wall \-Werror\&' && \fBsvn\fR commit \-m \&'buildable backup\&'" 10 
 If all the sources are buildable without any warnings, commit everything to the repository using subversion. 
+.PP 
+For all of these examples, you can  
 .SH "FILES" 
 .PP 
 Configuration files used by \fBccbuild\fR 
@@ -148,11 +152,11 @@ Currently there is no way to allow one object file to effect the commandline par
 ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file. 
 .SH "RESTRICTIONS" 
 .PP 
-ccbuild will not follow or act on any include statements with a single space between the #\-sign and the include. So all include statements starting with "#\ include" will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode these are mentioned as warnings. 
+ccbuild will not follow or act on any include statements with a single space between the #\-sign and the include. So all include statements starting with "#\ include" will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (\-\-verbose) these are mentioned as warnings. 
 .SH "AUTHOR" 
 .PP 
 A. Bram Neijt <bneijt@gmail.com> 
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Wed 21 Oct 2009, 15:17 
+.\" created by instant / docbook-to-man, Wed 21 Oct 2009, 23:09 

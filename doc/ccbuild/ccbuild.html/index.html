@@ -15,18 +15,20 @@
 <link href="index.html#copyright" rel="copyright">
 <link href="ch1.html" rel="chapter" title="1 Introduction">
 <link href="ch2.html" rel="chapter" title="2 How it works">
-<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>: building your program">
-<link href="ch4.html" rel="chapter" title="4 Cleaning">
-<link href="ch5.html" rel="chapter" title="5 Moving to <code>ccbuild</code>">
-<link href="ch6.html" rel="chapter" title="6 Moving from <code>ccbuild</code>">
-<link href="ch7.html" rel="chapter" title="7 Problem solving with ccbuild">
+<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>">
+<link href="ch4.html" rel="chapter" title="4 Moving to <code>ccbuild</code>">
+<link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
+<link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
 <link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
-<link href="ch5.html#s5.1" rel="section" title="5.1 Strictness to adhere to">
-<link href="ch5.html#s5.2" rel="section" title="5.2 Setting up your configuration file">
-<link href="ch6.html#s6.1" rel="section" title="6.1 General build file generation">
-<link href="ch6.html#s6.2" rel="section" title="6.2 Generating A-A-P files">
-<link href="ch7.html#s7.1" rel="section" title="7.1 You changed a class interface">
+<link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
+<link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
+<link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
+<link href="ch4.html#s4.1" rel="section" title="4.1 Strictness to adhere to">
+<link href="ch4.html#s4.2" rel="section" title="4.2 Setting up your configuration file">
+<link href="ch5.html#s5.1" rel="section" title="5.1 General build file generation">
+<link href="ch5.html#s5.2" rel="section" title="5.2 Generating A-A-P files">
+<link href="ch6.html#s6.1" rel="section" title="6.1 You changed a class interface">
 <link href="apA.html#sA.1" rel="section" title="A.1 genPkgconfigList.sh">
 <link href="apA.html#sA.2" rel="section" title="A.2 ccbuildStatusPage.sh">
 
@@ -46,7 +48,6 @@
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch1.html">next</a> ]
@@ -64,10 +65,10 @@
 
 <p>
 This document is a general usage manual to <code>ccbuild</code>.  It will
-introduce general ways of using <code>ccbuild</code>.  It will also explain
+introduce ways of using <code>ccbuild</code>.  It will also explain
 <code>ccbuild</code>'s behaviour in more words then the manual does.  The
 newest version of ccbuild can be found at the <code><a
-href="http://ccbuild.sourceforge.net">http://ccbuild.sourceforge.net</a></code>
+href="http://www.logfish.net/pr/ccbuild/">http://www.logfish.net/pr/ccbuild/</a></code>
 </p>
 
 <hr>
@@ -93,7 +94,8 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 <p>
 You should have received a copy of the GNU General Public License along with
-ccbuild.  If not, see http://www.gnu.org/licenses/.
+ccbuild.  If not, see <code><a
+href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a></code>.
 </p>
 
 <hr>
@@ -101,19 +103,25 @@ ccbuild.  If not, see http://www.gnu.org/licenses/.
 <h2><a name="contents"></a>Contents</h2>
 
 <ul>
-<li><a href="ch1.html">1 Introduction</a><li><a href="ch2.html">2 How it works</a><li><a href="ch3.html">3 Using <code>ccbuild</code>: building your program</a><li><a href="ch4.html">4 Cleaning</a><li><a href="ch5.html">5 Moving to <code>ccbuild</code></a>
+<li><a href="ch1.html">1 Introduction</a><li><a href="ch2.html">2 How it works</a><li><a href="ch3.html">3 Using <code>ccbuild</code></a>
   <ul>
-  <li><a href="ch5.html#s5.1">5.1 Strictness to adhere to</a></li>
-  <li><a href="ch5.html#s5.2">5.2 Setting up your configuration file</a>
+  <li><a href="ch3.html#s3.1">3.1 Organizing your source</a></li>
+  <li><a href="ch3.html#s3.2">3.2 Building a program</a></li>
+  <li><a href="ch3.html#s3.3">3.3 Cleaning up</a>
   </ul></li>
-<li><a href="ch6.html">6 Moving from <code>ccbuild</code></a>
+<li><a href="ch4.html">4 Moving to <code>ccbuild</code></a>
   <ul>
-  <li><a href="ch6.html#s6.1">6.1 General build file generation</a></li>
-  <li><a href="ch6.html#s6.2">6.2 Generating A-A-P files</a>
+  <li><a href="ch4.html#s4.1">4.1 Strictness to adhere to</a></li>
+  <li><a href="ch4.html#s4.2">4.2 Setting up your configuration file</a>
   </ul></li>
-<li><a href="ch7.html">7 Problem solving with ccbuild</a>
+<li><a href="ch5.html">5 Moving from <code>ccbuild</code></a>
   <ul>
-  <li><a href="ch7.html#s7.1">7.1 You changed a class interface</a>
+  <li><a href="ch5.html#s5.1">5.1 General build file generation</a></li>
+  <li><a href="ch5.html#s5.2">5.2 Generating A-A-P files</a>
+  </ul></li>
+<li><a href="ch6.html">6 Problem solving with ccbuild</a>
+  <ul>
+  <li><a href="ch6.html#s6.1">6.1 You changed a class interface</a>
   </ul></li>
 <li><a href="apA.html">A The tools directory</a>
   <ul>
@@ -134,7 +142,6 @@ ccbuild.  If not, see http://www.gnu.org/licenses/.
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch1.html">next</a> ]

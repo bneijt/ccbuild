@@ -15,18 +15,20 @@
 <link href="index.html#copyright" rel="copyright">
 <link href="ch1.html" rel="chapter" title="1 Introduction">
 <link href="ch2.html" rel="chapter" title="2 How it works">
-<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>: building your program">
-<link href="ch4.html" rel="chapter" title="4 Cleaning">
-<link href="ch5.html" rel="chapter" title="5 Moving to <code>ccbuild</code>">
-<link href="ch6.html" rel="chapter" title="6 Moving from <code>ccbuild</code>">
-<link href="ch7.html" rel="chapter" title="7 Problem solving with ccbuild">
+<link href="ch3.html" rel="chapter" title="3 Using <code>ccbuild</code>">
+<link href="ch4.html" rel="chapter" title="4 Moving to <code>ccbuild</code>">
+<link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
+<link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
 <link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
-<link href="ch5.html#s5.1" rel="section" title="5.1 Strictness to adhere to">
-<link href="ch5.html#s5.2" rel="section" title="5.2 Setting up your configuration file">
-<link href="ch6.html#s6.1" rel="section" title="6.1 General build file generation">
-<link href="ch6.html#s6.2" rel="section" title="6.2 Generating A-A-P files">
-<link href="ch7.html#s7.1" rel="section" title="7.1 You changed a class interface">
+<link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
+<link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
+<link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
+<link href="ch4.html#s4.1" rel="section" title="4.1 Strictness to adhere to">
+<link href="ch4.html#s4.2" rel="section" title="4.2 Setting up your configuration file">
+<link href="ch5.html#s5.1" rel="section" title="5.1 General build file generation">
+<link href="ch5.html#s5.2" rel="section" title="5.2 Generating A-A-P files">
+<link href="ch6.html#s6.1" rel="section" title="6.1 You changed a class interface">
 <link href="apA.html#sA.1" rel="section" title="A.1 genPkgconfigList.sh">
 <link href="apA.html#sA.2" rel="section" title="A.2 ccbuildStatusPage.sh">
 
@@ -46,7 +48,6 @@
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch2.html">next</a> ]
@@ -62,25 +63,23 @@
 <hr>
 
 <p>
-First of all, programming is fun.  However, it should not become a
-administrative task where you have to run update tools and add filenames to
-scripts.  Apart from the possible typos, it's just no fun.
+Programming should not become an administrative task.  With most of the tools
+on the net I found myself either adding filenames to scripts (and removing
+them) or digging deep into the core of some scripting language to try automate
+my builds.  At first I ended up with a clumsy, to say the least, collection of
+<samp>find</samp>, <samp>grep</samp>, <samp>sed</samp> and <samp>bash</samp>.
+Combined they formed a script to generate Makefiles dispatched over multiple
+directories.  The complexity quickly grew out of hand and it left me with a lot
+of clutter around my source.  The second incarnation helped to generate
+autotools scripts.  I had to run <samp>./configure</samp> to get the new
+scripts to generate real Makefiles, followed by make.  If you commonly add and
+remove files, updates are slow.
 </p>
 
 <p>
-Using most of the tools on the net I found myself either adding filenames to
-scripts (and removing them) or digging deep into the core of some weird
-scripting language to try automate my builds.  I ended up with a clumsy, to say
-the least, collection of <samp>find</samp>, <samp>grep</samp>, <samp>sed</samp>
-and <samp>bash</samp>.  Then after having run my script generating script, I
-had to run <samp>./configure</samp> to get the new scripts to generate real
-Makefiles.  Then, the only thing left to do was to run <samp>make</samp>.
-</p>
-
-<p>
-This was a depressing way to develop, because most additions to the project I
-made required me to run all those scripts.  This would take about 30 seconds,
-or so it felt.
+It was a depressing way to develop, because most additions to the project I
+made required me to run all those scripts.  On top of that, it would take about
+30 seconds, or so it felt.
 </p>
 
 <p>
@@ -89,23 +88,26 @@ split up my code in speparate files...  a lot of separate files.  Not only do I
 seperate my code into directories, I also use seperate files for functions of
 the same class.  No IDE allowed me to do this without the hassle of having to
 go through a few menus (create file, register it as source, set is as part of
-the main program, etc).
+the main program, etc).  Those who did, often used autotools in the background
+and would have to re-autotool on every added file.  Frustrated, I almost gave
+up on my coding ethics and started to do it the way the masses do: 900+ lines
+of code in a single file, only accesible through a specially equipped text
+editor or full scale IDE.
 </p>
 
 <p>
-Frustrated, I almost gave up on my coding ethics and started to do it the way
-the masses do: 900 lines of code in a single file, only accesible through a
-specially equipped text editor or full scale IDE.  But then I found another
-problem: I had to list the libraries I needed in some box somewhere!
-<code>icmake</code> was one solution, however it had two small drawbacks: you
-needed to mention your classes and you couldn't use directories in directories.
-So, I decided to create a fast and simple program to solve my problem.
+The closest thing to perfection out there was <code>icmake</code>.  This only
+requires you to mention the directories you use and will keep your development
+tree clean, however it had two small drawbacks: you needed to mention your
+classes and you couldn't use directories in directories.  So, I decided to
+create a fast and simple program to solve my problem.
 </p>
 
 <p>
-Although you have to keep some standards to get <code>ccbuild</code> to work on
-your program, I found it made my programming fun again: write your program,
-wait a few seconds for <code>ccbuild</code> to catch up and start testing!
+Although you have to keep some standards (split source over directories) to get
+<code>ccbuild</code> to work on your program, I found it almost completely
+eliminated my interaction with the build system.  Better yet, it helps with
+bootstrapping other build systems.
 </p>
 
 <hr>
@@ -119,7 +121,6 @@ wait a few seconds for <code>ccbuild</code> to catch up and start testing!
 [ <a href="ch4.html">4</a> ]
 [ <a href="ch5.html">5</a> ]
 [ <a href="ch6.html">6</a> ]
-[ <a href="ch7.html">7</a> ]
 [ <a href="apA.html">A</a> ]
 [ <a href="apB.html">B</a> ]
 [ <a href="ch2.html">next</a> ]

@@ -9,7 +9,7 @@
   <!ENTITY manfirstname "<firstname>Bram</firstname>">
   <!ENTITY mansurname   "<surname>Neijt</surname>">
   <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY mandate      "<date>2009-10-19</date>">
+  <!ENTITY mandate      "<date>2009-10-21</date>">
   <!-- SECTION should be 1-8, maybe with subsection. Other parameters are
        allowed: see man(7), man(1). -->
   <!ENTITY mansection   "<manvolnum>1</manvolnum>">
@@ -21,7 +21,7 @@
 <!--
 
         ccbuild - A strict developer&apos;s build utility
-Version 2.0.0, Copyright (C) 2005 A. Bram Neijt <bneijt@gmail.com>
+Version 2.0.0, Copyright (C) 2009 A. Bram Neijt <bneijt@gmail.com>
 ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
 
 
@@ -36,7 +36,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       &mansurname;
     </author>
     <copyright>
-      <year>2005</year>
+      <year>2009</year>
       <holder>&manusername;</holder>
     </copyright>
     &mandate;
@@ -68,8 +68,8 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   </refsynopsisdiv>
   <refsect1>
     <title>DESCRIPTION</title>
-    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s). <command>&manpackage;</command> reads these files in the order: <filename>./ccResolutions</filename>, <filename>~/.ccbuild/ccResolutions</filename>, <filename>&tilde;/.ccbuild/ccResolutions.d/*</filename>. Only the first mention of a global header file in these files is used.</para>
-    <para>To keep <command>&manpackage;</command> from acting on an include statement, seperate the #-sign and the include statement by one space (&quot;# include&quot;). These will be ignored.</para>
+    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. <command>&manpackage;</command> reads these files in the order: <filename>./ccResolutions</filename>, <filename>~/.ccbuild/ccResolutions</filename>, <filename>&tilde;/.ccbuild/ccResolutions.d/*</filename>. Only the first mention of a global header file in these files is used.</para>
+    <para><command>&manpackage;</command> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <command>&manpackage;</command> from following up on an include statement, seperate the #-sign and the include statement by a single space (&quot;# include&quot;).</para>
 <!--
     <refsect2>
       <title>A Sample Subsection</title>
@@ -110,7 +110,8 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>lib [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build and symbolic links will be created. This currently forces the -fPIC argument addition.</para>
+          <para>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build with symbolic links. This currently forces the -fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src.</para>
+          <para>Example: create an empty .cc file which simply includes all the local libraries, run ccbuild --pversion 0.0.1 lib thatfile.cc</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -252,12 +253,6 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><option>--real-man</option></term>
-        <listitem>
-          <para>Show command return values per file on stdout. Combine this with &quot;2>/dev/null&quot; appended to the command an you&apos;ll have something for real men. This is a total rip-off from <emphasis>Real Man&apos;s Compiler Collection</emphasis> http://freshmeat.net/projects/rmcc/</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term><option>-I</option> <replaceable>path</replaceable></term>
         <listitem>
           <para>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).</para>
@@ -266,7 +261,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>--recursive-include</option> <replaceable>path</replaceable></term>
         <listitem>
-          <para>This is just like <option>-I</option>, but for the given path and every non-empty directory with a name other then &quot;o&quot;.</para>
+          <para>This is just like <option>-I</option>, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behavior, that would be bad practice.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -396,7 +391,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
     If the first line of the ccResolutions file starts with &quot;#&amp;&quot;, the rest of this line is shell expanded and used and appended to the argument list of ccbuild.
     </para>
   </refsect1>
-<!--  
+<!--
   <refsect1>
     <title>RETURN VALUE</title>
 
@@ -411,24 +406,30 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   <refsect1>
     <title>EXAMPLES</title>
 
-    <para>Some, mostly trivial, examples of program use.</para>
+    <para>Examples of program use.</para>
     <variablelist>
+      <varlistentry>
+        <term><command>&manpackage;</command> resolve &gt;&gt; ccResolutions</term>
+        <listitem>
+          <para>Add any of the unknown global headers to the ccResolutions file. You can also use --nowarn to keep <command>&manpackage;</command> quiet, but you will have to think twice if you get compilation errors.</para>
+        </listitem>
+      </varlistentry>
       <varlistentry>
         <term><command>&manpackage;</command> --brute</term>
         <listitem>
-          <para>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next &manpackage; call. </para>
+          <para>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next &manpackage; call.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><command>&manpackage;</command> -p --compiler &apos;g++-3.4&apos; --args -Wall --args &apos;-Wextra -ansi&apos;</term>
         <listitem>
-          <para>Precompile internal headers using <command>g++-3.4</command> and highlight all compiler output. Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</para>
+          <para>Precompile internal headers using <command>g++-3.4</command> and highlight all compiler output (-l). Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><command>&manpackage;</command> -f --args -O3</term>
         <listitem>
-          <para>Recompiling your project for benchmarking tests.</para>
+          <para>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -438,15 +439,15 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --exec-on-fail &apos;gedit&apos;</term>
+        <term><command>&manpackage;</command> --xof &apos;gedit&apos;</term>
         <listitem>
-          <para>Open all error producing sources in gedit. Very usefull for when you change the interface of a class.</para>
+          <para>Try to compile the program and open the first file that does not compile correctly.Open all error producing sources in gedit. Very usefull for when you change the interface of a class.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --compiler distcc makefile &gt; Makefile; <command>make</command> -j8</term>
+        <term><command>&manpackage;</command> --compiler distcc -j 20</term>
         <listitem>
-          <para>Combine <command>&manpackage;</command> with <command>distcc</command> using <command>make</command>. This is a work-around because <command>&manpackage;</command> doesn&apos;t support multiprocessing.</para>
+          <para>Use 20 distcc compilers to compile the project.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -456,6 +457,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         </listitem>
       </varlistentry>
  		</variablelist>
+    <para>For all of these examples, you can </para>
   </refsect1>
 <!--  
   <refsect1>
@@ -513,7 +515,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   <refsect1>
     <title>RESTRICTIONS</title>
 
-    <para>&manpackage; will not follow or act on any include statements with a single space between the #-sign and the include. So all include statements starting with &quot;#&nbsp;include&quot; will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode these are mentioned as warnings.</para>
+    <para>&manpackage; will not follow or act on any include statements with a single space between the #-sign and the include. So all include statements starting with &quot;#&nbsp;include&quot; will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (--verbose) these are mentioned as warnings.</para>
   </refsect1>
 
   <refsect1>
