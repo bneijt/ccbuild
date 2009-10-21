@@ -16,22 +16,17 @@
 */
 
 
-
-
-
-
-
 #include "source.ih"
-void Source::dependencies(std::vector<Source *> &srcList)
+void Source::dependencies(std::vector<Source const*> &srcList) const
 {
   //Collect all Source pointers needed
-  stack<Source *> srcStack;
+  stack<Source const *> srcStack;
   srcStack.push(this);
 
   //Gather all the global includes and sources
   while(srcStack.size() > 0)
   {
-    Source *current = srcStack.top();
+    Source const*current = srcStack.top();
     srcStack.pop();
 
     //Have we seen this source?
@@ -52,11 +47,11 @@ void Source::dependencies(std::vector<Source *> &srcList)
   }
 }
 
-void Source::dependencies(std::vector<Source *> &srcList, std::vector<std::string *> &globalList)
+void Source::dependencies(std::vector<Source const *> &srcList, std::vector<std::string const *> &globalList) const
 {
 	//TODO: use std::set as srcList to check for contents?
   //Collect all Source pointers needed
-  stack<Source *> srcStack;
+  stack<Source const *> srcStack;
   srcStack.push(this);
 	
 	set<string *> globalSet(d_globalDeps);
@@ -64,7 +59,7 @@ void Source::dependencies(std::vector<Source *> &srcList, std::vector<std::strin
   //Gather all the global includes and sources
   while(srcStack.size() > 0)
   {
-    Source *current = srcStack.top();
+    Source const *current = srcStack.top();
     srcStack.pop();
 
     //Have we seen this source?

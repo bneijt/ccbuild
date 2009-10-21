@@ -15,14 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 void Source::buildHeader(Compiler & cc)
 {
+  OpenMP::ScopedLock slock(d_apiLock);
+
 	//To build a header, precompile it
 
 

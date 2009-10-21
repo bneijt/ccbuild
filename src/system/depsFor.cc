@@ -47,14 +47,40 @@ void System::depsFor(ostream &str)
 
 void System::depsFor(Source * s, ostream &str)
 {
-	vector<Source *> srcList;
-	vector<string *> globalList;
+	vector<Source const *> srcList;
+	vector<string const *> globalList;
+	set<string> globalSet; //Used for verbose
 	vector<string > ignored;
-
-	System::inspect(s);
-	s->dependencies(srcList, globalList);
-	s->ignoredDeps(ignored);
-
+  if(Options::verbose)
+  {
+    //If verbose is given, then collect ALL targets needed for a complete compile
+    //And list their global and local sources
+  	vector<Source *> deepList;    
+	  deepList.push_back(s);
+	  collectTargets(deepList);
+	  //Each source has already been inspected by collectTargets
+	  __foreach(src, deepList)
+	  {
+      //Collect additions
+    	(*src)->dependencies(srcList, globalList);
+    	(*src)->ignoredDeps(ignored);
+	  }
+	  
+	  //Create a unique set of each
+	  vector<Source const*>::iterator srcEnd = unique(srcList.begin(), srcList.end());
+	  srcList.erase(srcEnd, srcList.end());
+    __foreach(gl, globalList)
+      globalSet.insert(**gl);//Insert string value
+    globalList.clear();
+    __foreach(gl, globalSet)
+      globalList.push_back(&(*gl)); //Insert pointers to set values
+  }
+  else
+  {
+  	System::inspect(s);
+  	s->dependencies(srcList, globalList);
+  	s->ignoredDeps(ignored);
+  }
 
 	__foreach(src, srcList)
 		str << (*src)->filename() << " ";

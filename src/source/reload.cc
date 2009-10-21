@@ -24,6 +24,7 @@
 
 bool Source::reload()
 {
+  OpenMP::ScopedLock slock(d_apiLock);
   d_inoDev = make_pair(0,0);
   d_depsDone = false;
   d_hasMainFunction = false;

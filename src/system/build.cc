@@ -26,7 +26,7 @@ bool sourceIsBinaryTarget(Source const *src)
 {
   return src->isBinTarget();
 }
-}
+}// Anon namespace
 
 
 void System::build(Source *source)

@@ -39,7 +39,7 @@ bool System::addArguments(int &argc, char ** &argv)
 	confLine = confLine.substr(2);
 
 #ifdef _NO_WORDEXP_	
-	cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp 'bug'.\n";
+	cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp missing.\n";
 	return false;
 #else
 	cerr << "ccbuild: Adding ccResolutions arguments.\n";

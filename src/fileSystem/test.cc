@@ -14,7 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "fileSystem.hh"
 #include <string>
 #include <vector>
@@ -48,6 +47,23 @@ try
     dname = FileSystem::directoryName(dname);
   }
 
+  FS(cleanPath, "/home/bram/program/cc/ccbuild/src");
+  FS(cleanPath, ".");
+  FS(cleanPath, "/");
+  FS(cleanPath, "././");
+  FS(cleanPath, "././/");
+  FS(cleanPath, "hello.txt");
+  FS(cleanPath, "hello.");
+  FS(cleanPath, ".hello/");
+
+  FS(absolutePath, "/home/bram/program/cc/ccbuild/src");
+  FS(absolutePath, ".");
+  FS(absolutePath, "/");
+  FS(absolutePath, "././");
+  FS(absolutePath, "././/");
+  FS(absolutePath, "hello.txt");
+  FS(absolutePath, "hello.");
+  FS(absolutePath, ".hello/");
 
   cout << "\n";
   return 0;

@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "sources.ih"
 
 Sources &Sources::getInstance()

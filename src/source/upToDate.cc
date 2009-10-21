@@ -15,15 +15,10 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 
 //Non const helper brother
-bool Source::upToDate()
+bool Source::upToDate() const
 {
 	vector<Source *> srcList;
 	dependencies(srcList);

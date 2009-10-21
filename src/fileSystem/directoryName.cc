@@ -15,17 +15,12 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "fileSystem.ih"
 std::string FileSystem::directoryName(string const &filename)
 {  
 	//TODO allow for slash escaping of the character??
   string::size_type lastSlashPos = filename.find_last_of("/");
-  if(lastSlashPos == string::npos)
+  if(lastSlashPos == string::npos) //No slash in the path
     return ".";
   if(lastSlashPos == 0)
     return "/"; //Last slash is the root

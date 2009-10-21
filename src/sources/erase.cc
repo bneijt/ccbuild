@@ -15,15 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "sources.ih"
 
 void Sources::erase(Source *src)
 {
+  OpenMP::ScopedLock slock(d_sourcesLock);
 	if(d_sources.count(src))
 	{
 		d_sources.erase(src);

@@ -15,12 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
 #include "sources.ih"
 
 namespace{
@@ -44,28 +38,25 @@ class DerivedEqual
 Source *Sources::operator[](std::string const &filename)
 {
 
-	_debugLevel3("Request for " << filename);
+	_debugLevel2("Request for " << filename);
 	Source *s = new Source(filename);
 	if(!s)
-	{
-		cerr << "ccbuild: Unable allocate a source class?? :-S\n";
-		return 0;
-	}
-	_debugLevel4("Loaded " << s->filename());
+		throw Problem(Problem::Unable, "Unable allocate a Source class. Out of memory?");
 
 	if(!FileSystem::isReadable(s->filename()))
 	{
-		_debugLevel2("Requested file '" << filename << "' not readable.");
+		_debugLevel2("Requested file '" << s->filename() << "' not readable.");
 		delete s;
 		return 0;
 	}
 
+  OpenMP::ScopedLock sourceLock(d_sourcesLock);
 	std::set<Source *>::iterator pos = find_if(d_sources.begin(), d_sources.end(), DerivedEqual(s));
 
 	if(pos == d_sources.end())
 	{
 		//Not found
-		_debugLevel4("Not found: " << filename << ' so inserting it');
+		_debugLevel4("Not found: " << filename << " so inserting it");
 		d_sources.insert(s);
 		return s;
 	}

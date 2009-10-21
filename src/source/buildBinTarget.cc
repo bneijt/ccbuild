@@ -15,14 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 void Source::buildBinTarget(Compiler & cc)
 {
+  OpenMP::ScopedLock slock(d_apiLock);
+
   _debugLevel4("Output filename: " << outputFilename());
 
   vector<Source *> srcList;

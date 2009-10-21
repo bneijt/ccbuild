@@ -38,6 +38,7 @@ namespace bneijt
 class Sources
 {
 		std::set<Source *> d_sources;	///< A list of all loaded
+		OpenMP::Lock d_sourcesLock; ///<Lock for autmoatic instantiation and destruction
 
 		static Sources *s_instance;///< Static instance pointer
 		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction

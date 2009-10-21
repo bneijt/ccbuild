@@ -14,17 +14,13 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "source.ih"
 
 
 void Source::buildObjectTarget(Compiler &cc)
 {
+  OpenMP::ScopedLock slock(d_apiLock);
+
   vector<Source *> srcList;
   vector<string *> globalList;
 	dependencies(srcList, globalList);

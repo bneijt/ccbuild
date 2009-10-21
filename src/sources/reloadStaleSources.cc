@@ -24,6 +24,8 @@
 
 void Sources::reloadStaleSources()
 {
+  OpenMP::ScopedLock dslock(d_sourcesLock);
+  
 	__foreach(src, d_sources)
 	{
 	 	if((*src)->stale())

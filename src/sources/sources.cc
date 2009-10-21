@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "sources.ih"
 
 Sources::Sources()
@@ -29,6 +24,7 @@ Sources::Sources()
 
 Sources::~Sources()
 {
+  OpenMP::ScopedLock slock(d_sourcesLock);
 	__foreach(src, d_sources)
 	{
 		delete *src;

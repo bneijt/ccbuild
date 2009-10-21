@@ -15,14 +15,9 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 
-Source::Source(string const filename)
+Source::Source(string const &filename)
    :
    d_filename(filename),
    d_inoDev(make_pair(0,0)),
@@ -36,8 +31,8 @@ Source::Source(string const filename)
    d_done(false),
    d_srcType(Unknown)
 {
-
   d_filename = FileSystem::cleanPath(d_filename);
+  _debugLevel2("Loaded \"" << filename << "\" as \"" << d_filename << "\"");
 
  	struct stat a;
 

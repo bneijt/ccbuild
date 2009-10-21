@@ -33,7 +33,7 @@
 #include <set>
 
 #include "../Compiler/Compiler.hh"
-
+#include "../openmp/lock/lock.hh"
 namespace bneijt
 {
 
@@ -46,7 +46,7 @@ namespace bneijt
 ///The source wrapper should be able to tell us everything we want to know about a source.
 class Source
 {
-
+    OpenMP::Lock d_apiLock;///<Lock for the complete api, every non-const function should lock this.
 		///\brief A pair containing ino_t and dev_t information
 	  typedef std::pair<ino_t, dev_t> InodeDevPair;
 
@@ -81,7 +81,7 @@ class Source
 	public:
 
 		///\brief Load the source
-		Source(std::string const filename  ///<The path to the source
+		Source(std::string const &filename  ///<The path to the source
 			);
 
 		///\brief Create an empty source
@@ -96,10 +96,21 @@ class Source
 		std::string basenameWithoutExtension() const;
 
 		///\brief Give a list of all the sources that this source depends on.
-		void dependencies(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps);
+		void dependencies(std::vector<Source const *> &localDeps, std::vector<std::string const *> &globalDeps) const;
+		void dependencies(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps) const
+		{
+		  std::vector<Source const *> const_localDeps(localDeps.begin(), localDeps.end());
+		  std::vector<std::string const *> const_globalDeps(globalDeps.begin(), globalDeps.end());
+		  return dependencies(const_localDeps, const_globalDeps);
+		}
 
 		///\brief Append this source's local dependency pointers to this list
-		void dependencies(std::vector<Source*> &localDeps);
+		void dependencies(std::vector<Source const*> &localDeps) const;
+		void dependencies(std::vector<Source *> &localDeps) const
+		{
+		  std::vector<Source const *> const_localDeps(localDeps.begin(), localDeps.end());
+		  return dependencies(const_localDeps);
+		};
 
 		///\brief Give a list of all the sources that this source depends on.
 		void directDeps(std::vector<Source*> &localDeps) const;
@@ -208,7 +219,7 @@ class Source
 		bool hasSourceExtension() const;
 
 		///\brief Non-const helper function. Not const because of dependencies not being const.
-		bool upToDate();
+		bool upToDate() const;
 		
 
 		///\brief Return wether this source produces output.

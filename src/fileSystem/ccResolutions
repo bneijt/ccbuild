@@ -1,5 +1,7 @@
+#& --args "-DVERSION=\\\"TEST\\\""
 glob.h	
 sys/stat.h	
 sys/types.h	
 unistd.h	
 boost/filesystem/path.hpp	
+omp.h	

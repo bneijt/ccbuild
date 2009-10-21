@@ -15,10 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
 #include "Resolver.ih"
 
 namespace {
@@ -35,9 +31,7 @@ bool hasSpaces(char const *w)
 
 string Resolver::expand(std::string const &name) const
 {
-#ifdef __CYGWIN__
-	return name;
-#elif defined(__APPLE_C__) or defined(__APPLE__)
+#if defined(__CYGWIN__) or defined(__APPLE_C__) or defined(__APPLE__)
 	ostringstream pathstr("", ios::app);
 	string echo("echo " + name);
 	ostringstream os;

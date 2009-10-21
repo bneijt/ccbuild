@@ -15,16 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
 #include "source.ih"
 
 void Source::genDeps()
 {
+  OpenMP::ScopedLock slock(d_apiLock);
 	//If we already have deps, we are done.
 	if(d_depsDone)
 		return;
@@ -44,7 +39,9 @@ void Source::genDeps()
 		
   __foreach(li, localIncludes)
 	{
-	 	Source *s = sources[directory() + "/" + *li];
+	  std::string iname(directory() + "/" + *li);
+	  _debugLevel4("Loading source for local include: " << iname);
+	 	Source *s = sources[iname];
 	 	//if it's not there, try it from the local directory (The -I. might be used on the source tree)
     /*This variant is used for header files of your own program. It searches for a file named file first in the directory containing the current file, then in the quote directories and then the same directories used for <file>. You can prepend directories to the list of quote directories with the -iquote option.*/
     
