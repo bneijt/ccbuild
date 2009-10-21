@@ -506,30 +506,6 @@ try
       retValue = 0;
       break;
     }
-    else if(*argument == "tree")
-    {
-      cerr << "[" << *argument << "]\n";
-
-      if(next == rest.end())
-        System::tree(cout);
-      else
-      {
-        Source *s = sources[*next];
-        if(s)
-        {
-          skipArgument = true;
-          System::tree(s, cout);
-        }
-        else
-        {
-          cerr << "Error loading '" <<  *next << "' as tree source.\n";
-          retValue = 2;
-          break;
-        }
-      }
-      retValue = 0;
-      break;
-    }
     else if(*argument == "dot")
     {
       cerr << "[" << *argument << "]\n";

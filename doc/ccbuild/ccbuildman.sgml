@@ -154,12 +154,6 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>tree [<replaceable>filename.cc</replaceable>]</term>
-        <listitem>
-          <para>EXPERIMENTAL: output will probably change in the future. Generate an ascii art tree of your project files.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term>check [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
           <para>Desplay source status and filename on the stdout. Status and source path are seperated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab seperated collumn will be inserted containing a two letter filetype ccbuild identifies it as. This filetype is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>

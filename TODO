@@ -4,7 +4,6 @@ The features that may set of a new release and things to look out for:
   - Move to lowercase filenames
   - Add an interactive gui
   - Describe transition paths to various install/distribution systems (autotools, icmake, aap etc) in documentation
-  - Update, freshen, the tree command output
   - Add auditing command:
       Look for common problems, like including headers in both .hh and .ih of the same class.
       Look for inclusion of C headers instead of their C++ equivalent

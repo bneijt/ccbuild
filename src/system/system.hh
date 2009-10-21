@@ -44,12 +44,6 @@ class System
 
   public:
 		
-		//Scanning experimental command
-		static void tree(std::ostream &str);
-		static void tree(Source *source, std::ostream &str);
-
-    //NEW version interface
-
     //Inspection FASE
     ///\brief Inspect all sources in the current directory
 		static void inspect();

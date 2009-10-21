@@ -63,7 +63,6 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/system/ccbuild-uname.$(OBJEXT) \
 	src/system/ccbuild-trimmed.$(OBJEXT) \
 	src/system/ccbuild-trim.$(OBJEXT) \
-	src/system/ccbuild-tree.$(OBJEXT) \
 	src/system/ccbuild-system.$(OBJEXT) \
 	src/system/ccbuild-statics.$(OBJEXT) \
 	src/system/ccbuild-sleep.$(OBJEXT) \
@@ -330,8 +329,8 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/Options/statics.cc src/Options/Options.ih \
 	src/openmp/scopedLock/scopedLock.hh src/openmp/lock/lock.hh \
 	src/system/system.hh src/system/uname.cc src/system/system.ih \
-	src/system/trimmed.cc src/system/trim.cc src/system/tree.cc \
-	src/system/system.cc src/system/statics.cc src/system/sleep.cc \
+	src/system/trimmed.cc src/system/trim.cc src/system/system.cc \
+	src/system/statics.cc src/system/sleep.cc \
 	src/system/resolveTest.cc src/system/projectName.cc \
 	src/system/parseArguments.cc src/system/md5.cc \
 	src/system/makefileForAll.cc src/system/makefileFor.cc \
@@ -542,8 +541,6 @@ src/system/ccbuild-uname.$(OBJEXT): src/system/$(am__dirstamp) \
 src/system/ccbuild-trimmed.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-trim.$(OBJEXT): src/system/$(am__dirstamp) \
-	src/system/$(DEPDIR)/$(am__dirstamp)
-src/system/ccbuild-tree.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-system.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
@@ -1077,7 +1074,6 @@ mostlyclean-compile:
 	-rm -f src/system/ccbuild-sleep.$(OBJEXT)
 	-rm -f src/system/ccbuild-statics.$(OBJEXT)
 	-rm -f src/system/ccbuild-system.$(OBJEXT)
-	-rm -f src/system/ccbuild-tree.$(OBJEXT)
 	-rm -f src/system/ccbuild-trim.$(OBJEXT)
 	-rm -f src/system/ccbuild-trimmed.$(OBJEXT)
 	-rm -f src/system/ccbuild-uname.$(OBJEXT)
@@ -1224,7 +1220,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-sleep.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-system.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-tree.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-trim.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-trimmed.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-uname.Po@am__quote@
@@ -1440,20 +1435,6 @@ src/system/ccbuild-trim.obj: src/system/trim.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/trim.cc' object='src/system/ccbuild-trim.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-trim.obj `if test -f 'src/system/trim.cc'; then $(CYGPATH_W) 'src/system/trim.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/trim.cc'; fi`
-
-src/system/ccbuild-tree.o: src/system/tree.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-tree.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-tree.Tpo -c -o src/system/ccbuild-tree.o `test -f 'src/system/tree.cc' || echo '$(srcdir)/'`src/system/tree.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-tree.Tpo src/system/$(DEPDIR)/ccbuild-tree.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/tree.cc' object='src/system/ccbuild-tree.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-tree.o `test -f 'src/system/tree.cc' || echo '$(srcdir)/'`src/system/tree.cc
-
-src/system/ccbuild-tree.obj: src/system/tree.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-tree.obj -MD -MP -MF src/system/$(DEPDIR)/ccbuild-tree.Tpo -c -o src/system/ccbuild-tree.obj `if test -f 'src/system/tree.cc'; then $(CYGPATH_W) 'src/system/tree.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/tree.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-tree.Tpo src/system/$(DEPDIR)/ccbuild-tree.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/tree.cc' object='src/system/ccbuild-tree.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-tree.obj `if test -f 'src/system/tree.cc'; then $(CYGPATH_W) 'src/system/tree.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/tree.cc'; fi`
 
 src/system/ccbuild-system.o: src/system/system.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-system.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-system.Tpo -c -o src/system/ccbuild-system.o `test -f 'src/system/system.cc' || echo '$(srcdir)/'`src/system/system.cc

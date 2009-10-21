@@ -30,8 +30,6 @@ the dot graph will also contain all object filenames and their dependencies and 
 Generate a Makefile on stdout. If no filename is given, an all rule will be generated. Otherwise only the rules for the given file are generated. 
 .IP "aap [\fIfilename.cc\fR]" 10 
 Generate an A-A-P file on stdout. If the filename is not given, an "all" rule will be added and all local binary targets will be listed. 
-.IP "tree [\fIfilename.cc\fR]" 10 
-EXPERIMENTAL: output will probably change in the future. Generate an ascii art tree of your project files. 
 .IP "check [\fIfilename.cc\fR]" 10 
 Desplay source status and filename on the stdout. Status and source path are seperated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab seperated collumn will be inserted containing a two letter filetype ccbuild identifies it as. This filetype is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
 .IP "icmake [\fIfilename.cc\fR]" 10 
@@ -157,4 +155,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Mon 19 Oct 2009, 16:36 
+.\" created by instant / docbook-to-man, Wed 21 Oct 2009, 15:17 

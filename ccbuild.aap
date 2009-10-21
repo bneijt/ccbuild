@@ -91,7 +91,6 @@ CLEANFILES += $ConfigurationFilenameForCcbuild
 	"src/system/uname.cc"
 	"src/system/trimmed.cc"
 	"src/system/trim.cc"
-	"src/system/tree.cc"
 	"src/system/system.cc"
 	"src/system/statics.cc"
 	"src/system/sleep.cc"
