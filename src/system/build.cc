@@ -132,7 +132,7 @@ void System::build(Source *source, Compiler &cc)
     
   }//encaps iter
 	//Build the binTarget object if needed
-  needLink = (source->upToDate()) ? needLink : true;
+  needLink = (source->upToDate() ? needLink : true);
   
 
 

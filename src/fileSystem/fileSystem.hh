@@ -138,6 +138,9 @@ class FileSystem
     ///\brief Returns true when the given file is readable
     static bool isReadable(std::string const &file);
     
+    ///\brief Returns true when the given file is a directory
+    static bool isDirectory(std::string const &file);
+
     ///\brief If the given directory doesn't exist, create it.
     static void ensureDirectory(std::string const &directoryName);
 };

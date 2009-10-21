@@ -15,26 +15,18 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Compiler.ih"
+#include "fileSystem.ih"
 
-string Compiler::libCommand(std::string pwd,
-			std::string target) const
+bool FileSystem::isDirectory(std::string const &filename)
 {
+	struct stat a;
+	int rcode = stat(filename.c_str(), &a);
 
-  ostringstream command(d_baseCommand, ios::ate);
-  command << " -shared -Wl,-soname,\"" << target << "\" " << Options::extraArgs << " ";
+	if(rcode != 0) //Stat failed
+	  return false;
 
+	if(S_ISDIR(a.st_mode))
+	  return true;
 
-  __foreach(obj, d_objects)
-    command << " \"" << (*obj) << "\" ";
-
-  copy(d_link.begin(), d_link.end(), ostream_iterator<string>(command, " "));
-
-  command << "-o \"" << target << "\" ";
-  
-
-  command << Options::commandAppend;
-
-	return command.str();
+	return false;
 }
-

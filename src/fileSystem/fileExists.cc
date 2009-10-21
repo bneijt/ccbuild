@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "fileSystem.ih"
 
 bool FileSystem::fileExists(std::string const &filename, bool noDir)

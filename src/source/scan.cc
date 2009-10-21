@@ -25,12 +25,20 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
 {
 
 	//Scan the file for all information
-
+  if(FileSystem::isDirectory(d_filename))
+  {
+    cerrLock.set();
+    cerr << "Warning: encountered a directory in the local includes,\n\tignoring: " << d_filename << endl;
+    cerrLock.unset();
+    return;
+  }
 	//Scan sourcecode
   ifstream file(d_filename.c_str());
   if(!file)
   {
+    cerrLock.set();
     cerr << "Could not open the source file for scanning: " << d_filename << endl;
+    cerrLock.unset();
     return;
   }
   OpenMP::ScopedLock fl(flexLock);

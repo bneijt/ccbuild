@@ -83,11 +83,20 @@ void System::depsFor(Source * s, ostream &str)
   }
 
 	__foreach(src, srcList)
-		str << (*src)->filename() << " ";
-  str << "\n\n";
-	copy(ignored.begin(), ignored.end(), ostream_iterator<string>(str, " "));
-  str << "\n\n";
-
+	{
+	  //Local headers
+	  if((*src)->isLocalHeader())
+  		str << (*src)->filename() << " ";
+  }
+  str << "\n";
+	__foreach(src, srcList)
+	{
+	  //Local source
+	  if((*src)->isLocalHeader())
+  		str << (*src)->filename() << " ";
+  }
+  str << "\n";
+  //Global headers
 	__foreach(src, globalList)
 		str << (**src) << " ";
 	str << "\n";
