@@ -31,7 +31,7 @@ bool sourceIsBinaryTarget(Source const *src)
 
 
 //Read: http://www-128.ibm.com/developerworks/linux/library/l-shobj/
-
+//Make more ready for: http://www.openismus.com/documents/linux/building_libraries/building_libraries.shtml
 int System::lib(std::string const &version, Source *source)
 {
 	Compiler cc;

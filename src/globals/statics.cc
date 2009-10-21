@@ -14,20 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
-#include "Globals.ih"
-
-void Globals::destroy()
-{
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance)
-		delete s_instance;
-	else
-		_debugLevel1("Already destroyed!!");
-	s_instance = 0;
-}
+#include "globals.ih"
+Globals *Globals::s_instance(0); ///<Static member of Globals to keep the pointer to the singleton
+OpenMP::Lock Globals::s_instanceLock; ///< Instance pointer mutex

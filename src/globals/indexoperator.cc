@@ -14,12 +14,15 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "Globals.ih"
+#include "globals.ih"
 
-Globals &Globals::getInstance()
+std::string * const Globals::operator[](std::string const &global)
 {
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance == 0)
-		s_instance = new Globals();
-	return *s_instance;
+	string *p = d_map[global];
+	if(p == 0)
+	{
+	   p = new string(global);
+	   d_map[global] = p;
+	}
+	return p;
 }

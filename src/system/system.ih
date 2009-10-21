@@ -24,7 +24,7 @@
 #include "../Resolver/Resolver.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../Options/Options.hh"
-#include "../Globals/Globals.hh"
+#include "../globals/globals.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../globallocks/globallocks.hh"
 

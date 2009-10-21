@@ -22,7 +22,7 @@
 #include "Resolver.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../system/system.hh"
-#include "../Globals/Globals.hh"
+#include "../globals/globals.hh"
 #include "../openmp/scopedLock/scopedLock.hh"
 #include "../misc/foreach.hh"
 

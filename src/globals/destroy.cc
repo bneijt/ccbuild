@@ -14,21 +14,14 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "globals.ih"
 
-
-
-
-
-
-#include "Globals.ih"
-
-std::string * const Globals::operator[](std::string const &global)
+void Globals::destroy()
 {
-	string *p = d_map[global];
-	if(p == 0)
-	{
-	   p = new string(global);
-	   d_map[global] = p;
-	}
-	return p;
+  OpenMP::ScopedLock instantiateLock(s_instanceLock);
+	if(s_instance)
+		delete s_instance;
+	else
+		_debugLevel1("Already destroyed!!");
+	s_instance = 0;
 }

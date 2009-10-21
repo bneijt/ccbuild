@@ -17,7 +17,7 @@
 
 */
 
-#include "Globals.hh"
+#include "globals.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../openmp/scopedLock/scopedLock.hh"
 
