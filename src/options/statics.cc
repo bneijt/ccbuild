@@ -15,7 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Options.ih"
+#include "options.ih"
 
 std::string Options::version(VERSION);
 std::string Options::CC("g++");

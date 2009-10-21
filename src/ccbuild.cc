@@ -47,7 +47,7 @@
 #include "fileSystem/fileSystem.hh"
 #include "globallocks/globallocks.hh"
 #include "misc/foreach.hh"
-#include "Options/Options.hh"
+#include "options/options.hh"
 
 //Singletons...
 #include "arguments/arguments.hh"

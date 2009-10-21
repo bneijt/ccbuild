@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-#include "../Options/Options.hh"
+#include "../options/options.hh"
 
 namespace bneijt
 {

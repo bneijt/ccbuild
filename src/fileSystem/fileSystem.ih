@@ -33,7 +33,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "../Options/Options.hh"
+#include "../options/options.hh"
 #include "../globallocks/globallocks.ih"
 
 #include "../misc/foreach.hh"

@@ -23,7 +23,7 @@
 #include "../sources/sources.hh"
 #include "../Resolver/Resolver.hh"
 #include "../fileSystem/fileSystem.hh"
-#include "../Options/Options.hh"
+#include "../options/options.hh"
 #include "../globals/globals.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../globallocks/globallocks.hh"

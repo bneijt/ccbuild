@@ -32,7 +32,7 @@
 #include <fstream>
 #include <cstdio>
 
-#include "../Options/Options.hh"
+#include "../options/options.hh"
 
 #include "../misc/foreach.hh"
 
