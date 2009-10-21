@@ -14,6 +14,26 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+/*
+  XML output found at http://cpansearch.perl.org/src/PCIMPRICH/XML-Directory-1.00/docs/Directory.html
+ <?xml version="1.0" encoding="utf-8"?>
+ <dirtree>
+   <head version="0.70">
+     <path>/home/petr/test</path>
+     <details>2</details>
+     <depth>5</depth>
+   </head>
+   <directory name="test" depth="0">
+     <path></path>
+     <modify-time epoch="998300843">Mon Aug 20 11:47:23 2001</modify-time>
+     <file name="dir2xml.pl">
+       <mode code="33261">rwx</mode>
+       <size unit="bytes">225</size>
+       <modify-time epoch="998300843">Mon Aug 20 11:47:23 2001</modify-time>
+     </file>
+   </directory>
+ </dirtree>
+*/
 
 #include "system.ih"
 
