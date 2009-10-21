@@ -41,16 +41,6 @@ Source::Source(string const &filename)
 		d_inoDev.first = a.st_dev;
 		d_inoDev.second = a.st_ino;
 		d_modTime = a.st_mtime;
-/*		
-		if(Options::option<bool>("md5"))
-		{
-			MD5Cache &md5c = MD5Cache::getInstance();
-
-			//Make sure we only explicitly save this is we have output
-			if(producesOutput())
-				 md5c.explicitly(d_filename);	//Make sure only compilation changes the md5
-		}
-	*/
 	}
 }
 
