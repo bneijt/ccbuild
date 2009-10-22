@@ -59,7 +59,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/MD5Info/ccbuild-destroy.$(OBJEXT) \
 	src/MD5Info/ccbuild-contentHash.$(OBJEXT) \
 	src/MD5Info/ccbuild-MD5Info.$(OBJEXT) \
-	src/Options/ccbuild-statics.$(OBJEXT) \
+	src/options/ccbuild-statics.$(OBJEXT) \
 	src/system/ccbuild-uname.$(OBJEXT) \
 	src/system/ccbuild-trimmed.$(OBJEXT) \
 	src/system/ccbuild-trim.$(OBJEXT) \
@@ -92,17 +92,18 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/system/ccbuild-aapForAll.$(OBJEXT) \
 	src/system/ccbuild-aapFor.$(OBJEXT) \
 	src/globallocks/ccbuild-statics.$(OBJEXT) \
-	src/Globals/ccbuild-statics.$(OBJEXT) \
-	src/Globals/ccbuild-indexoperator.$(OBJEXT) \
-	src/Globals/ccbuild-getInstance.$(OBJEXT) \
-	src/Globals/ccbuild-destroy.$(OBJEXT) \
-	src/Globals/ccbuild-Globals.$(OBJEXT) \
+	src/globals/ccbuild-statics.$(OBJEXT) \
+	src/globals/ccbuild-indexoperator.$(OBJEXT) \
+	src/globals/ccbuild-globals.$(OBJEXT) \
+	src/globals/ccbuild-getInstance.$(OBJEXT) \
+	src/globals/ccbuild-destroy.$(OBJEXT) \
 	src/fileSystem/ccbuild-touch.$(OBJEXT) \
 	src/fileSystem/ccbuild-rmIfExists.$(OBJEXT) \
 	src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.$(OBJEXT) \
 	src/fileSystem/ccbuild-newer.$(OBJEXT) \
 	src/fileSystem/ccbuild-modTime.$(OBJEXT) \
 	src/fileSystem/ccbuild-isReadable.$(OBJEXT) \
+	src/fileSystem/ccbuild-isDirectory.$(OBJEXT) \
 	src/fileSystem/ccbuild-globSourceFilesInto.$(OBJEXT) \
 	src/fileSystem/ccbuild-globInto.$(OBJEXT) \
 	src/fileSystem/ccbuild-globFilesInto.$(OBJEXT) \
@@ -325,8 +326,8 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/MD5Info/load.cc src/MD5Info/hashFilenameFor.cc \
 	src/MD5Info/getInstance.cc src/MD5Info/destroy.cc \
 	src/MD5Info/contentHash.cc src/MD5Info/MD5Info.cc \
-	src/misc/foreach.hh src/Options/Options.hh \
-	src/Options/statics.cc src/Options/Options.ih \
+	src/misc/foreach.hh src/options/options.hh \
+	src/options/statics.cc src/options/options.ih \
 	src/openmp/scopedLock/scopedLock.hh src/openmp/lock/lock.hh \
 	src/system/system.hh src/system/uname.cc src/system/system.ih \
 	src/system/trimmed.cc src/system/trim.cc src/system/system.cc \
@@ -344,15 +345,15 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/system/addArguments.cc src/system/aapForAll.cc \
 	src/system/aapFor.cc src/posix/wordexp.h \
 	src/globallocks/globallocks.hh src/globallocks/statics.cc \
-	src/globallocks/globallocks.ih src/Globals/Globals.hh \
-	src/Globals/statics.cc src/Globals/Globals.ih \
-	src/Globals/indexoperator.cc src/Globals/getInstance.cc \
-	src/Globals/destroy.cc src/Globals/Globals.cc \
+	src/globallocks/globallocks.ih src/globals/globals.hh \
+	src/globals/statics.cc src/globals/globals.ih \
+	src/globals/indexoperator.cc src/globals/globals.cc \
+	src/globals/getInstance.cc src/globals/destroy.cc \
 	src/fileSystem/fileSystem.hh src/fileSystem/touch.cc \
 	src/fileSystem/fileSystem.ih src/fileSystem/rmIfExists.cc \
 	src/fileSystem/recursiveGlobDirectoriesInto.cc \
 	src/fileSystem/newer.cc src/fileSystem/modTime.cc \
-	src/fileSystem/isReadable.cc \
+	src/fileSystem/isReadable.cc src/fileSystem/isDirectory.cc \
 	src/fileSystem/globSourceFilesInto.cc \
 	src/fileSystem/globInto.cc src/fileSystem/globFilesInto.cc \
 	src/fileSystem/globDirectoriesInto.cc \
@@ -522,14 +523,14 @@ src/MD5Info/ccbuild-contentHash.$(OBJEXT):  \
 	src/MD5Info/$(DEPDIR)/$(am__dirstamp)
 src/MD5Info/ccbuild-MD5Info.$(OBJEXT): src/MD5Info/$(am__dirstamp) \
 	src/MD5Info/$(DEPDIR)/$(am__dirstamp)
-src/Options/$(am__dirstamp):
-	@$(MKDIR_P) src/Options
-	@: > src/Options/$(am__dirstamp)
-src/Options/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/Options/$(DEPDIR)
-	@: > src/Options/$(DEPDIR)/$(am__dirstamp)
-src/Options/ccbuild-statics.$(OBJEXT): src/Options/$(am__dirstamp) \
-	src/Options/$(DEPDIR)/$(am__dirstamp)
+src/options/$(am__dirstamp):
+	@$(MKDIR_P) src/options
+	@: > src/options/$(am__dirstamp)
+src/options/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/options/$(DEPDIR)
+	@: > src/options/$(DEPDIR)/$(am__dirstamp)
+src/options/ccbuild-statics.$(OBJEXT): src/options/$(am__dirstamp) \
+	src/options/$(DEPDIR)/$(am__dirstamp)
 src/system/$(am__dirstamp):
 	@$(MKDIR_P) src/system
 	@: > src/system/$(am__dirstamp)
@@ -612,24 +613,24 @@ src/globallocks/$(DEPDIR)/$(am__dirstamp):
 src/globallocks/ccbuild-statics.$(OBJEXT):  \
 	src/globallocks/$(am__dirstamp) \
 	src/globallocks/$(DEPDIR)/$(am__dirstamp)
-src/Globals/$(am__dirstamp):
-	@$(MKDIR_P) src/Globals
-	@: > src/Globals/$(am__dirstamp)
-src/Globals/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/Globals/$(DEPDIR)
-	@: > src/Globals/$(DEPDIR)/$(am__dirstamp)
-src/Globals/ccbuild-statics.$(OBJEXT): src/Globals/$(am__dirstamp) \
-	src/Globals/$(DEPDIR)/$(am__dirstamp)
-src/Globals/ccbuild-indexoperator.$(OBJEXT):  \
-	src/Globals/$(am__dirstamp) \
-	src/Globals/$(DEPDIR)/$(am__dirstamp)
-src/Globals/ccbuild-getInstance.$(OBJEXT):  \
-	src/Globals/$(am__dirstamp) \
-	src/Globals/$(DEPDIR)/$(am__dirstamp)
-src/Globals/ccbuild-destroy.$(OBJEXT): src/Globals/$(am__dirstamp) \
-	src/Globals/$(DEPDIR)/$(am__dirstamp)
-src/Globals/ccbuild-Globals.$(OBJEXT): src/Globals/$(am__dirstamp) \
-	src/Globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/$(am__dirstamp):
+	@$(MKDIR_P) src/globals
+	@: > src/globals/$(am__dirstamp)
+src/globals/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/globals/$(DEPDIR)
+	@: > src/globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/ccbuild-statics.$(OBJEXT): src/globals/$(am__dirstamp) \
+	src/globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/ccbuild-indexoperator.$(OBJEXT):  \
+	src/globals/$(am__dirstamp) \
+	src/globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/ccbuild-globals.$(OBJEXT): src/globals/$(am__dirstamp) \
+	src/globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/ccbuild-getInstance.$(OBJEXT):  \
+	src/globals/$(am__dirstamp) \
+	src/globals/$(DEPDIR)/$(am__dirstamp)
+src/globals/ccbuild-destroy.$(OBJEXT): src/globals/$(am__dirstamp) \
+	src/globals/$(DEPDIR)/$(am__dirstamp)
 src/fileSystem/$(am__dirstamp):
 	@$(MKDIR_P) src/fileSystem
 	@: > src/fileSystem/$(am__dirstamp)
@@ -652,6 +653,9 @@ src/fileSystem/ccbuild-modTime.$(OBJEXT):  \
 	src/fileSystem/$(am__dirstamp) \
 	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
 src/fileSystem/ccbuild-isReadable.$(OBJEXT):  \
+	src/fileSystem/$(am__dirstamp) \
+	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
+src/fileSystem/ccbuild-isDirectory.$(OBJEXT):  \
 	src/fileSystem/$(am__dirstamp) \
 	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
 src/fileSystem/ccbuild-globSourceFilesInto.$(OBJEXT):  \
@@ -951,11 +955,6 @@ mostlyclean-compile:
 	-rm -f src/Compiler/ccbuild-precompileCommand.$(OBJEXT)
 	-rm -f src/Compiler/ccbuild-splitInto.$(OBJEXT)
 	-rm -f src/Compiler/ccbuild-statics.$(OBJEXT)
-	-rm -f src/Globals/ccbuild-Globals.$(OBJEXT)
-	-rm -f src/Globals/ccbuild-destroy.$(OBJEXT)
-	-rm -f src/Globals/ccbuild-getInstance.$(OBJEXT)
-	-rm -f src/Globals/ccbuild-indexoperator.$(OBJEXT)
-	-rm -f src/Globals/ccbuild-statics.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-MD5Info.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-contentHash.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-destroy.$(OBJEXT)
@@ -965,7 +964,6 @@ mostlyclean-compile:
 	-rm -f src/MD5Info/ccbuild-old.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-save.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-statics.$(OBJEXT)
-	-rm -f src/Options/ccbuild-statics.$(OBJEXT)
 	-rm -f src/Resolver/ccbuild-Resolver.$(OBJEXT)
 	-rm -f src/Resolver/ccbuild-destroy.$(OBJEXT)
 	-rm -f src/Resolver/ccbuild-expand.$(OBJEXT)
@@ -1005,6 +1003,7 @@ mostlyclean-compile:
 	-rm -f src/fileSystem/ccbuild-globFilesInto.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-globInto.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-globSourceFilesInto.$(OBJEXT)
+	-rm -f src/fileSystem/ccbuild-isDirectory.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-isReadable.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-modTime.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-newer.$(OBJEXT)
@@ -1012,6 +1011,12 @@ mostlyclean-compile:
 	-rm -f src/fileSystem/ccbuild-rmIfExists.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-touch.$(OBJEXT)
 	-rm -f src/globallocks/ccbuild-statics.$(OBJEXT)
+	-rm -f src/globals/ccbuild-destroy.$(OBJEXT)
+	-rm -f src/globals/ccbuild-getInstance.$(OBJEXT)
+	-rm -f src/globals/ccbuild-globals.$(OBJEXT)
+	-rm -f src/globals/ccbuild-indexoperator.$(OBJEXT)
+	-rm -f src/globals/ccbuild-statics.$(OBJEXT)
+	-rm -f src/options/ccbuild-statics.$(OBJEXT)
 	-rm -f src/problem/ccbuild-problem.$(OBJEXT)
 	-rm -f src/source/ccbuild-basenameWithoutExtension.$(OBJEXT)
 	-rm -f src/source/ccbuild-build.$(OBJEXT)
@@ -1098,11 +1103,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-splitInto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-statics.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Globals/$(DEPDIR)/ccbuild-Globals.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Globals/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Globals/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Globals/$(DEPDIR)/ccbuild-indexoperator.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Globals/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-MD5Info.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-contentHash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
@@ -1112,7 +1112,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-old.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-save.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-statics.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Options/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-Resolver.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-expand.Po@am__quote@
@@ -1151,6 +1150,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-globFilesInto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-globInto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-globSourceFilesInto.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-isReadable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-modTime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-newer.Po@am__quote@
@@ -1158,6 +1158,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-rmIfExists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-touch.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/globallocks/$(DEPDIR)/ccbuild-statics.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-globals.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-indexoperator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-statics.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/options/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/problem/$(DEPDIR)/ccbuild-problem.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-basenameWithoutExtension.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-build.Po@am__quote@
@@ -1380,19 +1386,19 @@ src/MD5Info/ccbuild-MD5Info.obj: src/MD5Info/MD5Info.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/MD5Info/ccbuild-MD5Info.obj `if test -f 'src/MD5Info/MD5Info.cc'; then $(CYGPATH_W) 'src/MD5Info/MD5Info.cc'; else $(CYGPATH_W) '$(srcdir)/src/MD5Info/MD5Info.cc'; fi`
 
-src/Options/ccbuild-statics.o: src/Options/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Options/ccbuild-statics.o -MD -MP -MF src/Options/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Options/ccbuild-statics.o `test -f 'src/Options/statics.cc' || echo '$(srcdir)/'`src/Options/statics.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Options/$(DEPDIR)/ccbuild-statics.Tpo src/Options/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Options/statics.cc' object='src/Options/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
+src/options/ccbuild-statics.o: src/options/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/options/ccbuild-statics.o -MD -MP -MF src/options/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/options/ccbuild-statics.o `test -f 'src/options/statics.cc' || echo '$(srcdir)/'`src/options/statics.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/options/$(DEPDIR)/ccbuild-statics.Tpo src/options/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/options/statics.cc' object='src/options/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Options/ccbuild-statics.o `test -f 'src/Options/statics.cc' || echo '$(srcdir)/'`src/Options/statics.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/options/ccbuild-statics.o `test -f 'src/options/statics.cc' || echo '$(srcdir)/'`src/options/statics.cc
 
-src/Options/ccbuild-statics.obj: src/Options/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Options/ccbuild-statics.obj -MD -MP -MF src/Options/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Options/ccbuild-statics.obj `if test -f 'src/Options/statics.cc'; then $(CYGPATH_W) 'src/Options/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Options/statics.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Options/$(DEPDIR)/ccbuild-statics.Tpo src/Options/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Options/statics.cc' object='src/Options/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
+src/options/ccbuild-statics.obj: src/options/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/options/ccbuild-statics.obj -MD -MP -MF src/options/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/options/ccbuild-statics.obj `if test -f 'src/options/statics.cc'; then $(CYGPATH_W) 'src/options/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/options/statics.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/options/$(DEPDIR)/ccbuild-statics.Tpo src/options/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/options/statics.cc' object='src/options/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Options/ccbuild-statics.obj `if test -f 'src/Options/statics.cc'; then $(CYGPATH_W) 'src/Options/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Options/statics.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/options/ccbuild-statics.obj `if test -f 'src/options/statics.cc'; then $(CYGPATH_W) 'src/options/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/options/statics.cc'; fi`
 
 src/system/ccbuild-uname.o: src/system/uname.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-uname.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-uname.Tpo -c -o src/system/ccbuild-uname.o `test -f 'src/system/uname.cc' || echo '$(srcdir)/'`src/system/uname.cc
@@ -1842,75 +1848,75 @@ src/globallocks/ccbuild-statics.obj: src/globallocks/statics.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globallocks/ccbuild-statics.obj `if test -f 'src/globallocks/statics.cc'; then $(CYGPATH_W) 'src/globallocks/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/globallocks/statics.cc'; fi`
 
-src/Globals/ccbuild-statics.o: src/Globals/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-statics.o -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Globals/ccbuild-statics.o `test -f 'src/Globals/statics.cc' || echo '$(srcdir)/'`src/Globals/statics.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-statics.Tpo src/Globals/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/statics.cc' object='src/Globals/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-statics.o: src/globals/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-statics.o -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/globals/ccbuild-statics.o `test -f 'src/globals/statics.cc' || echo '$(srcdir)/'`src/globals/statics.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-statics.Tpo src/globals/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/statics.cc' object='src/globals/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-statics.o `test -f 'src/Globals/statics.cc' || echo '$(srcdir)/'`src/Globals/statics.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-statics.o `test -f 'src/globals/statics.cc' || echo '$(srcdir)/'`src/globals/statics.cc
 
-src/Globals/ccbuild-statics.obj: src/Globals/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-statics.obj -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Globals/ccbuild-statics.obj `if test -f 'src/Globals/statics.cc'; then $(CYGPATH_W) 'src/Globals/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/statics.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-statics.Tpo src/Globals/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/statics.cc' object='src/Globals/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-statics.obj: src/globals/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-statics.obj -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/globals/ccbuild-statics.obj `if test -f 'src/globals/statics.cc'; then $(CYGPATH_W) 'src/globals/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/statics.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-statics.Tpo src/globals/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/statics.cc' object='src/globals/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-statics.obj `if test -f 'src/Globals/statics.cc'; then $(CYGPATH_W) 'src/Globals/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/statics.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-statics.obj `if test -f 'src/globals/statics.cc'; then $(CYGPATH_W) 'src/globals/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/statics.cc'; fi`
 
-src/Globals/ccbuild-indexoperator.o: src/Globals/indexoperator.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-indexoperator.o -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-indexoperator.Tpo -c -o src/Globals/ccbuild-indexoperator.o `test -f 'src/Globals/indexoperator.cc' || echo '$(srcdir)/'`src/Globals/indexoperator.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-indexoperator.Tpo src/Globals/$(DEPDIR)/ccbuild-indexoperator.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/indexoperator.cc' object='src/Globals/ccbuild-indexoperator.o' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-indexoperator.o: src/globals/indexoperator.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-indexoperator.o -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-indexoperator.Tpo -c -o src/globals/ccbuild-indexoperator.o `test -f 'src/globals/indexoperator.cc' || echo '$(srcdir)/'`src/globals/indexoperator.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-indexoperator.Tpo src/globals/$(DEPDIR)/ccbuild-indexoperator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/indexoperator.cc' object='src/globals/ccbuild-indexoperator.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-indexoperator.o `test -f 'src/Globals/indexoperator.cc' || echo '$(srcdir)/'`src/Globals/indexoperator.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-indexoperator.o `test -f 'src/globals/indexoperator.cc' || echo '$(srcdir)/'`src/globals/indexoperator.cc
 
-src/Globals/ccbuild-indexoperator.obj: src/Globals/indexoperator.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-indexoperator.obj -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-indexoperator.Tpo -c -o src/Globals/ccbuild-indexoperator.obj `if test -f 'src/Globals/indexoperator.cc'; then $(CYGPATH_W) 'src/Globals/indexoperator.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/indexoperator.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-indexoperator.Tpo src/Globals/$(DEPDIR)/ccbuild-indexoperator.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/indexoperator.cc' object='src/Globals/ccbuild-indexoperator.obj' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-indexoperator.obj: src/globals/indexoperator.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-indexoperator.obj -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-indexoperator.Tpo -c -o src/globals/ccbuild-indexoperator.obj `if test -f 'src/globals/indexoperator.cc'; then $(CYGPATH_W) 'src/globals/indexoperator.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/indexoperator.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-indexoperator.Tpo src/globals/$(DEPDIR)/ccbuild-indexoperator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/indexoperator.cc' object='src/globals/ccbuild-indexoperator.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-indexoperator.obj `if test -f 'src/Globals/indexoperator.cc'; then $(CYGPATH_W) 'src/Globals/indexoperator.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/indexoperator.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-indexoperator.obj `if test -f 'src/globals/indexoperator.cc'; then $(CYGPATH_W) 'src/globals/indexoperator.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/indexoperator.cc'; fi`
 
-src/Globals/ccbuild-getInstance.o: src/Globals/getInstance.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-getInstance.o -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/Globals/ccbuild-getInstance.o `test -f 'src/Globals/getInstance.cc' || echo '$(srcdir)/'`src/Globals/getInstance.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-getInstance.Tpo src/Globals/$(DEPDIR)/ccbuild-getInstance.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/getInstance.cc' object='src/Globals/ccbuild-getInstance.o' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-globals.o: src/globals/globals.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-globals.o -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-globals.Tpo -c -o src/globals/ccbuild-globals.o `test -f 'src/globals/globals.cc' || echo '$(srcdir)/'`src/globals/globals.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-globals.Tpo src/globals/$(DEPDIR)/ccbuild-globals.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/globals.cc' object='src/globals/ccbuild-globals.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-getInstance.o `test -f 'src/Globals/getInstance.cc' || echo '$(srcdir)/'`src/Globals/getInstance.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-globals.o `test -f 'src/globals/globals.cc' || echo '$(srcdir)/'`src/globals/globals.cc
 
-src/Globals/ccbuild-getInstance.obj: src/Globals/getInstance.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-getInstance.obj -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/Globals/ccbuild-getInstance.obj `if test -f 'src/Globals/getInstance.cc'; then $(CYGPATH_W) 'src/Globals/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/getInstance.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-getInstance.Tpo src/Globals/$(DEPDIR)/ccbuild-getInstance.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/getInstance.cc' object='src/Globals/ccbuild-getInstance.obj' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-globals.obj: src/globals/globals.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-globals.obj -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-globals.Tpo -c -o src/globals/ccbuild-globals.obj `if test -f 'src/globals/globals.cc'; then $(CYGPATH_W) 'src/globals/globals.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/globals.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-globals.Tpo src/globals/$(DEPDIR)/ccbuild-globals.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/globals.cc' object='src/globals/ccbuild-globals.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-getInstance.obj `if test -f 'src/Globals/getInstance.cc'; then $(CYGPATH_W) 'src/Globals/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/getInstance.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-globals.obj `if test -f 'src/globals/globals.cc'; then $(CYGPATH_W) 'src/globals/globals.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/globals.cc'; fi`
 
-src/Globals/ccbuild-destroy.o: src/Globals/destroy.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-destroy.o -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/Globals/ccbuild-destroy.o `test -f 'src/Globals/destroy.cc' || echo '$(srcdir)/'`src/Globals/destroy.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-destroy.Tpo src/Globals/$(DEPDIR)/ccbuild-destroy.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/destroy.cc' object='src/Globals/ccbuild-destroy.o' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-getInstance.o: src/globals/getInstance.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-getInstance.o -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/globals/ccbuild-getInstance.o `test -f 'src/globals/getInstance.cc' || echo '$(srcdir)/'`src/globals/getInstance.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-getInstance.Tpo src/globals/$(DEPDIR)/ccbuild-getInstance.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/getInstance.cc' object='src/globals/ccbuild-getInstance.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-destroy.o `test -f 'src/Globals/destroy.cc' || echo '$(srcdir)/'`src/Globals/destroy.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-getInstance.o `test -f 'src/globals/getInstance.cc' || echo '$(srcdir)/'`src/globals/getInstance.cc
 
-src/Globals/ccbuild-destroy.obj: src/Globals/destroy.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-destroy.obj -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/Globals/ccbuild-destroy.obj `if test -f 'src/Globals/destroy.cc'; then $(CYGPATH_W) 'src/Globals/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/destroy.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-destroy.Tpo src/Globals/$(DEPDIR)/ccbuild-destroy.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/destroy.cc' object='src/Globals/ccbuild-destroy.obj' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-getInstance.obj: src/globals/getInstance.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-getInstance.obj -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/globals/ccbuild-getInstance.obj `if test -f 'src/globals/getInstance.cc'; then $(CYGPATH_W) 'src/globals/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/getInstance.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-getInstance.Tpo src/globals/$(DEPDIR)/ccbuild-getInstance.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/getInstance.cc' object='src/globals/ccbuild-getInstance.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-destroy.obj `if test -f 'src/Globals/destroy.cc'; then $(CYGPATH_W) 'src/Globals/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/destroy.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-getInstance.obj `if test -f 'src/globals/getInstance.cc'; then $(CYGPATH_W) 'src/globals/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/getInstance.cc'; fi`
 
-src/Globals/ccbuild-Globals.o: src/Globals/Globals.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-Globals.o -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-Globals.Tpo -c -o src/Globals/ccbuild-Globals.o `test -f 'src/Globals/Globals.cc' || echo '$(srcdir)/'`src/Globals/Globals.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-Globals.Tpo src/Globals/$(DEPDIR)/ccbuild-Globals.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/Globals.cc' object='src/Globals/ccbuild-Globals.o' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-destroy.o: src/globals/destroy.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-destroy.o -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/globals/ccbuild-destroy.o `test -f 'src/globals/destroy.cc' || echo '$(srcdir)/'`src/globals/destroy.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-destroy.Tpo src/globals/$(DEPDIR)/ccbuild-destroy.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/destroy.cc' object='src/globals/ccbuild-destroy.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-Globals.o `test -f 'src/Globals/Globals.cc' || echo '$(srcdir)/'`src/Globals/Globals.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-destroy.o `test -f 'src/globals/destroy.cc' || echo '$(srcdir)/'`src/globals/destroy.cc
 
-src/Globals/ccbuild-Globals.obj: src/Globals/Globals.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Globals/ccbuild-Globals.obj -MD -MP -MF src/Globals/$(DEPDIR)/ccbuild-Globals.Tpo -c -o src/Globals/ccbuild-Globals.obj `if test -f 'src/Globals/Globals.cc'; then $(CYGPATH_W) 'src/Globals/Globals.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/Globals.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Globals/$(DEPDIR)/ccbuild-Globals.Tpo src/Globals/$(DEPDIR)/ccbuild-Globals.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Globals/Globals.cc' object='src/Globals/ccbuild-Globals.obj' libtool=no @AMDEPBACKSLASH@
+src/globals/ccbuild-destroy.obj: src/globals/destroy.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globals/ccbuild-destroy.obj -MD -MP -MF src/globals/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/globals/ccbuild-destroy.obj `if test -f 'src/globals/destroy.cc'; then $(CYGPATH_W) 'src/globals/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/destroy.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/globals/$(DEPDIR)/ccbuild-destroy.Tpo src/globals/$(DEPDIR)/ccbuild-destroy.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/globals/destroy.cc' object='src/globals/ccbuild-destroy.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Globals/ccbuild-Globals.obj `if test -f 'src/Globals/Globals.cc'; then $(CYGPATH_W) 'src/Globals/Globals.cc'; else $(CYGPATH_W) '$(srcdir)/src/Globals/Globals.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/globals/ccbuild-destroy.obj `if test -f 'src/globals/destroy.cc'; then $(CYGPATH_W) 'src/globals/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/globals/destroy.cc'; fi`
 
 src/fileSystem/ccbuild-touch.o: src/fileSystem/touch.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-touch.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-touch.Tpo -c -o src/fileSystem/ccbuild-touch.o `test -f 'src/fileSystem/touch.cc' || echo '$(srcdir)/'`src/fileSystem/touch.cc
@@ -1995,6 +2001,20 @@ src/fileSystem/ccbuild-isReadable.obj: src/fileSystem/isReadable.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/isReadable.cc' object='src/fileSystem/ccbuild-isReadable.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-isReadable.obj `if test -f 'src/fileSystem/isReadable.cc'; then $(CYGPATH_W) 'src/fileSystem/isReadable.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/isReadable.cc'; fi`
+
+src/fileSystem/ccbuild-isDirectory.o: src/fileSystem/isDirectory.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-isDirectory.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Tpo -c -o src/fileSystem/ccbuild-isDirectory.o `test -f 'src/fileSystem/isDirectory.cc' || echo '$(srcdir)/'`src/fileSystem/isDirectory.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Tpo src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/isDirectory.cc' object='src/fileSystem/ccbuild-isDirectory.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-isDirectory.o `test -f 'src/fileSystem/isDirectory.cc' || echo '$(srcdir)/'`src/fileSystem/isDirectory.cc
+
+src/fileSystem/ccbuild-isDirectory.obj: src/fileSystem/isDirectory.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-isDirectory.obj -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Tpo -c -o src/fileSystem/ccbuild-isDirectory.obj `if test -f 'src/fileSystem/isDirectory.cc'; then $(CYGPATH_W) 'src/fileSystem/isDirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/isDirectory.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Tpo src/fileSystem/$(DEPDIR)/ccbuild-isDirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/isDirectory.cc' object='src/fileSystem/ccbuild-isDirectory.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-isDirectory.obj `if test -f 'src/fileSystem/isDirectory.cc'; then $(CYGPATH_W) 'src/fileSystem/isDirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/isDirectory.cc'; fi`
 
 src/fileSystem/ccbuild-globSourceFilesInto.o: src/fileSystem/globSourceFilesInto.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-globSourceFilesInto.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-globSourceFilesInto.Tpo -c -o src/fileSystem/ccbuild-globSourceFilesInto.o `test -f 'src/fileSystem/globSourceFilesInto.cc' || echo '$(srcdir)/'`src/fileSystem/globSourceFilesInto.cc
@@ -3458,12 +3478,8 @@ distclean-generic:
 	-rm -f src/$(am__dirstamp)
 	-rm -f src/Compiler/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/Compiler/$(am__dirstamp)
-	-rm -f src/Globals/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/Globals/$(am__dirstamp)
 	-rm -f src/MD5Info/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/MD5Info/$(am__dirstamp)
-	-rm -f src/Options/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/Options/$(am__dirstamp)
 	-rm -f src/Resolver/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/Resolver/$(am__dirstamp)
 	-rm -f src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
@@ -3474,6 +3490,10 @@ distclean-generic:
 	-rm -f src/fileSystem/$(am__dirstamp)
 	-rm -f src/globallocks/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/globallocks/$(am__dirstamp)
+	-rm -f src/globals/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/globals/$(am__dirstamp)
+	-rm -f src/options/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/options/$(am__dirstamp)
 	-rm -f src/problem/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/problem/$(am__dirstamp)
 	-rm -f src/source/$(DEPDIR)/$(am__dirstamp)
@@ -3494,7 +3514,7 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/Globals/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Options/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -3542,7 +3562,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/Globals/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Options/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
