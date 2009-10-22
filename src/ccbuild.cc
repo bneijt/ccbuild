@@ -129,6 +129,7 @@ try
     {"compiler", "<cmd>", "Set the compiler command (Default: g++)"},
     {"a args", "<arguments>", "Use these as base compiler arguments (Default: -Wall -g)"},
     {"C", "<path>", "Change directory before anything else"},
+    {"cachedir", "<path>", "Set the path of the object/metadata cache directory (Default: o)"},
     {"p precompile-ih", "", "Precompile only internal headers (g++-3.4 up)"},
     {"precompile-all", "", "Precompile all headers (g++-3.4 up)"},
     {"brute", "", "Continue on compiler errors"},

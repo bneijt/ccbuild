@@ -6,7 +6,9 @@ The features that may set of a new release and things to look out for:
   - Describe transition paths to various install/distribution systems (autotools, icmake, aap etc) in documentation
   - Add auditing command:
       Look for common problems, like including headers in both .hh and .ih of the same class.
-      Look for inclusion of C headers instead of their C++ equivalent
+      Look for inclusion of C headers instead of their C++ equivalent (limits.h instead of climits)
+      Look for .ih headers depending on other .ih headers, which would cause awfull problems with the multi-threading
+        part of the internal header precompilation.
   -  Write documentation on the ordering of library linking arguments.
       Showing that global header usage influences this and that it's
       a real problem with a solution in ccResolutions (force sequence

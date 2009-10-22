@@ -35,6 +35,7 @@ bool System::parseArguments(Arguments &arg)
   Options::execOnFail = arg.value("exec-on-fail");
   Options::execOnPass = arg.value("exec-on-pass");
   Options::progVersion = arg.value("pversion");
+  Options::progVersion = arg.value("pversion");
 
 	//Error handling (simple options contain showCommands, which might help)
 	if(arg.errors().size() > 0)
@@ -53,7 +54,15 @@ bool System::parseArguments(Arguments &arg)
 
 	if(arg.flagged("compiler"))
 		Options::CC = arg.value("compiler");
-		
+
+	if(arg.flagged("cachedir"))
+	{
+		Options::cacheRoot = arg.value("cachedir");
+		//Strip ending slash if needed
+		if((*Options::cacheRoot.rbegin()) == '/')
+		  Options::cacheRoot.erase(Options::cacheRoot.end() -1);
+		_debugLevel2("Set cacheRoot to " << Options::cacheRoot);
+	}	
 	if(arg.flagged("verbose"))
 	{
 		Options::showCommands = true;
@@ -153,7 +162,6 @@ bool System::parseArguments(Arguments &arg)
 		cout << " dot [source.cc]\tGenerate dot graph files for sources\n";
 		cout << " makefile [source.cc]\tGenerate a Makefile on stdout\n";
 		cout << " aap [source.cc]\tGenerate an a-a-p file on stdout\n";
-		cout << " tree [source.cc]\tEXPERIMENTALGenerate an ascii tree of used files\n";
 		cout << " check [source.cc]\tShow wether files are up to date\n";
 		cout << " icmake [source.cc]\ticmake slave mode: output used directories\n";
 		cout << " clean [source.cc]\tClean everything or the given source\n";

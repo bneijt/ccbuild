@@ -72,16 +72,20 @@ void System::build(Source *source, Compiler &cc)
 	if(Options::precompile)
 	{
 		//Also do local headers
-		//This will slow the build down it the source tree uses internal headers already
+		//It is not possible to stupidly multi-process this, because these headers
+		//  depend on each other (or may depend on each other), there will be a
+		//  race condition with half completed gchs being used by other precompilations.
+		//This will only slow the build down if the source tree uses internal headers already
 		if(Options::precompileAll)
-	  __foreach(src, localHeaders)
-	  {
-    	_debugLevel4("Precompiling: " << (*src)->filename());
-      (*src)->build(cc);
-      cc.rmCompileOptions();
-	  }
+  	  __foreach(src, localHeaders)
+  	  {
+      	_debugLevel4("Precompiling: " << (*src)->filename());
+        (*src)->build(cc);
+        cc.rmCompileOptions();
+  	  }
 
-	  //Precompile all internal headers
+	  //Precompile all internal headers.
+	  //  We can do multi-processing here as none of the internal headers should depend on other internal headers.
     vector<Compiler> compilers(internalHeaders.size(), cc);
     #ifdef _OPENMP
     #pragma omp parallel for
