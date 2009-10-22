@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "Resolver.ih"
 std::string Resolver::resolve(std::string const &include) const
 {

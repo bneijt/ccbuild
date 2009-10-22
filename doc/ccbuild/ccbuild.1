@@ -6,7 +6,7 @@ ccbuild \(em Strict C++ developer\&'s build utility
 \fBccbuild\fR [options ]  [command ]  
 .SH "DESCRIPTION" 
 .PP 
-\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. \fBccbuild\fR reads these files in the order: \fB./ccResolutions\fP, \fB~/.ccbuild/ccResolutions\fP, \fB~/.ccbuild/ccResolutions.d/*\fP. Only the first mention of a global header file in these files is used. 
+\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more posibilities. See the section FILES for more information. 
 .PP 
 \fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, seperate the #\-sign and the include statement by a single space ("# include"). 
 .SH "COMMANDS" 
@@ -137,8 +137,8 @@ For all of these examples, you can
 .SH "FILES" 
 .PP 
 Configuration files used by \fBccbuild\fR 
-.IP "\fB./ccResolutions\fP" 10 
-Local configuration which is project specific. 
+.IP "\fB./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]\fP" 10 
+Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolutions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolutions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with \fBuname \-nsm\fR. 
 .IP "\fB~/.ccbuild/ccResolutions\fP" 10 
 Global configuration file. 
 .IP "\fB~/.ccbuild/ccResolutions.d\fP" 10 
@@ -159,4 +159,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Wed 21 Oct 2009, 23:09 
+.\" created by instant / docbook-to-man, Thu 22 Oct 2009, 23:56 

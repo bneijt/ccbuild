@@ -16,9 +16,11 @@ sys/types.h
 unistd.h	
 omp.h	-fopenmp -lgomp
 bobcat/process -lbobcat
+bobcat/user	-lbobcat
 sys/utsname.h	
 features.h	
 stddef.h 
 boost/circular_buffer.hpp	
 boost/lexical_cast.hpp	
 openssl/evp.h	`pkg-config --libs --cflags openssl`
+

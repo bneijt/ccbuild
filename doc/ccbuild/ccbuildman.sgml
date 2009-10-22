@@ -68,7 +68,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   </refsynopsisdiv>
   <refsect1>
     <title>DESCRIPTION</title>
-    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. <command>&manpackage;</command> reads these files in the order: <filename>./ccResolutions</filename>, <filename>~/.ccbuild/ccResolutions</filename>, <filename>&tilde;/.ccbuild/ccResolutions.d/*</filename>. Only the first mention of a global header file in these files is used.</para>
+    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. <command>&manpackage;</command> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <filename>./ccResolutions</filename> is used, but there are more posibilities. See the section FILES for more information.</para>
     <para><command>&manpackage;</command> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <command>&manpackage;</command> from following up on an include statement, seperate the #-sign and the include statement by a single space (&quot;# include&quot;).</para>
 <!--
     <refsect2>
@@ -472,8 +472,8 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
     <para>Configuration files used by <command>&manpackage;</command></para>
     <variablelist>
       <varlistentry>
-        <term><filename>./ccResolutions</filename></term>
-        <listitem><para>Local configuration which is project specific.</para></listitem>
+        <term><filename>./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]</filename></term>
+        <listitem><para>Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolutions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolutions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with <command>uname -nsm</command>.</para></listitem>
       </varlistentry>
       <varlistentry>
         <term><filename>&tilde;/.ccbuild/ccResolutions</filename></term>

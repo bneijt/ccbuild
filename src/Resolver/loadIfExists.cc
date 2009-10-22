@@ -15,12 +15,10 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
 #include "Resolver.ih"
 bool Resolver::loadIfExists(std::string const &confFile, bool report)
 {
+
 	//Load a configuration file if it exists
   ifstream file(confFile.c_str());
   _debugLevel1("Loading: '" << confFile << "'");
@@ -89,7 +87,11 @@ bool Resolver::loadIfExists(std::string const &confFile, bool report)
   }
 
   file.close();
-  
+
+  if(Options::verbose)
+    cerr << "Loaded resolutions file: " << confFile << "\n";
+
+
 	//Clean up expand cache??
 	//NO The pointer part is stored in d_staticLinks
 	// and will be deleted when the Resolver is destroyed.

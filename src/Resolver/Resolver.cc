@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "Resolver.ih"
 
 Resolver::Resolver()
@@ -32,8 +27,9 @@ Resolver::Resolver()
 		loadIfExists(*xr, true);//Load if exists, reporting errors
 
 	//Load default
-	//Try hostname dependent, try system name, try architecture dependent, try default
-	loadIfExists("./ccResolutions."+ System::uname('n'))
+	//Try username, try hostname dependent, try system name, try architecture dependent, try username, try default
+	loadIfExists("./ccResolutions."+ FBB::User().name())
+	  || loadIfExists("./ccResolutions."+System::uname('n'))
 	  || loadIfExists("./ccResolutions."+System::uname('s'))
 	  || loadIfExists("./ccResolutions."+System::uname('m'))
 	  || loadIfExists("./ccResolutions");
