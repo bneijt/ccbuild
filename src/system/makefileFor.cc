@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 void System::makefileFor(Source *root, ostream &str)
@@ -72,7 +67,7 @@ void System::makefileFor(Source *root, ostream &str)
 			dirs.push_back(FileSystem::directoryName((*src)->outputFilename()));
 			
 			str << (*src)->outputFilename() << ": " << (*src)->filename();
-			vector<string *> global;
+			vector<string const*> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
 			__foreach(l, local)
@@ -103,7 +98,7 @@ void System::makefileFor(Source *root, ostream &str)
 		else if((*src)->isInternalHeader() && Options::precompile)
 		{
 			str << (*src)->outputFilename() << ": " <<  (*src)->filename();
-			vector<string *> global;
+			vector<string const*> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
 			__foreach(l, local)
@@ -128,7 +123,7 @@ void System::makefileFor(Source *root, ostream &str)
 		else if((*src)->isHeader() && Options::precompileAll)
 		{
 			str << (*src)->outputFilename() << ": " <<  (*src)->filename();
-			vector<string *> global;
+			vector<string const *> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
 			__foreach(l, local)
@@ -156,7 +151,7 @@ void System::makefileFor(Source *root, ostream &str)
 	str << root->outputFilename() << ": " << root->directory() + "/o/ " <<  root->filename();
 	
 	vector<Source *> deps;
-	vector<string *> global;
+	vector<string const*> global;
 	root->dependencies(deps, global);
 	__foreach(l, deps)
 	{

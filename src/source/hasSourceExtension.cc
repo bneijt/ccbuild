@@ -26,7 +26,6 @@ bool Source::hasSourceExtension() const
 	//Return true if this source has an  extension
 	// *.cc .cp *.cxx *.cpp *.c++ *.C
 	
-	
   if(d_filename.size() > 1 && d_filename.substr(d_filename.size() - 2) == ".C")
   	return true;
   if(d_filename.size() > 2 && d_filename.substr(d_filename.size() - 3) == ".cc")

@@ -17,8 +17,6 @@
 
 */
 
-
-
 //Source is a wrapper class for sources
 //It should facilitate methods as: hasFunction()
 //and includes()
@@ -64,8 +62,6 @@ class Source
 		unsigned char d_update;	///<  Do we need an update? 0=unknown, 1=true, 2=false;
 		bool d_hasMainFunction;	///< Does this source have a main function
 
-		bool d_done;	///<Has this source been parsed?
-
 		///\brief Internallly used source type defenitions
 		enum SourceType
 		{
@@ -74,9 +70,7 @@ class Source
 			InternalHeader
 		};
 
-		//TODO: Either drop the mutable and go with constless interface
-		//TODO: or find a reason to keep this mutable.
-		mutable SourceType d_srcType;	///< The type of this source
+		SourceType d_srcType;	///< The type of this source
 
 	public:
 
@@ -96,30 +90,19 @@ class Source
 		std::string basenameWithoutExtension() const;
 
 		///\brief Give a list of all the sources that this source depends on.
-		void dependencies(std::vector<Source const *> &localDeps, std::vector<std::string const *> &globalDeps) const;
-		void dependencies(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps) const
-		{
-		  std::vector<Source const *> const_localDeps(localDeps.begin(), localDeps.end());
-		  std::vector<std::string const *> const_globalDeps(globalDeps.begin(), globalDeps.end());
-		  return dependencies(const_localDeps, const_globalDeps);
-		}
+		void dependencies(std::vector<Source *> &localDeps, std::vector<std::string const*> &globalDeps) const;
 
 		///\brief Append this source's local dependency pointers to this list
-		void dependencies(std::vector<Source const*> &localDeps) const;
-		void dependencies(std::vector<Source *> &localDeps) const
-		{
-		  std::vector<Source const *> const_localDeps(localDeps.begin(), localDeps.end());
-		  return dependencies(const_localDeps);
-		};
+		void dependencies(std::vector<Source *> &localDeps) const;
 
 		///\brief Give a list of all the sources that this source depends on.
-		void directDeps(std::vector<Source*> &localDeps) const;
+		void directDeps(std::vector<Source *> &localDeps) const;
 		
 		///\brief Give a list of all the sources that this source depends on.
-		void directDeps(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps) const;
+		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps) const;
 		
 		///\brief Give a list of all the sources that this source depends on.
-		void directDeps(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps, std::vector<std::string> &ignored) const;
+		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps, std::vector<std::string> &ignored) const;
 
 		///\brief Give a list of all ignored dependencies
 		void ignoredDeps(std::vector<std::string> &ignored) const
@@ -267,6 +250,8 @@ class Source
 		private:
 			///\brief Fills the two vectors up with the local and global includes and fills d_hasMainFunction
 			void scan(std::vector< std::string > *local, std::vector< std::string > *global, std::vector< std::string > *ignore = 0);
+			///\brief Determine source type based on he filename
+			void setType();
 
 
 };

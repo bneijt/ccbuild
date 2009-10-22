@@ -24,7 +24,7 @@ void Source::buildHeader(Compiler & cc)
 
 
   vector<Source *> srcList;
-  vector<string *> globalList;
+  vector<string const*> globalList;
 	dependencies(srcList, globalList);
 
 	Resolver &resolver = Resolver::getInstance();

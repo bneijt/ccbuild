@@ -98,7 +98,7 @@ void System::aapFor(Source *root, ostream &str)
 	Compiler cc;
 	__foreach(src, targets)
 	{
-		vector<string *> global;
+		vector<string const*> global;
 		vector<Source *> local;
 		(*src)->dependencies(local, global);
 		

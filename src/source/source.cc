@@ -28,7 +28,6 @@ Source::Source(string const &filename)
    d_depsDone(false),
    d_update(0),
    d_hasMainFunction(false),
-   d_done(false),
    d_srcType(Unknown)
 {
   d_filename = FileSystem::cleanPath(d_filename);
@@ -42,6 +41,7 @@ Source::Source(string const &filename)
 		d_inoDev.second = a.st_ino;
 		d_modTime = a.st_mtime;
 	}
+	setType();
 }
 
 //Empty source initializer
@@ -56,7 +56,7 @@ Source::Source()
    d_depsDone(false),
    d_update(0),
    d_hasMainFunction(false),
-   d_done(false),
    d_srcType(Unknown)
 {
+  setType();
 }

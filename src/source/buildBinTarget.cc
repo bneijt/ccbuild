@@ -23,7 +23,7 @@ void Source::buildBinTarget(Compiler & cc)
   _debugLevel4("Output filename: " << outputFilename());
 
   vector<Source *> srcList;
-  vector<string *> globalList;
+  vector<string const *> globalList;
 	dependencies(srcList, globalList);
   Resolver &resolver = Resolver::getInstance();
 

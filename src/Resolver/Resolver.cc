@@ -120,7 +120,7 @@ Resolver::Resolver()
 Resolver::~Resolver()
 {
 	//Todo: cleanup using unique_copy etc.
-	set<std::string *> pointers;
+	set<std::string const*> pointers;
 	
 	__foreach(link, d_staticLinks)
 			pointers.insert((*link).second);

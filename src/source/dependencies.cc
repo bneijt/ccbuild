@@ -15,18 +15,20 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "source.ih"
-void Source::dependencies(std::vector<Source const*> &srcList) const
+void Source::dependencies(std::vector<Source *> &srcList) const
 {
+  if(!d_depsDone)
+    throw Problem(Problem::Unable, "Unable to load dependencies without the file being scanned.");
+
   //Collect all Source pointers needed
-  stack<Source const *> srcStack;
-  srcStack.push(this);
+  stack<Source *> srcStack;
+  srcStack.push(const_cast<Source *>(this));
 
   //Gather all the global includes and sources
   while(srcStack.size() > 0)
   {
-    Source const*current = srcStack.top();
+    Source * current = srcStack.top();
     srcStack.pop();
 
     //Have we seen this source?
@@ -45,21 +47,22 @@ void Source::dependencies(std::vector<Source const*> &srcList) const
 		if(current != this)
 	   	srcList.push_back(current);
   }
+  _debugLevel2("Stacked up " << srcList.size() << " dependencies for " << d_filename);
 }
 
-void Source::dependencies(std::vector<Source const *> &srcList, std::vector<std::string const *> &globalList) const
+void Source::dependencies(std::vector<Source  *> &srcList, std::vector<std::string const*> &globalList) const
 {
 	//TODO: use std::set as srcList to check for contents?
   //Collect all Source pointers needed
-  stack<Source const *> srcStack;
-  srcStack.push(this);
+  stack<Source *> srcStack;
+  srcStack.push(const_cast<Source *>(this));
 	
 	set<string *> globalSet(d_globalDeps);
 
   //Gather all the global includes and sources
   while(srcStack.size() > 0)
   {
-    Source const *current = srcStack.top();
+    Source *current = srcStack.top();
     srcStack.pop();
 
     //Have we seen this source?

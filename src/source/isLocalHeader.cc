@@ -14,40 +14,8 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "source.ih"
 bool Source::isLocalHeader() const
 {
-	if(d_srcType != Unknown)
-		return d_srcType == LocalHeader;
-
-	//Return true if this source contains is in the local path, and it has a .hh extension
-  if(d_filename.size() > 1)
-    if(d_filename.substr(d_filename.size() - 2) == ".h"
-  			|| d_filename.substr(d_filename.size() - 3) == ".H")
-  {
-  		d_srcType = LocalHeader;
-    	return true;
-  }
-  if(d_filename.size() > 2
-  	&& d_filename.substr(d_filename.size() - 3) == ".hh")
-  {
-  	d_srcType = LocalHeader;
-    return true;
-  }
-  
-  //It's a local header if it doesn't contain a main function
-  //And can't be considered anything else by extension
-	if(d_hasMainFunction || hasSourceExtension())
-		return false;
-	
-	if(!isInternalHeader())
-		d_srcType = LocalHeader;	
-
-	return d_srcType == LocalHeader;
+  return d_srcType == LocalHeader;
 }

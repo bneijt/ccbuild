@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 
 bool Source::reload()
@@ -28,11 +23,13 @@ bool Source::reload()
   d_inoDev = make_pair(0,0);
   d_depsDone = false;
   d_hasMainFunction = false;
-  d_done =false;
+  
+  /* Filename has not changed, so not
   d_srcType = Unknown;
 
   d_filename = FileSystem::cleanPath(d_filename);
-  
+  setType();
+  */
  	struct stat a;
 
  	if(stat(d_filename.c_str(), &a) == 0)

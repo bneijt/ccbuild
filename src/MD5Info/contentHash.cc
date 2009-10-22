@@ -19,6 +19,7 @@
 
 std::string const &MD5Info::contentHash(std::string const &filename)
 {
+  OpenMP::ScopedLock lock(d_contentLock);
 	if(d_content.count(filename) == 0)
 	{
 	  //Create the hex hash of the file
@@ -45,12 +46,9 @@ std::string const &MD5Info::contentHash(std::string const &filename)
 	  for(size_t i = 0; i < size; ++i)
 	    sprintf(&hex_hash[i*2], "%02x", md[i]);
     hex_hash[(EVP_md5()->md_size * 2)] = '\0';
-    d_contentLock.set();
     d_content[filename] = string(&hex_hash[0]);
     _debugLevel2("Calculated content hash " << filename << " == " << d_content[filename]);
-    d_contentLock.unset();
 	}
 
-  OpenMP::ScopedLock lock(d_contentLock);
 	return d_content[filename];
 }

@@ -21,7 +21,7 @@
 
 
 #include "Resolver.ih"
-bool Resolver::resolveInto(std::string *include, Compiler & cc, bool quiet) const
+bool Resolver::resolveInto(std::string const *include, Compiler & cc, bool quiet) const
 {
   string argument = resolve(include);
 

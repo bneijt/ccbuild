@@ -35,7 +35,7 @@ namespace bneijt
 ///This class will do all header to compiler arguments resolution
 class Resolver
 {
-		std::map<std::string *, std::string *> d_staticLinks; ///< Link global to argument
+		std::map<std::string const*, std::string const*> d_staticLinks; ///< Link global to argument
 
 		std::string d_empty;	///<An empty string
 
@@ -56,7 +56,7 @@ class Resolver
 		 \param quiet Wether or not to output an error message on failure
 		 \return True on success, false otherwise
 		*/
-		bool resolveInto(std::string *include,
+		bool resolveInto(std::string const *include,
 										Compiler &cc,
 										bool quiet = false
 										) const;
@@ -79,7 +79,7 @@ class Resolver
 		std::string resolve(std::string const &include) const;
 
 		///\brief This is a dangerous speed up taking an internal Globals pointer
-		std::string resolve(std::string *include) const;
+		std::string resolve(std::string const *include) const;
 
 	private:
 		

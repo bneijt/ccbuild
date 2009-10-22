@@ -16,16 +16,13 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-
 #include "source.ih"
 
 void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps, std::vector<string> &ignored) const
 {
+  if(!d_depsDone)
+    throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
+
 	localDeps = d_deps;
 	copy(d_globalDeps.begin(), d_globalDeps.end(), back_inserter(globalDeps));
 
@@ -35,11 +32,15 @@ void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string
 
 void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string *> &globalDeps) const
 {
+  if(!d_depsDone)
+    throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
 	localDeps = d_deps;
 	copy(d_globalDeps.begin(), d_globalDeps.end(), back_inserter(globalDeps));
 }
 
 void Source::directDeps(std::vector<Source*> &localDeps) const
 {
+  if(!d_depsDone)
+    throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
 	localDeps = d_deps;
 }

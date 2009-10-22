@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 void System::depsFor(ostream &str)
@@ -47,10 +42,10 @@ void System::depsFor(ostream &str)
 
 void System::depsFor(Source * s, ostream &str)
 {
-	vector<Source const *> srcList;
-	vector<string const *> globalList;
-	set<string> globalSet; //Used for verbose
-	vector<string > ignored;
+	vector<Source *> srcList;
+	vector<std::string const*> globalList;
+	set<std::string> globalSet; //Used for verbose
+	vector<std::string> ignored;
   if(Options::verbose)
   {
     //If verbose is given, then collect ALL targets needed for a complete compile
@@ -67,7 +62,7 @@ void System::depsFor(Source * s, ostream &str)
 	  }
 	  
 	  //Create a unique set of each
-	  vector<Source const*>::iterator srcEnd = unique(srcList.begin(), srcList.end());
+	  vector<Source *>::iterator srcEnd = unique(srcList.begin(), srcList.end());
 	  srcList.erase(srcEnd, srcList.end());
     __foreach(gl, globalList)
       globalSet.insert(**gl);//Insert string value
@@ -92,7 +87,7 @@ void System::depsFor(Source * s, ostream &str)
 	__foreach(src, srcList)
 	{
 	  //Local source
-	  if((*src)->isLocalHeader())
+	  if((*src)->hasSourceExtension())
   		str << (*src)->filename() << " ";
   }
   str << "\n";

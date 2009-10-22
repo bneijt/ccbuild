@@ -19,7 +19,8 @@
 
 void MD5Info::load(std::string const &filename)
 {
-
+  OpenMP::ScopedLock oldLock(d_oldLock);
+  
 	//Load a configuration file if it exists
 	std::string const confFile = hashFilenameFor(filename);
 	
@@ -50,11 +51,8 @@ void MD5Info::load(std::string const &filename)
 		hashInfo = line;
 
     _debugLevel4("Recall: " << hashInfo << " for '" << filename << "'");
-    d_oldLock.set();
     d_old[filename] = hashInfo;
-    d_oldLock.unset();
   }
 
-  file.close();
-  
+  file.close(); 
 }

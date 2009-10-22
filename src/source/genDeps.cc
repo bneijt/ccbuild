@@ -23,7 +23,6 @@ void Source::genDeps()
 	//If we already have deps, we are done.
 	if(d_depsDone)
 		return;
-	d_depsDone = true;
 	
 	Sources &sources = Sources::getInstance();
 
@@ -55,7 +54,6 @@ void Source::genDeps()
 	 		s = sources[*path + "/" + *li];
 	 	}
 	 	
-	 	
 	 	if(s == 0)
 	 	{
 	 		cerr << "ccbuild: Unable to read '" << directory() <<  "/" << *li << "'\n";
@@ -65,6 +63,7 @@ void Source::genDeps()
 	 	s->genDeps();
 	 	d_deps.push_back(s);
 	}
-
+	d_depsDone = true;
+  _debugLevel2("genDeps done: " << d_deps.size() << " local, " << d_globalDeps.size() << " global, and " << d_ignored.size() << " ignored includes\n\t for file " << d_filename);
 	//All sources we _directly_ depend on now have d_deps filled and genDeps ran.
 }

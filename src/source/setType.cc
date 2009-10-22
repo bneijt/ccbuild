@@ -15,15 +15,19 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "MD5Info.ih"
-
-MD5Info::MD5Info()
-  :
-  d_old(),
-  d_new(),
-  d_content()
-{}
-
-MD5Info::~MD5Info()
-{}
+#include "source.ih"
+void Source::setType()
+{
+	//Determine file type
+  String fname(d_filename);
+  
+	//Return true if this source has an .ih extension
+	if(fname.endsIn(".ih"))
+	{
+  	d_srcType = InternalHeader;
+    return;
+  }
+  if(hasSourceExtension())
+    return;
+  d_srcType = LocalHeader;
+}

@@ -22,6 +22,7 @@ void MD5Info::save(std::string const &filename, std::string const &hash)
   
 	//Save information out of current
 	std::string hashFilename = hashFilenameFor(filename);
+	_debugLevel2("Saving hash information to disk for " << filename << "\n\tto " << hashFilename);
 	
 	d_oldLock.set();
   d_old[filename] = hash;

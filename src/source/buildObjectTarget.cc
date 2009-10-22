@@ -22,7 +22,7 @@ void Source::buildObjectTarget(Compiler &cc)
   OpenMP::ScopedLock slock(d_apiLock);
 
   vector<Source *> srcList;
-  vector<string *> globalList;
+  vector<string const*> globalList;
 	dependencies(srcList, globalList);
 
   Resolver &resolver = Resolver::getInstance();

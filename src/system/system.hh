@@ -17,10 +17,8 @@
 
 */
 
-
 #ifndef System_H_INCLUDED_
 #define System_H_INCLUDED_
-
 
 #include "../source/source.hh"
 #include "../Compiler/Compiler.hh"

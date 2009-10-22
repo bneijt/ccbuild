@@ -17,7 +17,6 @@
 
 */
 
-
 /**\file
 
  \brief ccbuild - A strict developer's build utility

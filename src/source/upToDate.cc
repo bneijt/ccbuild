@@ -22,6 +22,7 @@ bool Source::upToDate() const
 {
 	vector<Source *> srcList;
 	dependencies(srcList);
+	_debugLevel2("Running update check on " << filename() << " with " << srcList.size() << " hashes.");
 	return upToDate(srcList);
 }
 
@@ -32,18 +33,17 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 	if(!producesOutput())
 		return true;
 
-
 	if(needUpdate)
 		return false;
 		
-
+  //This file changed (Only based on timestamp or content MD5)
 	if(changed())
 	{
 		_debugLevel2(filename() << " changed.");
 		return false;
 	}
 	
-
+	//Any of it's dependencies changed
 	if(Options::md5)
 	{
 		//MD5 sum concatenated hash check
@@ -56,7 +56,9 @@ bool Source::upToDate(vector<Source *> const &srcList) const
 		
 		__foreach(src, srcList)
 			collectedHash += md5i.contentHash((*src)->filename());
-		_debugLevel3("Current collected hash value: " << collectedHash << "\n" << "  old: " << md5i.old(filename()));
+		_debugLevel3("Current collected (" << srcList.size() << ") hash value: " << collectedHash
+		      << "\n\t old: " << md5i.old(filename())
+		      << "\n\t file: " << filename());
 		needUpdate = (collectedHash != md5i.old(filename()));
 	}
 	else

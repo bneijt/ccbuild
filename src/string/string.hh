@@ -56,7 +56,7 @@ class String: public std::string
 		{
 			return this->size() > 1 && (*this)[this->size() -1] == endc;
 		}
-		bool endsIn(String const &ending)
+		bool endsIn(std::string const &ending)
 		{
 			return this->size() >= ending.size()
 				&&  this->compare(

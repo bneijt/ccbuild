@@ -30,7 +30,7 @@ std::string Resolver::resolve(std::string const &include) const
 	std::string *includePointer = globs[include];
 
 	//Check statics
-	std::map<std::string *, std::string *>::const_iterator it = d_staticLinks.find(includePointer);
+	std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
 	if(it != d_staticLinks.end())
 			return *(*it).second;
 
@@ -39,12 +39,12 @@ std::string Resolver::resolve(std::string const &include) const
 
 }
 
-std::string Resolver::resolve(std::string *includePointer) const
+std::string Resolver::resolve(std::string const *includePointer) const
 {
   _debugLevel3("Resolving: " << *includePointer);
 
 	//Check statics
-	std::map<std::string *, std::string *>::const_iterator it = d_staticLinks.find(includePointer);
+	std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
 	if(it != d_staticLinks.end())
 			return *(*it).second;
 

@@ -15,15 +15,9 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 void Source::scan(vector < string > *local, vector < string > *global, vector < string > *ignore)
 {
-
 	//Scan the file for all information
   if(FileSystem::isDirectory(d_filename))
   {
@@ -42,6 +36,7 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
     return;
   }
   OpenMP::ScopedLock fl(flexLock);
+  
   SourceScanner *scanner = new SourceScanner(&file);
   try
   {
@@ -52,7 +47,7 @@ void Source::scan(vector < string > *local, vector < string > *global, vector < 
 			ignore = &d_ignored;
 
     scanner->includes(local, global, ignore);
-    
+    _debugLevel2("Scan resulted in " << local->size() << " local, " << global->size() << " global, and " << ignore->size() << " ignored includes\n\t for file " << d_filename);
 		if(Options::verbose && ignore->size() > 0)
 		{
 		  cerrLock.set();
