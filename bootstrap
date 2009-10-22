@@ -59,6 +59,6 @@ aclocal #Sometimes nice to have: -I /usr/share/autoconf-archive
 echo " autoconf"
 autoconf
 echo " automake"
-automake --add-missing
+automake --add-missing --copy
 
 

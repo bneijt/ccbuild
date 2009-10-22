@@ -151,6 +151,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/source/ccbuild-upToDate.$(OBJEXT) \
 	src/source/ccbuild-stale.$(OBJEXT) \
 	src/source/ccbuild-source.$(OBJEXT) \
+	src/source/ccbuild-setType.$(OBJEXT) \
 	src/source/ccbuild-scan.$(OBJEXT) \
 	src/source/ccbuild-reload.$(OBJEXT) \
 	src/source/ccbuild-producesOutput.$(OBJEXT) \
@@ -383,21 +384,21 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/sources/getInstance.cc src/sources/erase.cc \
 	src/sources/destroy.cc src/source/source.hh \
 	src/source/upToDate.cc src/source/source.ih \
-	src/source/stale.cc src/source/source.cc src/source/scan.cc \
-	src/source/reload.cc src/source/producesOutput.cc \
-	src/source/outputFilename.cc src/source/isObjectTarget.cc \
-	src/source/isLocalHeader.cc src/source/isLibTarget.cc \
-	src/source/isInternalHeader.cc src/source/isHeader.cc \
-	src/source/isBinTarget.cc src/source/hasSourceExtension.cc \
-	src/source/genDeps.cc src/source/directory.cc \
-	src/source/directDeps.cc src/source/dependencies.cc \
-	src/source/changed.cc src/source/buildObjectTarget.cc \
-	src/source/buildHeader.cc src/source/buildBinTarget.cc \
-	src/source/build.cc src/source/basenameWithoutExtension.cc \
-	src/string/string.hh src/string/toUpper.cc \
-	src/string/string.ih src/string/replace.cc \
-	src/SourceScanner/SourceScanner.hh src/SourceScanner/yylex.cc \
-	src/SourceScanner/SourceScanner.ih \
+	src/source/stale.cc src/source/source.cc src/source/setType.cc \
+	src/source/scan.cc src/source/reload.cc \
+	src/source/producesOutput.cc src/source/outputFilename.cc \
+	src/source/isObjectTarget.cc src/source/isLocalHeader.cc \
+	src/source/isLibTarget.cc src/source/isInternalHeader.cc \
+	src/source/isHeader.cc src/source/isBinTarget.cc \
+	src/source/hasSourceExtension.cc src/source/genDeps.cc \
+	src/source/directory.cc src/source/directDeps.cc \
+	src/source/dependencies.cc src/source/changed.cc \
+	src/source/buildObjectTarget.cc src/source/buildHeader.cc \
+	src/source/buildBinTarget.cc src/source/build.cc \
+	src/source/basenameWithoutExtension.cc src/string/string.hh \
+	src/string/toUpper.cc src/string/string.ih \
+	src/string/replace.cc src/SourceScanner/SourceScanner.hh \
+	src/SourceScanner/yylex.cc src/SourceScanner/SourceScanner.ih \
 	src/SourceScanner/storeLocal.cc \
 	src/SourceScanner/storeIgnore.cc \
 	src/SourceScanner/storeGlobal.cc src/SourceScanner/includes.cc \
@@ -809,6 +810,8 @@ src/source/ccbuild-stale.$(OBJEXT): src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
 src/source/ccbuild-source.$(OBJEXT): src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
+src/source/ccbuild-setType.$(OBJEXT): src/source/$(am__dirstamp) \
+	src/source/$(DEPDIR)/$(am__dirstamp)
 src/source/ccbuild-scan.$(OBJEXT): src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
 src/source/ccbuild-reload.$(OBJEXT): src/source/$(am__dirstamp) \
@@ -1039,6 +1042,7 @@ mostlyclean-compile:
 	-rm -f src/source/ccbuild-producesOutput.$(OBJEXT)
 	-rm -f src/source/ccbuild-reload.$(OBJEXT)
 	-rm -f src/source/ccbuild-scan.$(OBJEXT)
+	-rm -f src/source/ccbuild-setType.$(OBJEXT)
 	-rm -f src/source/ccbuild-source.$(OBJEXT)
 	-rm -f src/source/ccbuild-stale.$(OBJEXT)
 	-rm -f src/source/ccbuild-upToDate.$(OBJEXT)
@@ -1186,6 +1190,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-producesOutput.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-reload.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-scan.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-setType.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-source.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-stale.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-upToDate.Po@am__quote@
@@ -2673,6 +2678,20 @@ src/source/ccbuild-source.obj: src/source/source.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/source.cc' object='src/source/ccbuild-source.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-source.obj `if test -f 'src/source/source.cc'; then $(CYGPATH_W) 'src/source/source.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/source.cc'; fi`
+
+src/source/ccbuild-setType.o: src/source/setType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-setType.o -MD -MP -MF src/source/$(DEPDIR)/ccbuild-setType.Tpo -c -o src/source/ccbuild-setType.o `test -f 'src/source/setType.cc' || echo '$(srcdir)/'`src/source/setType.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/source/$(DEPDIR)/ccbuild-setType.Tpo src/source/$(DEPDIR)/ccbuild-setType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/setType.cc' object='src/source/ccbuild-setType.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-setType.o `test -f 'src/source/setType.cc' || echo '$(srcdir)/'`src/source/setType.cc
+
+src/source/ccbuild-setType.obj: src/source/setType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-setType.obj -MD -MP -MF src/source/$(DEPDIR)/ccbuild-setType.Tpo -c -o src/source/ccbuild-setType.obj `if test -f 'src/source/setType.cc'; then $(CYGPATH_W) 'src/source/setType.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/setType.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/source/$(DEPDIR)/ccbuild-setType.Tpo src/source/$(DEPDIR)/ccbuild-setType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/setType.cc' object='src/source/ccbuild-setType.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-setType.obj `if test -f 'src/source/setType.cc'; then $(CYGPATH_W) 'src/source/setType.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/setType.cc'; fi`
 
 src/source/ccbuild-scan.o: src/source/scan.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-scan.o -MD -MP -MF src/source/$(DEPDIR)/ccbuild-scan.Tpo -c -o src/source/ccbuild-scan.o `test -f 'src/source/scan.cc' || echo '$(srcdir)/'`src/source/scan.cc
