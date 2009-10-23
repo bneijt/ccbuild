@@ -22,7 +22,7 @@
 
 #include "Compiler.ih"
 
-string Compiler::compileCommand(std::string pwd, std::string target,
+string Compiler::compileCommand(std::string target,
 		       std::string outputFile) const
 {
   ostringstream command(d_baseCommand, ios::ate);
@@ -34,6 +34,21 @@ string Compiler::compileCommand(std::string pwd, std::string target,
 
   command << "-o \"" << outputFile << "\" \"" << target << "\" ";
 
+  command << Options::commandAppend;
+
+	return command.str();
+}
+
+std::string Compiler::compileCommand(std::vector<std::string > const &targets) const
+{
+  ostringstream command(d_baseCommand, ios::ate);
+
+  command << " " << Options::extraArgs << " -c ";
+
+  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string const>(command, " "));
+  
+  __foreach(target, targets)
+    command << " \"" << (*target) << "\"";
   command << Options::commandAppend;
 
 	return command.str();

@@ -15,19 +15,21 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef globallocks_hh_included_
-#define	globallocks_hh_included_
+#include "system.ih"
 
-#include "../openmp/lock/lock.hh"
-
-namespace bneijt
+std::string System::mkdtemp(std::string const& nameTemplate)
 {
-
-static OpenMP::Lock cerrLock;
-static OpenMP::Lock coutLock;
-static OpenMP::Lock flexLock;
-static OpenMP::Lock fsLock;
-
-} //Namespace
-#endif
-
+  char * tmpDirName = new char[nameTemplate.size() +1];
+  tmpDirName[nameTemplate.size()] = '\0';
+  char const* tmpDir = ::mkdtemp(tmpDirName);
+  
+  if(tmpDir == 0)
+  {
+    delete[] tmpDirName;
+    throw Problem(Problem::Unable, "Unable to create a temporary directory for batch compilation");
+  }
+  //Do I delete the modified version? I guess so
+  std::string dirname(tmpDirName);
+  delete[] tmpDirName;
+  return dirname;
+}

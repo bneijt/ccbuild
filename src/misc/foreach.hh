@@ -23,7 +23,6 @@
 
 #ifndef __ccsys_FOREACH_H_INCLUDED
 #define __ccsys_FOREACH_H_INCLUDED
-
 //
 // The triple expansion may seem daring, but it is needed to fully expand the __LINE__
 // Which is needed for code like: foreach(iter, arrayOfVectors[0])

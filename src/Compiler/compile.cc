@@ -26,11 +26,11 @@ int Compiler::compile(std::string pwd, std::string target,
   cerr << "[CC] " << target << "\n";
   cerrLock.unset();
   assert(target != outputFile);
-  string command = compileCommand(pwd, target, outputFile);
+  string command = compileCommand(target, outputFile);
 
 	//If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)
 
- 	int retValue = System::system(command.c_str());
+ 	int retValue = System::system(command);
 
   if(retValue != 0)
   {

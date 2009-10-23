@@ -19,6 +19,8 @@
 
 bool FileSystem::isDirectory(std::string const &filename)
 {
+  OpenMP::ScopedLock asdf(fsLock);
+
 	struct stat a;
 	int rcode = stat(filename.c_str(), &a);
 

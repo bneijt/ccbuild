@@ -204,6 +204,8 @@ class Source
 		///\brief Non-const helper function. Not const because of dependencies not being const.
 		bool upToDate() const;
 		
+		///\brief Mark the souce as done, using MD5 update if that is enabled
+		void markAsDone() const;
 
 		///\brief Return wether this source produces output.
 		bool producesOutput() const;

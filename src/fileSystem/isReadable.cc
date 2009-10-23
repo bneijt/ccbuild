@@ -18,6 +18,8 @@
 #include "fileSystem.ih"
 bool FileSystem::isReadable(string const &filename)
 {
+  OpenMP::ScopedLock asdf(fsLock);
+
 	_debugLevel4("Readable test on '" << filename << "'");
   return access(filename.c_str(), R_OK) == 0;
 }

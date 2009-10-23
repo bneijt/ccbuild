@@ -143,6 +143,9 @@ class FileSystem
 
     ///\brief If the given directory doesn't exist, create it.
     static void ensureDirectory(std::string const &directoryName);
+
+    ///\brief Rename the given path to the other path
+    static bool rename(std::string const &from, std::string const&to);
 };
 }				//namespace
 #endif

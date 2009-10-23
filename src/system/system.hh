@@ -205,6 +205,14 @@ class System
 		*/
 		static int system(std::string const &command, bool simulate = Options::simulate) throw(Problem);
 
+    /** \brief Batch compile a list of objects
+      If we compile multiple objects with the same G++ we get a performance boost
+      To keep the objects from coming out, we need a nasty hack: use -save-temps, and pick
+      the object files out of the results and tell the linker to do nothing but tell us
+      it's version (-Wl,--version) to keep linking errors from becoming a problem.
+      
+    */
+    void batchCompile(std::vector<Source const*> &batchList, Compiler const &cc);
 		
 		/**\brief Deduct the project name from the directory structure
 		
@@ -214,7 +222,14 @@ class System
 		*/
 		static std::string projectName();
 		
+		/** \brief Return uname output for the given uname field name
+		*/
 		static std::string uname(char const field);
+		/** \brief Create a temporary directory from the template name and return it
+		
+		  Will throw a Problem on failure.
+		*/
+		static std::string mkdtemp(std::string const& nameTemplate);
 };
 
 }	//namespace

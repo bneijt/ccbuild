@@ -45,7 +45,7 @@ bool Options::aapHeaderDone(false);
 bool Options::xml(false);
 bool Options::interAr(false);
 bool Options::noWarn(false);
-//bool Options::(false);
+bool Options::batch(false);
 //bool Options::(false);
 
 std::vector<std::string> Options::includePaths;

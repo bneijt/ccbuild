@@ -15,19 +15,10 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef globallocks_hh_included_
-#define	globallocks_hh_included_
+#include "fileSystem.ih"
 
-#include "../openmp/lock/lock.hh"
-
-namespace bneijt
+bool FileSystem::rename(std::string const &from, std::string const&to)
 {
-
-static OpenMP::Lock cerrLock;
-static OpenMP::Lock coutLock;
-static OpenMP::Lock flexLock;
-static OpenMP::Lock fsLock;
-
-} //Namespace
-#endif
-
+  OpenMP::ScopedLock asdf(fsLock);
+  return ::rename(from.c_str(), to.c_str()) == 0;
+}

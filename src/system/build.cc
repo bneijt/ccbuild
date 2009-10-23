@@ -110,7 +110,30 @@ void System::build(Source *source, Compiler &cc)
   //Sort objects by mtime
   sort(objectTargets.rbegin(), objectTargets.rend(), byMTime);
 
-
+  //Add new option to clobber the compiler: place as many .cc files as possible and use --save-temps to store them in /tmp/tempdir
+  // Then collect the .o files into the normal ccbuild structure
+  //  This does not allow for multi-processing and is not handy when it comes to small updates
+  //  in /tmp/tempdir run: g++ -Wl,--version -save-temps ~/program/ccbuild/src/fileSystem/*.cc
+  //  and then collect the o files from /tmp/tempdir
+  if(Options::batch)
+  {
+    //Batch compile objects that need update
+    vector<Source const*> batchList;
+    set<std::string> baseNames;
+    __foreach(src, srcList)
+      if(!(*src)->upToDate())
+      {
+        //Don't allow files of the same basename into the batch
+        std::string unique = (*src)->basenameWithoutExtension();
+        if(baseNames.count(unique))
+          continue;
+        baseNames.insert(unique);
+        batchList.push_back(*src);
+      }
+    //Batch compile the given batch of objects
+    
+  }
+  
   //Build the objects and add them as links to the compiler
   {//Encaps iterator
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...

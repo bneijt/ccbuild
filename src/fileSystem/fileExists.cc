@@ -19,6 +19,7 @@
 
 bool FileSystem::fileExists(std::string const &filename, bool noDir)
 {
+  OpenMP::ScopedLock asdf(fsLock);
 	struct stat a;
 	int rcode = stat(filename.c_str(), &a);
 

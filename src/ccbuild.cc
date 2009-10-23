@@ -150,6 +150,7 @@ try
     {"V version", "", "Output ccbuild version number to stdout"},
     {"xml", "", "Where supported, produce XML output"},
     {"nowarn", "", "Leave out most warnings"},
+    {"batch", "", "Batch multiple source files into one g++ statement (very experimental, may not work with -I yet)"},
 #ifdef _OPENMP
     {"j", "<integer>", "Set the maximum number of threads used during build"},
 #endif

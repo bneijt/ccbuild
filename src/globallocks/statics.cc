@@ -20,3 +20,4 @@
 OpenMP::Lock cerrLock;
 OpenMP::Lock coutLock;
 OpenMP::Lock flexLock;
+OpenMP::Lock fsLock;

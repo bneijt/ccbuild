@@ -126,13 +126,19 @@ class Compiler
 	    ) const;
 
 		/**\brief Return the compile command to create an object
-			\param pwd Working directory to use
 			\param target Target filename to compile
 			\param outputFile The file to use for output
 		*/
-  	std::string compileCommand(std::string pwd,
+  	std::string compileCommand(
 	       std::string target,
 	       std::string outputFile
+	    ) const;
+
+		/**\brief Return the compile command to -c multiple objects
+			\param targets Multiple target to give
+		*/
+  	std::string compileCommand(
+	       std::vector<std::string> const& targets
 	    ) const;
 
 	  ///\brief Return the command used to link all the objects to a file

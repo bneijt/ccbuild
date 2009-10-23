@@ -85,7 +85,6 @@ void System::makefileFor(Source *root, ostream &str)
 				resolver.resolveInto(*gl, cc);
 
 			str << "\t" << cc.compileCommand(
-													"",
 													(*src)->filename(),
 													(*src)->outputFilename()
 													)
@@ -110,7 +109,7 @@ void System::makefileFor(Source *root, ostream &str)
 				resolver.resolveInto(*gl, cc);
 
 			str << "\t" << cc.precompileCommand(
-													"",
+			                    "",
 													(*src)->filename(),
 													(*src)->outputFilename()
 													)
@@ -136,7 +135,7 @@ void System::makefileFor(Source *root, ostream &str)
 				resolver.resolveInto(*gl, cc);
 			}
 			str << "\t" << cc.precompileCommand(
-													"",
+			                    "",
 													(*src)->filename(),
 													(*src)->outputFilename()
 													)
@@ -168,7 +167,6 @@ void System::makefileFor(Source *root, ostream &str)
 		resolver.resolveInto(*gl, cc);
 
 	str << "\t" << cc.compileCommand(
-											"",
 											root->filename(),
 											root->outputFilename()
 											)

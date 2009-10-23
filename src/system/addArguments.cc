@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 bool System::addArguments(int &argc, char ** &argv)
 {
@@ -40,6 +35,7 @@ bool System::addArguments(int &argc, char ** &argv)
 
 #ifdef _NO_WORDEXP_	
 	cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp missing.\n";
+	
 	return false;
 #else
 	cerr << "ccbuild: Adding ccResolutions arguments.\n";

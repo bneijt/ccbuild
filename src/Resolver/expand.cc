@@ -32,6 +32,9 @@ bool hasSpaces(char const *w)
 string Resolver::expand(std::string const &name) const
 {
 #if defined(__CYGWIN__) or defined(__APPLE_C__) or defined(__APPLE__)
+  //TODO Replace this with sh -c 'for i;do echo $i;done' dummy HELLO HOW ARE YOU
+  //TODO   to make sure that it handles quoted arguments correctly. Then it can
+  //TODO   very probably become the default.
 	ostringstream pathstr("", ios::app);
 	string echo("echo " + name);
 	ostringstream os;

@@ -34,7 +34,8 @@
 #include <unistd.h>
 
 #include "../options/options.hh"
-#include "../globallocks/globallocks.ih"
+#include "../globallocks/globallocks.hh"
+#include "../openmp/scopedLock/scopedLock.hh"
 
 #include "../misc/foreach.hh"
 

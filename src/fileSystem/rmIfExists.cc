@@ -27,9 +27,11 @@ bool FileSystem::rmIfExists(std::string const &filename)
   if(Options::simulate)
 		return true;
 
+  fsLock.set();
 	int retValue = unlink(filename.c_str());
+  fsLock.unset();
 
-	if(retValue != 0)
+	if(retValue != 0 && FileSystem::fileExists(filename))
 	{
 	  cerrLock.set();
 	  cerr << "Non zero exit status for unlink: status " << retValue << "\n";
