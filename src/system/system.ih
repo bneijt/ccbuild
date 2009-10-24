@@ -27,6 +27,8 @@
 #include "../globals/globals.hh"
 #include "../MD5Info/MD5Info.hh"
 #include "../globallocks/globallocks.hh"
+#include "../string/string.hh"
+#include "../with/with.hh"
 
 #include <iostream>
 #include <stack>

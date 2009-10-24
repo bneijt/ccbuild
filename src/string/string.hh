@@ -52,11 +52,14 @@ class String: public std::string
 			this->erase(pos + 1);
 		}
 		
-		bool endsIn(char const endc)
+		///\brief Return true if the string ends with the given character
+		bool endsIn(char const endc) const
 		{
 			return this->size() > 1 && (*this)[this->size() -1] == endc;
 		}
-		bool endsIn(std::string const &ending)
+		
+		///\brief Return true if the string ends with the given string
+		bool endsIn(std::string const &ending) const
 		{
 			return this->size() >= ending.size()
 				&&  this->compare(
@@ -65,7 +68,9 @@ class String: public std::string
 					ending
 					) == 0;
 		}
-		bool startsWith(std::string const &beginning)
+		
+		///\brief Return true if the string starts with the given string
+		bool startsWith(std::string const &beginning) const
 		{
 			return this->size() >= beginning.size()
 				&&  this->compare(
@@ -74,6 +79,8 @@ class String: public std::string
 					beginning
 					) == 0;
 		}
+
+		///\brief Transform this string to uppercase
 		void toUpper();
 		
 		std::string replace(char from, char to) const;

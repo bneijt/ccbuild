@@ -62,7 +62,7 @@ class Problem: public std::exception
 			return d_stat;
 		}
 
-		unsigned id() const throw()
+		Id id() const throw()
 		{
 			return d_id;
 		}

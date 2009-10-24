@@ -15,8 +15,24 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "string.ih"
-void String::toUpper()
+#include "fileSystem.ih"
+
+bool FileSystem::rmDirectoryIfExists(std::string const &dir)
 {
-	transform(this->begin(), this->end(), this->begin(), static_cast<int (*)(int)>(std::toupper));	
+  if(! FileSystem::fileExists(dir))
+  	return false;
+  
+	cerr << "[RMDIR] " << dir << "\n";
+  fsLock.set();
+  int retValue = rmdir(dir.c_str());
+  fsLock.unset();
+	if(retValue != 0 && FileSystem::fileExists(dir))
+	{
+	  cerrLock.set();
+	  cerr << "Non zero exit status for rmdir: status " << retValue << "\n";
+	  cerr << "    could not remove: " << dir << "\n";
+	  cerrLock.unset();
+	  return false;
+  }
+  return true;
 }

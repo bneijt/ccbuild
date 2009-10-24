@@ -14,8 +14,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 #
-HELP="
-Create a simple class template.
+HELP="Create a simple class template.
 It includes the srcHeader file of the first higher directory named src.
 The header file name is given on stdout.
 
@@ -25,7 +24,7 @@ Example: gedit \`ccClass myFunctionName\`
 if [ -z "$1" ];then
 	echo "$HELP"
 	exit
-fi.
+fi
 CNAME=$1
 LNAME=`echo $CNAME|tr '[:upper:]' '[:lower:]'`
 CHNAME="$LNAME".hh
@@ -57,3 +56,5 @@ class $CNAME
 #endif
 
 EOF
+
+

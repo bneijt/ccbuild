@@ -6,45 +6,45 @@ ccbuild \(em Strict C++ developer\&'s build utility
 \fBccbuild\fR [options ]  [command ]  
 .SH "DESCRIPTION" 
 .PP 
-\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more posibilities. See the section FILES for more information. 
+\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are separated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more possibilities. See the section FILES for more information. 
 .PP 
-\fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, seperate the #\-sign and the include statement by a single space ("# include"). 
+\fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, separate the #\-sign and the include statement by a single space ("# include"). 
 .SH "COMMANDS" 
 .IP "build [\fIfilename.cc\fR]" 10 
 Build everything or the given source. 
 .IP "lib [\fIfilename.cc\fR]" 10 
 Collect all objects into an archive. If a version is given, using \-\-pversion, then a shared library is also build with symbolic links. This currently forces the \-fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src. 
 .IP "" 10 
-Example: create an empty .cc file which simply includes all the local libraries, run ccbuild \-\-pversion 0.0.1 lib thatfile.cc 
+Example: create an empty .cc file which simply includes all the local libraries, run \fBccbuild\fR \-\-pversion 0.0.1 lib thatfile.cc 
 .IP "clean [\fIfilename.cc\fR]" 10 
 Clean everything or the given source. 
 .IP "distclean" 10 
 Recursively remove all "o" directories after removing all .md5 and .o files therein. And removes all .gch files. 
 .IP "deps [\fIfilename.cc\fR]" 10 
-List all files this source depends on. It lists three lines seperated by empty lines. 
+List all files this source depends on. It lists three lines separated by empty lines. 
 The first contains the local dependencies,  
 the second the ignored headers (for the file) and the last contains all global includes needed. 
  
 .IP "dot [\fIfilename.cc\fR]" 10 
-Generate dot graph files for sources on the stdout. If no source filename is given, then for all binary targets in the local directory a .dot file will be created. If the \fB\-\-verbose\fP flag is used 
+Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the \fB\-\-verbose\fP flag is used 
 the dot graph will also contain all object filenames and their dependencies and lists of ignored headers. Objects will be coloured lightgrey, binary targets lightblue, ignored headers by a red line. 
 .IP "makefile [\fIfilename.cc\fR]" 10 
-Generate a Makefile on stdout. If no filename is given, an all rule will be generated. Otherwise only the rules for the given file are generated. 
+Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated. 
 .IP "aap [\fIfilename.cc\fR]" 10 
-Generate an A-A-P file on stdout. If the filename is not given, an "all" rule will be added and all local binary targets will be listed. 
+Generate an A-A-P file on stdout. If the file name is not given, an "all" rule will be added and all local binary targets will be listed. 
 .IP "check [\fIfilename.cc\fR]" 10 
-Desplay source status and filename on the stdout. Status and source path are seperated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab seperated collumn will be inserted containing a two letter filetype ccbuild identifies it as. This filetype is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
+Desplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab separated column will be inserted containing a two letter file type \fBccbuild\fR identifies it as. This file type is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
 .IP "icmake [\fIfilename.cc\fR]" 10 
 \fBicmake\fR slave mode. This will output used directories, this can be used as a directory or class list within the icmake build script. 
 .IP "resolve [\fIfilename.cc\fR]" 10 
-Print all unresoved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file. 
+Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: \fBccbuild\fR resolve >> ccResolutions . 
 .IP "md5 [\fIfilename.cc\fR]" 10 
 MD5 sum all sources needed to compile all binary targets, or the given source on stdout. 
 .SH "OPTIONS" 
 .PP 
 Options are used to change the behaviour of the commands. Some options are useless for some commands. 
 .IP "\fB-f\fP \fB\-\-force-update\fP" 10 
-Update everything by labeling everything as old. 
+Update everything by labelling everything as old. 
 .IP "\fB-h\fP \fB\-\-help\fP" 10 
 Get a list of options and commands. 
 .IP "\fB\-\-gnutouch\fP" 10 
@@ -54,26 +54,26 @@ Simulate, don\&'t really execute any writing commands.
 .IP "\fB\-\-compiler\fP \fIcmd\fR" 10 
 Set the compiler command. The default is "g++". 
 .IP "\fB-a\fP \fB\-\-args\fP \fIargument\fR" 10 
-Set these default compiler arguments, removing the standard default arguments ("\-Wall \-g"). Mulitple uses of this option are concatenated with spaces. 
+Set these default compiler arguments, removing the standard default arguments ("\-Wall \-g"). Multiple uses of this option are concatenated with spaces. 
 .IP "\fB-C\fP \fIpath\fR" 10 
 Change directory before anything else. 
 .IP "\fB-p\fP \fB\-\-precompile-ih\fP" 10 
-Precompile only internal headers. This requires g++ version 3.4 up. 
+Pre-compile only internal headers. This requires g++ version 3.4 up. 
 .IP "\fB\-\-precompile-all\fP" 10 
-Precompile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don\&'t use internal headers, this precompilation is all you\&'ve got. 
+Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don\&'t use internal headers, this pre-compilation is all you\&'ve got. 
 .IP "\fB\-\-brute\fP" 10 
 Continue on compiler errors. 
 .IP "\fB\-\-md5\fP" 10 
-Use MD5 hashes to check for file changes. The hashes are store in "o/filename.md5" for every file. These sums are only	stored after a clean exit from ccbuild (last line showing "[WR] MD5 data") or a succesfull compilation. 
+Use MD5 hashes to check for file changes. The hashes are store in "o/filename.md5" for every file. These sums are only	stored after a clean exit from \fBccbuild\fR (last line showing "[WR] MD5 data") or a successful compilation. 
 .IP "\fB-I\fP \fIpath\fR" 10 
-Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument). 
+Add this path to the local include search path of \fBccbuild\fR and the compiler (which will receive the same argument). 
 .IP "\fB\-\-recursive-include\fP \fIpath\fR" 10 
-This is just like \fB-I\fP, but for the given path and every non-empty directory with a name other then "o". Make sure you do not come to depend on this behavior, that would be bad practice. 
+This is just like \fB-I\fP, but for the given path and every non-empty directory with a name other then "o". Make sure you do not come to depend on this behaviour, that would be bad practice. 
 .IP "\fB-l\fP \fB\-\-highlight\fP" 10 
-Set terminal colour to red before executing the command, then reset to normal at the end of it. 
+Highlight the output of the compiler using a red terminal colour. 
 .IP "\fB\-\-xof\fP \fB\-\-exec-on-fail\fP \fIcommand\fR" 10 
 Execute this command when the command (pre)compilation returns anything but 0. 
-The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don\&'t want to use the filename, you can append an echo command like "sleep 2; echo". 
+The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don\&'t want to use the file name, you can append an echo command like "sleep 2; echo". 
 .IP "\fB\-\-xop\fP \fB\-\-exec-on-pass\fP \fIcmd\fR" 10 
 This is the same as \fB\-\-exec-on-fail\fP, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on. 
 .IP "\fB\-\-clearpc\fP" 10 
@@ -91,7 +91,7 @@ Do not load any ccResolutions files outside of ./ccResolutions. This can be used
 .IP "\fB\-\-addres\fP \fIfilename\fR" 10 
 Load the given resolution file before any other. 
 .IP "\fB\-\-pversion\fP \fIversion\fR" 10 
-Set the program version you are working on to \fIversion\fR. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any filesystem special characters like slashes. 
+Set the program version you are working on to \fIversion\fR. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes. 
  
 .IP "\fB\-\-ar\fP" 10 
 Archive the objects before linking. This should reduce the binary size because it leaves out unused objects. 
@@ -103,6 +103,8 @@ Output version number on stdout and copyright/license on stderr.
 Output in XML where supported. Currently this is only the check command. 
 .IP "\fB\-\-nowarn\fP" 10 
 Leave out most warnings. 
+.IP "\fB\-\-batch\fP" 10 
+Compile a batch of files with one g++ call before any other compilation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience. 
 .IP "\fB-j\fP \fInumber_threads\fR" 10 
 Set the maximum number of threads used during build. Only available when OpenMP is enabled. 
 .SH "RESOLUTION CONFIGURATION" 
@@ -111,7 +113,7 @@ The ccResolutions file links global headers to compiler arguments. Every line sh
 A configuration line contains the name of the global header, followed by one or more tab characters and then the additional arguments needed when a source depends on this global header. 
 The arguments are POSIX shell expanded. 
 .PP 
-If the first line of the ccResolutions file starts with "#&", the rest of this line is shell expanded and used and appended to the argument list of ccbuild. 
+If the first line of the ccResolutions file starts with "#&", the rest of this line is shell expanded and used and appended to the argument list of \fBccbuild\fR. 
  
 .SH "EXAMPLES" 
 .PP 
@@ -147,9 +149,12 @@ The resolution configuration directory. All files in this directory are consider
 .PP 
 Don\&'t place any file into \fBo\fP directories, these will be removed when using the distclean command. Also don\&'t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example "add.cc" and "add.cpp" in the same directory). 
 .PP 
-Currently there is no way to allow one object file to effect the commandline parameters of another. This means that if all objects need a flag, you must use the \-\-args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are \-pthreads, \-mthreads and \-threads. Please read the g++ manual for more information on usage of flags. 
+Currently there is no way to allow one object file to effect the command-line parameters of another. This means that if all objects need a flag, you must use the \-\-args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are \-pthreads, \-mthreads and \-threads. Please read the g++ manual for more information on usage of flags. 
 .PP 
 ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file. 
+.SH "REPORTING BUGS" 
+.PP 
+Report any issue with ccbuild at: http://www.logfish.net/pr/ccbuild/ 
 .SH "RESTRICTIONS" 
 .PP 
 ccbuild will not follow or act on any include statements with a single space between the #\-sign and the include. So all include statements starting with "#\ include" will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (\-\-verbose) these are mentioned as warnings. 
@@ -159,4 +164,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Thu 22 Oct 2009, 23:56 
+.\" created by instant / docbook-to-man, Sat 24 Oct 2009, 16:37 

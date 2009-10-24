@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 namespace{
@@ -40,7 +35,7 @@ void recursivelyRemoveGCH()
 {
   	//Clean everything
 	stack<string> directoryStack;
-	directoryStack.push(Options::cacheRoot);
+	directoryStack.push(".");
 	vector<string> rmList;
 	
 	//TODO: Rewrite to rm -rf o (but smarter) and the old rm */*/*.gch
@@ -121,9 +116,7 @@ void System::distclean()
 	
   __foreach(dir, directoryDeathList)
   {
-		//Remove if it's an 'o' directory.
-		cerr << "[RMDIR] " << *dir << "\n";
-		if(rmdir(dir->c_str()) != 0)
-			cerr << "ccbuild: rmdir failed on '" << *dir << "'\n";
+		//Remove if directory, will only work when empty
+		FileSystem::rmDirectoryIfExists(*dir);
   }
 }

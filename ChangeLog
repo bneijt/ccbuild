@@ -15,6 +15,12 @@
     3rd line: global headers (|tail -n1)
 - Local resolution file load list is now:
     ./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]
+- New feature: --batch
+    Compile a batch of files with one g++ call before
+    any other compilation. This effectively disables
+    any multi-threading, but may speed things up.
+    The exact behavior of this option may change in the
+    future.
 
 1.5.7:
 - Mac OSX patches by sent in by Michiel Holtkamp

@@ -91,6 +91,10 @@ class FileSystem
     static bool rmIfExists(std::string const &filename	///< The filename of the file to remove
     	);
 
+		///\brief Remove the directory it it exitst, return true on succes.
+    static bool rmDirectoryIfExists(std::string const &filename	///< The filename of the file to remove
+    	);
+
 		/**\brief Returns a cleaner version of the given path ("./a/../b" -> "./b")
 			\param filename The filename of the file to check
 		*/

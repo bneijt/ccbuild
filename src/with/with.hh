@@ -15,8 +15,33 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "string.ih"
-void String::toUpper()
+#ifndef with_hh_included_
+#define	with_hh_included_
+
+namespace bneijt
 {
-	transform(this->begin(), this->end(), this->begin(), static_cast<int (*)(int)>(std::toupper));	
-}
+/**\brief Scoped temporary assignment
+  Assignment of a temporary value which on destruction of this class will be reset to the old value.
+*/
+template<typename T>
+class With
+{
+    T d_oldValue;
+    T &target;
+	public:
+
+	  With(T &a, T const &temporary)
+	    :
+	    d_oldValue(a),
+	    target(a)
+	  {
+	    a = temporary;
+	  }
+	  ~With()
+	  {
+	    target = d_oldValue;
+	  }
+};
+} //Namespace
+#endif
+

@@ -17,6 +17,7 @@
   <!ENTITY manusername  "bneijt">
   <!ENTITY manucpackage "<refentrytitle>ccbuild</refentrytitle>">
   <!ENTITY manpackage   "ccbuild">
+  <!ENTITY ccb "<command>ccbuild</command>">
 ]>
 <!--
 
@@ -68,8 +69,8 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   </refsynopsisdiv>
   <refsect1>
     <title>DESCRIPTION</title>
-    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are seperated by tab character(s) or a space. <command>&manpackage;</command> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <filename>./ccResolutions</filename> is used, but there are more posibilities. See the section FILES for more information.</para>
-    <para><command>&manpackage;</command> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <command>&manpackage;</command> from following up on an include statement, seperate the #-sign and the include statement by a single space (&quot;# include&quot;).</para>
+    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are separated by tab character(s) or a space. <command>&manpackage;</command> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <filename>./ccResolutions</filename> is used, but there are more possibilities. See the section FILES for more information.</para>
+    <para><command>&manpackage;</command> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <command>&manpackage;</command> from following up on an include statement, separate the #-sign and the include statement by a single space (&quot;# include&quot;).</para>
 <!--
     <refsect2>
       <title>A Sample Subsection</title>
@@ -111,7 +112,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         <term>lib [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
           <para>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build with symbolic links. This currently forces the -fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src.</para>
-          <para>Example: create an empty .cc file which simply includes all the local libraries, run ccbuild --pversion 0.0.1 lib thatfile.cc</para>
+          <para>Example: create an empty .cc file which simply includes all the local libraries, run &ccb; --pversion 0.0.1 lib thatfile.cc</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -129,7 +130,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>deps [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>List all files this source depends on. It lists three lines seperated by empty lines.
+          <para>List all files this source depends on. It lists three lines separated by empty lines.
           The first contains the local dependencies, 
           the second the ignored headers (for the file) and the last contains all global includes needed.
           </para>
@@ -138,26 +139,26 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>dot [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Generate dot graph files for sources on the stdout. If no source filename is given, then for all binary targets in the local directory a .dot file will be created. If the <option>--verbose</option> flag is used
+          <para>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the <option>--verbose</option> flag is used
           the dot graph will also contain all object filenames and their dependencies and lists of ignored headers. Objects will be coloured lightgrey, binary targets lightblue, ignored headers by a red line.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>makefile [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Generate a Makefile on stdout. If no filename is given, an all rule will be generated. Otherwise only the rules for the given file are generated.</para>
+          <para>Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>aap [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Generate an A-A-P file on stdout. If the filename is not given, an &quot;all&quot; rule will be added and all local binary targets will be listed.</para>
+          <para>Generate an A-A-P file on stdout. If the file name is not given, an &quot;all&quot; rule will be added and all local binary targets will be listed.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>check [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Desplay source status and filename on the stdout. Status and source path are seperated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab seperated collumn will be inserted containing a two letter filetype ccbuild identifies it as. This filetype is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>
+          <para>Desplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab separated column will be inserted containing a two letter file type &ccb; identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -169,7 +170,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>resolve [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Print all unresoved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file.</para>
+          <para>Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: &ccb; resolve &gt;&gt; ccResolutions .</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -189,7 +190,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>-f</option> <option>--force-update</option></term>
         <listitem>
-          <para>Update everything by labeling everything as old.</para>
+          <para>Update everything by labelling everything as old.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -219,7 +220,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>-a</option> <option>--args</option> <replaceable>argument</replaceable></term>
         <listitem>
-          <para>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Mulitple uses of this option are concatenated with spaces.</para>
+          <para>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Multiple uses of this option are concatenated with spaces.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -231,13 +232,13 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>-p</option> <option>--precompile-ih</option></term>
         <listitem>
-          <para>Precompile only internal headers. This requires g++ version 3.4 up.</para>
+          <para>Pre-compile only internal headers. This requires g++ version 3.4 up.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><option>--precompile-all</option></term>
         <listitem>
-          <para>Precompile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don&apos;t use internal headers, this precompilation is all you&apos;ve got.</para>
+          <para>Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don&apos;t use internal headers, this pre-compilation is all you&apos;ve got.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -249,32 +250,32 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>--md5</option></term>
         <listitem>
-          <para>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only	stored after a clean exit from ccbuild (last line showing &quot;[WR] MD5 data&quot;) or a succesfull compilation.</para>
+          <para>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only	stored after a clean exit from &ccb; (last line showing &quot;[WR] MD5 data&quot;) or a successful compilation.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><option>-I</option> <replaceable>path</replaceable></term>
         <listitem>
-          <para>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).</para>
+          <para>Add this path to the local include search path of &ccb; and the compiler (which will receive the same argument).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><option>--recursive-include</option> <replaceable>path</replaceable></term>
         <listitem>
-          <para>This is just like <option>-I</option>, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behavior, that would be bad practice.</para>
+          <para>This is just like <option>-I</option>, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behaviour, that would be bad practice.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><option>-l</option> <option>--highlight</option></term>
         <listitem>
-          <para>Set terminal colour to red before executing the command, then reset to normal at the end of it.</para>
+          <para>Highlight the output of the compiler using a red terminal colour.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><option>--xof</option> <option>--exec-on-fail</option> <replaceable>command</replaceable></term>
         <listitem>
           <para>Execute this command when the command (pre)compilation returns anything but 0.
-           The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don&apos;t want to use the filename, you can append an echo command like &quot;sleep 2; echo&quot;.</para>
+           The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don&apos;t want to use the file name, you can append an echo command like &quot;sleep 2; echo&quot;.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -325,7 +326,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term><option>--pversion</option> <replaceable>version</replaceable></term>
         <listitem>
-          <para>Set the program version you are working on to <replaceable>version</replaceable>. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any filesystem special characters like slashes.
+          <para>Set the program version you are working on to <replaceable>version</replaceable>. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes.
           </para>
         </listitem>
       </varlistentry>
@@ -360,6 +361,12 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term><option>--batch</option></term>
+        <listitem>
+          <para>Compile a batch of files with one g++ call before any other compilation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term><option>-j</option> <replaceable>number_threads</replaceable></term>
         <listitem>
           <para>Set the maximum number of threads used during build. Only available when OpenMP is enabled.</para>
@@ -388,7 +395,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
     A configuration line contains the name of the global header, followed by one or more tab characters and then the additional arguments needed when a source depends on this global header.
     The arguments are POSIX shell expanded.</para>
 <para>
-    If the first line of the ccResolutions file starts with &quot;#&amp;&quot;, the rest of this line is shell expanded and used and appended to the argument list of ccbuild.
+    If the first line of the ccResolutions file starts with &quot;#&amp;&quot;, the rest of this line is shell expanded and used and appended to the argument list of &ccb;.
     </para>
   </refsect1>
 <!--
@@ -409,49 +416,49 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
     <para>Examples of program use.</para>
     <variablelist>
       <varlistentry>
-        <term><command>&manpackage;</command> resolve &gt;&gt; ccResolutions</term>
+        <term>&ccb; resolve &gt;&gt; ccResolutions</term>
         <listitem>
           <para>Add any of the unknown global headers to the ccResolutions file. You can also use --nowarn to keep <command>&manpackage;</command> quiet, but you will have to think twice if you get compilation errors.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --brute</term>
+        <term>&ccb; --brute</term>
         <listitem>
           <para>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next &manpackage; call.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> -p --compiler &apos;g++-3.4&apos; --args -Wall --args &apos;-Wextra -ansi&apos;</term>
+        <term>&ccb; -p --compiler &apos;g++-3.4&apos; --args -Wall --args &apos;-Wextra -ansi&apos;</term>
         <listitem>
           <para>Precompile internal headers using <command>g++-3.4</command> and highlight all compiler output (-l). Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> -f --args -O3</term>
+        <term>&ccb; -f --args -O3</term>
         <listitem>
           <para>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --verbose dot; <command>dotty</command> *.dot</term>
+        <term>&ccb; --verbose dot; <command>dotty</command> *.dot</term>
         <listitem>
           <para>Graph the dependencies for all programs with colours. Then view these using <command>dotty</command>. This can help you to discover irregular dependencies and what test programs use.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --xof &apos;gedit&apos;</term>
+        <term>&ccb; --xof &apos;gedit&apos;</term>
         <listitem>
           <para>Try to compile the program and open the first file that does not compile correctly.Open all error producing sources in gedit. Very usefull for when you change the interface of a class.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --compiler distcc -j 20</term>
+        <term>&ccb; --compiler distcc -j 20</term>
         <listitem>
           <para>Use 20 distcc compilers to compile the project.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><command>&manpackage;</command> --nodefargs -f --args &apos;-Wall -Werror&apos; &amp;&amp; <command>svn</command> commit -m &apos;buildable backup&apos;</term>
+        <term>&ccb; --nodefargs -f --args &apos;-Wall -Werror&apos; &amp;&amp; <command>svn</command> commit -m &apos;buildable backup&apos;</term>
         <listitem>
           <para>If all the sources are buildable without any warnings, commit everything to the repository using subversion.</para>
         </listitem>
@@ -469,7 +476,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   <refsect1>
     <title>FILES</title>
 
-    <para>Configuration files used by <command>&manpackage;</command></para>
+    <para>Configuration files used by &ccb;</para>
     <variablelist>
       <varlistentry>
         <term><filename>./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]</filename></term>
@@ -495,8 +502,8 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   <refsect1>
     <title>CAVEATS</title>
     <para>Don&apos;t place any file into <filename>o</filename> directories, these will be removed when using the distclean command. Also don&apos;t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example &quot;add.cc&quot; and &quot;add.cpp&quot; in the same directory).</para>
-    <para>Currently there is no way to allow one object file to effect the commandline parameters of another. This means that if all objects need a flag, you must use the --args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</para>
-		<para>ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file.</para>    
+    <para>Currently there is no way to allow one object file to effect the command-line parameters of another. This means that if all objects need a flag, you must use the --args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</para>
+		<para>&manpackage; seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that &manpackage; will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file.</para>    
   </refsect1>
 
 <!--
@@ -504,13 +511,13 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
     <title>DIAGNOSTICS</title>
     <para></para>
   </refsect1>
+-->
 
   <refsect1>
-    <title>BUGS</title>
+    <title>REPORTING BUGS</title>
 
-    <para>Every new release removes bugs. Every new feature adds more. So if you want to avoid any bugs, stay away from new features and keep an eye on the changelog. If you find one: update to the newest version, test, then send me a bugreport.</para>
+    <para>Report any issue with &manpackage; at: http://www.logfish.net/pr/ccbuild/</para>
   </refsect1>
--->
 
   <refsect1>
     <title>RESTRICTIONS</title>
