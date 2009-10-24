@@ -15,7 +15,7 @@ Thank you for downloading ccbuild!
 All documentation can be found in the doc directory. If you want to hack ccbuild, don't forget to run doxygen first.
 Although the manual is currently not installed, a pre-compiled version can be found here: doc/debiandoc/ccbuild.1
 You can also use the online versions of these documents via the homepage, most easily found using 
-  http://ccbuild.sourceforge.net
+  http://www.logfish.net/pr/ccbuild/
 
 
 === Program usage
@@ -27,7 +27,7 @@ The default behaviour of ccbuild is to find any sourcefile containing an "int ma
 If the manual is not installed, use: man ./doc/debiandoc/ccbuild.1
 
 see ccbuild -h for more information....
-For more, and current, information: see http://ccbuild.sourceforge.net
+For more, and current, information: see http://www.logfish.net/pr/ccbuild/
 
 
 === Directories

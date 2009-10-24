@@ -1,17 +1,18 @@
-Currently ccbuild depends on the following libraries:
-  libbobcat 2.0 or higher (correct API of Process class)
-  libgomp 1.0+ (OpenMP)
-	libopenssl (MD5 algorithm)
-	libboost 1.35 or higher (for circular_buffer)
-  flex 2.5.31 or newer (for the source scanner)
-
-As far as I know, ccbuild will not correctly function on anything else appart from plain, vanilla, Linux.
+As far as I know, ccbuild will not correctly function on anything else apart
+from plain, vanilla, Linux. However, please consider giving it a try on any
+system you can find and report any problems online at
+ http://www.logfish.net/pr/ccbuild/
 
 Shortcut: ./configure && make && sudo make install
 
 Currently there is only one binary, so installation should be easy...
 1)
-	Install flex: 2.5.31 works, newer might be ok.
+	Install the dependences:
+    libbobcat 2.0 or higher (correct API of Process class)
+    libgomp 1.0+ (OpenMP)
+  	libopenssl (MD5 algorithm)
+  	libboost 1.35 or higher (for circular_buffer)
+    flex 2.5.31 or newer (for the source scanner)
 
 2)
 	If you have absolutly no rights on the system:
@@ -22,28 +23,27 @@ Currently there is only one binary, so installation should be easy...
 		Don't forget to awnser "yes" to the final do-you-really-want-this
 		question.
 		
-	If you have some rights on the system and have aap (www.a-a-p.org):
-		cd src
-		aap install
-	If you are an autotools fan, try
+	If you have some rights on the system and have autotools:
 		./configure
 		make
 		sudo make install
+	If you are an aap (www.a-a-p.org) fan, try:
+		aap install
 
 3)
-	For the user of ccbuild, it might be nice to add the standard unix
+	For the user of ccbuild, it might be nice to add the standard Unix
 	headers as empty resolutions by copying the tools/ccResolutions.d
-	directory to ~/.ccbuild (this is automatically done by the install
-	script but not by the aap script.
+	directory to ~/.ccbuild (this is not automatically done by any
+	of the install scripts).
 
-If anything (or everything) failes mail me or try the manual way:
+If anything (or everything) fails mail me or try the manual way:
 
 ==Manually building and installing...
 1) Build ccbuild
 		Using make: type 'make -f Makefile.human'
 
 2) Install
-		Copy 'ccbuild' to any direcoty given by 'echo $PATH'
+		Copy 'ccbuild' to any directory given by 'echo $PATH'
 
 3) Default configuration (optional)
 		You can copy the default configuration from the tools directory
@@ -55,9 +55,9 @@ If anything (or everything) failes mail me or try the manual way:
     Run doxygen in the root directory of ccbuild, this will generate
 		documentation in the ./doc/html directory.
 
-The test sources, usable for examples, are now seperately packaged.
+The test sources, usable for examples, are now separately packaged.
 If you want to try some examples, download the example codes from the
 ccbuild homepage.
 Also, don't forget to place any source you can find in a directory
  and run ccbuild, you never know, it might just compile!
-See also "Projects using ccbuild" on the ccbuild homepage.
+See also "Compatible projects" on the ccbuild homepage.

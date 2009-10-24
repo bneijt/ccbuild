@@ -69,6 +69,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/system/ccbuild-resolveTest.$(OBJEXT) \
 	src/system/ccbuild-projectName.$(OBJEXT) \
 	src/system/ccbuild-parseArguments.$(OBJEXT) \
+	src/system/ccbuild-mkdtemp.$(OBJEXT) \
 	src/system/ccbuild-md5.$(OBJEXT) \
 	src/system/ccbuild-makefileForAll.$(OBJEXT) \
 	src/system/ccbuild-makefileFor.$(OBJEXT) \
@@ -88,9 +89,12 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/system/ccbuild-changeTo.$(OBJEXT) \
 	src/system/ccbuild-buildAll.$(OBJEXT) \
 	src/system/ccbuild-build.$(OBJEXT) \
+	src/system/ccbuild-batchCompile.$(OBJEXT) \
 	src/system/ccbuild-addArguments.$(OBJEXT) \
 	src/system/ccbuild-aapForAll.$(OBJEXT) \
 	src/system/ccbuild-aapFor.$(OBJEXT) \
+	src/string/ccbuild-toUpper.$(OBJEXT) \
+	src/string/ccbuild-replace.$(OBJEXT) \
 	src/globallocks/ccbuild-statics.$(OBJEXT) \
 	src/globals/ccbuild-statics.$(OBJEXT) \
 	src/globals/ccbuild-indexoperator.$(OBJEXT) \
@@ -99,6 +103,8 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/globals/ccbuild-destroy.$(OBJEXT) \
 	src/fileSystem/ccbuild-touch.$(OBJEXT) \
 	src/fileSystem/ccbuild-rmIfExists.$(OBJEXT) \
+	src/fileSystem/ccbuild-rmDirectoryIfExists.$(OBJEXT) \
+	src/fileSystem/ccbuild-rename.$(OBJEXT) \
 	src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.$(OBJEXT) \
 	src/fileSystem/ccbuild-newer.$(OBJEXT) \
 	src/fileSystem/ccbuild-modTime.$(OBJEXT) \
@@ -156,6 +162,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/source/ccbuild-reload.$(OBJEXT) \
 	src/source/ccbuild-producesOutput.$(OBJEXT) \
 	src/source/ccbuild-outputFilename.$(OBJEXT) \
+	src/source/ccbuild-markAsDone.$(OBJEXT) \
 	src/source/ccbuild-isObjectTarget.$(OBJEXT) \
 	src/source/ccbuild-isLocalHeader.$(OBJEXT) \
 	src/source/ccbuild-isLibTarget.$(OBJEXT) \
@@ -173,8 +180,6 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/source/ccbuild-buildBinTarget.$(OBJEXT) \
 	src/source/ccbuild-build.$(OBJEXT) \
 	src/source/ccbuild-basenameWithoutExtension.$(OBJEXT) \
-	src/string/ccbuild-toUpper.$(OBJEXT) \
-	src/string/ccbuild-replace.$(OBJEXT) \
 	src/SourceScanner/ccbuild-yylex.$(OBJEXT) \
 	src/SourceScanner/ccbuild-storeLocal.$(OBJEXT) \
 	src/SourceScanner/ccbuild-storeIgnore.$(OBJEXT) \
@@ -334,24 +339,29 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/system/trimmed.cc src/system/trim.cc src/system/system.cc \
 	src/system/statics.cc src/system/sleep.cc \
 	src/system/resolveTest.cc src/system/projectName.cc \
-	src/system/parseArguments.cc src/system/md5.cc \
-	src/system/makefileForAll.cc src/system/makefileFor.cc \
-	src/system/localSourcesInto.cc src/system/lib.cc \
-	src/system/inspect.cc src/system/icmake.cc src/system/exit.cc \
-	src/system/dotgraphForAll.cc src/system/dotgraphFor.cc \
-	src/system/distclean.cc src/system/destroy.cc \
-	src/system/depsFor.cc src/system/collectTargets.cc \
-	src/system/clean.cc src/system/check.cc src/system/changeTo.cc \
+	src/system/parseArguments.cc src/system/mkdtemp.cc \
+	src/system/md5.cc src/system/makefileForAll.cc \
+	src/system/makefileFor.cc src/system/localSourcesInto.cc \
+	src/system/lib.cc src/system/inspect.cc src/system/icmake.cc \
+	src/system/exit.cc src/system/dotgraphForAll.cc \
+	src/system/dotgraphFor.cc src/system/distclean.cc \
+	src/system/destroy.cc src/system/depsFor.cc \
+	src/system/collectTargets.cc src/system/clean.cc \
+	src/system/check.cc src/system/changeTo.cc \
 	src/system/buildAll.cc src/system/build.cc \
-	src/system/addArguments.cc src/system/aapForAll.cc \
-	src/system/aapFor.cc src/posix/wordexp.h \
-	src/globallocks/globallocks.hh src/globallocks/statics.cc \
-	src/globallocks/globallocks.ih src/globals/globals.hh \
-	src/globals/statics.cc src/globals/globals.ih \
-	src/globals/indexoperator.cc src/globals/globals.cc \
-	src/globals/getInstance.cc src/globals/destroy.cc \
-	src/fileSystem/fileSystem.hh src/fileSystem/touch.cc \
-	src/fileSystem/fileSystem.ih src/fileSystem/rmIfExists.cc \
+	src/system/batchCompile.cc src/system/addArguments.cc \
+	src/system/aapForAll.cc src/system/aapFor.cc \
+	src/posix/wordexp.h src/with/with.hh src/string/string.hh \
+	src/string/toUpper.cc src/string/string.ih \
+	src/string/replace.cc src/globallocks/globallocks.hh \
+	src/globallocks/statics.cc src/globallocks/globallocks.ih \
+	src/globals/globals.hh src/globals/statics.cc \
+	src/globals/globals.ih src/globals/indexoperator.cc \
+	src/globals/globals.cc src/globals/getInstance.cc \
+	src/globals/destroy.cc src/fileSystem/fileSystem.hh \
+	src/fileSystem/touch.cc src/fileSystem/fileSystem.ih \
+	src/fileSystem/rmIfExists.cc \
+	src/fileSystem/rmDirectoryIfExists.cc src/fileSystem/rename.cc \
 	src/fileSystem/recursiveGlobDirectoriesInto.cc \
 	src/fileSystem/newer.cc src/fileSystem/modTime.cc \
 	src/fileSystem/isReadable.cc src/fileSystem/isDirectory.cc \
@@ -387,18 +397,17 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/source/stale.cc src/source/source.cc src/source/setType.cc \
 	src/source/scan.cc src/source/reload.cc \
 	src/source/producesOutput.cc src/source/outputFilename.cc \
-	src/source/isObjectTarget.cc src/source/isLocalHeader.cc \
-	src/source/isLibTarget.cc src/source/isInternalHeader.cc \
-	src/source/isHeader.cc src/source/isBinTarget.cc \
-	src/source/hasSourceExtension.cc src/source/genDeps.cc \
-	src/source/directory.cc src/source/directDeps.cc \
-	src/source/dependencies.cc src/source/changed.cc \
-	src/source/buildObjectTarget.cc src/source/buildHeader.cc \
-	src/source/buildBinTarget.cc src/source/build.cc \
-	src/source/basenameWithoutExtension.cc src/string/string.hh \
-	src/string/toUpper.cc src/string/string.ih \
-	src/string/replace.cc src/SourceScanner/SourceScanner.hh \
-	src/SourceScanner/yylex.cc src/SourceScanner/SourceScanner.ih \
+	src/source/markAsDone.cc src/source/isObjectTarget.cc \
+	src/source/isLocalHeader.cc src/source/isLibTarget.cc \
+	src/source/isInternalHeader.cc src/source/isHeader.cc \
+	src/source/isBinTarget.cc src/source/hasSourceExtension.cc \
+	src/source/genDeps.cc src/source/directory.cc \
+	src/source/directDeps.cc src/source/dependencies.cc \
+	src/source/changed.cc src/source/buildObjectTarget.cc \
+	src/source/buildHeader.cc src/source/buildBinTarget.cc \
+	src/source/build.cc src/source/basenameWithoutExtension.cc \
+	src/SourceScanner/SourceScanner.hh src/SourceScanner/yylex.cc \
+	src/SourceScanner/SourceScanner.ih \
 	src/SourceScanner/storeLocal.cc \
 	src/SourceScanner/storeIgnore.cc \
 	src/SourceScanner/storeGlobal.cc src/SourceScanner/includes.cc \
@@ -557,6 +566,8 @@ src/system/ccbuild-projectName.$(OBJEXT): src/system/$(am__dirstamp) \
 src/system/ccbuild-parseArguments.$(OBJEXT):  \
 	src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
+src/system/ccbuild-mkdtemp.$(OBJEXT): src/system/$(am__dirstamp) \
+	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-md5.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-makefileForAll.$(OBJEXT):  \
@@ -599,12 +610,24 @@ src/system/ccbuild-buildAll.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-build.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
+src/system/ccbuild-batchCompile.$(OBJEXT): src/system/$(am__dirstamp) \
+	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-addArguments.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-aapForAll.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
 src/system/ccbuild-aapFor.$(OBJEXT): src/system/$(am__dirstamp) \
 	src/system/$(DEPDIR)/$(am__dirstamp)
+src/string/$(am__dirstamp):
+	@$(MKDIR_P) src/string
+	@: > src/string/$(am__dirstamp)
+src/string/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/string/$(DEPDIR)
+	@: > src/string/$(DEPDIR)/$(am__dirstamp)
+src/string/ccbuild-toUpper.$(OBJEXT): src/string/$(am__dirstamp) \
+	src/string/$(DEPDIR)/$(am__dirstamp)
+src/string/ccbuild-replace.$(OBJEXT): src/string/$(am__dirstamp) \
+	src/string/$(DEPDIR)/$(am__dirstamp)
 src/globallocks/$(am__dirstamp):
 	@$(MKDIR_P) src/globallocks
 	@: > src/globallocks/$(am__dirstamp)
@@ -642,6 +665,12 @@ src/fileSystem/ccbuild-touch.$(OBJEXT):  \
 	src/fileSystem/$(am__dirstamp) \
 	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
 src/fileSystem/ccbuild-rmIfExists.$(OBJEXT):  \
+	src/fileSystem/$(am__dirstamp) \
+	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
+src/fileSystem/ccbuild-rmDirectoryIfExists.$(OBJEXT):  \
+	src/fileSystem/$(am__dirstamp) \
+	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
+src/fileSystem/ccbuild-rename.$(OBJEXT):  \
 	src/fileSystem/$(am__dirstamp) \
 	src/fileSystem/$(DEPDIR)/$(am__dirstamp)
 src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.$(OBJEXT):  \
@@ -822,6 +851,8 @@ src/source/ccbuild-producesOutput.$(OBJEXT):  \
 src/source/ccbuild-outputFilename.$(OBJEXT):  \
 	src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
+src/source/ccbuild-markAsDone.$(OBJEXT): src/source/$(am__dirstamp) \
+	src/source/$(DEPDIR)/$(am__dirstamp)
 src/source/ccbuild-isObjectTarget.$(OBJEXT):  \
 	src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
@@ -863,16 +894,6 @@ src/source/ccbuild-build.$(OBJEXT): src/source/$(am__dirstamp) \
 src/source/ccbuild-basenameWithoutExtension.$(OBJEXT):  \
 	src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
-src/string/$(am__dirstamp):
-	@$(MKDIR_P) src/string
-	@: > src/string/$(am__dirstamp)
-src/string/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/string/$(DEPDIR)
-	@: > src/string/$(DEPDIR)/$(am__dirstamp)
-src/string/ccbuild-toUpper.$(OBJEXT): src/string/$(am__dirstamp) \
-	src/string/$(DEPDIR)/$(am__dirstamp)
-src/string/ccbuild-replace.$(OBJEXT): src/string/$(am__dirstamp) \
-	src/string/$(DEPDIR)/$(am__dirstamp)
 src/SourceScanner/$(am__dirstamp):
 	@$(MKDIR_P) src/SourceScanner
 	@: > src/SourceScanner/$(am__dirstamp)
@@ -1011,6 +1032,8 @@ mostlyclean-compile:
 	-rm -f src/fileSystem/ccbuild-modTime.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-newer.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.$(OBJEXT)
+	-rm -f src/fileSystem/ccbuild-rename.$(OBJEXT)
+	-rm -f src/fileSystem/ccbuild-rmDirectoryIfExists.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-rmIfExists.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-touch.$(OBJEXT)
 	-rm -f src/globallocks/ccbuild-statics.$(OBJEXT)
@@ -1038,6 +1061,7 @@ mostlyclean-compile:
 	-rm -f src/source/ccbuild-isLibTarget.$(OBJEXT)
 	-rm -f src/source/ccbuild-isLocalHeader.$(OBJEXT)
 	-rm -f src/source/ccbuild-isObjectTarget.$(OBJEXT)
+	-rm -f src/source/ccbuild-markAsDone.$(OBJEXT)
 	-rm -f src/source/ccbuild-outputFilename.$(OBJEXT)
 	-rm -f src/source/ccbuild-producesOutput.$(OBJEXT)
 	-rm -f src/source/ccbuild-reload.$(OBJEXT)
@@ -1058,6 +1082,7 @@ mostlyclean-compile:
 	-rm -f src/system/ccbuild-aapFor.$(OBJEXT)
 	-rm -f src/system/ccbuild-aapForAll.$(OBJEXT)
 	-rm -f src/system/ccbuild-addArguments.$(OBJEXT)
+	-rm -f src/system/ccbuild-batchCompile.$(OBJEXT)
 	-rm -f src/system/ccbuild-build.$(OBJEXT)
 	-rm -f src/system/ccbuild-buildAll.$(OBJEXT)
 	-rm -f src/system/ccbuild-changeTo.$(OBJEXT)
@@ -1077,6 +1102,7 @@ mostlyclean-compile:
 	-rm -f src/system/ccbuild-makefileFor.$(OBJEXT)
 	-rm -f src/system/ccbuild-makefileForAll.$(OBJEXT)
 	-rm -f src/system/ccbuild-md5.$(OBJEXT)
+	-rm -f src/system/ccbuild-mkdtemp.$(OBJEXT)
 	-rm -f src/system/ccbuild-parseArguments.$(OBJEXT)
 	-rm -f src/system/ccbuild-projectName.$(OBJEXT)
 	-rm -f src/system/ccbuild-resolveTest.$(OBJEXT)
@@ -1159,6 +1185,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-modTime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-newer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-recursiveGlobDirectoriesInto.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-rename.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-rmIfExists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-touch.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/globallocks/$(DEPDIR)/ccbuild-statics.Po@am__quote@
@@ -1186,6 +1214,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-isLibTarget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-isLocalHeader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-isObjectTarget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-markAsDone.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-outputFilename.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-producesOutput.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-reload.Po@am__quote@
@@ -1206,6 +1235,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-aapFor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-aapForAll.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-addArguments.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-batchCompile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-build.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-buildAll.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-changeTo.Po@am__quote@
@@ -1225,6 +1255,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-makefileFor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-makefileForAll.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-md5.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-mkdtemp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-parseArguments.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-projectName.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/system/$(DEPDIR)/ccbuild-resolveTest.Po@am__quote@
@@ -1531,6 +1562,20 @@ src/system/ccbuild-parseArguments.obj: src/system/parseArguments.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-parseArguments.obj `if test -f 'src/system/parseArguments.cc'; then $(CYGPATH_W) 'src/system/parseArguments.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/parseArguments.cc'; fi`
 
+src/system/ccbuild-mkdtemp.o: src/system/mkdtemp.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-mkdtemp.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-mkdtemp.Tpo -c -o src/system/ccbuild-mkdtemp.o `test -f 'src/system/mkdtemp.cc' || echo '$(srcdir)/'`src/system/mkdtemp.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-mkdtemp.Tpo src/system/$(DEPDIR)/ccbuild-mkdtemp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/mkdtemp.cc' object='src/system/ccbuild-mkdtemp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-mkdtemp.o `test -f 'src/system/mkdtemp.cc' || echo '$(srcdir)/'`src/system/mkdtemp.cc
+
+src/system/ccbuild-mkdtemp.obj: src/system/mkdtemp.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-mkdtemp.obj -MD -MP -MF src/system/$(DEPDIR)/ccbuild-mkdtemp.Tpo -c -o src/system/ccbuild-mkdtemp.obj `if test -f 'src/system/mkdtemp.cc'; then $(CYGPATH_W) 'src/system/mkdtemp.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/mkdtemp.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-mkdtemp.Tpo src/system/$(DEPDIR)/ccbuild-mkdtemp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/mkdtemp.cc' object='src/system/ccbuild-mkdtemp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-mkdtemp.obj `if test -f 'src/system/mkdtemp.cc'; then $(CYGPATH_W) 'src/system/mkdtemp.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/mkdtemp.cc'; fi`
+
 src/system/ccbuild-md5.o: src/system/md5.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-md5.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-md5.Tpo -c -o src/system/ccbuild-md5.o `test -f 'src/system/md5.cc' || echo '$(srcdir)/'`src/system/md5.cc
 @am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-md5.Tpo src/system/$(DEPDIR)/ccbuild-md5.Po
@@ -1797,6 +1842,20 @@ src/system/ccbuild-build.obj: src/system/build.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-build.obj `if test -f 'src/system/build.cc'; then $(CYGPATH_W) 'src/system/build.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/build.cc'; fi`
 
+src/system/ccbuild-batchCompile.o: src/system/batchCompile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-batchCompile.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-batchCompile.Tpo -c -o src/system/ccbuild-batchCompile.o `test -f 'src/system/batchCompile.cc' || echo '$(srcdir)/'`src/system/batchCompile.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-batchCompile.Tpo src/system/$(DEPDIR)/ccbuild-batchCompile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/batchCompile.cc' object='src/system/ccbuild-batchCompile.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-batchCompile.o `test -f 'src/system/batchCompile.cc' || echo '$(srcdir)/'`src/system/batchCompile.cc
+
+src/system/ccbuild-batchCompile.obj: src/system/batchCompile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-batchCompile.obj -MD -MP -MF src/system/$(DEPDIR)/ccbuild-batchCompile.Tpo -c -o src/system/ccbuild-batchCompile.obj `if test -f 'src/system/batchCompile.cc'; then $(CYGPATH_W) 'src/system/batchCompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/batchCompile.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-batchCompile.Tpo src/system/$(DEPDIR)/ccbuild-batchCompile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/batchCompile.cc' object='src/system/ccbuild-batchCompile.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-batchCompile.obj `if test -f 'src/system/batchCompile.cc'; then $(CYGPATH_W) 'src/system/batchCompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/batchCompile.cc'; fi`
+
 src/system/ccbuild-addArguments.o: src/system/addArguments.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/system/ccbuild-addArguments.o -MD -MP -MF src/system/$(DEPDIR)/ccbuild-addArguments.Tpo -c -o src/system/ccbuild-addArguments.o `test -f 'src/system/addArguments.cc' || echo '$(srcdir)/'`src/system/addArguments.cc
 @am__fastdepCXX_TRUE@	$(am__mv) src/system/$(DEPDIR)/ccbuild-addArguments.Tpo src/system/$(DEPDIR)/ccbuild-addArguments.Po
@@ -1838,6 +1897,34 @@ src/system/ccbuild-aapFor.obj: src/system/aapFor.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/system/aapFor.cc' object='src/system/ccbuild-aapFor.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/system/ccbuild-aapFor.obj `if test -f 'src/system/aapFor.cc'; then $(CYGPATH_W) 'src/system/aapFor.cc'; else $(CYGPATH_W) '$(srcdir)/src/system/aapFor.cc'; fi`
+
+src/string/ccbuild-toUpper.o: src/string/toUpper.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-toUpper.o -MD -MP -MF src/string/$(DEPDIR)/ccbuild-toUpper.Tpo -c -o src/string/ccbuild-toUpper.o `test -f 'src/string/toUpper.cc' || echo '$(srcdir)/'`src/string/toUpper.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-toUpper.Tpo src/string/$(DEPDIR)/ccbuild-toUpper.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/toUpper.cc' object='src/string/ccbuild-toUpper.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-toUpper.o `test -f 'src/string/toUpper.cc' || echo '$(srcdir)/'`src/string/toUpper.cc
+
+src/string/ccbuild-toUpper.obj: src/string/toUpper.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-toUpper.obj -MD -MP -MF src/string/$(DEPDIR)/ccbuild-toUpper.Tpo -c -o src/string/ccbuild-toUpper.obj `if test -f 'src/string/toUpper.cc'; then $(CYGPATH_W) 'src/string/toUpper.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/toUpper.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-toUpper.Tpo src/string/$(DEPDIR)/ccbuild-toUpper.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/toUpper.cc' object='src/string/ccbuild-toUpper.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-toUpper.obj `if test -f 'src/string/toUpper.cc'; then $(CYGPATH_W) 'src/string/toUpper.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/toUpper.cc'; fi`
+
+src/string/ccbuild-replace.o: src/string/replace.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-replace.o -MD -MP -MF src/string/$(DEPDIR)/ccbuild-replace.Tpo -c -o src/string/ccbuild-replace.o `test -f 'src/string/replace.cc' || echo '$(srcdir)/'`src/string/replace.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-replace.Tpo src/string/$(DEPDIR)/ccbuild-replace.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/replace.cc' object='src/string/ccbuild-replace.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-replace.o `test -f 'src/string/replace.cc' || echo '$(srcdir)/'`src/string/replace.cc
+
+src/string/ccbuild-replace.obj: src/string/replace.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-replace.obj -MD -MP -MF src/string/$(DEPDIR)/ccbuild-replace.Tpo -c -o src/string/ccbuild-replace.obj `if test -f 'src/string/replace.cc'; then $(CYGPATH_W) 'src/string/replace.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/replace.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-replace.Tpo src/string/$(DEPDIR)/ccbuild-replace.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/replace.cc' object='src/string/ccbuild-replace.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-replace.obj `if test -f 'src/string/replace.cc'; then $(CYGPATH_W) 'src/string/replace.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/replace.cc'; fi`
 
 src/globallocks/ccbuild-statics.o: src/globallocks/statics.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/globallocks/ccbuild-statics.o -MD -MP -MF src/globallocks/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/globallocks/ccbuild-statics.o `test -f 'src/globallocks/statics.cc' || echo '$(srcdir)/'`src/globallocks/statics.cc
@@ -1950,6 +2037,34 @@ src/fileSystem/ccbuild-rmIfExists.obj: src/fileSystem/rmIfExists.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/rmIfExists.cc' object='src/fileSystem/ccbuild-rmIfExists.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-rmIfExists.obj `if test -f 'src/fileSystem/rmIfExists.cc'; then $(CYGPATH_W) 'src/fileSystem/rmIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/rmIfExists.cc'; fi`
+
+src/fileSystem/ccbuild-rmDirectoryIfExists.o: src/fileSystem/rmDirectoryIfExists.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-rmDirectoryIfExists.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Tpo -c -o src/fileSystem/ccbuild-rmDirectoryIfExists.o `test -f 'src/fileSystem/rmDirectoryIfExists.cc' || echo '$(srcdir)/'`src/fileSystem/rmDirectoryIfExists.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Tpo src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/rmDirectoryIfExists.cc' object='src/fileSystem/ccbuild-rmDirectoryIfExists.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-rmDirectoryIfExists.o `test -f 'src/fileSystem/rmDirectoryIfExists.cc' || echo '$(srcdir)/'`src/fileSystem/rmDirectoryIfExists.cc
+
+src/fileSystem/ccbuild-rmDirectoryIfExists.obj: src/fileSystem/rmDirectoryIfExists.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-rmDirectoryIfExists.obj -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Tpo -c -o src/fileSystem/ccbuild-rmDirectoryIfExists.obj `if test -f 'src/fileSystem/rmDirectoryIfExists.cc'; then $(CYGPATH_W) 'src/fileSystem/rmDirectoryIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/rmDirectoryIfExists.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Tpo src/fileSystem/$(DEPDIR)/ccbuild-rmDirectoryIfExists.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/rmDirectoryIfExists.cc' object='src/fileSystem/ccbuild-rmDirectoryIfExists.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-rmDirectoryIfExists.obj `if test -f 'src/fileSystem/rmDirectoryIfExists.cc'; then $(CYGPATH_W) 'src/fileSystem/rmDirectoryIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/rmDirectoryIfExists.cc'; fi`
+
+src/fileSystem/ccbuild-rename.o: src/fileSystem/rename.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-rename.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-rename.Tpo -c -o src/fileSystem/ccbuild-rename.o `test -f 'src/fileSystem/rename.cc' || echo '$(srcdir)/'`src/fileSystem/rename.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-rename.Tpo src/fileSystem/$(DEPDIR)/ccbuild-rename.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/rename.cc' object='src/fileSystem/ccbuild-rename.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-rename.o `test -f 'src/fileSystem/rename.cc' || echo '$(srcdir)/'`src/fileSystem/rename.cc
+
+src/fileSystem/ccbuild-rename.obj: src/fileSystem/rename.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-rename.obj -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-rename.Tpo -c -o src/fileSystem/ccbuild-rename.obj `if test -f 'src/fileSystem/rename.cc'; then $(CYGPATH_W) 'src/fileSystem/rename.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/rename.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/fileSystem/$(DEPDIR)/ccbuild-rename.Tpo src/fileSystem/$(DEPDIR)/ccbuild-rename.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/fileSystem/rename.cc' object='src/fileSystem/ccbuild-rename.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/fileSystem/ccbuild-rename.obj `if test -f 'src/fileSystem/rename.cc'; then $(CYGPATH_W) 'src/fileSystem/rename.cc'; else $(CYGPATH_W) '$(srcdir)/src/fileSystem/rename.cc'; fi`
 
 src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.o: src/fileSystem/recursiveGlobDirectoriesInto.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.o -MD -MP -MF src/fileSystem/$(DEPDIR)/ccbuild-recursiveGlobDirectoriesInto.Tpo -c -o src/fileSystem/ccbuild-recursiveGlobDirectoriesInto.o `test -f 'src/fileSystem/recursiveGlobDirectoriesInto.cc' || echo '$(srcdir)/'`src/fileSystem/recursiveGlobDirectoriesInto.cc
@@ -2749,6 +2864,20 @@ src/source/ccbuild-outputFilename.obj: src/source/outputFilename.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-outputFilename.obj `if test -f 'src/source/outputFilename.cc'; then $(CYGPATH_W) 'src/source/outputFilename.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/outputFilename.cc'; fi`
 
+src/source/ccbuild-markAsDone.o: src/source/markAsDone.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-markAsDone.o -MD -MP -MF src/source/$(DEPDIR)/ccbuild-markAsDone.Tpo -c -o src/source/ccbuild-markAsDone.o `test -f 'src/source/markAsDone.cc' || echo '$(srcdir)/'`src/source/markAsDone.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/source/$(DEPDIR)/ccbuild-markAsDone.Tpo src/source/$(DEPDIR)/ccbuild-markAsDone.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/markAsDone.cc' object='src/source/ccbuild-markAsDone.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-markAsDone.o `test -f 'src/source/markAsDone.cc' || echo '$(srcdir)/'`src/source/markAsDone.cc
+
+src/source/ccbuild-markAsDone.obj: src/source/markAsDone.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-markAsDone.obj -MD -MP -MF src/source/$(DEPDIR)/ccbuild-markAsDone.Tpo -c -o src/source/ccbuild-markAsDone.obj `if test -f 'src/source/markAsDone.cc'; then $(CYGPATH_W) 'src/source/markAsDone.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/markAsDone.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/source/$(DEPDIR)/ccbuild-markAsDone.Tpo src/source/$(DEPDIR)/ccbuild-markAsDone.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/markAsDone.cc' object='src/source/ccbuild-markAsDone.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-markAsDone.obj `if test -f 'src/source/markAsDone.cc'; then $(CYGPATH_W) 'src/source/markAsDone.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/markAsDone.cc'; fi`
+
 src/source/ccbuild-isObjectTarget.o: src/source/isObjectTarget.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/source/ccbuild-isObjectTarget.o -MD -MP -MF src/source/$(DEPDIR)/ccbuild-isObjectTarget.Tpo -c -o src/source/ccbuild-isObjectTarget.o `test -f 'src/source/isObjectTarget.cc' || echo '$(srcdir)/'`src/source/isObjectTarget.cc
 @am__fastdepCXX_TRUE@	$(am__mv) src/source/$(DEPDIR)/ccbuild-isObjectTarget.Tpo src/source/$(DEPDIR)/ccbuild-isObjectTarget.Po
@@ -2986,34 +3115,6 @@ src/source/ccbuild-basenameWithoutExtension.obj: src/source/basenameWithoutExten
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/basenameWithoutExtension.cc' object='src/source/ccbuild-basenameWithoutExtension.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-basenameWithoutExtension.obj `if test -f 'src/source/basenameWithoutExtension.cc'; then $(CYGPATH_W) 'src/source/basenameWithoutExtension.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/basenameWithoutExtension.cc'; fi`
-
-src/string/ccbuild-toUpper.o: src/string/toUpper.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-toUpper.o -MD -MP -MF src/string/$(DEPDIR)/ccbuild-toUpper.Tpo -c -o src/string/ccbuild-toUpper.o `test -f 'src/string/toUpper.cc' || echo '$(srcdir)/'`src/string/toUpper.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-toUpper.Tpo src/string/$(DEPDIR)/ccbuild-toUpper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/toUpper.cc' object='src/string/ccbuild-toUpper.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-toUpper.o `test -f 'src/string/toUpper.cc' || echo '$(srcdir)/'`src/string/toUpper.cc
-
-src/string/ccbuild-toUpper.obj: src/string/toUpper.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-toUpper.obj -MD -MP -MF src/string/$(DEPDIR)/ccbuild-toUpper.Tpo -c -o src/string/ccbuild-toUpper.obj `if test -f 'src/string/toUpper.cc'; then $(CYGPATH_W) 'src/string/toUpper.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/toUpper.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-toUpper.Tpo src/string/$(DEPDIR)/ccbuild-toUpper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/toUpper.cc' object='src/string/ccbuild-toUpper.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-toUpper.obj `if test -f 'src/string/toUpper.cc'; then $(CYGPATH_W) 'src/string/toUpper.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/toUpper.cc'; fi`
-
-src/string/ccbuild-replace.o: src/string/replace.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-replace.o -MD -MP -MF src/string/$(DEPDIR)/ccbuild-replace.Tpo -c -o src/string/ccbuild-replace.o `test -f 'src/string/replace.cc' || echo '$(srcdir)/'`src/string/replace.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-replace.Tpo src/string/$(DEPDIR)/ccbuild-replace.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/replace.cc' object='src/string/ccbuild-replace.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-replace.o `test -f 'src/string/replace.cc' || echo '$(srcdir)/'`src/string/replace.cc
-
-src/string/ccbuild-replace.obj: src/string/replace.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/string/ccbuild-replace.obj -MD -MP -MF src/string/$(DEPDIR)/ccbuild-replace.Tpo -c -o src/string/ccbuild-replace.obj `if test -f 'src/string/replace.cc'; then $(CYGPATH_W) 'src/string/replace.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/replace.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/string/$(DEPDIR)/ccbuild-replace.Tpo src/string/$(DEPDIR)/ccbuild-replace.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/string/replace.cc' object='src/string/ccbuild-replace.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/string/ccbuild-replace.obj `if test -f 'src/string/replace.cc'; then $(CYGPATH_W) 'src/string/replace.cc'; else $(CYGPATH_W) '$(srcdir)/src/string/replace.cc'; fi`
 
 src/SourceScanner/ccbuild-yylex.o: src/SourceScanner/yylex.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-yylex.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo -c -o src/SourceScanner/ccbuild-yylex.o `test -f 'src/SourceScanner/yylex.cc' || echo '$(srcdir)/'`src/SourceScanner/yylex.cc

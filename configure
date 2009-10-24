@@ -4675,7 +4675,7 @@ fi
 
 #Below you can use the last line of ccbuild deps (ccbuild deps |tail -n1)
 #AC_CHECK_HEADERS(sys/types.h set iosfwd map typeinfo cassert vector cstring string sstream iostream functional utility omp.h,,AC_MSG_ERROR([Required header file missing.]))
-globalHeaders="`ccbuild -C src --verbose deps ccbuild.cc|tail -n1`"
+#globalHeaders="`ccbuild -C src --verbose deps ccbuild.cc|tail -n1`"
 globalHeaders="algorithm bobcat/process boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring fstream functional getopt.h glob.h iosfwd iostream iterator map numeric omp.h openssl/evp.h set sstream stack string sys/stat.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector" #Output of 2.0.0 with --verbose. earlier versions did not support this feature.
 for ac_header in $globalHeaders
 do :
