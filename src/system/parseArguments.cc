@@ -31,6 +31,7 @@ bool System::parseArguments(Arguments &arg)
   Options::xml = arg.flagged("xml");
   Options::interAr = arg.flagged("ar");
   Options::noWarn = arg.flagged("nowarn");
+  Options::batch = arg.flagged("batch");
 
   Options::execOnFail = arg.value("exec-on-fail");
   Options::execOnPass = arg.value("exec-on-pass");

@@ -17,57 +17,12 @@
 
 #include "system.ih"
 
-/*
-void Source::buildObjectTarget(Compiler &cc)
-{
-  OpenMP::ScopedLock slock(d_apiLock);
-
-  vector<Source *> srcList;
-  vector<string const*> globalList;
-	dependencies(srcList, globalList);
-
-  Resolver &resolver = Resolver::getInstance();
-  //Resolve all globals into the compiler
-  __foreach(global, globalList)
-  	resolver.resolveInto(*global, cc);
-
-  if(!upToDate(srcList))
-  {
-  	//Need an update
-	  string outputDirectory = FileSystem::directoryName(outputFilename());//OLD directory() + "/o";
-
-	  //Check for object directory existence (exists("o"))
-	  FileSystem::ensureDirectory(outputDirectory);
-	
-    //Now, we have a compiler with all the objects in it.
-    int ret = cc.compile(directory(), d_filename, outputFilename());
-		//Compilation OK
-		//Update hash
-		if(Options::md5 && ret == 0)
-		{
-			MD5Info &md5i = MD5Info::getInstance();
-			string collectedHash = md5i.contentHash(filename());
-			
-			vector<Source *> srcList;
-			dependencies(srcList);
-			__foreach(src, srcList)
-				collectedHash += md5i.contentHash((*src)->filename());
-			
-			md5i.save(filename(), collectedHash);
-		}
-  }
-  //Add my object to the list of objects in the compiler.
-  cc.addObject(outputFilename());
-}
-
-
-
-
-*/
-
-
 void System::batchCompile(std::vector<Source const*> &batchList, Compiler const &cc_const)
 {
+  cerrLock.set();
+  cerr << "[BATCH " << batchList.size() << "]\n";
+  cerrLock.unset();
+
   //Make a copy of the compiler, we want this to be compiler read-only
   Compiler cc(cc_const);
   
@@ -128,7 +83,5 @@ void System::batchCompile(std::vector<Source const*> &batchList, Compiler const 
     //Update the source's MD5
     oSource->markAsDone();
   }
-
-  //Collect the global headers of all the objects, and resolve them all
-  //Make sure you collect
+  return; //Destroy all knowledge of ever doing this
 }

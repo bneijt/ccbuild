@@ -120,7 +120,7 @@ void System::build(Source *source, Compiler &cc)
     //Batch compile objects that need update
     vector<Source const*> batchList;
     set<std::string> baseNames;
-    __foreach(src, srcList)
+    __foreach(src, objectTargets)
       if(!(*src)->upToDate())
       {
         //Don't allow files of the same basename into the batch
@@ -131,7 +131,7 @@ void System::build(Source *source, Compiler &cc)
         batchList.push_back(*src);
       }
     //Batch compile the given batch of objects
-    
+    batchCompile(batchList, cc);
   }
   
   //Build the objects and add them as links to the compiler
