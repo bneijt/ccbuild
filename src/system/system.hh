@@ -212,7 +212,7 @@ class System
       it's version (-Wl,--version) to keep linking errors from becoming a problem.
       
     */
-    static void batchCompile(std::vector<Source const*> &batchList, Compiler const &cc);
+    static void batchCompile(std::vector<Source const*> const &batchList, Compiler const &cc);
 		
 		/**\brief Deduct the project name from the directory structure
 		

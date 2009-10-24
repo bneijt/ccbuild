@@ -17,7 +17,7 @@
 
 #include "system.ih"
 
-void System::batchCompile(std::vector<Source const*> &batchList, Compiler const &cc_const)
+void System::batchCompile(std::vector<Source const*> const &batchList, Compiler const &cc_const)
 {
   cerrLock.set();
   cerr << "[BATCH " << batchList.size() << "]\n";
@@ -89,6 +89,7 @@ void System::batchCompile(std::vector<Source const*> &batchList, Compiler const 
   std::string const cwd(FileSystem::cwd());
   if(System::changeTo(tmpDir) == false)
     throw Problem(Problem::Unable, "Unable to change to \"" + string(tmpDir) + "\" for batch compilation");
+  
   try
   {
     System::system(command);
@@ -103,7 +104,7 @@ void System::batchCompile(std::vector<Source const*> &batchList, Compiler const 
     throw Problem(Problem::Unable, "Unable to change back to our starting working directory after batch compilation\n\tTried to go to: " + cwd);
   
   //Search through the created objects and make sure we update the MD5 of all the objects that worked out well
-  vector<string > objectList;
+  vector< string > objectList;
   FileSystem::globInto(&objectList, string(tmpDir) + "/*.o");
   __foreach(oFile, objectList)
   {
@@ -121,9 +122,17 @@ void System::batchCompile(std::vector<Source const*> &batchList, Compiler const 
       }
     if(oSource == 0)
       throw Problem(Problem::Unable, "Not able to find the batch source which resulted in: " + *oFile);
+
+    //Make sure output directory exists
+    FileSystem::ensureDirectory(FileSystem::directoryName(oSource->outputFilename()));
     
     //Move to the right location using the src->outputFilename ot find the right place
-    FileSystem::rename(*oFile, oSource->outputFilename());
+    if(!FileSystem::rename(*oFile, oSource->outputFilename()))
+    {
+      cerrLock.set();
+      cerr << "Unable to move batch output\n\t from: " << *oFile << "\n\t to: " << oSource->outputFilename() << "\n";
+      cerrLock.unset();
+    }
     //Update the source's MD5
     oSource->markAsDone();
   }
