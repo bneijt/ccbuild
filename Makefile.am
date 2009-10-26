@@ -7,7 +7,7 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh src/MD5Info/MD5Info.hh src/MD
 
 ccbuild_CXXFLAGS = ${DEPS_CFLAGS} -DNODEBUG -fopenmp
 ccbuild_LDADD = ${DEPS_LIBS} -lbobcat -lgomp
-ccbuild_MANS = doc/ccbuild/ccbuild.1
+man_MANS = doc/ccbuild/ccbuild.1
 
 #Flex it!
 src/SourceScanner/yylex.cc: src/SourceScanner/lexer
