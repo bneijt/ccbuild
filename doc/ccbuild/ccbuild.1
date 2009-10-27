@@ -35,7 +35,7 @@ Generate an A-A-P file on stdout. If the file name is not given, an "all" rule w
 .IP "check [\fIfilename.cc\fR]" 10 
 Desplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab separated column will be inserted containing a two letter file type \fBccbuild\fR identifies it as. This file type is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
 .IP "icmake [\fIfilename.cc\fR]" 10 
-\fBicmake\fR slave mode. This will output used directories, this can be used as a directory or class list within the icmake build script. 
+\fBicmake\fR slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If \fB\-\-verbose\fP is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by running: \fBccbuild\fR icmake >> CLASSES 
 .IP "resolve [\fIfilename.cc\fR]" 10 
 Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: \fBccbuild\fR resolve >> ccResolutions . 
 .IP "md5 [\fIfilename.cc\fR]" 10 
@@ -164,4 +164,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Sat 24 Oct 2009, 16:37 
+.\" created by instant / docbook-to-man, Tue 27 Oct 2009, 16:59 

@@ -164,7 +164,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>icmake [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para><command>icmake</command> slave mode. This will output used directories, this can be used as a directory or class list within the icmake build script.</para>
+          <para><command>icmake</command> slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If <option>--verbose</option> is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by running: &ccb; icmake &gt;&gt; CLASSES</para>
         </listitem>
       </varlistentry>
       <varlistentry>

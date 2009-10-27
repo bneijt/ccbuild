@@ -118,7 +118,11 @@ void System::aapFor(Source *root, ostream &str)
 	rootIdent[0] = toupper(rootIdent[0]);
 
 	//Compile arguments
-	vector<string> const &cppArgs = cc.compileArguments();	
+	vector<string> cppArgs = cc.compileArguments();
+	
+	//Copy extra (commandline given) arguments
+  istringstream extraOpts(Options::extraArgs);
+  copy(std::istream_iterator<std::string>(extraOpts), std::istream_iterator<std::string>(), back_inserter(cppArgs));	
 
 	//Print the include arguments
 	transform(cppArgs.begin(), cppArgs.end(), back_inserter(arguments), printArguments("-I"));
@@ -136,6 +140,7 @@ void System::aapFor(Source *root, ostream &str)
 
 
 	//Print the define arguments
+	//TODO turn into a copy_if
 	transform(cppArgs.begin(), cppArgs.end(), back_inserter(arguments), printArguments("-D"));
 	it = remove(arguments.begin(), arguments.end(), "");  //Remove empty elements
 	arguments.erase(it, arguments.end());

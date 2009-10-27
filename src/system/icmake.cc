@@ -14,12 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "system.ih"
 void System::icmake()
 {
@@ -62,11 +56,37 @@ void System::icmake(Source *source)
 	//Get the directories for all the files needed by this source
   set<string> dirList;
 	__foreach(src, srcList)
-		dirList.insert(FileSystem::baseName((*src)->directory()));
-
+	{
+	  //icmake only cares about the object files (no header only directories)
+	  if((*src)->isObjectTarget())
+  		dirList.insert((*src)->directory());
+  }
+  
 	//Never include the local directory "."
 	if(dirList.count(".") != 0)
 		dirList.erase(".");
+  
+  //Load the CLASSES file to see which ones we already have
+  if(!Options::verbose && FileSystem::fileExists("CLASSES"))
+  {
+    ifstream classes("CLASSES");
+    if(!classes.is_open())
+      cerr << "Warning: Unable to open the existing CLASSES file.\n";
+    std::string c;
+    while(true)
+    {
+      getline(classes, c);
+      if(classes.eof())
+        break;
+      _debugLevel1("Found \"" << c << "\" in CLASSES");
+      //Remove classes that have been listed already
+    	if(dirList.count(c) != 0)
+    	{
+        _debugLevel1("Dropping \"" << c << "\"");
+    		dirList.erase(c);      
+      }
+    }
+  }
 
 	coutLock.set();
 	copy(dirList.begin(), dirList.end(), ostream_iterator<string>(cout, "\n"));
