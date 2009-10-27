@@ -21,6 +21,10 @@
     any multi-threading, but may speed things up.
     The exact behavior of this option may change in the
     future.
+- Behaviour change: icmake
+    The icmake command now lists the new CLASSES format and
+    will leave out any classes already mentioned unless
+    --verbose is flagged.
 
 1.5.7:
 - Mac OSX patches by sent in by Michiel Holtkamp

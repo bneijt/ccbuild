@@ -28,8 +28,6 @@ bool sourceIsBinaryTarget(Source const *src)
 }// Anon namespace
 
 
-
-
 //Read: http://www-128.ibm.com/developerworks/linux/library/l-shobj/
 //Make more ready for: http://www.openismus.com/documents/linux/building_libraries/building_libraries.shtml
 int System::lib(std::string const &version, Source *source)
@@ -132,8 +130,6 @@ int System::lib(std::string const &version, Source *source)
     
   }//encaps iter
   
-  needLink = (source->upToDate() ? needLink : true);
-
 	std::string pn = projectName(); //Project name
 	
 	string outputAr = "lib" + pn + ".a";
