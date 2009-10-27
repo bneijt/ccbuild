@@ -24,21 +24,14 @@ rm -rf doc/html
 make -C doc/ccbuild
 
 YYLEX=src/SourceScanner/yylex.cc
-ROOT=$PWD
 
 
-
-
-echo ]]] Make and A-A-P scripts
+echo ]]] Makefile and A-A-P scripts
 if [ -f $YYLEX ];	then
 	aap cleanALL;
 	
-	ln -s src/ccResolutions;
-	ccbuild --nodefargs --args -O2 makefile src/ccbuild.cc > Makefile.ccbuild;
-	ccbuild --nodefargs aap src/ccbuild.cc > ccbuild.aap;
-	rm -f ccResolutions;
-	
-	cd $ROOT;
+	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
+	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
 else
 	echo NO YYLEX.cc FOR SCRIPT GENERATION;
 	echo use "make -f Makefile.human src/SourceScanner/yylex.cc"
@@ -52,7 +45,7 @@ rm -f MD5SUMS*
 make clean
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
-ccbuild distclean
+ccbuild -C src distclean
 
 echo ]]] Configure scripts for distribution: create, distclean, create
 sh bootstrap

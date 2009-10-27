@@ -28,9 +28,9 @@ void System::makefileFor(Source *root, ostream &str)
 		str << "#For more information visit: " << Options::homepage << "\n";
 		str << "########\n\n\n";
 
-		str << "#Directory rule\n";
-		str << "o/:\n\tmkdir $@\n\n";
-		str << "%/o/:\n\tmkdir $@\n\n";
+		//str << "#Directory rule\n";
+		//str << "o/:\n\tmkdir $@\n\n";
+		//str << "%/o/:\n\tmkdir $@\n\n";
 
 		str << "CC := " << Options::CC << "\n";
 		str << "CCADDFLAGS := " << Options::extraArgs << "\n\n";
@@ -39,8 +39,8 @@ void System::makefileFor(Source *root, ostream &str)
 		str << ".PHONY: distclean\n";
 		str << "distclean:\n";
 		str << "\trm -rf o;\n";
+		str << "\tfind ./ -type f -name \"*.gch\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
 		//str << "\tfind ./ -type f -path \"*/o/*.md5\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
-		//str << "\tfind ./ -type f -name \"*.gch\" -exec \"rm\" \"-f\" \"{}\" \\;\n";
 		//str << "\tfind ./ -depth -type d -name \"o\" -exec \"rmdir\" \"{}\" \\;\n";
 		str << "\n";
 	}
@@ -64,9 +64,11 @@ void System::makefileFor(Source *root, ostream &str)
 	{
 		if((*src)->isObjectTarget())
 		{
-			dirs.push_back(FileSystem::directoryName((*src)->outputFilename()));
+		  std::string const &outputDirectory(FileSystem::directoryName((*src)->outputFilename()));
+			dirs.push_back(outputDirectory);
 			
-			str << (*src)->outputFilename() << ": " << (*src)->filename();
+			str << (*src)->outputFilename() << ": " << (*src)->filename() << " " << outputDirectory;
+			
 			vector<string const*> global;
 			vector<Source *> local;
 			(*src)->dependencies(local, global); //Objects depend on only headers...
@@ -146,7 +148,7 @@ void System::makefileFor(Source *root, ostream &str)
 		}
 	}
 
-
+	/*
 	str << root->outputFilename() << ": " << root->directory() + "/o/ " <<  root->filename();
 	
 	vector<Source *> deps;
@@ -161,7 +163,7 @@ void System::makefileFor(Source *root, ostream &str)
 		str << " " << (*l)->filename();
 	}
 	str << "\n";
-
+  
 	//Fill the compiler.
 	__foreach(gl, global)
 		resolver.resolveInto(*gl, cc);
@@ -179,13 +181,17 @@ void System::makefileFor(Source *root, ostream &str)
 	
 	//Rule for binaryTarget object directory
 	dirs.push_back(root->directory() + "/o/");
+	*/
+
+	//Create directory rules
+	sort(dirs.begin(), dirs.end());
+	vector<string>::iterator e = unique(dirs.begin(), dirs.end());
+	dirs.erase(e, dirs.end());
+	__foreach(d, dirs)
+	  str << *d << ":\n\tmkdir -p " << *d << "\n";
 	
 	//The root rule: Depend on all objects
 	str << root->directory() << "/" << root->basenameWithoutExtension() << ": ";
-
-	//Depend on directories
-	sort(dirs.begin(), dirs.end());
-	unique_copy(dirs.begin(), dirs.end(), ostream_iterator<string>(str, " "));
 
 	//Depend on objects
 	vector<string> const &objects = cc.objects();
@@ -194,10 +200,12 @@ void System::makefileFor(Source *root, ostream &str)
 
 	str << "\n";
 
+  /*
 	//Fill the compiler.
 	__foreach(gl, global)
 		resolver.resolveInto(*gl, cc);
-
+  */
+  
 	str << "\t" << cc.linkCommand(
 											root->directory(),
 											root->basenameWithoutExtension()
