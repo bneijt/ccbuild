@@ -22,7 +22,10 @@ bool FileSystem::rmDirectoryIfExists(std::string const &dir)
   if(! FileSystem::fileExists(dir))
   	return false;
   
+  cerrLock.set();
 	cerr << "[RMDIR] " << dir << "\n";
+	cerrLock.unset();
+	
   fsLock.set();
   int retValue = rmdir(dir.c_str());
   fsLock.unset();

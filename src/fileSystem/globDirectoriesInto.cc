@@ -33,6 +33,7 @@ bool notDirectory(string target)
 
 void FileSystem::globDirectoriesInto(vector<string> *list, string const &pattern, bool sort)
 {
+  OpenMP::ScopedLock asdf(fsLock);
 	glob_t globbuf;	//Needs to be globfreed at the end
 
 	//Use glob to get canditates

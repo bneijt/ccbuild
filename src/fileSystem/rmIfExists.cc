@@ -20,8 +20,10 @@ bool FileSystem::rmIfExists(std::string const &filename)
 {
   if(! FileSystem::fileExists(filename))
   	return false;
-
+  
+  cerrLock.set();
   cerr << "[RM] " << filename << "\n";
+  cerrLock.unset();
   
   if(Options::simulate)
 		return true;

@@ -25,7 +25,10 @@ void FileSystem::ensureDirectory(std::string const &directoryName)
 		//S_IRUSR    00400     owner has read permission
     //S_IWUSR    00200     owner has write permission
     //S_IXUSR    00100     owner has execute permission
+    cerrLock.set();
     cerr << "[MKDIR] " << directoryName << "\n";
+    cerrLock.unset();
+    
     if(!Options::simulate)
     {
       //Check base directory existence and create them if needed
@@ -34,7 +37,11 @@ void FileSystem::ensureDirectory(std::string const &directoryName)
       int mdstat = ::mkdir(directoryName.c_str(), S_IRUSR | S_IWUSR | S_IXUSR);
       fsLock.unset();
 			if(mdstat != 0 && !isDirectory(directoryName))
+			{
+        cerrLock.set();
   		  cerr << "ccbuild: Warning: Unable to create directory \"" << directoryName << "\"\n";
+  		  cerrLock.unset();
+		  }
 		}
 	}
 }
