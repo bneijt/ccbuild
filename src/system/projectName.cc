@@ -29,6 +29,7 @@ std::string System::projectName()
   //Strip ^lib
   if(String(d).startsWith("lib"))
     d = d.substr(3);
+  
 	//TODO Strip any version number
 	// Any single occuring _ or - might be the seperator
 	// The last of these is the seperation point

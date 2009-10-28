@@ -574,7 +574,7 @@ try
   
   return retValue;
 }
-catch(const Problem &p)
+catch(const bneijt::Problem &p)
 {
 	cerr << "ccbuild: Problem " << p.id() << ": " << p.what() << "\n";
   System::destroy();
@@ -587,3 +587,39 @@ catch(const std::exception &e)
   cerr << "\nPlease report this as a bug.\n";
   return 1;
 }
+/////Problem with OpenMP and exception catching
+//ccbuild: Non zero exit status (1)
+//terminate called after throwing an instance of 'bneijt::Problem'
+//  what():  Compilation failed on Behavior/GuardGoal/generateGoal.cc
+
+//Program received signal SIGABRT, Aborted.
+//[Switching to Thread 0x7ffff6020910 (LWP 8920)]
+//0x00007ffff68934b5 in *__GI_raise (sig=<value optimized out>)
+//    at ../nptl/sysdeps/unix/sysv/linux/raise.c:64
+//64	../nptl/sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+//	in ../nptl/sysdeps/unix/sysv/linux/raise.c
+//Current language:  auto
+//The current source language is "auto; currently c".
+//(gdb) bt
+//#0  0x00007ffff68934b5 in *__GI_raise (sig=<value optimized out>)
+//    at ../nptl/sysdeps/unix/sysv/linux/raise.c:64
+//#1  0x00007ffff6896f50 in *__GI_abort () at abort.c:92
+//#2  0x00007ffff7132cc5 in __gnu_cxx::__verbose_terminate_handler() ()
+//   from /usr/lib/libstdc++.so.6
+//#3  0x00007ffff71310f6 in ?? () from /usr/lib/libstdc++.so.6
+//#4  0x00007ffff712ffe9 in ?? () from /usr/lib/libstdc++.so.6
+//#5  0x00007ffff7130a91 in __gxx_personality_v0 () from /usr/lib/libstdc++.so.6
+//#6  0x00007ffff6bdf6e3 in ?? () from /lib/libgcc_s.so.1
+//#7  0x00007ffff6bdf7a8 in _Unwind_Resume () from /lib/libgcc_s.so.1
+//#8  0x0000000000438300 in bneijt::Source::buildObjectTarget (this=0x6d1b00, 
+//    cc=...) at source/buildObjectTarget.cc:59
+//#9  0x00000000004457d4 in bneijt::Source::build (this=0x6d1b00, cc=...)
+//    at source/build.cc:36
+//#10 0x000000000042beb8 in bneijt::System::build (.omp_data_i=0x7fffffffd8f0)
+//    at system/build.cc:150
+//#11 0x00007ffff7bd99c2 in ?? () from /usr/lib/libgomp.so.1
+//#12 0x00007ffff664aa04 in start_thread (arg=<value optimized out>)
+//    at pthread_create.c:300
+//#13 0x00007ffff693f7bd in clone ()
+//    at ../sysdeps/unix/sysv/linux/x86_64/clone.S:112
+//#14 0x0000000000000000 in ?? ()

@@ -19,11 +19,19 @@
 
 void Source::genDeps()
 {
-  OpenMP::ScopedLock slock(d_apiLock);
 	//If we already have deps, we are done.
 	if(d_depsDone)
 		return;
-	
+  
+  d_apiLock.set();
+
+	if(d_depsDone)
+		return;
+
+
+  d_depsDone = true; //TODO Use an atomic variable for these kinds of checks
+  
+  
 	Sources &sources = Sources::getInstance();
 
   //stack<Source *> srcStack;
@@ -41,6 +49,15 @@ void Source::genDeps()
 	  std::string iname(directory() + "/" + *li);
 	  _debugLevel4("Loading source for local include: " << iname);
 	 	Source *s = sources[iname];
+
+	 	if(s == this)
+	 	{
+	 	  cerrLock.set();
+	 		cerr << "ccbuild: Recursive include encountered in '" << filename() << "'\n";
+	 		cerr << "ccbuild:   ignoring self dependency.\n";
+	 	  cerrLock.unset();
+	 		continue;
+	 	}
 	 	//if it's not there, try it from the local directory (The -I. might be used on the source tree)
     /*This variant is used for header files of your own program. It searches for a file named file first in the directory containing the current file, then in the quote directories and then the same directories used for <file>. You can prepend directories to the list of quote directories with the -iquote option.*/
     
@@ -60,10 +77,16 @@ void Source::genDeps()
 	 		cerr << "ccbuild:   mentioned in '" << filename() << "'\n";
 	 		continue;
 	 	}
-	 	s->genDeps();
 	 	d_deps.push_back(s);
 	}
-	d_depsDone = true;
+	
   _debugLevel2("genDeps done: " << d_deps.size() << " local, " << d_globalDeps.size() << " global, and " << d_ignored.size() << " ignored includes\n\t for file " << d_filename);
-	//All sources we _directly_ depend on now have d_deps filled and genDeps ran.
+	//Trigger generation of sub-source dependencies
+	vector<Source *> deps(d_deps.begin(), d_deps.end());
+  d_apiLock.unset();
+	__foreach(dep, deps)
+	  (*dep)->genDeps();
+
+	//All sources we _directly_ depend on now have d_deps filled and genDeps ran.	
 }
+
