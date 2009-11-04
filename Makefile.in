@@ -200,7 +200,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/arguments/ccbuild-arguments.$(OBJEXT)
 ccbuild_OBJECTS = $(am_ccbuild_OBJECTS)
 am__DEPENDENCIES_1 =
-ccbuild_DEPENDENCIES = $(am__DEPENDENCIES_1)
+ccbuild_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 ccbuild_LINK = $(CXXLD) $(ccbuild_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -261,6 +261,8 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BOOST_CPPFLAGS = @BOOST_CPPFLAGS@
+BOOST_LDFLAGS = @BOOST_LDFLAGS@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
@@ -444,8 +446,8 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/arguments/initialize.cc src/arguments/getInstance.cc \
 	src/arguments/flagged.cc src/arguments/destroy.cc \
 	src/arguments/clear.cc src/arguments/arguments.cc
-ccbuild_CXXFLAGS = ${DEPS_CFLAGS} -DNODEBUG -fopenmp
-ccbuild_LDADD = ${DEPS_LIBS} -lbobcat -lgomp
+ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp
+ccbuild_LDADD = ${DEPS_LIBS} ${BOOST_LDFLAGS} -lbobcat -lgomp
 man_MANS = doc/ccbuild/ccbuild.1
 all: all-am
 

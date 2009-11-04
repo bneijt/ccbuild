@@ -9,6 +9,10 @@
 
 IncludeForCcbuild = $?CcbuildDefaultIncludes $?GeneratedIncludeForCcbuild $?ExtraIncludeForCcbuild
 
+# Defines for src/ccbuild.cc
+GeneratedDefineForCcbuild = \
+	"-DVERSION=\"2.0.0\""
+
 DefineForCcbuild = $?GeneratedDefineForCcbuild $?ExtraDefineForCcbuild
 
 # Library flags for src/ccbuild.cc

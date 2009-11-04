@@ -1,4 +1,4 @@
-bad0da39b3fd10b92f62a0d31aed4854  src/ccbuild.cc
+5b72d7d19247912a90c3c5e9a2ef0283  src/ccbuild.cc
 550dbca0cc69211c45b0a095be4bf05e  src/misc/debug.hh
 de4b2bb556cd5d97bdac32f3d4f1f037  src/MD5Info/MD5Info.hh
 3b272e86b3554736af6e6709d3bf123f  src/MD5Info/statics.cc
@@ -26,14 +26,14 @@ df71a857ecf32a7c19813c56e4268630  src/system/trim.cc
 e95c7e83a1febc484095460026c66579  src/system/statics.cc
 f340288a06aada6ddc980d89f6596bbb  src/system/sleep.cc
 daac03e032940b3f0a0d1244dd94dfe1  src/system/resolveTest.cc
-c514ef3b2e0dfa4d115ea2c1676fa5f5  src/system/projectName.cc
+a2e6d23bbde494bb25bf0c0f47ddcffd  src/system/projectName.cc
 dc15550dff99f8d9fadc07299088df0a  src/system/parseArguments.cc
 3a71be13d91a235548deacd5a32849b5  src/system/mkdtemp.cc
 cb7c74e7cdfc163d1c41284092d5a01e  src/system/md5.cc
 92c7cce17f6e2b70b66be45817ddd7c7  src/system/makefileForAll.cc
 607c47bd424f0644e452510f693d81ca  src/system/makefileFor.cc
 4044aacc921127b98c34eecfcecf1b03  src/system/localSourcesInto.cc
-f6e4e7d1934091decbacdb0f232ba75e  src/system/lib.cc
+86c785cf9d3298bb8cb61f540faaab37  src/system/lib.cc
 43ce5761811c6df1d45ef6352db08830  src/system/inspect.cc
 726dffccd9b0528fbb5fac951f30b6e1  src/system/icmake.cc
 81eadc51ec7f338d5fec98d516b6d5f3  src/system/exit.cc
@@ -149,7 +149,7 @@ ca9ac344141ef8e3a155f856bd27131d  src/source/isInternalHeader.cc
 63b3e19a9e52554a106222eb0a2df8a8  src/source/isHeader.cc
 cdd9ed418487c0803955d3424dc18033  src/source/isBinTarget.cc
 4d992c5e8ada425e507d279b0766dd7e  src/source/hasSourceExtension.cc
-0365c4baab186ad49fbc7f69e0fff439  src/source/genDeps.cc
+4d029c3c8bbb949fc9f99943859a179e  src/source/genDeps.cc
 1fdebf678f8da831283644e259db289f  src/source/directory.cc
 d0cfcc5cfba7bf10f9900cb309690f57  src/source/directDeps.cc
 7e4bde0bcf4158532c4681a135e7e375  src/source/dependencies.cc

@@ -34,13 +34,16 @@ if ! test "y$LEX" = "yflex"; then
 fi
 
 #Use ccbuild to generate a list of headers we use. This depends on ccbuild >= 2.0.0
-globalHeaders="esyscmd(ccbuild -C src --verbose deps ccbuild.cc|tail -n1)"
+globalHeaders="esyscmd(ccbuild -C src --verbose deps ccbuild.cc|tail -n1|egrep --invert 'boost|openssl')"
 AC_CHECK_HEADERS($globalHeaders,,AC_MSG_ERROR([Required header file missing.]))
 
 dnl Check for openssl
 PKG_CHECK_MODULES(DEPS, openssl >= 0.9.0)
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)
+
+AX_BOOST_BASE([1.37])  
+#Calls AC_SUBST(BOOST_CPPFLAGS) / AC_SUBST(BOOST_LDFLAGS)
 
 AC_OUTPUT(Makefile)
 

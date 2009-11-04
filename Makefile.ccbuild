@@ -10,6 +10,7 @@ CCADDFLAGS := -O2 -DVERSION=\"2.0.0\"
 .PHONY: distclean
 distclean:
 	rm -rf o;
+	find ./ -type f -name "*.gch" -exec "rm" "-f" "{}" \;
 
 ########
 # Starting section for: src/ccbuild.cc

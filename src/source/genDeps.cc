@@ -29,7 +29,7 @@ void Source::genDeps()
 		return;
 
 
-  d_depsDone = true; //TODO Use an atomic variable for these kinds of checks
+  d_depsDone = true; //TODO Use an atomic variable for these kinds of checks?
   
   
 	Sources &sources = Sources::getInstance();
@@ -81,7 +81,8 @@ void Source::genDeps()
 	}
 	
   _debugLevel2("genDeps done: " << d_deps.size() << " local, " << d_globalDeps.size() << " global, and " << d_ignored.size() << " ignored includes\n\t for file " << d_filename);
-	//Trigger generation of sub-source dependencies
+  
+	//Trigger generation of sub-source dependencies: copy pointers, unlock api, call sub-generation
 	vector<Source *> deps(d_deps.begin(), d_deps.end());
   d_apiLock.unset();
 	__foreach(dep, deps)
