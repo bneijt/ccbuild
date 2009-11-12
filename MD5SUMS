@@ -11,7 +11,7 @@ e87ce263bedf88d4b4ba9e5072bd6727  src/MD5Info/getInstance.cc
 cf77c6bb20800e0ed5019d558e987ce6  src/MD5Info/destroy.cc
 76a74208e19b9b8729371d38366715f0  src/MD5Info/contentHash.cc
 79c3714ab9d3e868e425d1f295328451  src/MD5Info/MD5Info.cc
-6184b4f654f1000425056a93aaa675a0  src/misc/foreach.hh
+b2d73c9b370b0b4011b72264c7e29a67  src/misc/foreach.hh
 0b15ddb452afd97fd6c66bccf8ee262b  src/options/options.hh
 6eee258eb13fee057311fe376f7b9d7f  src/options/statics.cc
 ce89c4b489094be4b160c6c8a9e4d348  src/options/options.ih
@@ -33,7 +33,7 @@ cb7c74e7cdfc163d1c41284092d5a01e  src/system/md5.cc
 92c7cce17f6e2b70b66be45817ddd7c7  src/system/makefileForAll.cc
 607c47bd424f0644e452510f693d81ca  src/system/makefileFor.cc
 4044aacc921127b98c34eecfcecf1b03  src/system/localSourcesInto.cc
-86c785cf9d3298bb8cb61f540faaab37  src/system/lib.cc
+4379d71ba751334a77ca5314c4b09212  src/system/lib.cc
 43ce5761811c6df1d45ef6352db08830  src/system/inspect.cc
 726dffccd9b0528fbb5fac951f30b6e1  src/system/icmake.cc
 81eadc51ec7f338d5fec98d516b6d5f3  src/system/exit.cc
@@ -47,7 +47,7 @@ f8cc9d661e3861f1ffc1ed193384726a  src/system/clean.cc
 e7f11753e25eb76ff54f7c47ea48ab9f  src/system/check.cc
 050a408a659c8b55286a601170f8c1b6  src/system/changeTo.cc
 7bbd9a0e6002c4fe8be18f155338dfd7  src/system/buildAll.cc
-3f7655b7faca0766e9de4e24b2c44efd  src/system/build.cc
+6cdb2f566a45d5f42ad6c0b185fa1944  src/system/build.cc
 5fbf9f0814ed8a1727246594d62a9f92  src/system/batchCompile.cc
 b58ee369b9998c81df87034138f94473  src/system/addArguments.cc
 c441562b4cca42ae8ccd5df1420f16d1  src/system/aapForAll.cc

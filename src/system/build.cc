@@ -17,6 +17,23 @@
 
 #include "system.ih"
 
+#define CATCH_AND_SHOW_AND_INC_ERRORS catch(const bneijt::Problem &p) \
+{ \
+  cerrLock.set(); \
+	cerr << "ccbuild: Problem " << p.id() << ": " << p.what() << "\n"; \
+	cerrLock.unset(); \
+	++errors; \
+} \
+catch(const std::exception &e) \
+{ \
+  cerrLock.set(); \
+  cerr << "Caught std::exception (" << typeid(e).name() << "): " << e.what(); \
+  cerr << "\nPlease report this as a bug.\n"; \
+  cerrLock.unset(); \
+	++errors; \
+}
+
+
 namespace {
 bool byMTime(Source const *a, Source const *b)
 {
@@ -87,11 +104,24 @@ void System::build(Source *source, Compiler &cc)
 	  //Precompile all internal headers.
 	  //  We can do multi-processing here as none of the internal headers should depend on other internal headers.
     vector<Compiler> compilers(internalHeaders.size(), cc);
+    size_t errors(0);
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
     for(vector<Source *>::size_type i = 0; i < internalHeaders.size(); ++i)
-      internalHeaders[i]->build(compilers[i]);
+    {
+      if(errors)
+        continue;
+      try
+      {
+        internalHeaders[i]->build(compilers[i]);
+      }
+      CATCH_AND_SHOW_AND_INC_ERRORS;
+    }
+
+    if(errors)
+      throw Problem(Problem::Subfailure, "Bail out during pre-compilation");
+
     //The compiler does not need to be influenced here, so we can just destroy the compilers list
 	}
 	else
@@ -139,18 +169,29 @@ void System::build(Source *source, Compiler &cc)
     //GOD I WANT OpenMP 3 to be here already! F the single-nowait trick, back to index...
     vector<Compiler> compilers(objectTargets.size(), cc);
     size_t numNeedLink = 0;
+    size_t errors = 0;
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
     for(vector<Source *>::size_type i = 0; i < objectTargets.size(); ++i)
     {
+      if(errors)
+        continue;
+      
       //_debugLevel4("Building: " << (*src)->filename());
       if(!objectTargets[i]->upToDate())
         ++numNeedLink;
-      objectTargets[i]->build(compilers[i]);
-      compilers[i].rmCompileOptions();
+      
+      try
+      {
+        objectTargets[i]->build(compilers[i]);
+      }
+      CATCH_AND_SHOW_AND_INC_ERRORS;
     }
-
+    
+    if(errors)
+      throw Problem(Problem::Subfailure, "Bail out during compilation");
+    
     //Test whether linking is needed
     needLink = (numNeedLink > 0 ? true : needLink);
     

@@ -43,22 +43,7 @@
 ///
 ///DON'T!!!
 ///Don't use temporary const objects returned by functions, like: foreach(i, file.lines()).
-/*
-__typeof__((cont).begin()) iter
-#pragma omp parallel private (iter)
-{
-for (iter = (cont).begin(); iter != (cont).end(); ++iter)
-{
-   #pragma omp single nowait
-   {
-     CODE
-   }
-} // end for
-} // end omp parallel
 
-
-
-*/
 
 #ifdef __foreach
 #error __foreach already defined! This macro may have gone wild!
@@ -69,8 +54,6 @@ for (iter = (cont).begin(); iter != (cont).end(); ++iter)
 #else
 #define __foreach( iter, cont) for( __typeof__((cont).begin()) iter = (cont).begin(); iter != (cont).end(); ++iter)
 #endif
-
-//#define __foreachMP( iter, cont, block) #pragma omp parallell private (oter)
 
 //_INCLUDED
 #endif
