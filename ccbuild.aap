@@ -18,8 +18,7 @@ DefineForCcbuild = $?GeneratedDefineForCcbuild $?ExtraDefineForCcbuild
 # Library flags for src/ccbuild.cc
 GeneratedLibsForCcbuild = \
 	"-lgomp"
-	"-lssl"
-	"-lcrypto"
+	"-lgnutls-openssl"
 	"-lbobcat"
 
 LibsForCcbuild = $?GeneratedLibsForCcbuild $?ExtraIncludeForCcbuild
@@ -42,6 +41,7 @@ GlobalHeadersForCcbuild = \
 	"functional"
 	"getopt.h"
 	"glob.h"
+	"gnutls/openssl.h"
 	"inttypes.h"
 	"iomanip"
 	"iosfwd"
@@ -50,7 +50,6 @@ GlobalHeadersForCcbuild = \
 	"map"
 	"numeric"
 	"omp.h"
-	"openssl/evp.h"
 	"set"
 	"sstream"
 	"stack"

@@ -4689,30 +4689,6 @@ See \`config.log' for more details." "$LINENO" 5; }
     fi
 fi
 
-#Use ccbuild to generate a list of headers we use. This depends on ccbuild >= 2.0.0
-globalHeaders="FlexLexer.h algorithm bobcat/process bobcat/user boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring ctime errno.h features.h fstream functional getopt.h glob.h gnutls/openssl.h inttypes.h iomanip iosfwd iostream iterator map numeric omp.h set sstream stack stddef.h string sys/stat.h sys/time.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector
-"
-for ac_header in $globalHeaders
-do :
-  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
-ac_fn_cxx_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
-eval as_val=\$$as_ac_Header
-   if test "x$as_val" = x""yes; then :
-  cat >>confdefs.h <<_ACEOF
-#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
-_ACEOF
-
-else
-  as_fn_error "Required header file missing." "$LINENO" 5
-fi
-
-done
-
-
-#PKG_CHECK_MODULES(DEPS, openssl >= 0.9.0)
-#AC_SUBST(DEPS_CFLAGS)
-#AC_SUBST(DEPS_LIBS)
-
 
 
 if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
@@ -4921,6 +4897,32 @@ $as_echo "yes" >&6; }
 fi
 #AC_SUBST(DEPS_CFLAGS)
 #AC_SUBST(DEPS_LIBS + " -lgnutls-openssl")
+
+#Use ccbuild to generate a list of headers we use. This depends on ccbuild >= 2.0.0
+globalHeaders="FlexLexer.h algorithm bobcat/process bobcat/user boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring ctime errno.h features.h fstream functional getopt.h glob.h gnutls/openssl.h inttypes.h iomanip iosfwd iostream iterator map numeric omp.h set sstream stack stddef.h string sys/stat.h sys/time.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector
+"
+for ac_header in $globalHeaders
+do :
+  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ac_fn_cxx_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
+eval as_val=\$$as_ac_Header
+   if test "x$as_val" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
+_ACEOF
+
+else
+  as_fn_error "Required header file missing." "$LINENO" 5
+fi
+
+done
+
+
+#PKG_CHECK_MODULES(DEPS, openssl >= 0.9.0)
+#AC_SUBST(DEPS_CFLAGS)
+#AC_SUBST(DEPS_LIBS)
+
+
 
 
 
