@@ -1,9 +1,9 @@
-2.0.0alpha:
+2.0.0:
 - Multi-threading support using OpenMP (try -j 5)
 - Sub-process invocation using bobcat::Process (libbobcat 2.0+ required)
 - Header file lines in ccResolutions do not need to contain spaces anymore
 - Build last modified file first
-- Use OpenSSL library for MD5 instead of libgcrypt
+- Use gnutls-openssl library for MD5 instead of libgcrypt
 - Use a single top-level "o" directory, instead of a per directory option
 - Use of intermediate archive is nolonger experimental
 - libboost is now required for build, currently headers only
@@ -25,6 +25,7 @@
     The icmake command now lists the new CLASSES format and
     will leave out any classes already mentioned unless
     --verbose is flagged.
+- New homepage location, moved from sourceforge to github.
 
 1.5.7:
 - Mac OSX patches by sent in by Michiel Holtkamp
