@@ -42,7 +42,7 @@ bin_PROGRAMS = ${PNAME}
 ${PNAME}_SOURCES = ${SOURCES}	
 
 ${PNAME}_CXXFLAGS = \${DEPS_CFLAGS} \${BOOST_CPPFLAGS} -DNODEBUG -fopenmp
-${PNAME}_LDADD = \${DEPS_LIBS} \${BOOST_LDFLAGS} -lbobcat -lgomp
+${PNAME}_LDADD = \${DEPS_LIBS} \${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openssl
 man_MANS = doc/${PNAME}/${PNAME}.1
 
 #Flex it!

@@ -447,7 +447,7 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/arguments/flagged.cc src/arguments/destroy.cc \
 	src/arguments/clear.cc src/arguments/arguments.cc
 ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp
-ccbuild_LDADD = ${DEPS_LIBS} ${BOOST_LDFLAGS} -lbobcat -lgomp
+ccbuild_LDADD = ${DEPS_LIBS} ${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openssl
 man_MANS = doc/ccbuild/ccbuild.1
 all: all-am
 

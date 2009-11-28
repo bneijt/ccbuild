@@ -2,14 +2,14 @@
 550dbca0cc69211c45b0a095be4bf05e  src/misc/debug.hh
 de4b2bb556cd5d97bdac32f3d4f1f037  src/MD5Info/MD5Info.hh
 3b272e86b3554736af6e6709d3bf123f  src/MD5Info/statics.cc
-bacd399a8186d9e8604d6432f438f799  src/MD5Info/MD5Info.ih
+ccd5309ae31d81a271719e22e292a1a2  src/MD5Info/MD5Info.ih
 a26b492d649d624a757963b974dc1760  src/MD5Info/save.cc
 0b02c94da7661b2e32871ab6bae4fba7  src/MD5Info/old.cc
 86b7630339dbc56a9c9c8678654adcac  src/MD5Info/load.cc
 834aaec2a0b318cb459d8064ae3e482b  src/MD5Info/hashFilenameFor.cc
 e87ce263bedf88d4b4ba9e5072bd6727  src/MD5Info/getInstance.cc
 cf77c6bb20800e0ed5019d558e987ce6  src/MD5Info/destroy.cc
-76a74208e19b9b8729371d38366715f0  src/MD5Info/contentHash.cc
+e42b62fddfac995e9797337ffb367943  src/MD5Info/contentHash.cc
 79c3714ab9d3e868e425d1f295328451  src/MD5Info/MD5Info.cc
 b2d73c9b370b0b4011b72264c7e29a67  src/misc/foreach.hh
 0b15ddb452afd97fd6c66bccf8ee262b  src/options/options.hh

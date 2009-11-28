@@ -4690,7 +4690,8 @@ See \`config.log' for more details." "$LINENO" 5; }
 fi
 
 #Use ccbuild to generate a list of headers we use. This depends on ccbuild >= 2.0.0
-globalHeaders=""
+globalHeaders="FlexLexer.h algorithm bobcat/process bobcat/user boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring ctime errno.h features.h fstream functional getopt.h glob.h gnutls/openssl.h inttypes.h iomanip iosfwd iostream iterator map numeric omp.h set sstream stack stddef.h string sys/stat.h sys/time.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector
+"
 for ac_header in $globalHeaders
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
@@ -4707,6 +4708,10 @@ fi
 
 done
 
+
+#PKG_CHECK_MODULES(DEPS, openssl >= 0.9.0)
+#AC_SUBST(DEPS_CFLAGS)
+#AC_SUBST(DEPS_LIBS)
 
 
 
@@ -4834,12 +4839,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_DEPS_CFLAGS="$DEPS_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"openssl >= 0.9.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "openssl >= 0.9.0") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gnutls >= 1.4.4\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gnutls >= 1.4.4") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_DEPS_CFLAGS=`$PKG_CONFIG --cflags "openssl >= 0.9.0" 2>/dev/null`
+  pkg_cv_DEPS_CFLAGS=`$PKG_CONFIG --cflags "gnutls >= 1.4.4" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -4852,12 +4857,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_DEPS_LIBS="$DEPS_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"openssl >= 0.9.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "openssl >= 0.9.0") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gnutls >= 1.4.4\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gnutls >= 1.4.4") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_DEPS_LIBS=`$PKG_CONFIG --libs "openssl >= 0.9.0" 2>/dev/null`
+  pkg_cv_DEPS_LIBS=`$PKG_CONFIG --libs "gnutls >= 1.4.4" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -4876,14 +4881,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "openssl >= 0.9.0"`
+	        DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "gnutls >= 1.4.4"`
         else
-	        DEPS_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "openssl >= 0.9.0"`
+	        DEPS_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gnutls >= 1.4.4"`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$DEPS_PKG_ERRORS" >&5
 
-	as_fn_error "Package requirements (openssl >= 0.9.0) were not met:
+	as_fn_error "Package requirements (gnutls >= 1.4.4) were not met:
 
 $DEPS_PKG_ERRORS
 
@@ -4914,8 +4919,8 @@ else
 $as_echo "yes" >&6; }
 	:
 fi
-
-
+#AC_SUBST(DEPS_CFLAGS)
+#AC_SUBST(DEPS_LIBS + " -lgnutls-openssl")
 
 
 

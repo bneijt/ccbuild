@@ -28,7 +28,8 @@
 #include <iterator>
 #include <iostream>
 #include <cassert>
-#include <openssl/evp.h>
+#include <gnutls/openssl.h>
+
 #include <fstream>
 #include <cstdio>
 
