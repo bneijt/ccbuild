@@ -42,14 +42,15 @@ std::string FileSystem::cleanPath(string const &filename)
 	  if(part == ".")
 	    continue;
 
-	  //If it's .. , then pop the last pushed part
-	  if(part == ".." && path.size() > 0)
+	  //If it's .. , then pop the last pushed part if that part is not '..'
+	  if(part == ".." && path.size() > 0 && path.back() != "../")
 	  {
+	    _debugLevel3("Popping " << path.back() << " from path.");
 	    path.pop_back();
 	    continue;
 	  }
       
-    _debugLevel4("push " << part << "/");
+    _debugLevel4("Push " << part << "/");
 		path.push_back(part + "/");
 	}
 	string clean = accumulate(path.begin(), path.end(), string());

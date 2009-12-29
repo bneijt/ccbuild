@@ -65,16 +65,18 @@ void Source::genDeps()
     vector<string> includePaths(Options::includePaths);
     __foreach(path, includePaths)
     {
-    	_debugLevel4("Trying path: " << *path << " for " << *li);
     	if(s != 0)
     		break;
+    	_debugLevel4("Trying path: " << *path << " for " << *li);
 	 		s = sources[*path + "/" + *li];
 	 	}
 	 	
 	 	if(s == 0)
 	 	{
-	 		cerr << "ccbuild: Unable to read '" << directory() <<  "/" << *li << "'\n";
+	 	  cerrLock.set();
+	 		cerr << "ccbuild: Unable to read '" << iname << "'\n";
 	 		cerr << "ccbuild:   mentioned in '" << filename() << "'\n";
+	 	  cerrLock.unset();
 	 		continue;
 	 	}
 	 	d_deps.push_back(s);

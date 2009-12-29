@@ -55,7 +55,9 @@ try
   FS(cleanPath, "hello.txt");
   FS(cleanPath, "hello.");
   FS(cleanPath, ".hello/");
-
+  FS(cleanPath, "../libbats/SocketComm/../../../Socket/socket.hh");
+  FS(cleanPath, "..//../../../Socket/socket.hh");
+  
   FS(absolutePath, "/home/bram/program/cc/ccbuild/src");
   FS(absolutePath, ".");
   FS(absolutePath, "/");

@@ -49,7 +49,7 @@
 #include <unistd.h>
 
 
-//#define DEBUGLEVEL 5
+#define DEBUGLEVEL 3
 
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"
