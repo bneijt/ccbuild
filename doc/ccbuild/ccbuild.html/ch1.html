@@ -20,7 +20,7 @@
 <link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
 <link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
-<link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
+<link href="apB.html" rel="appendix" title="B Categorically sorted command line parameters">
 <link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
 <link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
 <link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
@@ -64,7 +64,7 @@
 
 <p>
 Programming should not become an administrative task.  With most of the tools
-on the net I found myself either adding filenames to scripts (and removing
+on the net I found myself either adding file names to scripts (and removing
 them) or digging deep into the core of some scripting language to try automate
 my builds.  At first I ended up with a clumsy, to say the least, collection of
 <samp>find</samp>, <samp>grep</samp>, <samp>sed</samp> and <samp>bash</samp>.
@@ -84,14 +84,14 @@ made required me to run all those scripts.  On top of that, it would take about
 
 <p>
 You would say, well why not use an IDE?  Well, trouble here was I wanted to
-split up my code in speparate files...  a lot of separate files.  Not only do I
-seperate my code into directories, I also use seperate files for functions of
+split up my code in separate files...  a lot of separate files.  Not only do I
+separate my code into directories, I also use seperate files for functions of
 the same class.  No IDE allowed me to do this without the hassle of having to
 go through a few menus (create file, register it as source, set is as part of
-the main program, etc).  Those who did, often used autotools in the background
+the main program, etc.).  Those who did, often used autotools in the background
 and would have to re-autotool on every added file.  Frustrated, I almost gave
 up on my coding ethics and started to do it the way the masses do: 900+ lines
-of code in a single file, only accesible through a specially equipped text
+of code in a single file, only accessible through a specially equipped text
 editor or full scale IDE.
 </p>
 
@@ -99,7 +99,7 @@ editor or full scale IDE.
 The closest thing to perfection out there was <code>icmake</code>.  This only
 requires you to mention the directories you use and will keep your development
 tree clean, however it had two small drawbacks: you needed to mention your
-classes and you couldn't use directories in directories.  So, I decided to
+classes and you could not use directories in directories.  So, I decided to
 create a fast and simple program to solve my problem.
 </p>
 
@@ -133,7 +133,7 @@ bootstrapping other build systems.
 </p>
 
 <address>
-2.0.0<br>
+2.0.1<br>
 <br>
 A. Bram Neijt<br>
 <br>

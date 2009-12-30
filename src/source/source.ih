@@ -17,8 +17,6 @@
 
 */
 
-
-
 #include "source.hh"
 #include "../Resolver/Resolver.hh"
 #include "../sources/sources.hh"
@@ -49,7 +47,7 @@
 #include <unistd.h>
 
 
-#define DEBUGLEVEL 3
+//#define DEBUGLEVEL 3
 
 #include "../misc/debug.hh"
 #include "../misc/foreach.hh"

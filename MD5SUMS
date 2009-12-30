@@ -70,7 +70,7 @@ a40bddbe4e481cb4e4c66b879f3e204d  src/globals/getInstance.cc
 caa7e79c28244e0cd2cd630a7bf3621e  src/globals/destroy.cc
 b6c3d393b2b05ab39b9246f930ecf344  src/fileSystem/fileSystem.hh
 43efc45cd01fcc3706da88e9b0d7ec15  src/fileSystem/touch.cc
-d4797e027c8a8c3af77b38e294b1653f  src/fileSystem/fileSystem.ih
+3e90537f883973248f8fa1f501ba50f0  src/fileSystem/fileSystem.ih
 0ec38578331cae8dfdccc30c0497be2f  src/fileSystem/rmIfExists.cc
 fc3935c2b628c9a8748f92de9be8d405  src/fileSystem/rmDirectoryIfExists.cc
 b228f5fbcb3dc3a4ed3ef8cc862e99bf  src/fileSystem/rename.cc
@@ -88,7 +88,7 @@ de833d0aadfc114458dd2d47c274c079  src/fileSystem/fileName.cc
 89af018d49ef4be88d20451b6308170e  src/fileSystem/ensureDirectory.cc
 e02505d7ac37b8fcb93b456d2fc885b5  src/fileSystem/directoryName.cc
 32268de98342e5c38ff2b93978af3411  src/fileSystem/cwd.cc
-76425039c4fa55cc8cb452727cdf20ac  src/fileSystem/cleanPath.cc
+b8b6d2f60caa2249c15a88e4977ad59a  src/fileSystem/cleanPath.cc
 60573a165bcfaf1cafbe11578cade8b6  src/fileSystem/baseName.cc
 be054856a3884b23ba30a893b1fb41ea  src/fileSystem/absolutePath.cc
 01beb7f01c4e2226366cb0ebcb394e7d  src/problem/problem.hh
@@ -124,7 +124,7 @@ fa7fd732bbd8765ae578c57f5cd061c5  src/Compiler/cls.cc
 945e49acd5984386062dd6c1adbecb6b  src/Compiler/addArgument.cc
 6ec7173a95bc306acb6c6ced548b86b5  src/sources/sources.hh
 963589b58b2708e7fbc425cd83c81654  src/sources/statics.cc
-7758ed0891b582d254d3ba6f362b8cf4  src/sources/sources.ih
+9c51cf66d64142534dcac8cb0d438bbb  src/sources/sources.ih
 0630ff8bef0f0257a997375d5c12cae1  src/sources/sources.cc
 0d0c18691f8699db79ebbd8b423aad4f  src/sources/reloadStaleSources.cc
 1f5249c777cc434796b824245244c6b5  src/sources/indexoperator.cc
@@ -133,7 +133,7 @@ c1e55de1f89029de5b7f864e4d78848c  src/sources/erase.cc
 41fb97247bf3cc9d683b1afd128be3d6  src/sources/destroy.cc
 8f63cb531c1aad53d033579f6dc05940  src/source/source.hh
 d1d437ee566b0986709ac193155449c1  src/source/upToDate.cc
-7354333cb3d35e683c99ed08b07d7679  src/source/source.ih
+7616cc84917efbca5600a8a26427dfa3  src/source/source.ih
 1d5a971af84fb5ea946e407f254295e6  src/source/stale.cc
 ed39e3c3ae8d3c89c09559219c149ade  src/source/source.cc
 843bdbd8cf211d0d313123ab6dac09c8  src/source/setType.cc
@@ -149,7 +149,7 @@ ca9ac344141ef8e3a155f856bd27131d  src/source/isInternalHeader.cc
 63b3e19a9e52554a106222eb0a2df8a8  src/source/isHeader.cc
 cdd9ed418487c0803955d3424dc18033  src/source/isBinTarget.cc
 4d992c5e8ada425e507d279b0766dd7e  src/source/hasSourceExtension.cc
-4d029c3c8bbb949fc9f99943859a179e  src/source/genDeps.cc
+65667081b24d183471614bac63021756  src/source/genDeps.cc
 1fdebf678f8da831283644e259db289f  src/source/directory.cc
 d0cfcc5cfba7bf10f9900cb309690f57  src/source/directDeps.cc
 7e4bde0bcf4158532c4681a135e7e375  src/source/dependencies.cc

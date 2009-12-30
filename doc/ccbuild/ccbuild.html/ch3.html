@@ -20,7 +20,7 @@
 <link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
 <link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
-<link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
+<link href="apB.html" rel="appendix" title="B Categorically sorted command line parameters">
 <link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
 <link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
 <link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
@@ -120,7 +120,7 @@ declaration.
 <p>
 Splitting the source up like this will get you a lot of files, but will make
 editing and hacking your code simple.  The functions are easy to find, quick to
-open and easy to grasp.  Futhermore, version control software will encounter
+open and easy to grasp.  Furthermore, version control software will encounter
 less collisions and patches will merge more easily on quicker moving code.
 </p>
 
@@ -167,8 +167,8 @@ To build a configured <code>ccbuild</code> compatible source tree, simple run
 <code>ccbuild</code> in the directory containing the main program.  This will
 compile all programs in the given directory.  However, if you only want to
 compile one given program, issue the command <samp>ccbuild build
-mainsource.cc</samp>, where mainsource.cc should be the name of the main
-sourcefile.
+mainsource.cc</samp>, where mainsource.cc should be the name of the main source
+file.
 </p>
 
 <p>
@@ -190,11 +190,11 @@ the same, they are implemented quite different.
 </p>
 
 <p>
-The <samp>distclean</samp> command is totally source independent: it doesn't
-scan sources, nor look for them.  Distclean simply removes all ccbuild related
-file in the &quot;o&quot; directory and all &quot;.gch&quot; files everywhere.
-If the &quot;o&quot; directory is empty after that, the directory is removed as
-well.
+The <samp>distclean</samp> command is totally source independent: it does not
+scan sources, nor look for them.  Distclean simply removes all
+<code>ccbuild</code> related file in the &quot;o&quot; directory and all
+&quot;.gch&quot; files everywhere.  If the &quot;o&quot; directory is empty
+after that, the directory is removed as well.
 </p>
 
 <p>
@@ -209,7 +209,7 @@ General rule is to use the force command when you want to update everything,
 use the <samp>clean</samp> when you want to remove all files for a local binary
 target (but not any other binary targets in the local directory) and use
 <samp>distclean</samp> to remove everything including old objects and
-precompiled headers.
+pre-compiled headers.
 </p>
 
 <hr>
@@ -235,7 +235,7 @@ precompiled headers.
 </p>
 
 <address>
-2.0.0<br>
+2.0.1<br>
 <br>
 A. Bram Neijt<br>
 <br>

@@ -5,10 +5,10 @@
 <book>
 	<title>&ccb; - A strict developer's build utility
 	<author>A. Bram Neijt
-	<version>2.0.0
+	<version>2.0.1
 	<abstract>This document is a general usage manual to &ccb;. It will introduce ways of
 	using &ccb;. It will also explain &ccb;'s behaviour in more words then the manual does.
-	The newest version of ccbuild can be found at the <url name="http://www.logfish.net/pr/ccbuild/" id="http://www.logfish.net/pr/ccbuild/">
+	The newest version of &ccb; can be found at the <url name="http://www.logfish.net/pr/ccbuild/" id="http://www.logfish.net/pr/ccbuild/">
 
 	<copyright>Copyright &copy; 2005 A. Bram Neijt
     <p>
@@ -23,15 +23,15 @@
   GNU General Public License for more details.
   <p>
   You should have received a copy of the GNU General Public License
-  along with ccbuild.  If not, see <url name="http://www.gnu.org/licenses/" id="http://www.gnu.org/licenses/">.
+  along with &ccb;.  If not, see <url name="http://www.gnu.org/licenses/" id="http://www.gnu.org/licenses/">.
 
 <toc>
 
 <chapt>Introduction
-<p>Programming should not become an administrative task. With most of the tools on the net I found myself either adding filenames to scripts (and removing them) or digging deep into the core of some scripting language to try automate my builds. At first I ended up with a clumsy, to say the least, collection of <tt>find</tt>, <tt>grep</tt>, <tt>sed</tt> and <tt>bash</tt>. Combined they formed a script to generate Makefiles dispatched over multiple directories. The complexity quickly grew out of hand and it left me with a lot of clutter around my source. The second incarnation helped to generate autotools scripts. I had to run <tt>./configure</tt> to get the new scripts to generate real Makefiles, followed by make. If you commonly add and remove files, updates are slow.
+<p>Programming should not become an administrative task. With most of the tools on the net I found myself either adding file names to scripts (and removing them) or digging deep into the core of some scripting language to try automate my builds. At first I ended up with a clumsy, to say the least, collection of <tt>find</tt>, <tt>grep</tt>, <tt>sed</tt> and <tt>bash</tt>. Combined they formed a script to generate Makefiles dispatched over multiple directories. The complexity quickly grew out of hand and it left me with a lot of clutter around my source. The second incarnation helped to generate autotools scripts. I had to run <tt>./configure</tt> to get the new scripts to generate real Makefiles, followed by make. If you commonly add and remove files, updates are slow.
 <p>It was a depressing way to develop, because most additions to the project I made required me to run all those scripts. On top of that, it would take about 30 seconds, or so it felt.
-<p>You would say, well why not use an IDE? Well, trouble here was I wanted to split up my code in speparate files... a lot of separate files. Not only do I seperate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, register it as source, set is as part of the main program, etc). Those who did, often used autotools in the background and would have to re-autotool on every added file. Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900+ lines of code in a single file, only accesible through a specially equipped text editor or full scale IDE.
-<p>The closest thing to perfection out there was <prgn>icmake</prgn>. This only requires you to mention the directories you use and will keep your development tree clean, however it had two small drawbacks: you needed to mention your classes and you couldn't use directories in directories. So, I decided to create a fast and simple program to solve my problem.
+<p>You would say, well why not use an IDE? Well, trouble here was I wanted to split up my code in separate files... a lot of separate files. Not only do I separate my code into directories, I also use seperate files for functions of the same class. No IDE allowed me to do this without the hassle of having to go through a few menus (create file, register it as source, set is as part of the main program, etc.). Those who did, often used autotools in the background and would have to re-autotool on every added file. Frustrated, I almost gave up on my coding ethics and started to do it the way the masses do: 900+ lines of code in a single file, only accessible through a specially equipped text editor or full scale IDE.
+<p>The closest thing to perfection out there was <prgn>icmake</prgn>. This only requires you to mention the directories you use and will keep your development tree clean, however it had two small drawbacks: you needed to mention your classes and you could not use directories in directories. So, I decided to create a fast and simple program to solve my problem.
 <p>Although you have to keep some standards (split source over directories) to get &ccb; to work on your program, I found it almost completely eliminated my interaction with the build system. Better yet, it helps with bootstrapping other build systems.
 </chapt>
 
@@ -82,7 +82,7 @@ using namespace std;
 using namespace bneijt;
 </example>
 <p>The header file defines the <tt>FileSystem</tt> class in the <tt>bneijt</tt> namespace and includes only what is needed for it's declaration.
-<p>Splitting the source up like this will get you a lot of files, but will make editing and hacking your code simple. The functions are easy to find, quick to open and easy to grasp. Futhermore, version control software will encounter less collisions and patches will merge more easily on quicker moving code.
+<p>Splitting the source up like this will get you a lot of files, but will make editing and hacking your code simple. The functions are easy to find, quick to open and easy to grasp. Furthermore, version control software will encounter less collisions and patches will merge more easily on quicker moving code.
 <p>The main program is in the root of the source. &ccb; has the following listing:
 <example>
 ./fileSystem/touch.cc
@@ -108,7 +108,7 @@ using namespace bneijt;
 
 
 <sect>Building a program
-<p>To build a configured &ccb; compatible source tree, simple run &ccb; in the directory containing the main program. This will compile all programs in the given directory. However, if you only want to compile one given program, issue the command <tt>ccbuild build mainsource.cc</tt>, where mainsource.cc should be the name of the main sourcefile.
+<p>To build a configured &ccb; compatible source tree, simple run &ccb; in the directory containing the main program. This will compile all programs in the given directory. However, if you only want to compile one given program, issue the command <tt>ccbuild build mainsource.cc</tt>, where mainsource.cc should be the name of the main source file.
 <p>
 Once the command is issued, &ccb; will start reading includes the source does and gather sources it should compile. Any sources it can find will be compiled and linked to the main program. Once the <tt>[LINK] mainsource</tt> line get's done, without any errors, your main program will be done and you can start it with <tt>./mainsource</tt>.
 </sect>
@@ -117,11 +117,11 @@ Once the command is issued, &ccb; will start reading includes the source does an
 <p>For cleaning your sourcetree, &ccb; offers two commands: <tt>clean</tt> and <tt>distclean</tt>. Although they might act almost the same, they are implemented quite different.
 
 <p>
-The <tt>distclean</tt> command is totally source independent: it doesn't scan sources, nor look for them. Distclean simply removes all ccbuild related file in the "o" directory and all ".gch" files everywhere. If the "o" directory is empty after that, the directory is removed as well.
+The <tt>distclean</tt> command is totally source independent: it does not scan sources, nor look for them. Distclean simply removes all &ccb; related file in the "o" directory and all ".gch" files everywhere. If the "o" directory is empty after that, the directory is removed as well.
 <p>
 The <tt>clean</tt> command is much more subtle: it reads the sources and removes any objects part of the current source tree. Because it reads the sources, using clean will only remove those sources part of the given or implied main binary target(s). This command will not remove any directories.
 <p>
-General rule is to use the force command when you want to update everything, use the <tt>clean</tt> when you want to remove all files for a local binary target (but not any other binary targets in the local directory) and use <tt>distclean</tt> to remove everything including old objects and precompiled headers.
+General rule is to use the force command when you want to update everything, use the <tt>clean</tt> when you want to remove all files for a local binary target (but not any other binary targets in the local directory) and use <tt>distclean</tt> to remove everything including old objects and pre-compiled headers.
 </sect>
 
 
@@ -136,12 +136,12 @@ General rule is to use the force command when you want to update everything, use
 <list>
   <item>&ccb; only reads local includes
   <p>
-  	When creating your source, make sure that all sources that &ccb; should care about can be found using local includes. This means you should stricly use system wide includes only for actual system wide include files. So any header file which is part or your packages should be included using a local include statement.
+  	When creating your source, make sure that all sources that &ccb; should care about can be found using local includes. This means you should strictly use system wide includes only for actual system wide include files. So any header file which is part or your packages should be included using a local include statement.
   </item>
   <item>Preprocessing isn't helping
   <p>
-  	To speed up &ccb;, it doesn't go around looking for system wide headers. This also means that it won't know all the preprocessing directives from these headers. This results in preprocessor excludes of local headers cannot be used. This is no problem if you are compiling for a single platform, but when you need configuration using preprocessor directives, you're going to get into trouble.
-  <p> The only way to keep &ccb; from reading these sources is by making sure there is a single space between the <tt>#</tt> and the <tt>include</tt> statement. So the include <tt># include "something/hello.hh"</tt> will be ingored by &ccb;. To test this, run &ccb; in verbose mode (<tt>--verbose</tt>) and watch for the warning which state that the file in not included. You can also use the <tt>deps</tt> command to get a list for all binary targets.
+  	To speed up &ccb;, it does not go around looking for system wide headers. This also means that it won't know all the preprocessing directives from these headers. This results in preprocessor excludes of local headers cannot be used. This is no problem if you are compiling for a single platform, but when you need configuration using preprocessor directives, you're going to get into trouble.
+  <p> The only way to keep &ccb; from reading these sources is by making sure there is a single space between the <tt>#</tt> and the <tt>include</tt> statement. So the include <tt># include "something/hello.hh"</tt> will be ignored by &ccb;. To test this, run &ccb; in verbose mode (<tt>--verbose</tt>) and watch for the warning which state that the file in not included. You can also use the <tt>deps</tt> command to get a list for all binary targets.
   </item>
 </list>
 </sect>
@@ -151,7 +151,7 @@ General rule is to use the force command when you want to update everything, use
 <enumlist>
 	<item>Check your local includes span over your whole source
 	<p>To make sure &ccb; was able to follow your local includes, use the <tt>deps</tt> command. This will list all
-	the local and global dependencies of a file. You may also use the dot command to get a graphical interpertation of the
+	the local and global dependencies of a file. You may also use the dot command to get a graphical interpretation of the
 	same information.
 	<p>All paths that &ccb; needs to search for local includes should be added to the first line of your ccResolutions file. Using <tt>-l</tt> in this first line will make &ccb; highlight all compiler output.
 	<example>
@@ -166,8 +166,8 @@ General rule is to use the force command when you want to update everything, use
 	<example>
 	ccbuild resolve |sort &gt;&gt; ccResolutions
 	</example>
-	<p>Now all unresolved global headers are listed in your ccResolutions file. When you run &ccb; now, it won't complain about any global includes missing. However, g++ might complain because the needed extra arguments aren't in place.
-	You should now add the needed arguments to your ccResolutions file by using, for example, <tt>`pkg-config --cflags --libs &lt;packagename&gt;`</tt> with the needed packagei in place.
+	<p>Now all unresolved global headers are listed in your ccResolutions file. When you run &ccb; now, it won't complain about any global includes missing. However, g++ might complain because the needed extra arguments are not in place.
+	You should now add the needed arguments to your ccResolutions file by using, for example, <tt>`pkg-config --cflags --libs &lt;packagename&gt;`</tt> with the needed package in place.
 	<p>If you have a lot of resolution rules in your defaults (<tt>~/.ccbuild/</tt>), then it might be hard to see what your project actually
 	depends on. Passing &ccb; the option <tt>--nodefres</tt> will cause it to skip loading these files and will allow you to see
 	which resolutions fail. This might give you some hints on what packages your program depends on.
@@ -178,7 +178,7 @@ General rule is to use the force command when you want to update everything, use
 
 <chapt>Moving from &ccb;
 <p>There will be a day you want to move away from &ccb;. When the day comes, you would probably only be able to use &ccb; for it's dependency generation commands.
-<p>To make &ccb; usefull in these later stages, &ccb; has a few commands to help you cope. Don't forget, you can remove all &ccb; generated files using:
+<p>To make &ccb; useful in these later stages, &ccb; has a few commands to help you cope. Don't forget, you can remove all &ccb; generated files using:
 	<example>
 	ccbuild distclean;
 	rm ./ccResolutions;
@@ -186,13 +186,13 @@ General rule is to use the force command when you want to update everything, use
 The build script generation commands only read source and, should not generate any output.
 
 <sect>General build file generation
-<p>&ccb; can generate a number of different files for different build systems. When you call &ccb; with a build generation command without a sourcefile, it will try to create a standalone file for that build system. Which will also contain an all rule.
+<p>&ccb; can generate a number of different files for different build systems. When you call &ccb; with a build generation command without a source file, it will try to create a standalone file for that build system. Which will also contain an all rule.
 <p>For most systems however, you don't want the all rule to be defined. So, &ccb; allows you to state which source you want a build file for. This will then generate a build file without the all rule. Then simply include this build file into your main build file and write the all rule yourself.
 
 </sect>
 
 <sect>Generating A-A-P files
-<p>One of the most usefull generation features is probably the A-A-P file generation. You can use this by calling &ccb; with the aap command. This will generate an A-A-P file on the stdout.
+<p>One of the most useful generation features is probably the A-A-P file generation. You can use this by calling &ccb; with the aap command. This will generate an A-A-P file on the stdout.
 <p>The most common way of using this aap file is by generating it for a single binary target using:
 	<example>
 	ccbuild aap mainsource.cc &gt; mainsource.aap
@@ -218,10 +218,10 @@ Add any recipes needed and then use aap to generate the main program.
 
 </chapt>
 <chapt>Problem solving with ccbuild
-<p>This is a collection of possible real usage examples for ccbuild. If you don't want to take the time to read the manual pages, this is a more problem oriented listing of the same.
+<p>This is a collection of possible real usage examples for &ccb;. If you don't want to take the time to read the manual pages, this is a more problem oriented listing of the same.
 <sect>You changed a class interface
 <p>When you change a class interface, a large collection of your code will probably break down. But which parts? Well, a hint of which files will be affected can be seen using &ccb; <tt>check</tt>. However, this won't show you whether these sources still compile or not. The only way to test that is by simply running &ccb;.
-<p>Solution: Use a daemonizing editor (something that returns after using the command). An example is using the gedit command when you already have a window open: new files will be opened in a tab and the gedit command will return immediately. So, using gedit, the easiest way to get an overview of your problems would be: &ccb; --brute --xof "gedit"
+<p>Solution: Use an editor running in the background (something that returns after using the command). An example is using the gedit command when you already have a window open: new files will be opened in a tab and the gedit command will return immediately. So, using gedit, the easiest way to get an overview of your problems would be: &ccb; --brute --xof "gedit"
 </chapt>
 
 	<appendix>The tools directory
@@ -236,20 +236,20 @@ Add any recipes needed and then use aap to generate the main program.
 	  <p>
 	  Using this is of course a brute way of handling resolutions, because it's much nicer to only resolve the ones you need.
 	  </sect>
-		<sect> ccbuildStatusPage.sh
+		<sect>ccbuildStatusPage.sh
 		<p>
-		This is a small ccbuild status page creation script. All commandline
-		arguments you give it will be passed to ccbuild directly.
-		It runs "ccbuild check" to check which files are up to date and which aren't.
-		Then using AWK it translates this into a small auto-refreshing webpage. The webpage
-		uses ccbuild.css as it's stylesheet.
+		This is a small &ccb; status page creation script. All command line
+		arguments you give it will be passed to &ccb; directly.
+		It runs "ccbuild check" to check which files are up to date and which are not.
+		Then using AWK it translates this into a small auto-refreshing web page. The web page
+		uses ccbuild.css as it's style sheet.
     <p>
 
 		General usage for a single run is:
     <example>
     sh ccbuildStatusPage.sh -C "someproject/src"
 		</example>
-    Then use your favorite browser to open the generated html file: ccbuildstatus.html.
+    Then use your favourite browser to open the generated html file: ccbuildstatus.html.
     <p>
 
     You can easily loop it in the background using:
@@ -259,13 +259,13 @@ Add any recipes needed and then use aap to generate the main program.
       nice sh ccbuildStatusPage.sh -C "someproject/src";
     done;
 		</example>
-		By default the up to date files aren't shown by using "display: none" in the ccbuild.css.
+		By default the up to date files are not shown by using "display: none" in the ccbuild.css.
 		Remove this line from ccbuild.css to show all up to date files as well.
 	</appendix>
 
-	<appendix>Catagorically sorted commandline parameters
+	<appendix>Categorically sorted command line parameters
 	<p>
-	Here is list of the commandline parameters devided over catagories. If you think you know ccbuild, go down this list. If you don't think a given argument is in the right possition, you might need to read up on it. Please refer to the ccbuild manual for a full explanation of these flags and arguments.
+	Here is list of the command line parameters divided over categories. If you think you know &ccb;, go down this list. If you don't think a given argument is in the right position, you might need to read up on it. Please refer to the &ccb; manual for a full explanation of these flags and arguments.
 	</p>
 	<p>Command execution influencing arguments (the actual system call): <tt>--compiler</tt>, <tt>-a</tt>, <tt>--args</tt>, <tt>-I</tt>, <tt>--recursive-include</tt>, <tt>--xof</tt>, <tt>--exec-on-fail</tt>, <tt>--xop</tt>, <tt>--exec-on-pass</tt>, <tt>--append</tt> and Resolution arguments.
 	</p>

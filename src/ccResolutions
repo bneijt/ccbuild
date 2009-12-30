@@ -1,4 +1,4 @@
-#& -l --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -DVERSION=\\\"2.0.0\\\"" --md5 -p
+#& -l --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -DVERSION=\\\"2.0.1\\\"" --md5 -p
 # In the future, -std=c++0x is going to be default.
 # This file now requires ccbuild > 1.5.7
 #	Some options have no resolution, they should

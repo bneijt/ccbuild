@@ -9,7 +9,7 @@
   <!ENTITY manfirstname "<firstname>Bram</firstname>">
   <!ENTITY mansurname   "<surname>Neijt</surname>">
   <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY mandate      "<date>2009-10-21</date>">
+  <!ENTITY mandate      "<date>2009-12-30</date>">
   <!-- SECTION should be 1-8, maybe with subsection. Other parameters are
        allowed: see man(7), man(1). -->
   <!ENTITY mansection   "<manvolnum>1</manvolnum>">
@@ -19,14 +19,6 @@
   <!ENTITY manpackage   "ccbuild">
   <!ENTITY ccb "<command>ccbuild</command>">
 ]>
-<!--
-
-        ccbuild - A strict developer&apos;s build utility
-Version 2.0.0, Copyright (C) 2009 A. Bram Neijt <bneijt@gmail.com>
-ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
-
-
--->
 <refentry>
   <refentryinfo>
     <address>
@@ -69,7 +61,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
   </refsynopsisdiv>
   <refsect1>
     <title>DESCRIPTION</title>
-    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are separated by tab character(s) or a space. <command>&manpackage;</command> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <filename>./ccResolutions</filename> is used, but there are more possibilities. See the section FILES for more information.</para>
+    <para><command>&manpackage;</command> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The file name and arguments are separated by tab character(s) or a space. <command>&manpackage;</command> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <filename>./ccResolutions</filename> is used, but there are more possibilities. See the section FILES for more information.</para>
     <para><command>&manpackage;</command> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <command>&manpackage;</command> from following up on an include statement, separate the #-sign and the include statement by a single space (&quot;# include&quot;).</para>
 <!--
     <refsect2>
@@ -140,7 +132,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
         <term>dot [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
           <para>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the <option>--verbose</option> flag is used
-          the dot graph will also contain all object filenames and their dependencies and lists of ignored headers. Objects will be coloured lightgrey, binary targets lightblue, ignored headers by a red line.</para>
+          the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -158,7 +150,7 @@ ccbuild comes with ABSOLUTELY NO WARRANTY and is licensed under GPL
       <varlistentry>
         <term>check [<replaceable>filename.cc</replaceable>]</term>
         <listitem>
-          <para>Desplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab separated column will be inserted containing a two letter file type &ccb; identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>
+          <para>Dsplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <option>--verbose</option> flag is used, another tab separated column will be inserted containing a two letter file type &ccb; identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</para>
         </listitem>
       </varlistentry>
       <varlistentry>

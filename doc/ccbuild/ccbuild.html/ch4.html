@@ -20,7 +20,7 @@
 <link href="ch5.html" rel="chapter" title="5 Moving from <code>ccbuild</code>">
 <link href="ch6.html" rel="chapter" title="6 Problem solving with ccbuild">
 <link href="apA.html" rel="appendix" title="A The tools directory">
-<link href="apB.html" rel="appendix" title="B Catagorically sorted commandline parameters">
+<link href="apB.html" rel="appendix" title="B Categorically sorted command line parameters">
 <link href="ch3.html#s3.1" rel="section" title="3.1 Organizing your source">
 <link href="ch3.html#s3.2" rel="section" title="3.2 Building a program">
 <link href="ch3.html#s3.3" rel="section" title="3.3 Cleaning up">
@@ -80,9 +80,9 @@ of things you should keep in mind when moving to <code>ccbuild</code>.
 <p>
 When creating your source, make sure that all sources that <code>ccbuild</code>
 should care about can be found using local includes.  This means you should
-stricly use system wide includes only for actual system wide include files.  So
-any header file which is part or your packages should be included using a local
-include statement.
+strictly use system wide includes only for actual system wide include files.
+So any header file which is part or your packages should be included using a
+local include statement.
 </p>
 </li>
 </ul>
@@ -93,7 +93,7 @@ Preprocessing isn't helping
 </p>
 
 <p>
-To speed up <code>ccbuild</code>, it doesn't go around looking for system wide
+To speed up <code>ccbuild</code>, it does not go around looking for system wide
 headers.  This also means that it won't know all the preprocessing directives
 from these headers.  This results in preprocessor excludes of local headers
 cannot be used.  This is no problem if you are compiling for a single platform,
@@ -105,7 +105,7 @@ get into trouble.
 The only way to keep <code>ccbuild</code> from reading these sources is by
 making sure there is a single space between the <samp>#</samp> and the
 <samp>include</samp> statement.  So the include <samp># include
-&quot;something/hello.hh&quot;</samp> will be ingored by <code>ccbuild</code>.
+&quot;something/hello.hh&quot;</samp> will be ignored by <code>ccbuild</code>.
 To test this, run <code>ccbuild</code> in verbose mode (<samp>--verbose</samp>)
 and watch for the warning which state that the file in not included.  You can
 also use the <samp>deps</samp> command to get a list for all binary targets.
@@ -130,7 +130,7 @@ Check your local includes span over your whole source
 To make sure <code>ccbuild</code> was able to follow your local includes, use
 the <samp>deps</samp> command.  This will list all the local and global
 dependencies of a file.  You may also use the dot command to get a graphical
-interpertation of the same information.
+interpretation of the same information.
 </p>
 
 <p>
@@ -176,10 +176,10 @@ To make sure the global includes are resolved, use the resolve command.
 <p>
 Now all unresolved global headers are listed in your ccResolutions file.  When
 you run <code>ccbuild</code> now, it won't complain about any global includes
-missing.  However, g++ might complain because the needed extra arguments aren't
-in place.  You should now add the needed arguments to your ccResolutions file
-by using, for example, <samp>`pkg-config --cflags --libs
-&lt;packagename&gt;`</samp> with the needed packagei in place.
+missing.  However, g++ might complain because the needed extra arguments are
+not in place.  You should now add the needed arguments to your ccResolutions
+file by using, for example, <samp>`pkg-config --cflags --libs
+&lt;packagename&gt;`</samp> with the needed package in place.
 </p>
 
 <p>
@@ -216,7 +216,7 @@ what packages your program depends on.
 </p>
 
 <address>
-2.0.0<br>
+2.0.1<br>
 <br>
 A. Bram Neijt<br>
 <br>

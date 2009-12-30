@@ -1,3 +1,6 @@
+2.0.1:
+- Bugfix: file path handling of files with multiple "../" elements was wrong.
+
 2.0.0:
 - Multi-threading support using OpenMP (try -j 5)
 - Sub-process invocation using bobcat::Process (libbobcat 2.0+ required)

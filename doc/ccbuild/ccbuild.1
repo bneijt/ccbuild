@@ -6,7 +6,7 @@ ccbuild \(em Strict C++ developer\&'s build utility
 \fBccbuild\fR [options ]  [command ]  
 .SH "DESCRIPTION" 
 .PP 
-\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The filename and arguments are separated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more possibilities. See the section FILES for more information. 
+\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The file name and arguments are separated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more possibilities. See the section FILES for more information. 
 .PP 
 \fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, separate the #\-sign and the include statement by a single space ("# include"). 
 .SH "COMMANDS" 
@@ -27,13 +27,13 @@ the second the ignored headers (for the file) and the last contains all global i
  
 .IP "dot [\fIfilename.cc\fR]" 10 
 Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the \fB\-\-verbose\fP flag is used 
-the dot graph will also contain all object filenames and their dependencies and lists of ignored headers. Objects will be coloured lightgrey, binary targets lightblue, ignored headers by a red line. 
+the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line. 
 .IP "makefile [\fIfilename.cc\fR]" 10 
 Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated. 
 .IP "aap [\fIfilename.cc\fR]" 10 
 Generate an A-A-P file on stdout. If the file name is not given, an "all" rule will be added and all local binary targets will be listed. 
 .IP "check [\fIfilename.cc\fR]" 10 
-Desplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab separated column will be inserted containing a two letter file type \fBccbuild\fR identifies it as. This file type is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
+Dsplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab separated column will be inserted containing a two letter file type \fBccbuild\fR identifies it as. This file type is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
 .IP "icmake [\fIfilename.cc\fR]" 10 
 \fBicmake\fR slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If \fB\-\-verbose\fP is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by running: \fBccbuild\fR icmake >> CLASSES 
 .IP "resolve [\fIfilename.cc\fR]" 10 
@@ -134,8 +134,6 @@ Try to compile the program and open the first file that does not compile correct
 Use 20 distcc compilers to compile the project. 
 .IP "\fBccbuild\fR \-\-nodefargs \-f \-\-args \&'\-Wall \-Werror\&' && \fBsvn\fR commit \-m \&'buildable backup\&'" 10 
 If all the sources are buildable without any warnings, commit everything to the repository using subversion. 
-.PP 
-For all of these examples, you can  
 .SH "FILES" 
 .PP 
 Configuration files used by \fBccbuild\fR 
@@ -164,4 +162,4 @@ A. Bram Neijt <bneijt@gmail.com>
 .SH "SEE ALSO" 
 .PP 
 pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Tue 27 Oct 2009, 16:59 
+.\" created by instant / docbook-to-man, Wed 30 Dec 2009, 12:08 
