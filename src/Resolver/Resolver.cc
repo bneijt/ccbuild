@@ -54,7 +54,7 @@ Resolver::Resolver()
 	
 	//ANSI C++ headers...
 	static char const * const ccHeaders[] = {
-			"algorithm",
+		"algorithm",
   		"bitset",
   		"deque",
   		"exception",
@@ -87,25 +87,25 @@ Resolver::Resolver()
   		"vector",
 
 	//C++ equivalent of ANSI C headers...
-			"cassert",
-			"cctype",
-			"cerrno",
-			"cfloat",
-			"ciso646",
-			"climits",
-			"clocale",
-			"cmath",
-			"csetjmp",
-			"csignal",
-			"cstdarg",
-			"cstddef",
-			"cstdio",
-			"cstdlib",
-			"cstring",
-			"ctime",
-			"cwchar",
-			"cwtype",
-			0};
+        "cassert",
+        "cctype",
+        "cerrno",
+        "cfloat",
+        "ciso646",
+        "climits",
+        "clocale",
+        "cmath",
+        "csetjmp",
+        "csignal",
+        "cstdarg",
+        "cstddef",
+        "cstdio",
+        "cstdlib",
+        "cstring",
+        "ctime",
+        "cwchar",
+        "cwtype",
+        0};
 
 	for(unsigned i = 0; ccHeaders[i]; ++i)
 		if(d_staticLinks.count(gl[ccHeaders[i]]) == 0)
