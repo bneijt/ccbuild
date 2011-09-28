@@ -440,7 +440,7 @@
       <varlistentry>
         <term>&ccb; --xof &apos;gedit&apos;</term>
         <listitem>
-          <para>Try to compile the program and open the first file that does not compile correctly.Open all error producing sources in gedit. Very usefull for when you change the interface of a class.</para>
+          <para>Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
