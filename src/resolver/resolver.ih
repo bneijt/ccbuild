@@ -17,9 +17,7 @@
 
 */
 
-
-
-#include "Resolver.hh"
+#include "resolver.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../system/system.hh"
 #include "../globals/globals.hh"

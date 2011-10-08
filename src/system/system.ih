@@ -21,7 +21,7 @@
 
 #include "system.hh"
 #include "../sources/sources.hh"
-#include "../Resolver/Resolver.hh"
+#include "../resolver/resolver.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../options/options.hh"
 #include "../globals/globals.hh"

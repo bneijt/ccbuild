@@ -15,12 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "Resolver.ih"
+#include "resolver.ih"
 bool Resolver::resolveInto(std::string const *include, Compiler & cc, bool quiet) const
 {
   string argument = resolve(include);

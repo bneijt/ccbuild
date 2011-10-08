@@ -17,8 +17,8 @@
 
 */
 
-#ifndef _Resolver_H_INCLUDED_
-#define _Resolver_H_INCLUDED_
+#ifndef Resolver_H_INCLUDED_
+#define Resolver_H_INCLUDED_
 #include <sys/types.h>
 #include <utility>
 #include <string>

@@ -15,13 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Resolver.ih"
-void Resolver::destroy()
+#include "resolver.ih"
+Resolver & Resolver::getInstance()
 {
   OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance)
-		delete s_instance;
-	else
-		_debugLevel1("Already destroyed!!");
-	s_instance = 0;
+  if(s_instance == 0)
+    s_instance = new Resolver();
+  return *s_instance;
 }

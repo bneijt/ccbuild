@@ -15,7 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Resolver.ih"
+#include "resolver.ih"
 
 Resolver::Resolver()
   :

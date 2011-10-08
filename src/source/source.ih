@@ -18,7 +18,7 @@
 */
 
 #include "source.hh"
-#include "../Resolver/Resolver.hh"
+#include "../resolver/resolver.hh"
 #include "../sources/sources.hh"
 #include "../SourceScanner/SourceScanner.hh"
 #include "../fileSystem/fileSystem.hh"
