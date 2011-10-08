@@ -19,15 +19,16 @@
 
 bool FileSystem::fileExists(std::string const &filename, bool noDir)
 {
-  OpenMP::ScopedLock asdf(fsLock);
-	struct stat a;
-	int rcode = stat(filename.c_str(), &a);
+    OpenMP::ScopedLock scopedFsLock(fsLock);
 
-	if(rcode != 0) //Stat failed
-	  return false;
+    struct stat a;
+    int rcode = stat(filename.c_str(), &a);
 
-	if(noDir and S_ISDIR(a.st_mode))
-	  return false;
+    if(rcode != 0) //Stat failed
+        return false;
 
-	return true;
+    if(noDir and S_ISDIR(a.st_mode))
+        return false;
+
+    return true;
 }

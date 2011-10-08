@@ -20,28 +20,28 @@
 void FileSystem::ensureDirectory(std::string const &directoryName)
 {
 	//Check for object directory existence
-  if(directoryName.size() && directoryName != "." && !fileExists(directoryName))
-	{
-		//S_IRUSR    00400     owner has read permission
-    //S_IWUSR    00200     owner has write permission
-    //S_IXUSR    00100     owner has execute permission
-    cerrLock.set();
-    cerr << "[MKDIR] " << directoryName << "\n";
-    cerrLock.unset();
-    
-    if(!Options::simulate)
+    if(directoryName.size() && directoryName != "." && !fileExists(directoryName))
     {
-      //Check base directory existence and create them if needed
-      ensureDirectory(FileSystem::directoryName(directoryName));
-      fsLock.set();
-      int mdstat = ::mkdir(directoryName.c_str(), S_IRUSR | S_IWUSR | S_IXUSR);
-      fsLock.unset();
-			if(mdstat != 0 && !isDirectory(directoryName))
-			{
+        //S_IRUSR    00400     owner has read permission
+        //S_IWUSR    00200     owner has write permission
+        //S_IXUSR    00100     owner has execute permission
         cerrLock.set();
-  		  cerr << "ccbuild: Warning: Unable to create directory \"" << directoryName << "\"\n";
-  		  cerrLock.unset();
-		  }
-		}
-	}
+        cerr << "[MKDIR] " << directoryName << "\n";
+        cerrLock.unset();
+
+        if(!Options::simulate)
+        {
+            //Check base directory existence and create them if needed
+            ensureDirectory(FileSystem::directoryName(directoryName));
+            fsLock.set();
+            int mdstat = ::mkdir(directoryName.c_str(), S_IRUSR | S_IWUSR | S_IXUSR);
+            fsLock.unset();
+            if(mdstat != 0 && !isDirectory(directoryName))
+            {
+                cerrLock.set();
+                cerr << "ccbuild: Warning: Unable to create directory \"" << directoryName << "\"\n";
+                cerrLock.unset();
+            }
+        }
+    }
 }

@@ -19,8 +19,10 @@ int Compiler::lib(std::string pwd,
 			std::string outputFile, std::string const &version) const
 {
 	cls();
-
+    cerrLock.set();
   cerr << "[LIB] " << outputFile << "." << version << "\n";
+    cerrLock.unset();
+
 
   string command = libCommand(pwd, outputFile + "." + version);
 
@@ -29,7 +31,9 @@ int Compiler::lib(std::string pwd,
 
 	if(retValue != 0)
 	{
+    cerrLock.set();
 	  cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    cerrLock.unset();
 	  throw Problem(Problem::Subfailure, "Library linking failed.", retValue);
 	}
 
@@ -37,7 +41,9 @@ int Compiler::lib(std::string pwd,
 	if(version.find_first_of(".") == string::npos)
 	{
 		majorVersion = "0";
+    cerrLock.set();
 		cerr << "ccbuild: Warning: Version without a point, setting Major to " << majorVersion << ".\n";
+    cerrLock.unset();
 	}
 
 	// Major version -> full version
