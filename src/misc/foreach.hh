@@ -35,7 +35,7 @@
 ///For const iterators, there is the cforeach preprocessor macro.
 ///\section examples Examples
 ///\code
-///vector<usnigned> numbers;
+///vector<unsigned> numbers;
 ///numbers.push_back(10);
 ///__foreach(number, numbers)
 ///  cout << *number << "\n";
