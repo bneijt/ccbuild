@@ -31,8 +31,8 @@ echo "]]] Makefile and A-A-P scripts"
 if [ -f $YYLEX ];	then
 	aap cleanALL;
 	
-	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
-	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
+	ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
+	ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
 else
 	echo "NO YYLEX.cc FOR SCRIPT GENERATION;"
 	echo "use: make -f Makefile.human src/sourceScanner/yylex.cc"
