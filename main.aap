@@ -17,8 +17,8 @@ INSTALL_MAN += "doc/debiandoc/ccbuild.1"
 
 :progsearch Flex flex
 
-src/SourceScanner/yylex.cc : src/SourceScanner/lexer
-  :cd src/SourceScanner
+src/sourceScanner/yylex.cc : src/sourceScanner/lexer
+  :cd src/sourceScanner
   :system $Flex lexer
 
 all : ./src/ccbuild

@@ -46,7 +46,7 @@ ${PNAME}_LDADD = \${DEPS_LIBS} \${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openss
 man_MANS = doc/${PNAME}/${PNAME}.1
 
 #Flex it!
-src/SourceScanner/yylex.cc: src/SourceScanner/lexer
+src/sourceScanner/yylex.cc: src/sourceScanner/lexer
 	\${LEX} \$<
 	mv yylex.cc \$@
 

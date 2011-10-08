@@ -15,15 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "SourceScanner.ih"
-SourceScanner::SourceScanner(istream * yyin)
-	:
-	d_hasMainFunction(false)
+#include "sourceScanner.ih"
+void SourceScanner::storeGlobal()
 {
-  switch_streams(yyin, yyout);
+  d_globals.push_back(d_ginclude);
 }

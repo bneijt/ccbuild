@@ -6,7 +6,7 @@
 
 %{
     #define _SKIP_YYFLEXLEXER_
-    #include "SourceScanner.ih"
+    #include "sourceScanner.ih"
     ///\cond
 %}
 

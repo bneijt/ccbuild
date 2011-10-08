@@ -20,7 +20,7 @@
 #include "source.hh"
 #include "../resolver/resolver.hh"
 #include "../sources/sources.hh"
-#include "../SourceScanner/SourceScanner.hh"
+#include "../sourceScanner/sourceScanner.hh"
 #include "../fileSystem/fileSystem.hh"
 #include "../options/options.hh"
 #include "../globals/globals.hh"

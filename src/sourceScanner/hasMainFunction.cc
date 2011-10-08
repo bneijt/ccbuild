@@ -15,13 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "SourceScanner.ih"
-void SourceScanner::storeLocal()
+#include "sourceScanner.ih"
+bool const &SourceScanner::hasMainFunction() const
 {
-  d_locals.push_back(d_linclude);
+	return d_hasMainFunction;
 }

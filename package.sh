@@ -20,35 +20,35 @@
 ccbuild distclean
 rm -rf src/ccbuild
 
-echo ]]] Documentation
+echo "]]] Documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
-YYLEX=src/SourceScanner/yylex.cc
+YYLEX=src/sourceScanner/yylex.cc
 
 
-echo ]]] Makefile and A-A-P scripts
+echo "]]] Makefile and A-A-P scripts"
 if [ -f $YYLEX ];	then
 	aap cleanALL;
 	
 	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
 	ccbuild --addres src/ccResolutions --nodefargs --args '-O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
 else
-	echo NO YYLEX.cc FOR SCRIPT GENERATION;
-	echo use "make -f Makefile.human src/SourceScanner/yylex.cc"
+	echo "NO YYLEX.cc FOR SCRIPT GENERATION;"
+	echo "use: make -f Makefile.human src/sourceScanner/yylex.cc"
 	exit 1;
 fi;
 
 
 
-echo ]]] MD5 sum list of source
+echo "]]] MD5 sum list of source"
 rm -f MD5SUMS*
 make clean
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild -C src distclean
 
-echo ]]] Configure scripts for distribution: create, distclean, create
+echo "]]] Configure scripts for distribution: create, distclean, create"
 sh bootstrap
 ./configure
 sh bootstrap clean

@@ -15,13 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "SourceScanner.ih"
-void SourceScanner::storeGlobal()
+#include "sourceScanner.ih"
+void SourceScanner::storeIgnore()
 {
-  d_globals.push_back(d_ginclude);
+  d_ignore.push_back(d_iinclude);
 }

@@ -15,13 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
-#include "SourceScanner.ih"
-bool const &SourceScanner::hasMainFunction() const
+#include "sourceScanner.ih"
+bool const &SourceScanner::hasDefine() const
 {
-	return d_hasMainFunction;
+	return d_hasDefine;
 }

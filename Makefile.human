@@ -11,7 +11,7 @@ help:
 	@echo apidoc     Build api documentation using doxygen.
 	@echo help       Show this message.
 
-./src/SourceScanner/yylex.cc: ./src/SourceScanner/lexer
+./src/sourceScanner/yylex.cc: ./src/sourceScanner/lexer
 	flex $<
 	mv yylex.cc $@
 
@@ -19,7 +19,7 @@ include Makefile.ccbuild
 
 clean: distclean
 	rm -f src/ccbuild
-	rm -f src/SourceScanner/yylex.cc
+	rm -f src/sourceScanner/yylex.cc
 
 apidoc:
 	doxygen

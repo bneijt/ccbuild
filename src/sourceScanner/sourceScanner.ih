@@ -17,10 +17,8 @@
 
 */
 
-
-
 #include <iostream>
-#include "SourceScanner.hh"
+#include "sourceScanner.hh"
 #include "lexer.h"
 #include <fstream>
 #include <string>
