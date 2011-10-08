@@ -25,30 +25,35 @@
 int Compiler::precompile(std::string pwd, std::string target,
 		       std::string outputFile) const
 {
-	cls();
+    cls();
 
-  cerr << "[PREC] " << target << "\n";
-
-  string command = precompileCommand(pwd, target, outputFile);
-
- 	int retValue = System::system(command.c_str());
+    cerrLock.set();
+    cerr << "[PREC] " << target << "\n";
+    cerrLock.unset();
 
 
-  if(retValue != 0)
-  {
-    cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    string command = precompileCommand(pwd, target, outputFile);
 
-    if(!Options::execOnFail.empty())
-    	System::system((Options::execOnFail + " \"" + target + "\"").c_str());
+    int retValue = System::system(command.c_str());
 
-    if(!Options::brute)
-    	throw Problem(Problem::Subfailure, "Precompilation failed on " + target, retValue);    
-	    
-	  //Remove output, to make sure the gch is not used by g++
-	  FileSystem::rmIfExists(outputFile);
-  }
-  else if(!Options::execOnPass.empty())
-   	System::system((Options::execOnPass + " \"" + target + "\"").c_str());
 
-  return retValue;
+    if(retValue != 0)
+    {
+        cerrLock.set();
+        cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+        cerrLock.unset();
+
+        if(!Options::execOnFail.empty())
+            System::system((Options::execOnFail + " \"" + target + "\"").c_str());
+
+        if(!Options::brute)
+            throw Problem(Problem::Subfailure, "Precompilation failed on " + target, retValue);    
+
+        //Remove output, to make sure the gch is not used by g++
+        FileSystem::rmIfExists(outputFile);
+    }
+    else if(!Options::execOnPass.empty())
+        System::system((Options::execOnPass + " \"" + target + "\"").c_str());
+
+    return retValue;
 }
