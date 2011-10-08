@@ -15,41 +15,40 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Compiler.ih"
 
-int Compiler::compile(std::string pwd, std::string target,
+
+
+
+
+#include "compiler.ih"
+
+int Compiler::precompile(std::string pwd, std::string target,
 		       std::string outputFile) const
 {
 	cls();
 
-  cerrLock.set();
-  cerr << "[CC] " << target << "\n";
-  cerrLock.unset();
-  assert(target != outputFile);
-  string command = compileCommand(target, outputFile);
+  cerr << "[PREC] " << target << "\n";
 
-	//If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)
+  string command = precompileCommand(pwd, target, outputFile);
 
- 	int retValue = System::system(command);
+ 	int retValue = System::system(command.c_str());
+
 
   if(retValue != 0)
   {
-    cerrLock.set();
     cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
-    cerrLock.unset();
 
     if(!Options::execOnFail.empty())
     	System::system((Options::execOnFail + " \"" + target + "\"").c_str());
 
     if(!Options::brute)
-    	throw Problem(Problem::Subfailure, "Compilation failed on " + target, retValue);
-
-    //Remove the output file, to make sure linking fails
-    FileSystem::rmIfExists(outputFile);
+    	throw Problem(Problem::Subfailure, "Precompilation failed on " + target, retValue);    
+	    
+	  //Remove output, to make sure the gch is not used by g++
+	  FileSystem::rmIfExists(outputFile);
   }
   else if(!Options::execOnPass.empty())
    	System::system((Options::execOnPass + " \"" + target + "\"").c_str());
 
-	//TODO retValue is always 0, thus meaningless because of exceptions.
   return retValue;
 }

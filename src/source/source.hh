@@ -30,7 +30,7 @@
 #include <vector>
 #include <set>
 
-#include "../Compiler/Compiler.hh"
+#include "../compiler/compiler.hh"
 #include "../openmp/lock/lock.hh"
 namespace bneijt
 {

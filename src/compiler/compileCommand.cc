@@ -15,7 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Compiler.ih"
+#include "compiler.ih"
 
 string Compiler::compileCommand(std::string target,
 		       std::string outputFile) const

@@ -21,7 +21,7 @@
 #define System_H_INCLUDED_
 
 #include "../source/source.hh"
-#include "../Compiler/Compiler.hh"
+#include "../compiler/compiler.hh"
 #include "../arguments/arguments.hh"
 #include "../problem/problem.hh"
 

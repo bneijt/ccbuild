@@ -16,10 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-
-
-
-#include "Compiler.hh"
+#include "compiler.hh"
 //#include <cstdlib>	//System
 #include <iostream>
 #include <cstdio>

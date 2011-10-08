@@ -20,10 +20,18 @@
 
 
 
-#include "Compiler.ih"
+#include "compiler.ih"
 
-void Compiler::cls() const
+string Compiler::precompileCommand(std::string pwd, std::string target,
+		       std::string outputFile) const
 {
-	if(Options::clearPerCommand)
-		cout << s_clear << flush;
+  ostringstream command(d_baseCommand, ios::ate);
+
+  command << " " << Options::extraArgs << " ";
+
+  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
+
+  command << "-c -o \"" << outputFile << "\" -x \"c++-header\" \"" << target << "\" ";
+  command << Options::commandAppend;
+	return command.str();
 }

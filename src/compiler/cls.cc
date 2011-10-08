@@ -14,16 +14,10 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "compiler.ih"
 
-
-
-
-
-
-#include "Compiler.ih"
-
-void Compiler::addObject(std::string objFilename)
+void Compiler::cls() const
 {
-	if(find(d_objects.begin(), d_objects.end(), objFilename) == d_objects.end())
- 		d_objects.push_back(objFilename);
+	if(Options::clearPerCommand)
+		cout << s_clear << flush;
 }

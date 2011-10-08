@@ -14,7 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "Compiler.ih"
+#include "compiler.ih"
 
 void Compiler::splitInto(std::string argument, std::vector<std::string> &arguments) const
 {

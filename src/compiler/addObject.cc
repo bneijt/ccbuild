@@ -14,19 +14,10 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "compiler.ih"
 
-
-
-
-
-
-
-
-#include "Compiler.ih"
-
-std::string const Compiler::s_highLightOff("\x1b\x5b\x30\x6d");		//\\e[0m
-std::string const Compiler::s_highLightOn("\x1b\x5b\x33\x31\x6d");	//\e[31m
-std::string const Compiler::s_clear("\33[H\33[2J");
-
-//Messages
-std::string const Compiler::s_msgCancelBruteMode("ccbuild: Canceling brute because of return value 2 from compiler\n");
+void Compiler::addObject(std::string objFilename)
+{
+	if(find(d_objects.begin(), d_objects.end(), objFilename) == d_objects.end())
+ 		d_objects.push_back(objFilename);
+}

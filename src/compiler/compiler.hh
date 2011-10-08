@@ -18,8 +18,8 @@
 */
 
 
-#ifndef _Compiler_H_INCLUDED_
-#define _Compiler_H_INCLUDED_
+#ifndef Compiler_H_INCLUDED_
+#define Compiler_H_INCLUDED_
 #include <string>
 #include <vector>
 

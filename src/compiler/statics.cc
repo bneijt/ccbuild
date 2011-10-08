@@ -15,23 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "compiler.ih"
 
+std::string const Compiler::s_highLightOff("\x1b\x5b\x30\x6d");		//\\e[0m
+std::string const Compiler::s_highLightOn("\x1b\x5b\x33\x31\x6d");	//\e[31m
+std::string const Compiler::s_clear("\33[H\33[2J");
 
-
-
-
-#include "Compiler.ih"
-
-string Compiler::precompileCommand(std::string pwd, std::string target,
-		       std::string outputFile) const
-{
-  ostringstream command(d_baseCommand, ios::ate);
-
-  command << " " << Options::extraArgs << " ";
-
-  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
-
-  command << "-c -o \"" << outputFile << "\" -x \"c++-header\" \"" << target << "\" ";
-  command << Options::commandAppend;
-	return command.str();
-}
+//Messages
+std::string const Compiler::s_msgCancelBruteMode("ccbuild: Canceling brute because of return value 2 from compiler\n");

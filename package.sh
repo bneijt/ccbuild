@@ -18,9 +18,10 @@
 
 
 ccbuild distclean
+rm -rf src/ccbuild
 
 echo ]]] Documentation
-rm -rf doc/html
+make -C doc/ccbuild clean
 make -C doc/ccbuild
 
 YYLEX=src/SourceScanner/yylex.cc

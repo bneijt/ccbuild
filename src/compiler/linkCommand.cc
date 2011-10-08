@@ -15,11 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-#include "Compiler.ih"
+#include "compiler.ih"
 
 /*
 //PART OF > 30000 objects code

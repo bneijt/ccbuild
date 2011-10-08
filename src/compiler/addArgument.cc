@@ -14,16 +14,10 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 //See GNU manual for options: http://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#Link-Options
 
 
-#include "Compiler.ih"
+#include "compiler.ih"
 void Compiler::addArgument(std::string argument)
 {
 	_debugLevel4("Starting (" << argument << ")");

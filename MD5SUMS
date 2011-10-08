@@ -1,4 +1,4 @@
-5b72d7d19247912a90c3c5e9a2ef0283  src/ccbuild.cc
+6f3c49fb0bbba7f9f54d435e4dbdf43a  src/ccbuild.cc
 550dbca0cc69211c45b0a095be4bf05e  src/misc/debug.hh
 de4b2bb556cd5d97bdac32f3d4f1f037  src/MD5Info/MD5Info.hh
 3b272e86b3554736af6e6709d3bf123f  src/MD5Info/statics.cc
@@ -103,7 +103,7 @@ fa6dc1cd9b6b1389bd784d95984dd701  src/Resolver/Resolver.ih
 35d2efd79beeab44eb573f3a86a13346  src/Resolver/getInstance.cc
 b4aaa5285805fbbcf7237be9d8541f32  src/Resolver/expand.cc
 9aa9ca1c462b0c81d586720aad4c16fe  src/Resolver/destroy.cc
-5be91ce06bc7f42290b2453eb0f03fa7  src/Resolver/Resolver.cc
+c29332f84239ed46d2bc84550d77d8cb  src/Resolver/Resolver.cc
 1756045ffe01a7d4692906ef2a79edd9  src/Compiler/Compiler.hh
 5035322eccbdb87471e75d4a34a5bd83  src/Compiler/statics.cc
 23e0d63fb67e552e7155fc47457c8abb  src/Compiler/Compiler.ih
