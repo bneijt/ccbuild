@@ -35,10 +35,10 @@ YYLEX=src/sourceScanner/yylex.cc
 
 
 echo "]]] Makefile and A-A-P scripts"
+aap cleanALL;
 if [ ! -f $YYLEX ];	then
 	make -f Makefile.human src/sourceScanner/yylex.cc
 fi;
-aap cleanALL;
 
 ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
 ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
@@ -46,8 +46,10 @@ ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=
 
 
 echo "]]] MD5 sum list of source"
-rm -f MD5SUMS*
-make -f Makefile.human clean
+rm MD5SUMS
+if [ -f Makefile ]; then
+    make clean
+fi
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild -C src distclean

@@ -180,6 +180,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/source/ccbuild-buildBinTarget.$(OBJEXT) \
 	src/source/ccbuild-build.$(OBJEXT) \
 	src/source/ccbuild-basenameWithoutExtension.$(OBJEXT) \
+	src/sourceScanner/ccbuild-yylex.$(OBJEXT) \
 	src/sourceScanner/ccbuild-storeLocal.$(OBJEXT) \
 	src/sourceScanner/ccbuild-storeIgnore.$(OBJEXT) \
 	src/sourceScanner/ccbuild-storeGlobal.$(OBJEXT) \
@@ -433,9 +434,9 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/source/changed.cc src/source/buildObjectTarget.cc \
 	src/source/buildHeader.cc src/source/buildBinTarget.cc \
 	src/source/build.cc src/source/basenameWithoutExtension.cc \
-	src/sourceScanner/sourceScanner.hh \
-	src/sourceScanner/storeLocal.cc \
+	src/sourceScanner/sourceScanner.hh src/sourceScanner/yylex.cc \
 	src/sourceScanner/sourceScanner.ih \
+	src/sourceScanner/storeLocal.cc \
 	src/sourceScanner/storeIgnore.cc \
 	src/sourceScanner/storeGlobal.cc \
 	src/sourceScanner/sourceScanner.cc \
@@ -928,6 +929,9 @@ src/sourceScanner/$(am__dirstamp):
 src/sourceScanner/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/sourceScanner/$(DEPDIR)
 	@: > src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-yylex.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
 src/sourceScanner/ccbuild-storeLocal.$(OBJEXT):  \
 	src/sourceScanner/$(am__dirstamp) \
 	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
@@ -1094,6 +1098,7 @@ mostlyclean-compile:
 	-rm -f src/sourceScanner/ccbuild-storeGlobal.$(OBJEXT)
 	-rm -f src/sourceScanner/ccbuild-storeIgnore.$(OBJEXT)
 	-rm -f src/sourceScanner/ccbuild-storeLocal.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-yylex.$(OBJEXT)
 	-rm -f src/sources/ccbuild-destroy.$(OBJEXT)
 	-rm -f src/sources/ccbuild-erase.$(OBJEXT)
 	-rm -f src/sources/ccbuild-getInstance.$(OBJEXT)
@@ -1246,6 +1251,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-erase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
@@ -3138,6 +3144,20 @@ src/source/ccbuild-basenameWithoutExtension.obj: src/source/basenameWithoutExten
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/source/basenameWithoutExtension.cc' object='src/source/ccbuild-basenameWithoutExtension.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-basenameWithoutExtension.obj `if test -f 'src/source/basenameWithoutExtension.cc'; then $(CYGPATH_W) 'src/source/basenameWithoutExtension.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/basenameWithoutExtension.cc'; fi`
+
+src/sourceScanner/ccbuild-yylex.o: src/sourceScanner/yylex.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-yylex.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo -c -o src/sourceScanner/ccbuild-yylex.o `test -f 'src/sourceScanner/yylex.cc' || echo '$(srcdir)/'`src/sourceScanner/yylex.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/yylex.cc' object='src/sourceScanner/ccbuild-yylex.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-yylex.o `test -f 'src/sourceScanner/yylex.cc' || echo '$(srcdir)/'`src/sourceScanner/yylex.cc
+
+src/sourceScanner/ccbuild-yylex.obj: src/sourceScanner/yylex.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-yylex.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo -c -o src/sourceScanner/ccbuild-yylex.obj `if test -f 'src/sourceScanner/yylex.cc'; then $(CYGPATH_W) 'src/sourceScanner/yylex.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/yylex.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-yylex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/yylex.cc' object='src/sourceScanner/ccbuild-yylex.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-yylex.obj `if test -f 'src/sourceScanner/yylex.cc'; then $(CYGPATH_W) 'src/sourceScanner/yylex.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/yylex.cc'; fi`
 
 src/sourceScanner/ccbuild-storeLocal.o: src/sourceScanner/storeLocal.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeLocal.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo -c -o src/sourceScanner/ccbuild-storeLocal.o `test -f 'src/sourceScanner/storeLocal.cc' || echo '$(srcdir)/'`src/sourceScanner/storeLocal.cc

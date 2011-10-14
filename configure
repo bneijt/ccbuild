@@ -5510,7 +5510,7 @@ fi
 #AC_SUBST(DEPS_LIBS + " -lgnutls-openssl")
 
 #Use ccbuild to generate a list of headers we use. This depends on ccbuild >= 2.0.0
-globalHeaders="FlexLexer.h algorithm bobcat/process bobcat/user boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring ctime features.h fstream functional getopt.h glob.h gnutls/openssl.h iomanip iosfwd iostream iterator map numeric omp.h set sstream stack stddef.h string sys/stat.h sys/time.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector
+globalHeaders="FlexLexer.h algorithm bobcat/process bobcat/user boost/circular_buffer.hpp boost/lexical_cast.hpp cassert cstdio cstdlib cstring ctime errno.h features.h fstream functional getopt.h glob.h gnutls/openssl.h inttypes.h iomanip iosfwd iostream iterator map numeric omp.h set sstream stack stddef.h string sys/stat.h sys/time.h sys/types.h sys/utsname.h typeinfo unistd.h utility vector
 "
 for ac_header in $globalHeaders
 do :

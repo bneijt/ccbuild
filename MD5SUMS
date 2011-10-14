@@ -160,8 +160,9 @@ bc06238c167779bf44c6414c9ae8de4e  src/source/buildBinTarget.cc
 51d143ca0d67cdae6b8d50928ee550ef  src/source/build.cc
 894201214254149468ba56cbc0aeaa76  src/source/basenameWithoutExtension.cc
 6b64f0e1b5cb0bbde7fcbc8706a40a2b  src/sourceScanner/sourceScanner.hh
-5323ac01dbb2fc6df8c11c64ed530973  src/sourceScanner/storeLocal.cc
+795122da973edeb756542827378f1b18  src/sourceScanner/yylex.cc
 b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
+5323ac01dbb2fc6df8c11c64ed530973  src/sourceScanner/storeLocal.cc
 78faf9f082246b8d281d788a73f05c24  src/sourceScanner/storeIgnore.cc
 e154739f204ab39d73d10d63ded83f4a  src/sourceScanner/storeGlobal.cc
 59c8c35242d5087d3ce9a0b9a5f6bdc9  src/sourceScanner/sourceScanner.cc
