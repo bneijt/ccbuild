@@ -123,30 +123,30 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/fileSystem/ccbuild-baseName.$(OBJEXT) \
 	src/fileSystem/ccbuild-absolutePath.$(OBJEXT) \
 	src/problem/ccbuild-problem.$(OBJEXT) \
-	src/Resolver/ccbuild-statics.$(OBJEXT) \
-	src/Resolver/ccbuild-resolveInto.$(OBJEXT) \
-	src/Resolver/ccbuild-resolve.$(OBJEXT) \
-	src/Resolver/ccbuild-loadIfExists.$(OBJEXT) \
-	src/Resolver/ccbuild-getInstance.$(OBJEXT) \
-	src/Resolver/ccbuild-expand.$(OBJEXT) \
-	src/Resolver/ccbuild-destroy.$(OBJEXT) \
-	src/Resolver/ccbuild-Resolver.$(OBJEXT) \
-	src/Compiler/ccbuild-statics.$(OBJEXT) \
-	src/Compiler/ccbuild-splitInto.$(OBJEXT) \
-	src/Compiler/ccbuild-precompileCommand.$(OBJEXT) \
-	src/Compiler/ccbuild-precompile.$(OBJEXT) \
-	src/Compiler/ccbuild-operator_add.$(OBJEXT) \
-	src/Compiler/ccbuild-linkCommand.$(OBJEXT) \
-	src/Compiler/ccbuild-link.$(OBJEXT) \
-	src/Compiler/ccbuild-libCommand.$(OBJEXT) \
-	src/Compiler/ccbuild-lib.$(OBJEXT) \
-	src/Compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT) \
-	src/Compiler/ccbuild-compileCommand.$(OBJEXT) \
-	src/Compiler/ccbuild-compile.$(OBJEXT) \
-	src/Compiler/ccbuild-cls.$(OBJEXT) \
-	src/Compiler/ccbuild-ar.$(OBJEXT) \
-	src/Compiler/ccbuild-addObject.$(OBJEXT) \
-	src/Compiler/ccbuild-addArgument.$(OBJEXT) \
+	src/resolver/ccbuild-statics.$(OBJEXT) \
+	src/resolver/ccbuild-resolver.$(OBJEXT) \
+	src/resolver/ccbuild-resolveInto.$(OBJEXT) \
+	src/resolver/ccbuild-resolve.$(OBJEXT) \
+	src/resolver/ccbuild-loadIfExists.$(OBJEXT) \
+	src/resolver/ccbuild-getInstance.$(OBJEXT) \
+	src/resolver/ccbuild-expand.$(OBJEXT) \
+	src/resolver/ccbuild-destroy.$(OBJEXT) \
+	src/compiler/ccbuild-statics.$(OBJEXT) \
+	src/compiler/ccbuild-splitInto.$(OBJEXT) \
+	src/compiler/ccbuild-precompileCommand.$(OBJEXT) \
+	src/compiler/ccbuild-precompile.$(OBJEXT) \
+	src/compiler/ccbuild-operator_add.$(OBJEXT) \
+	src/compiler/ccbuild-linkCommand.$(OBJEXT) \
+	src/compiler/ccbuild-link.$(OBJEXT) \
+	src/compiler/ccbuild-libCommand.$(OBJEXT) \
+	src/compiler/ccbuild-lib.$(OBJEXT) \
+	src/compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT) \
+	src/compiler/ccbuild-compileCommand.$(OBJEXT) \
+	src/compiler/ccbuild-compile.$(OBJEXT) \
+	src/compiler/ccbuild-cls.$(OBJEXT) \
+	src/compiler/ccbuild-ar.$(OBJEXT) \
+	src/compiler/ccbuild-addObject.$(OBJEXT) \
+	src/compiler/ccbuild-addArgument.$(OBJEXT) \
 	src/sources/ccbuild-statics.$(OBJEXT) \
 	src/sources/ccbuild-sources.$(OBJEXT) \
 	src/sources/ccbuild-reloadStaleSources.$(OBJEXT) \
@@ -180,14 +180,13 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/source/ccbuild-buildBinTarget.$(OBJEXT) \
 	src/source/ccbuild-build.$(OBJEXT) \
 	src/source/ccbuild-basenameWithoutExtension.$(OBJEXT) \
-	src/SourceScanner/ccbuild-yylex.$(OBJEXT) \
-	src/SourceScanner/ccbuild-storeLocal.$(OBJEXT) \
-	src/SourceScanner/ccbuild-storeIgnore.$(OBJEXT) \
-	src/SourceScanner/ccbuild-storeGlobal.$(OBJEXT) \
-	src/SourceScanner/ccbuild-includes.$(OBJEXT) \
-	src/SourceScanner/ccbuild-hasMainFunction.$(OBJEXT) \
-	src/SourceScanner/ccbuild-hasDefine.$(OBJEXT) \
-	src/SourceScanner/ccbuild-SourceScanner.$(OBJEXT) \
+	src/sourceScanner/ccbuild-storeLocal.$(OBJEXT) \
+	src/sourceScanner/ccbuild-storeIgnore.$(OBJEXT) \
+	src/sourceScanner/ccbuild-storeGlobal.$(OBJEXT) \
+	src/sourceScanner/ccbuild-sourceScanner.$(OBJEXT) \
+	src/sourceScanner/ccbuild-includes.$(OBJEXT) \
+	src/sourceScanner/ccbuild-hasMainFunction.$(OBJEXT) \
+	src/sourceScanner/ccbuild-hasDefine.$(OBJEXT) \
 	src/arguments/ccbuild-values.$(OBJEXT) \
 	src/arguments/ccbuild-value.$(OBJEXT) \
 	src/arguments/ccbuild-statics.$(OBJEXT) \
@@ -200,7 +199,7 @@ am_ccbuild_OBJECTS = src/ccbuild-ccbuild.$(OBJEXT) \
 	src/arguments/ccbuild-arguments.$(OBJEXT)
 ccbuild_OBJECTS = $(am_ccbuild_OBJECTS)
 am__DEPENDENCIES_1 =
-ccbuild_DEPENDENCIES = $(am__DEPENDENCIES_1)
+ccbuild_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 ccbuild_LINK = $(CXXLD) $(ccbuild_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -261,6 +260,8 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BOOST_CPPFLAGS = @BOOST_CPPFLAGS@
+BOOST_LDFLAGS = @BOOST_LDFLAGS@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
@@ -400,20 +401,20 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/fileSystem/cleanPath.cc src/fileSystem/baseName.cc \
 	src/fileSystem/absolutePath.cc src/problem/problem.hh \
 	src/problem/problem.cc src/problem/problem.ih \
-	src/Resolver/Resolver.hh src/Resolver/statics.cc \
-	src/Resolver/Resolver.ih src/Resolver/resolveInto.cc \
-	src/Resolver/resolve.cc src/Resolver/loadIfExists.cc \
-	src/Resolver/getInstance.cc src/Resolver/expand.cc \
-	src/Resolver/destroy.cc src/Resolver/Resolver.cc \
-	src/Compiler/Compiler.hh src/Compiler/statics.cc \
-	src/Compiler/Compiler.ih src/Compiler/splitInto.cc \
-	src/Compiler/precompileCommand.cc src/Compiler/precompile.cc \
-	src/Compiler/operator_add.cc src/Compiler/linkCommand.cc \
-	src/Compiler/link.cc src/Compiler/libCommand.cc \
-	src/Compiler/lib.cc src/Compiler/countFirstLinkerArguments.cc \
-	src/Compiler/compileCommand.cc src/Compiler/compile.cc \
-	src/Compiler/cls.cc src/Compiler/ar.cc \
-	src/Compiler/addObject.cc src/Compiler/addArgument.cc \
+	src/resolver/resolver.hh src/resolver/statics.cc \
+	src/resolver/resolver.ih src/resolver/resolver.cc \
+	src/resolver/resolveInto.cc src/resolver/resolve.cc \
+	src/resolver/loadIfExists.cc src/resolver/getInstance.cc \
+	src/resolver/expand.cc src/resolver/destroy.cc \
+	src/compiler/compiler.hh src/compiler/statics.cc \
+	src/compiler/compiler.ih src/compiler/splitInto.cc \
+	src/compiler/precompileCommand.cc src/compiler/precompile.cc \
+	src/compiler/operator_add.cc src/compiler/linkCommand.cc \
+	src/compiler/link.cc src/compiler/libCommand.cc \
+	src/compiler/lib.cc src/compiler/countFirstLinkerArguments.cc \
+	src/compiler/compileCommand.cc src/compiler/compile.cc \
+	src/compiler/cls.cc src/compiler/ar.cc \
+	src/compiler/addObject.cc src/compiler/addArgument.cc \
 	src/sources/sources.hh src/sources/statics.cc \
 	src/sources/sources.ih src/sources/sources.cc \
 	src/sources/reloadStaleSources.cc src/sources/indexoperator.cc \
@@ -432,21 +433,22 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/source/changed.cc src/source/buildObjectTarget.cc \
 	src/source/buildHeader.cc src/source/buildBinTarget.cc \
 	src/source/build.cc src/source/basenameWithoutExtension.cc \
-	src/SourceScanner/SourceScanner.hh src/SourceScanner/yylex.cc \
-	src/SourceScanner/SourceScanner.ih \
-	src/SourceScanner/storeLocal.cc \
-	src/SourceScanner/storeIgnore.cc \
-	src/SourceScanner/storeGlobal.cc src/SourceScanner/includes.cc \
-	src/SourceScanner/hasMainFunction.cc \
-	src/SourceScanner/hasDefine.cc \
-	src/SourceScanner/SourceScanner.cc src/SourceScanner/lexer.h \
+	src/sourceScanner/sourceScanner.hh \
+	src/sourceScanner/storeLocal.cc \
+	src/sourceScanner/sourceScanner.ih \
+	src/sourceScanner/storeIgnore.cc \
+	src/sourceScanner/storeGlobal.cc \
+	src/sourceScanner/sourceScanner.cc \
+	src/sourceScanner/includes.cc \
+	src/sourceScanner/hasMainFunction.cc \
+	src/sourceScanner/hasDefine.cc src/sourceScanner/lexer.h \
 	src/arguments/arguments.hh src/arguments/values.cc \
 	src/arguments/arguments.ih src/arguments/value.cc \
 	src/arguments/statics.cc src/arguments/outputOptions.cc \
 	src/arguments/initialize.cc src/arguments/getInstance.cc \
 	src/arguments/flagged.cc src/arguments/destroy.cc \
 	src/arguments/clear.cc src/arguments/arguments.cc
-ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=C++0x
+ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=c++0x
 ccbuild_LDADD = ${DEPS_LIBS} ${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openssl
 man_MANS = doc/ccbuild/ccbuild.1
 all: all-am
@@ -757,79 +759,79 @@ src/problem/$(DEPDIR)/$(am__dirstamp):
 	@: > src/problem/$(DEPDIR)/$(am__dirstamp)
 src/problem/ccbuild-problem.$(OBJEXT): src/problem/$(am__dirstamp) \
 	src/problem/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/$(am__dirstamp):
-	@$(MKDIR_P) src/Resolver
-	@: > src/Resolver/$(am__dirstamp)
-src/Resolver/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/Resolver/$(DEPDIR)
-	@: > src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-statics.$(OBJEXT): src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-resolveInto.$(OBJEXT):  \
-	src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-resolve.$(OBJEXT): src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-loadIfExists.$(OBJEXT):  \
-	src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-getInstance.$(OBJEXT):  \
-	src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-expand.$(OBJEXT): src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-destroy.$(OBJEXT): src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Resolver/ccbuild-Resolver.$(OBJEXT): src/Resolver/$(am__dirstamp) \
-	src/Resolver/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/$(am__dirstamp):
-	@$(MKDIR_P) src/Compiler
-	@: > src/Compiler/$(am__dirstamp)
-src/Compiler/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/Compiler/$(DEPDIR)
-	@: > src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-statics.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-splitInto.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-precompileCommand.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-precompile.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-operator_add.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-linkCommand.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-link.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-libCommand.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-lib.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-compileCommand.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-compile.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-cls.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-ar.$(OBJEXT): src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-addObject.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
-src/Compiler/ccbuild-addArgument.$(OBJEXT):  \
-	src/Compiler/$(am__dirstamp) \
-	src/Compiler/$(DEPDIR)/$(am__dirstamp)
+src/resolver/$(am__dirstamp):
+	@$(MKDIR_P) src/resolver
+	@: > src/resolver/$(am__dirstamp)
+src/resolver/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/resolver/$(DEPDIR)
+	@: > src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-statics.$(OBJEXT): src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-resolver.$(OBJEXT): src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-resolveInto.$(OBJEXT):  \
+	src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-resolve.$(OBJEXT): src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-loadIfExists.$(OBJEXT):  \
+	src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-getInstance.$(OBJEXT):  \
+	src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-expand.$(OBJEXT): src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/resolver/ccbuild-destroy.$(OBJEXT): src/resolver/$(am__dirstamp) \
+	src/resolver/$(DEPDIR)/$(am__dirstamp)
+src/compiler/$(am__dirstamp):
+	@$(MKDIR_P) src/compiler
+	@: > src/compiler/$(am__dirstamp)
+src/compiler/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/compiler/$(DEPDIR)
+	@: > src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-statics.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-splitInto.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-precompileCommand.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-precompile.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-operator_add.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-linkCommand.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-link.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-libCommand.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-lib.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-compileCommand.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-compile.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-cls.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-ar.$(OBJEXT): src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-addObject.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
+src/compiler/ccbuild-addArgument.$(OBJEXT):  \
+	src/compiler/$(am__dirstamp) \
+	src/compiler/$(DEPDIR)/$(am__dirstamp)
 src/sources/$(am__dirstamp):
 	@$(MKDIR_P) src/sources
 	@: > src/sources/$(am__dirstamp)
@@ -920,36 +922,33 @@ src/source/ccbuild-build.$(OBJEXT): src/source/$(am__dirstamp) \
 src/source/ccbuild-basenameWithoutExtension.$(OBJEXT):  \
 	src/source/$(am__dirstamp) \
 	src/source/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/$(am__dirstamp):
-	@$(MKDIR_P) src/SourceScanner
-	@: > src/SourceScanner/$(am__dirstamp)
-src/SourceScanner/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/SourceScanner/$(DEPDIR)
-	@: > src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-yylex.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-storeLocal.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-storeIgnore.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-storeGlobal.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-includes.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-hasMainFunction.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-hasDefine.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-src/SourceScanner/ccbuild-SourceScanner.$(OBJEXT):  \
-	src/SourceScanner/$(am__dirstamp) \
-	src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/$(am__dirstamp):
+	@$(MKDIR_P) src/sourceScanner
+	@: > src/sourceScanner/$(am__dirstamp)
+src/sourceScanner/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/sourceScanner/$(DEPDIR)
+	@: > src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-storeLocal.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-storeIgnore.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-storeGlobal.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-sourceScanner.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-includes.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-hasMainFunction.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+src/sourceScanner/ccbuild-hasDefine.$(OBJEXT):  \
+	src/sourceScanner/$(am__dirstamp) \
+	src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
 src/arguments/$(am__dirstamp):
 	@$(MKDIR_P) src/arguments
 	@: > src/arguments/$(am__dirstamp)
@@ -989,22 +988,6 @@ ccbuild$(EXEEXT): $(ccbuild_OBJECTS) $(ccbuild_DEPENDENCIES)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-addArgument.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-addObject.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-ar.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-cls.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-compile.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-compileCommand.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-lib.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-libCommand.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-link.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-linkCommand.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-operator_add.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-precompile.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-precompileCommand.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-splitInto.$(OBJEXT)
-	-rm -f src/Compiler/ccbuild-statics.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-MD5Info.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-contentHash.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-destroy.$(OBJEXT)
@@ -1014,22 +997,6 @@ mostlyclean-compile:
 	-rm -f src/MD5Info/ccbuild-old.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-save.$(OBJEXT)
 	-rm -f src/MD5Info/ccbuild-statics.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-Resolver.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-destroy.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-expand.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-getInstance.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-loadIfExists.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-resolve.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-resolveInto.$(OBJEXT)
-	-rm -f src/Resolver/ccbuild-statics.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-SourceScanner.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-hasDefine.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-hasMainFunction.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-includes.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-storeGlobal.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-storeIgnore.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-storeLocal.$(OBJEXT)
-	-rm -f src/SourceScanner/ccbuild-yylex.$(OBJEXT)
 	-rm -f src/arguments/ccbuild-arguments.$(OBJEXT)
 	-rm -f src/arguments/ccbuild-clear.$(OBJEXT)
 	-rm -f src/arguments/ccbuild-destroy.$(OBJEXT)
@@ -1041,6 +1008,22 @@ mostlyclean-compile:
 	-rm -f src/arguments/ccbuild-value.$(OBJEXT)
 	-rm -f src/arguments/ccbuild-values.$(OBJEXT)
 	-rm -f src/ccbuild-ccbuild.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-addArgument.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-addObject.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-ar.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-cls.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-compile.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-compileCommand.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-countFirstLinkerArguments.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-lib.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-libCommand.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-link.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-linkCommand.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-operator_add.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-precompile.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-precompileCommand.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-splitInto.$(OBJEXT)
+	-rm -f src/compiler/ccbuild-statics.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-absolutePath.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-baseName.$(OBJEXT)
 	-rm -f src/fileSystem/ccbuild-cleanPath.$(OBJEXT)
@@ -1070,6 +1053,14 @@ mostlyclean-compile:
 	-rm -f src/globals/ccbuild-statics.$(OBJEXT)
 	-rm -f src/options/ccbuild-statics.$(OBJEXT)
 	-rm -f src/problem/ccbuild-problem.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-destroy.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-expand.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-getInstance.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-loadIfExists.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-resolve.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-resolveInto.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-resolver.$(OBJEXT)
+	-rm -f src/resolver/ccbuild-statics.$(OBJEXT)
 	-rm -f src/source/ccbuild-basenameWithoutExtension.$(OBJEXT)
 	-rm -f src/source/ccbuild-build.$(OBJEXT)
 	-rm -f src/source/ccbuild-buildBinTarget.$(OBJEXT)
@@ -1096,6 +1087,13 @@ mostlyclean-compile:
 	-rm -f src/source/ccbuild-source.$(OBJEXT)
 	-rm -f src/source/ccbuild-stale.$(OBJEXT)
 	-rm -f src/source/ccbuild-upToDate.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-hasDefine.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-hasMainFunction.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-includes.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-sourceScanner.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-storeGlobal.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-storeIgnore.$(OBJEXT)
+	-rm -f src/sourceScanner/ccbuild-storeLocal.$(OBJEXT)
 	-rm -f src/sources/ccbuild-destroy.$(OBJEXT)
 	-rm -f src/sources/ccbuild-erase.$(OBJEXT)
 	-rm -f src/sources/ccbuild-getInstance.$(OBJEXT)
@@ -1143,22 +1141,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/ccbuild-ccbuild.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-addArgument.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-addObject.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-ar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-cls.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-compile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-lib.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-libCommand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-link.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-operator_add.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-precompile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-splitInto.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Compiler/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-MD5Info.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-contentHash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
@@ -1168,22 +1150,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-old.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-save.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/MD5Info/$(DEPDIR)/ccbuild-statics.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-Resolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-expand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-resolve.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/Resolver/$(DEPDIR)/ccbuild-statics.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-includes.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-arguments.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-clear.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
@@ -1194,6 +1160,22 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-value.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/arguments/$(DEPDIR)/ccbuild-values.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-addArgument.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-addObject.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-ar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-cls.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-compile.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-compileCommand.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-lib.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-libCommand.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-link.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-linkCommand.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-operator_add.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-precompile.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-splitInto.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/compiler/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-absolutePath.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-baseName.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/fileSystem/$(DEPDIR)/ccbuild-cleanPath.Po@am__quote@
@@ -1223,6 +1205,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/globals/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/options/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/problem/$(DEPDIR)/ccbuild-problem.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-expand.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-resolve.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-resolveInto.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-resolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/resolver/$(DEPDIR)/ccbuild-statics.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-basenameWithoutExtension.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-build.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-buildBinTarget.Po@am__quote@
@@ -1249,6 +1239,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-source.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-stale.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/source/$(DEPDIR)/ccbuild-upToDate.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-includes.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-destroy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-erase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/sources/$(DEPDIR)/ccbuild-getInstance.Po@am__quote@
@@ -2344,341 +2341,341 @@ src/problem/ccbuild-problem.obj: src/problem/problem.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/problem/ccbuild-problem.obj `if test -f 'src/problem/problem.cc'; then $(CYGPATH_W) 'src/problem/problem.cc'; else $(CYGPATH_W) '$(srcdir)/src/problem/problem.cc'; fi`
 
-src/Resolver/ccbuild-statics.o: src/Resolver/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-statics.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Resolver/ccbuild-statics.o `test -f 'src/Resolver/statics.cc' || echo '$(srcdir)/'`src/Resolver/statics.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-statics.Tpo src/Resolver/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/statics.cc' object='src/Resolver/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-statics.o: src/resolver/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-statics.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/resolver/ccbuild-statics.o `test -f 'src/resolver/statics.cc' || echo '$(srcdir)/'`src/resolver/statics.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-statics.Tpo src/resolver/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/statics.cc' object='src/resolver/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-statics.o `test -f 'src/Resolver/statics.cc' || echo '$(srcdir)/'`src/Resolver/statics.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-statics.o `test -f 'src/resolver/statics.cc' || echo '$(srcdir)/'`src/resolver/statics.cc
 
-src/Resolver/ccbuild-statics.obj: src/Resolver/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-statics.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Resolver/ccbuild-statics.obj `if test -f 'src/Resolver/statics.cc'; then $(CYGPATH_W) 'src/Resolver/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/statics.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-statics.Tpo src/Resolver/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/statics.cc' object='src/Resolver/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-statics.obj: src/resolver/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-statics.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/resolver/ccbuild-statics.obj `if test -f 'src/resolver/statics.cc'; then $(CYGPATH_W) 'src/resolver/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/statics.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-statics.Tpo src/resolver/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/statics.cc' object='src/resolver/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-statics.obj `if test -f 'src/Resolver/statics.cc'; then $(CYGPATH_W) 'src/Resolver/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/statics.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-statics.obj `if test -f 'src/resolver/statics.cc'; then $(CYGPATH_W) 'src/resolver/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/statics.cc'; fi`
 
-src/Resolver/ccbuild-resolveInto.o: src/Resolver/resolveInto.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-resolveInto.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo -c -o src/Resolver/ccbuild-resolveInto.o `test -f 'src/Resolver/resolveInto.cc' || echo '$(srcdir)/'`src/Resolver/resolveInto.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/resolveInto.cc' object='src/Resolver/ccbuild-resolveInto.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolver.o: src/resolver/resolver.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolver.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolver.Tpo -c -o src/resolver/ccbuild-resolver.o `test -f 'src/resolver/resolver.cc' || echo '$(srcdir)/'`src/resolver/resolver.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolver.Tpo src/resolver/$(DEPDIR)/ccbuild-resolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolver.cc' object='src/resolver/ccbuild-resolver.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-resolveInto.o `test -f 'src/Resolver/resolveInto.cc' || echo '$(srcdir)/'`src/Resolver/resolveInto.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolver.o `test -f 'src/resolver/resolver.cc' || echo '$(srcdir)/'`src/resolver/resolver.cc
 
-src/Resolver/ccbuild-resolveInto.obj: src/Resolver/resolveInto.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-resolveInto.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo -c -o src/Resolver/ccbuild-resolveInto.obj `if test -f 'src/Resolver/resolveInto.cc'; then $(CYGPATH_W) 'src/Resolver/resolveInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/resolveInto.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo src/Resolver/$(DEPDIR)/ccbuild-resolveInto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/resolveInto.cc' object='src/Resolver/ccbuild-resolveInto.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolver.obj: src/resolver/resolver.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolver.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolver.Tpo -c -o src/resolver/ccbuild-resolver.obj `if test -f 'src/resolver/resolver.cc'; then $(CYGPATH_W) 'src/resolver/resolver.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolver.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolver.Tpo src/resolver/$(DEPDIR)/ccbuild-resolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolver.cc' object='src/resolver/ccbuild-resolver.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-resolveInto.obj `if test -f 'src/Resolver/resolveInto.cc'; then $(CYGPATH_W) 'src/Resolver/resolveInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/resolveInto.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolver.obj `if test -f 'src/resolver/resolver.cc'; then $(CYGPATH_W) 'src/resolver/resolver.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolver.cc'; fi`
 
-src/Resolver/ccbuild-resolve.o: src/Resolver/resolve.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-resolve.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-resolve.Tpo -c -o src/Resolver/ccbuild-resolve.o `test -f 'src/Resolver/resolve.cc' || echo '$(srcdir)/'`src/Resolver/resolve.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-resolve.Tpo src/Resolver/$(DEPDIR)/ccbuild-resolve.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/resolve.cc' object='src/Resolver/ccbuild-resolve.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolveInto.o: src/resolver/resolveInto.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolveInto.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo -c -o src/resolver/ccbuild-resolveInto.o `test -f 'src/resolver/resolveInto.cc' || echo '$(srcdir)/'`src/resolver/resolveInto.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo src/resolver/$(DEPDIR)/ccbuild-resolveInto.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolveInto.cc' object='src/resolver/ccbuild-resolveInto.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-resolve.o `test -f 'src/Resolver/resolve.cc' || echo '$(srcdir)/'`src/Resolver/resolve.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolveInto.o `test -f 'src/resolver/resolveInto.cc' || echo '$(srcdir)/'`src/resolver/resolveInto.cc
 
-src/Resolver/ccbuild-resolve.obj: src/Resolver/resolve.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-resolve.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-resolve.Tpo -c -o src/Resolver/ccbuild-resolve.obj `if test -f 'src/Resolver/resolve.cc'; then $(CYGPATH_W) 'src/Resolver/resolve.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/resolve.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-resolve.Tpo src/Resolver/$(DEPDIR)/ccbuild-resolve.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/resolve.cc' object='src/Resolver/ccbuild-resolve.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolveInto.obj: src/resolver/resolveInto.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolveInto.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo -c -o src/resolver/ccbuild-resolveInto.obj `if test -f 'src/resolver/resolveInto.cc'; then $(CYGPATH_W) 'src/resolver/resolveInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolveInto.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolveInto.Tpo src/resolver/$(DEPDIR)/ccbuild-resolveInto.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolveInto.cc' object='src/resolver/ccbuild-resolveInto.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-resolve.obj `if test -f 'src/Resolver/resolve.cc'; then $(CYGPATH_W) 'src/Resolver/resolve.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/resolve.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolveInto.obj `if test -f 'src/resolver/resolveInto.cc'; then $(CYGPATH_W) 'src/resolver/resolveInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolveInto.cc'; fi`
 
-src/Resolver/ccbuild-loadIfExists.o: src/Resolver/loadIfExists.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-loadIfExists.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo -c -o src/Resolver/ccbuild-loadIfExists.o `test -f 'src/Resolver/loadIfExists.cc' || echo '$(srcdir)/'`src/Resolver/loadIfExists.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/loadIfExists.cc' object='src/Resolver/ccbuild-loadIfExists.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolve.o: src/resolver/resolve.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolve.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolve.Tpo -c -o src/resolver/ccbuild-resolve.o `test -f 'src/resolver/resolve.cc' || echo '$(srcdir)/'`src/resolver/resolve.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolve.Tpo src/resolver/$(DEPDIR)/ccbuild-resolve.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolve.cc' object='src/resolver/ccbuild-resolve.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-loadIfExists.o `test -f 'src/Resolver/loadIfExists.cc' || echo '$(srcdir)/'`src/Resolver/loadIfExists.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolve.o `test -f 'src/resolver/resolve.cc' || echo '$(srcdir)/'`src/resolver/resolve.cc
 
-src/Resolver/ccbuild-loadIfExists.obj: src/Resolver/loadIfExists.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-loadIfExists.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo -c -o src/Resolver/ccbuild-loadIfExists.obj `if test -f 'src/Resolver/loadIfExists.cc'; then $(CYGPATH_W) 'src/Resolver/loadIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/loadIfExists.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo src/Resolver/$(DEPDIR)/ccbuild-loadIfExists.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/loadIfExists.cc' object='src/Resolver/ccbuild-loadIfExists.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-resolve.obj: src/resolver/resolve.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-resolve.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-resolve.Tpo -c -o src/resolver/ccbuild-resolve.obj `if test -f 'src/resolver/resolve.cc'; then $(CYGPATH_W) 'src/resolver/resolve.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolve.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-resolve.Tpo src/resolver/$(DEPDIR)/ccbuild-resolve.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/resolve.cc' object='src/resolver/ccbuild-resolve.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-loadIfExists.obj `if test -f 'src/Resolver/loadIfExists.cc'; then $(CYGPATH_W) 'src/Resolver/loadIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/loadIfExists.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-resolve.obj `if test -f 'src/resolver/resolve.cc'; then $(CYGPATH_W) 'src/resolver/resolve.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/resolve.cc'; fi`
 
-src/Resolver/ccbuild-getInstance.o: src/Resolver/getInstance.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-getInstance.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/Resolver/ccbuild-getInstance.o `test -f 'src/Resolver/getInstance.cc' || echo '$(srcdir)/'`src/Resolver/getInstance.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-getInstance.Tpo src/Resolver/$(DEPDIR)/ccbuild-getInstance.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/getInstance.cc' object='src/Resolver/ccbuild-getInstance.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-loadIfExists.o: src/resolver/loadIfExists.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-loadIfExists.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo -c -o src/resolver/ccbuild-loadIfExists.o `test -f 'src/resolver/loadIfExists.cc' || echo '$(srcdir)/'`src/resolver/loadIfExists.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/loadIfExists.cc' object='src/resolver/ccbuild-loadIfExists.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-getInstance.o `test -f 'src/Resolver/getInstance.cc' || echo '$(srcdir)/'`src/Resolver/getInstance.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-loadIfExists.o `test -f 'src/resolver/loadIfExists.cc' || echo '$(srcdir)/'`src/resolver/loadIfExists.cc
 
-src/Resolver/ccbuild-getInstance.obj: src/Resolver/getInstance.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-getInstance.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/Resolver/ccbuild-getInstance.obj `if test -f 'src/Resolver/getInstance.cc'; then $(CYGPATH_W) 'src/Resolver/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/getInstance.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-getInstance.Tpo src/Resolver/$(DEPDIR)/ccbuild-getInstance.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/getInstance.cc' object='src/Resolver/ccbuild-getInstance.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-loadIfExists.obj: src/resolver/loadIfExists.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-loadIfExists.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo -c -o src/resolver/ccbuild-loadIfExists.obj `if test -f 'src/resolver/loadIfExists.cc'; then $(CYGPATH_W) 'src/resolver/loadIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/loadIfExists.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Tpo src/resolver/$(DEPDIR)/ccbuild-loadIfExists.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/loadIfExists.cc' object='src/resolver/ccbuild-loadIfExists.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-getInstance.obj `if test -f 'src/Resolver/getInstance.cc'; then $(CYGPATH_W) 'src/Resolver/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/getInstance.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-loadIfExists.obj `if test -f 'src/resolver/loadIfExists.cc'; then $(CYGPATH_W) 'src/resolver/loadIfExists.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/loadIfExists.cc'; fi`
 
-src/Resolver/ccbuild-expand.o: src/Resolver/expand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-expand.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-expand.Tpo -c -o src/Resolver/ccbuild-expand.o `test -f 'src/Resolver/expand.cc' || echo '$(srcdir)/'`src/Resolver/expand.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-expand.Tpo src/Resolver/$(DEPDIR)/ccbuild-expand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/expand.cc' object='src/Resolver/ccbuild-expand.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-getInstance.o: src/resolver/getInstance.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-getInstance.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/resolver/ccbuild-getInstance.o `test -f 'src/resolver/getInstance.cc' || echo '$(srcdir)/'`src/resolver/getInstance.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-getInstance.Tpo src/resolver/$(DEPDIR)/ccbuild-getInstance.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/getInstance.cc' object='src/resolver/ccbuild-getInstance.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-expand.o `test -f 'src/Resolver/expand.cc' || echo '$(srcdir)/'`src/Resolver/expand.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-getInstance.o `test -f 'src/resolver/getInstance.cc' || echo '$(srcdir)/'`src/resolver/getInstance.cc
 
-src/Resolver/ccbuild-expand.obj: src/Resolver/expand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-expand.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-expand.Tpo -c -o src/Resolver/ccbuild-expand.obj `if test -f 'src/Resolver/expand.cc'; then $(CYGPATH_W) 'src/Resolver/expand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/expand.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-expand.Tpo src/Resolver/$(DEPDIR)/ccbuild-expand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/expand.cc' object='src/Resolver/ccbuild-expand.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-getInstance.obj: src/resolver/getInstance.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-getInstance.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-getInstance.Tpo -c -o src/resolver/ccbuild-getInstance.obj `if test -f 'src/resolver/getInstance.cc'; then $(CYGPATH_W) 'src/resolver/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/getInstance.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-getInstance.Tpo src/resolver/$(DEPDIR)/ccbuild-getInstance.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/getInstance.cc' object='src/resolver/ccbuild-getInstance.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-expand.obj `if test -f 'src/Resolver/expand.cc'; then $(CYGPATH_W) 'src/Resolver/expand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/expand.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-getInstance.obj `if test -f 'src/resolver/getInstance.cc'; then $(CYGPATH_W) 'src/resolver/getInstance.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/getInstance.cc'; fi`
 
-src/Resolver/ccbuild-destroy.o: src/Resolver/destroy.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-destroy.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/Resolver/ccbuild-destroy.o `test -f 'src/Resolver/destroy.cc' || echo '$(srcdir)/'`src/Resolver/destroy.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-destroy.Tpo src/Resolver/$(DEPDIR)/ccbuild-destroy.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/destroy.cc' object='src/Resolver/ccbuild-destroy.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-expand.o: src/resolver/expand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-expand.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-expand.Tpo -c -o src/resolver/ccbuild-expand.o `test -f 'src/resolver/expand.cc' || echo '$(srcdir)/'`src/resolver/expand.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-expand.Tpo src/resolver/$(DEPDIR)/ccbuild-expand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/expand.cc' object='src/resolver/ccbuild-expand.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-destroy.o `test -f 'src/Resolver/destroy.cc' || echo '$(srcdir)/'`src/Resolver/destroy.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-expand.o `test -f 'src/resolver/expand.cc' || echo '$(srcdir)/'`src/resolver/expand.cc
 
-src/Resolver/ccbuild-destroy.obj: src/Resolver/destroy.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-destroy.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/Resolver/ccbuild-destroy.obj `if test -f 'src/Resolver/destroy.cc'; then $(CYGPATH_W) 'src/Resolver/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/destroy.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-destroy.Tpo src/Resolver/$(DEPDIR)/ccbuild-destroy.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/destroy.cc' object='src/Resolver/ccbuild-destroy.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-expand.obj: src/resolver/expand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-expand.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-expand.Tpo -c -o src/resolver/ccbuild-expand.obj `if test -f 'src/resolver/expand.cc'; then $(CYGPATH_W) 'src/resolver/expand.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/expand.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-expand.Tpo src/resolver/$(DEPDIR)/ccbuild-expand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/expand.cc' object='src/resolver/ccbuild-expand.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-destroy.obj `if test -f 'src/Resolver/destroy.cc'; then $(CYGPATH_W) 'src/Resolver/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/destroy.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-expand.obj `if test -f 'src/resolver/expand.cc'; then $(CYGPATH_W) 'src/resolver/expand.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/expand.cc'; fi`
 
-src/Resolver/ccbuild-Resolver.o: src/Resolver/Resolver.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-Resolver.o -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-Resolver.Tpo -c -o src/Resolver/ccbuild-Resolver.o `test -f 'src/Resolver/Resolver.cc' || echo '$(srcdir)/'`src/Resolver/Resolver.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-Resolver.Tpo src/Resolver/$(DEPDIR)/ccbuild-Resolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/Resolver.cc' object='src/Resolver/ccbuild-Resolver.o' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-destroy.o: src/resolver/destroy.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-destroy.o -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/resolver/ccbuild-destroy.o `test -f 'src/resolver/destroy.cc' || echo '$(srcdir)/'`src/resolver/destroy.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-destroy.Tpo src/resolver/$(DEPDIR)/ccbuild-destroy.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/destroy.cc' object='src/resolver/ccbuild-destroy.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-Resolver.o `test -f 'src/Resolver/Resolver.cc' || echo '$(srcdir)/'`src/Resolver/Resolver.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-destroy.o `test -f 'src/resolver/destroy.cc' || echo '$(srcdir)/'`src/resolver/destroy.cc
 
-src/Resolver/ccbuild-Resolver.obj: src/Resolver/Resolver.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Resolver/ccbuild-Resolver.obj -MD -MP -MF src/Resolver/$(DEPDIR)/ccbuild-Resolver.Tpo -c -o src/Resolver/ccbuild-Resolver.obj `if test -f 'src/Resolver/Resolver.cc'; then $(CYGPATH_W) 'src/Resolver/Resolver.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/Resolver.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Resolver/$(DEPDIR)/ccbuild-Resolver.Tpo src/Resolver/$(DEPDIR)/ccbuild-Resolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Resolver/Resolver.cc' object='src/Resolver/ccbuild-Resolver.obj' libtool=no @AMDEPBACKSLASH@
+src/resolver/ccbuild-destroy.obj: src/resolver/destroy.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/resolver/ccbuild-destroy.obj -MD -MP -MF src/resolver/$(DEPDIR)/ccbuild-destroy.Tpo -c -o src/resolver/ccbuild-destroy.obj `if test -f 'src/resolver/destroy.cc'; then $(CYGPATH_W) 'src/resolver/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/destroy.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/resolver/$(DEPDIR)/ccbuild-destroy.Tpo src/resolver/$(DEPDIR)/ccbuild-destroy.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/resolver/destroy.cc' object='src/resolver/ccbuild-destroy.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Resolver/ccbuild-Resolver.obj `if test -f 'src/Resolver/Resolver.cc'; then $(CYGPATH_W) 'src/Resolver/Resolver.cc'; else $(CYGPATH_W) '$(srcdir)/src/Resolver/Resolver.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/resolver/ccbuild-destroy.obj `if test -f 'src/resolver/destroy.cc'; then $(CYGPATH_W) 'src/resolver/destroy.cc'; else $(CYGPATH_W) '$(srcdir)/src/resolver/destroy.cc'; fi`
 
-src/Compiler/ccbuild-statics.o: src/Compiler/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-statics.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Compiler/ccbuild-statics.o `test -f 'src/Compiler/statics.cc' || echo '$(srcdir)/'`src/Compiler/statics.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-statics.Tpo src/Compiler/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/statics.cc' object='src/Compiler/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-statics.o: src/compiler/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-statics.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/compiler/ccbuild-statics.o `test -f 'src/compiler/statics.cc' || echo '$(srcdir)/'`src/compiler/statics.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-statics.Tpo src/compiler/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/statics.cc' object='src/compiler/ccbuild-statics.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-statics.o `test -f 'src/Compiler/statics.cc' || echo '$(srcdir)/'`src/Compiler/statics.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-statics.o `test -f 'src/compiler/statics.cc' || echo '$(srcdir)/'`src/compiler/statics.cc
 
-src/Compiler/ccbuild-statics.obj: src/Compiler/statics.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-statics.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/Compiler/ccbuild-statics.obj `if test -f 'src/Compiler/statics.cc'; then $(CYGPATH_W) 'src/Compiler/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/statics.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-statics.Tpo src/Compiler/$(DEPDIR)/ccbuild-statics.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/statics.cc' object='src/Compiler/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-statics.obj: src/compiler/statics.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-statics.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/compiler/ccbuild-statics.obj `if test -f 'src/compiler/statics.cc'; then $(CYGPATH_W) 'src/compiler/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/statics.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-statics.Tpo src/compiler/$(DEPDIR)/ccbuild-statics.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/statics.cc' object='src/compiler/ccbuild-statics.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-statics.obj `if test -f 'src/Compiler/statics.cc'; then $(CYGPATH_W) 'src/Compiler/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/statics.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-statics.obj `if test -f 'src/compiler/statics.cc'; then $(CYGPATH_W) 'src/compiler/statics.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/statics.cc'; fi`
 
-src/Compiler/ccbuild-splitInto.o: src/Compiler/splitInto.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-splitInto.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-splitInto.Tpo -c -o src/Compiler/ccbuild-splitInto.o `test -f 'src/Compiler/splitInto.cc' || echo '$(srcdir)/'`src/Compiler/splitInto.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-splitInto.Tpo src/Compiler/$(DEPDIR)/ccbuild-splitInto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/splitInto.cc' object='src/Compiler/ccbuild-splitInto.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-splitInto.o: src/compiler/splitInto.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-splitInto.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-splitInto.Tpo -c -o src/compiler/ccbuild-splitInto.o `test -f 'src/compiler/splitInto.cc' || echo '$(srcdir)/'`src/compiler/splitInto.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-splitInto.Tpo src/compiler/$(DEPDIR)/ccbuild-splitInto.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/splitInto.cc' object='src/compiler/ccbuild-splitInto.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-splitInto.o `test -f 'src/Compiler/splitInto.cc' || echo '$(srcdir)/'`src/Compiler/splitInto.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-splitInto.o `test -f 'src/compiler/splitInto.cc' || echo '$(srcdir)/'`src/compiler/splitInto.cc
 
-src/Compiler/ccbuild-splitInto.obj: src/Compiler/splitInto.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-splitInto.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-splitInto.Tpo -c -o src/Compiler/ccbuild-splitInto.obj `if test -f 'src/Compiler/splitInto.cc'; then $(CYGPATH_W) 'src/Compiler/splitInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/splitInto.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-splitInto.Tpo src/Compiler/$(DEPDIR)/ccbuild-splitInto.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/splitInto.cc' object='src/Compiler/ccbuild-splitInto.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-splitInto.obj: src/compiler/splitInto.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-splitInto.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-splitInto.Tpo -c -o src/compiler/ccbuild-splitInto.obj `if test -f 'src/compiler/splitInto.cc'; then $(CYGPATH_W) 'src/compiler/splitInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/splitInto.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-splitInto.Tpo src/compiler/$(DEPDIR)/ccbuild-splitInto.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/splitInto.cc' object='src/compiler/ccbuild-splitInto.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-splitInto.obj `if test -f 'src/Compiler/splitInto.cc'; then $(CYGPATH_W) 'src/Compiler/splitInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/splitInto.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-splitInto.obj `if test -f 'src/compiler/splitInto.cc'; then $(CYGPATH_W) 'src/compiler/splitInto.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/splitInto.cc'; fi`
 
-src/Compiler/ccbuild-precompileCommand.o: src/Compiler/precompileCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-precompileCommand.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo -c -o src/Compiler/ccbuild-precompileCommand.o `test -f 'src/Compiler/precompileCommand.cc' || echo '$(srcdir)/'`src/Compiler/precompileCommand.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/precompileCommand.cc' object='src/Compiler/ccbuild-precompileCommand.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-precompileCommand.o: src/compiler/precompileCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-precompileCommand.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo -c -o src/compiler/ccbuild-precompileCommand.o `test -f 'src/compiler/precompileCommand.cc' || echo '$(srcdir)/'`src/compiler/precompileCommand.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/precompileCommand.cc' object='src/compiler/ccbuild-precompileCommand.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-precompileCommand.o `test -f 'src/Compiler/precompileCommand.cc' || echo '$(srcdir)/'`src/Compiler/precompileCommand.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-precompileCommand.o `test -f 'src/compiler/precompileCommand.cc' || echo '$(srcdir)/'`src/compiler/precompileCommand.cc
 
-src/Compiler/ccbuild-precompileCommand.obj: src/Compiler/precompileCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-precompileCommand.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo -c -o src/Compiler/ccbuild-precompileCommand.obj `if test -f 'src/Compiler/precompileCommand.cc'; then $(CYGPATH_W) 'src/Compiler/precompileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/precompileCommand.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-precompileCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/precompileCommand.cc' object='src/Compiler/ccbuild-precompileCommand.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-precompileCommand.obj: src/compiler/precompileCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-precompileCommand.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo -c -o src/compiler/ccbuild-precompileCommand.obj `if test -f 'src/compiler/precompileCommand.cc'; then $(CYGPATH_W) 'src/compiler/precompileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/precompileCommand.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-precompileCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/precompileCommand.cc' object='src/compiler/ccbuild-precompileCommand.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-precompileCommand.obj `if test -f 'src/Compiler/precompileCommand.cc'; then $(CYGPATH_W) 'src/Compiler/precompileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/precompileCommand.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-precompileCommand.obj `if test -f 'src/compiler/precompileCommand.cc'; then $(CYGPATH_W) 'src/compiler/precompileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/precompileCommand.cc'; fi`
 
-src/Compiler/ccbuild-precompile.o: src/Compiler/precompile.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-precompile.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-precompile.Tpo -c -o src/Compiler/ccbuild-precompile.o `test -f 'src/Compiler/precompile.cc' || echo '$(srcdir)/'`src/Compiler/precompile.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-precompile.Tpo src/Compiler/$(DEPDIR)/ccbuild-precompile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/precompile.cc' object='src/Compiler/ccbuild-precompile.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-precompile.o: src/compiler/precompile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-precompile.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-precompile.Tpo -c -o src/compiler/ccbuild-precompile.o `test -f 'src/compiler/precompile.cc' || echo '$(srcdir)/'`src/compiler/precompile.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-precompile.Tpo src/compiler/$(DEPDIR)/ccbuild-precompile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/precompile.cc' object='src/compiler/ccbuild-precompile.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-precompile.o `test -f 'src/Compiler/precompile.cc' || echo '$(srcdir)/'`src/Compiler/precompile.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-precompile.o `test -f 'src/compiler/precompile.cc' || echo '$(srcdir)/'`src/compiler/precompile.cc
 
-src/Compiler/ccbuild-precompile.obj: src/Compiler/precompile.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-precompile.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-precompile.Tpo -c -o src/Compiler/ccbuild-precompile.obj `if test -f 'src/Compiler/precompile.cc'; then $(CYGPATH_W) 'src/Compiler/precompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/precompile.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-precompile.Tpo src/Compiler/$(DEPDIR)/ccbuild-precompile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/precompile.cc' object='src/Compiler/ccbuild-precompile.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-precompile.obj: src/compiler/precompile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-precompile.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-precompile.Tpo -c -o src/compiler/ccbuild-precompile.obj `if test -f 'src/compiler/precompile.cc'; then $(CYGPATH_W) 'src/compiler/precompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/precompile.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-precompile.Tpo src/compiler/$(DEPDIR)/ccbuild-precompile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/precompile.cc' object='src/compiler/ccbuild-precompile.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-precompile.obj `if test -f 'src/Compiler/precompile.cc'; then $(CYGPATH_W) 'src/Compiler/precompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/precompile.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-precompile.obj `if test -f 'src/compiler/precompile.cc'; then $(CYGPATH_W) 'src/compiler/precompile.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/precompile.cc'; fi`
 
-src/Compiler/ccbuild-operator_add.o: src/Compiler/operator_add.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-operator_add.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-operator_add.Tpo -c -o src/Compiler/ccbuild-operator_add.o `test -f 'src/Compiler/operator_add.cc' || echo '$(srcdir)/'`src/Compiler/operator_add.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-operator_add.Tpo src/Compiler/$(DEPDIR)/ccbuild-operator_add.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/operator_add.cc' object='src/Compiler/ccbuild-operator_add.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-operator_add.o: src/compiler/operator_add.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-operator_add.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-operator_add.Tpo -c -o src/compiler/ccbuild-operator_add.o `test -f 'src/compiler/operator_add.cc' || echo '$(srcdir)/'`src/compiler/operator_add.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-operator_add.Tpo src/compiler/$(DEPDIR)/ccbuild-operator_add.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/operator_add.cc' object='src/compiler/ccbuild-operator_add.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-operator_add.o `test -f 'src/Compiler/operator_add.cc' || echo '$(srcdir)/'`src/Compiler/operator_add.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-operator_add.o `test -f 'src/compiler/operator_add.cc' || echo '$(srcdir)/'`src/compiler/operator_add.cc
 
-src/Compiler/ccbuild-operator_add.obj: src/Compiler/operator_add.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-operator_add.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-operator_add.Tpo -c -o src/Compiler/ccbuild-operator_add.obj `if test -f 'src/Compiler/operator_add.cc'; then $(CYGPATH_W) 'src/Compiler/operator_add.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/operator_add.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-operator_add.Tpo src/Compiler/$(DEPDIR)/ccbuild-operator_add.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/operator_add.cc' object='src/Compiler/ccbuild-operator_add.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-operator_add.obj: src/compiler/operator_add.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-operator_add.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-operator_add.Tpo -c -o src/compiler/ccbuild-operator_add.obj `if test -f 'src/compiler/operator_add.cc'; then $(CYGPATH_W) 'src/compiler/operator_add.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/operator_add.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-operator_add.Tpo src/compiler/$(DEPDIR)/ccbuild-operator_add.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/operator_add.cc' object='src/compiler/ccbuild-operator_add.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-operator_add.obj `if test -f 'src/Compiler/operator_add.cc'; then $(CYGPATH_W) 'src/Compiler/operator_add.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/operator_add.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-operator_add.obj `if test -f 'src/compiler/operator_add.cc'; then $(CYGPATH_W) 'src/compiler/operator_add.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/operator_add.cc'; fi`
 
-src/Compiler/ccbuild-linkCommand.o: src/Compiler/linkCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-linkCommand.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo -c -o src/Compiler/ccbuild-linkCommand.o `test -f 'src/Compiler/linkCommand.cc' || echo '$(srcdir)/'`src/Compiler/linkCommand.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/linkCommand.cc' object='src/Compiler/ccbuild-linkCommand.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-linkCommand.o: src/compiler/linkCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-linkCommand.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo -c -o src/compiler/ccbuild-linkCommand.o `test -f 'src/compiler/linkCommand.cc' || echo '$(srcdir)/'`src/compiler/linkCommand.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-linkCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/linkCommand.cc' object='src/compiler/ccbuild-linkCommand.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-linkCommand.o `test -f 'src/Compiler/linkCommand.cc' || echo '$(srcdir)/'`src/Compiler/linkCommand.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-linkCommand.o `test -f 'src/compiler/linkCommand.cc' || echo '$(srcdir)/'`src/compiler/linkCommand.cc
 
-src/Compiler/ccbuild-linkCommand.obj: src/Compiler/linkCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-linkCommand.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo -c -o src/Compiler/ccbuild-linkCommand.obj `if test -f 'src/Compiler/linkCommand.cc'; then $(CYGPATH_W) 'src/Compiler/linkCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/linkCommand.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-linkCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/linkCommand.cc' object='src/Compiler/ccbuild-linkCommand.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-linkCommand.obj: src/compiler/linkCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-linkCommand.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo -c -o src/compiler/ccbuild-linkCommand.obj `if test -f 'src/compiler/linkCommand.cc'; then $(CYGPATH_W) 'src/compiler/linkCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/linkCommand.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-linkCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-linkCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/linkCommand.cc' object='src/compiler/ccbuild-linkCommand.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-linkCommand.obj `if test -f 'src/Compiler/linkCommand.cc'; then $(CYGPATH_W) 'src/Compiler/linkCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/linkCommand.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-linkCommand.obj `if test -f 'src/compiler/linkCommand.cc'; then $(CYGPATH_W) 'src/compiler/linkCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/linkCommand.cc'; fi`
 
-src/Compiler/ccbuild-link.o: src/Compiler/link.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-link.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-link.Tpo -c -o src/Compiler/ccbuild-link.o `test -f 'src/Compiler/link.cc' || echo '$(srcdir)/'`src/Compiler/link.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-link.Tpo src/Compiler/$(DEPDIR)/ccbuild-link.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/link.cc' object='src/Compiler/ccbuild-link.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-link.o: src/compiler/link.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-link.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-link.Tpo -c -o src/compiler/ccbuild-link.o `test -f 'src/compiler/link.cc' || echo '$(srcdir)/'`src/compiler/link.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-link.Tpo src/compiler/$(DEPDIR)/ccbuild-link.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/link.cc' object='src/compiler/ccbuild-link.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-link.o `test -f 'src/Compiler/link.cc' || echo '$(srcdir)/'`src/Compiler/link.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-link.o `test -f 'src/compiler/link.cc' || echo '$(srcdir)/'`src/compiler/link.cc
 
-src/Compiler/ccbuild-link.obj: src/Compiler/link.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-link.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-link.Tpo -c -o src/Compiler/ccbuild-link.obj `if test -f 'src/Compiler/link.cc'; then $(CYGPATH_W) 'src/Compiler/link.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/link.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-link.Tpo src/Compiler/$(DEPDIR)/ccbuild-link.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/link.cc' object='src/Compiler/ccbuild-link.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-link.obj: src/compiler/link.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-link.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-link.Tpo -c -o src/compiler/ccbuild-link.obj `if test -f 'src/compiler/link.cc'; then $(CYGPATH_W) 'src/compiler/link.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/link.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-link.Tpo src/compiler/$(DEPDIR)/ccbuild-link.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/link.cc' object='src/compiler/ccbuild-link.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-link.obj `if test -f 'src/Compiler/link.cc'; then $(CYGPATH_W) 'src/Compiler/link.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/link.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-link.obj `if test -f 'src/compiler/link.cc'; then $(CYGPATH_W) 'src/compiler/link.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/link.cc'; fi`
 
-src/Compiler/ccbuild-libCommand.o: src/Compiler/libCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-libCommand.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-libCommand.Tpo -c -o src/Compiler/ccbuild-libCommand.o `test -f 'src/Compiler/libCommand.cc' || echo '$(srcdir)/'`src/Compiler/libCommand.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-libCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-libCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/libCommand.cc' object='src/Compiler/ccbuild-libCommand.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-libCommand.o: src/compiler/libCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-libCommand.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-libCommand.Tpo -c -o src/compiler/ccbuild-libCommand.o `test -f 'src/compiler/libCommand.cc' || echo '$(srcdir)/'`src/compiler/libCommand.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-libCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-libCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/libCommand.cc' object='src/compiler/ccbuild-libCommand.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-libCommand.o `test -f 'src/Compiler/libCommand.cc' || echo '$(srcdir)/'`src/Compiler/libCommand.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-libCommand.o `test -f 'src/compiler/libCommand.cc' || echo '$(srcdir)/'`src/compiler/libCommand.cc
 
-src/Compiler/ccbuild-libCommand.obj: src/Compiler/libCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-libCommand.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-libCommand.Tpo -c -o src/Compiler/ccbuild-libCommand.obj `if test -f 'src/Compiler/libCommand.cc'; then $(CYGPATH_W) 'src/Compiler/libCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/libCommand.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-libCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-libCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/libCommand.cc' object='src/Compiler/ccbuild-libCommand.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-libCommand.obj: src/compiler/libCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-libCommand.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-libCommand.Tpo -c -o src/compiler/ccbuild-libCommand.obj `if test -f 'src/compiler/libCommand.cc'; then $(CYGPATH_W) 'src/compiler/libCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/libCommand.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-libCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-libCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/libCommand.cc' object='src/compiler/ccbuild-libCommand.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-libCommand.obj `if test -f 'src/Compiler/libCommand.cc'; then $(CYGPATH_W) 'src/Compiler/libCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/libCommand.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-libCommand.obj `if test -f 'src/compiler/libCommand.cc'; then $(CYGPATH_W) 'src/compiler/libCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/libCommand.cc'; fi`
 
-src/Compiler/ccbuild-lib.o: src/Compiler/lib.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-lib.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-lib.Tpo -c -o src/Compiler/ccbuild-lib.o `test -f 'src/Compiler/lib.cc' || echo '$(srcdir)/'`src/Compiler/lib.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-lib.Tpo src/Compiler/$(DEPDIR)/ccbuild-lib.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/lib.cc' object='src/Compiler/ccbuild-lib.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-lib.o: src/compiler/lib.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-lib.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-lib.Tpo -c -o src/compiler/ccbuild-lib.o `test -f 'src/compiler/lib.cc' || echo '$(srcdir)/'`src/compiler/lib.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-lib.Tpo src/compiler/$(DEPDIR)/ccbuild-lib.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/lib.cc' object='src/compiler/ccbuild-lib.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-lib.o `test -f 'src/Compiler/lib.cc' || echo '$(srcdir)/'`src/Compiler/lib.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-lib.o `test -f 'src/compiler/lib.cc' || echo '$(srcdir)/'`src/compiler/lib.cc
 
-src/Compiler/ccbuild-lib.obj: src/Compiler/lib.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-lib.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-lib.Tpo -c -o src/Compiler/ccbuild-lib.obj `if test -f 'src/Compiler/lib.cc'; then $(CYGPATH_W) 'src/Compiler/lib.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/lib.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-lib.Tpo src/Compiler/$(DEPDIR)/ccbuild-lib.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/lib.cc' object='src/Compiler/ccbuild-lib.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-lib.obj: src/compiler/lib.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-lib.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-lib.Tpo -c -o src/compiler/ccbuild-lib.obj `if test -f 'src/compiler/lib.cc'; then $(CYGPATH_W) 'src/compiler/lib.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/lib.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-lib.Tpo src/compiler/$(DEPDIR)/ccbuild-lib.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/lib.cc' object='src/compiler/ccbuild-lib.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-lib.obj `if test -f 'src/Compiler/lib.cc'; then $(CYGPATH_W) 'src/Compiler/lib.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/lib.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-lib.obj `if test -f 'src/compiler/lib.cc'; then $(CYGPATH_W) 'src/compiler/lib.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/lib.cc'; fi`
 
-src/Compiler/ccbuild-countFirstLinkerArguments.o: src/Compiler/countFirstLinkerArguments.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-countFirstLinkerArguments.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo -c -o src/Compiler/ccbuild-countFirstLinkerArguments.o `test -f 'src/Compiler/countFirstLinkerArguments.cc' || echo '$(srcdir)/'`src/Compiler/countFirstLinkerArguments.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/countFirstLinkerArguments.cc' object='src/Compiler/ccbuild-countFirstLinkerArguments.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-countFirstLinkerArguments.o: src/compiler/countFirstLinkerArguments.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-countFirstLinkerArguments.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo -c -o src/compiler/ccbuild-countFirstLinkerArguments.o `test -f 'src/compiler/countFirstLinkerArguments.cc' || echo '$(srcdir)/'`src/compiler/countFirstLinkerArguments.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/countFirstLinkerArguments.cc' object='src/compiler/ccbuild-countFirstLinkerArguments.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-countFirstLinkerArguments.o `test -f 'src/Compiler/countFirstLinkerArguments.cc' || echo '$(srcdir)/'`src/Compiler/countFirstLinkerArguments.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-countFirstLinkerArguments.o `test -f 'src/compiler/countFirstLinkerArguments.cc' || echo '$(srcdir)/'`src/compiler/countFirstLinkerArguments.cc
 
-src/Compiler/ccbuild-countFirstLinkerArguments.obj: src/Compiler/countFirstLinkerArguments.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-countFirstLinkerArguments.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo -c -o src/Compiler/ccbuild-countFirstLinkerArguments.obj `if test -f 'src/Compiler/countFirstLinkerArguments.cc'; then $(CYGPATH_W) 'src/Compiler/countFirstLinkerArguments.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/countFirstLinkerArguments.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo src/Compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/countFirstLinkerArguments.cc' object='src/Compiler/ccbuild-countFirstLinkerArguments.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-countFirstLinkerArguments.obj: src/compiler/countFirstLinkerArguments.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-countFirstLinkerArguments.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo -c -o src/compiler/ccbuild-countFirstLinkerArguments.obj `if test -f 'src/compiler/countFirstLinkerArguments.cc'; then $(CYGPATH_W) 'src/compiler/countFirstLinkerArguments.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/countFirstLinkerArguments.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Tpo src/compiler/$(DEPDIR)/ccbuild-countFirstLinkerArguments.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/countFirstLinkerArguments.cc' object='src/compiler/ccbuild-countFirstLinkerArguments.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-countFirstLinkerArguments.obj `if test -f 'src/Compiler/countFirstLinkerArguments.cc'; then $(CYGPATH_W) 'src/Compiler/countFirstLinkerArguments.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/countFirstLinkerArguments.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-countFirstLinkerArguments.obj `if test -f 'src/compiler/countFirstLinkerArguments.cc'; then $(CYGPATH_W) 'src/compiler/countFirstLinkerArguments.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/countFirstLinkerArguments.cc'; fi`
 
-src/Compiler/ccbuild-compileCommand.o: src/Compiler/compileCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-compileCommand.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo -c -o src/Compiler/ccbuild-compileCommand.o `test -f 'src/Compiler/compileCommand.cc' || echo '$(srcdir)/'`src/Compiler/compileCommand.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/compileCommand.cc' object='src/Compiler/ccbuild-compileCommand.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-compileCommand.o: src/compiler/compileCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-compileCommand.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo -c -o src/compiler/ccbuild-compileCommand.o `test -f 'src/compiler/compileCommand.cc' || echo '$(srcdir)/'`src/compiler/compileCommand.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-compileCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/compileCommand.cc' object='src/compiler/ccbuild-compileCommand.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-compileCommand.o `test -f 'src/Compiler/compileCommand.cc' || echo '$(srcdir)/'`src/Compiler/compileCommand.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-compileCommand.o `test -f 'src/compiler/compileCommand.cc' || echo '$(srcdir)/'`src/compiler/compileCommand.cc
 
-src/Compiler/ccbuild-compileCommand.obj: src/Compiler/compileCommand.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-compileCommand.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo -c -o src/Compiler/ccbuild-compileCommand.obj `if test -f 'src/Compiler/compileCommand.cc'; then $(CYGPATH_W) 'src/Compiler/compileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/compileCommand.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo src/Compiler/$(DEPDIR)/ccbuild-compileCommand.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/compileCommand.cc' object='src/Compiler/ccbuild-compileCommand.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-compileCommand.obj: src/compiler/compileCommand.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-compileCommand.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo -c -o src/compiler/ccbuild-compileCommand.obj `if test -f 'src/compiler/compileCommand.cc'; then $(CYGPATH_W) 'src/compiler/compileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/compileCommand.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-compileCommand.Tpo src/compiler/$(DEPDIR)/ccbuild-compileCommand.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/compileCommand.cc' object='src/compiler/ccbuild-compileCommand.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-compileCommand.obj `if test -f 'src/Compiler/compileCommand.cc'; then $(CYGPATH_W) 'src/Compiler/compileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/compileCommand.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-compileCommand.obj `if test -f 'src/compiler/compileCommand.cc'; then $(CYGPATH_W) 'src/compiler/compileCommand.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/compileCommand.cc'; fi`
 
-src/Compiler/ccbuild-compile.o: src/Compiler/compile.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-compile.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-compile.Tpo -c -o src/Compiler/ccbuild-compile.o `test -f 'src/Compiler/compile.cc' || echo '$(srcdir)/'`src/Compiler/compile.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-compile.Tpo src/Compiler/$(DEPDIR)/ccbuild-compile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/compile.cc' object='src/Compiler/ccbuild-compile.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-compile.o: src/compiler/compile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-compile.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-compile.Tpo -c -o src/compiler/ccbuild-compile.o `test -f 'src/compiler/compile.cc' || echo '$(srcdir)/'`src/compiler/compile.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-compile.Tpo src/compiler/$(DEPDIR)/ccbuild-compile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/compile.cc' object='src/compiler/ccbuild-compile.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-compile.o `test -f 'src/Compiler/compile.cc' || echo '$(srcdir)/'`src/Compiler/compile.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-compile.o `test -f 'src/compiler/compile.cc' || echo '$(srcdir)/'`src/compiler/compile.cc
 
-src/Compiler/ccbuild-compile.obj: src/Compiler/compile.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-compile.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-compile.Tpo -c -o src/Compiler/ccbuild-compile.obj `if test -f 'src/Compiler/compile.cc'; then $(CYGPATH_W) 'src/Compiler/compile.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/compile.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-compile.Tpo src/Compiler/$(DEPDIR)/ccbuild-compile.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/compile.cc' object='src/Compiler/ccbuild-compile.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-compile.obj: src/compiler/compile.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-compile.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-compile.Tpo -c -o src/compiler/ccbuild-compile.obj `if test -f 'src/compiler/compile.cc'; then $(CYGPATH_W) 'src/compiler/compile.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/compile.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-compile.Tpo src/compiler/$(DEPDIR)/ccbuild-compile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/compile.cc' object='src/compiler/ccbuild-compile.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-compile.obj `if test -f 'src/Compiler/compile.cc'; then $(CYGPATH_W) 'src/Compiler/compile.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/compile.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-compile.obj `if test -f 'src/compiler/compile.cc'; then $(CYGPATH_W) 'src/compiler/compile.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/compile.cc'; fi`
 
-src/Compiler/ccbuild-cls.o: src/Compiler/cls.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-cls.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-cls.Tpo -c -o src/Compiler/ccbuild-cls.o `test -f 'src/Compiler/cls.cc' || echo '$(srcdir)/'`src/Compiler/cls.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-cls.Tpo src/Compiler/$(DEPDIR)/ccbuild-cls.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/cls.cc' object='src/Compiler/ccbuild-cls.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-cls.o: src/compiler/cls.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-cls.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-cls.Tpo -c -o src/compiler/ccbuild-cls.o `test -f 'src/compiler/cls.cc' || echo '$(srcdir)/'`src/compiler/cls.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-cls.Tpo src/compiler/$(DEPDIR)/ccbuild-cls.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/cls.cc' object='src/compiler/ccbuild-cls.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-cls.o `test -f 'src/Compiler/cls.cc' || echo '$(srcdir)/'`src/Compiler/cls.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-cls.o `test -f 'src/compiler/cls.cc' || echo '$(srcdir)/'`src/compiler/cls.cc
 
-src/Compiler/ccbuild-cls.obj: src/Compiler/cls.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-cls.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-cls.Tpo -c -o src/Compiler/ccbuild-cls.obj `if test -f 'src/Compiler/cls.cc'; then $(CYGPATH_W) 'src/Compiler/cls.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/cls.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-cls.Tpo src/Compiler/$(DEPDIR)/ccbuild-cls.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/cls.cc' object='src/Compiler/ccbuild-cls.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-cls.obj: src/compiler/cls.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-cls.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-cls.Tpo -c -o src/compiler/ccbuild-cls.obj `if test -f 'src/compiler/cls.cc'; then $(CYGPATH_W) 'src/compiler/cls.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/cls.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-cls.Tpo src/compiler/$(DEPDIR)/ccbuild-cls.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/cls.cc' object='src/compiler/ccbuild-cls.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-cls.obj `if test -f 'src/Compiler/cls.cc'; then $(CYGPATH_W) 'src/Compiler/cls.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/cls.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-cls.obj `if test -f 'src/compiler/cls.cc'; then $(CYGPATH_W) 'src/compiler/cls.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/cls.cc'; fi`
 
-src/Compiler/ccbuild-ar.o: src/Compiler/ar.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-ar.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-ar.Tpo -c -o src/Compiler/ccbuild-ar.o `test -f 'src/Compiler/ar.cc' || echo '$(srcdir)/'`src/Compiler/ar.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-ar.Tpo src/Compiler/$(DEPDIR)/ccbuild-ar.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/ar.cc' object='src/Compiler/ccbuild-ar.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-ar.o: src/compiler/ar.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-ar.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-ar.Tpo -c -o src/compiler/ccbuild-ar.o `test -f 'src/compiler/ar.cc' || echo '$(srcdir)/'`src/compiler/ar.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-ar.Tpo src/compiler/$(DEPDIR)/ccbuild-ar.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/ar.cc' object='src/compiler/ccbuild-ar.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-ar.o `test -f 'src/Compiler/ar.cc' || echo '$(srcdir)/'`src/Compiler/ar.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-ar.o `test -f 'src/compiler/ar.cc' || echo '$(srcdir)/'`src/compiler/ar.cc
 
-src/Compiler/ccbuild-ar.obj: src/Compiler/ar.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-ar.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-ar.Tpo -c -o src/Compiler/ccbuild-ar.obj `if test -f 'src/Compiler/ar.cc'; then $(CYGPATH_W) 'src/Compiler/ar.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/ar.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-ar.Tpo src/Compiler/$(DEPDIR)/ccbuild-ar.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/ar.cc' object='src/Compiler/ccbuild-ar.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-ar.obj: src/compiler/ar.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-ar.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-ar.Tpo -c -o src/compiler/ccbuild-ar.obj `if test -f 'src/compiler/ar.cc'; then $(CYGPATH_W) 'src/compiler/ar.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/ar.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-ar.Tpo src/compiler/$(DEPDIR)/ccbuild-ar.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/ar.cc' object='src/compiler/ccbuild-ar.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-ar.obj `if test -f 'src/Compiler/ar.cc'; then $(CYGPATH_W) 'src/Compiler/ar.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/ar.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-ar.obj `if test -f 'src/compiler/ar.cc'; then $(CYGPATH_W) 'src/compiler/ar.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/ar.cc'; fi`
 
-src/Compiler/ccbuild-addObject.o: src/Compiler/addObject.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-addObject.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-addObject.Tpo -c -o src/Compiler/ccbuild-addObject.o `test -f 'src/Compiler/addObject.cc' || echo '$(srcdir)/'`src/Compiler/addObject.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-addObject.Tpo src/Compiler/$(DEPDIR)/ccbuild-addObject.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/addObject.cc' object='src/Compiler/ccbuild-addObject.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-addObject.o: src/compiler/addObject.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-addObject.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-addObject.Tpo -c -o src/compiler/ccbuild-addObject.o `test -f 'src/compiler/addObject.cc' || echo '$(srcdir)/'`src/compiler/addObject.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-addObject.Tpo src/compiler/$(DEPDIR)/ccbuild-addObject.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/addObject.cc' object='src/compiler/ccbuild-addObject.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-addObject.o `test -f 'src/Compiler/addObject.cc' || echo '$(srcdir)/'`src/Compiler/addObject.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-addObject.o `test -f 'src/compiler/addObject.cc' || echo '$(srcdir)/'`src/compiler/addObject.cc
 
-src/Compiler/ccbuild-addObject.obj: src/Compiler/addObject.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-addObject.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-addObject.Tpo -c -o src/Compiler/ccbuild-addObject.obj `if test -f 'src/Compiler/addObject.cc'; then $(CYGPATH_W) 'src/Compiler/addObject.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/addObject.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-addObject.Tpo src/Compiler/$(DEPDIR)/ccbuild-addObject.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/addObject.cc' object='src/Compiler/ccbuild-addObject.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-addObject.obj: src/compiler/addObject.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-addObject.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-addObject.Tpo -c -o src/compiler/ccbuild-addObject.obj `if test -f 'src/compiler/addObject.cc'; then $(CYGPATH_W) 'src/compiler/addObject.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/addObject.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-addObject.Tpo src/compiler/$(DEPDIR)/ccbuild-addObject.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/addObject.cc' object='src/compiler/ccbuild-addObject.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-addObject.obj `if test -f 'src/Compiler/addObject.cc'; then $(CYGPATH_W) 'src/Compiler/addObject.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/addObject.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-addObject.obj `if test -f 'src/compiler/addObject.cc'; then $(CYGPATH_W) 'src/compiler/addObject.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/addObject.cc'; fi`
 
-src/Compiler/ccbuild-addArgument.o: src/Compiler/addArgument.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-addArgument.o -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-addArgument.Tpo -c -o src/Compiler/ccbuild-addArgument.o `test -f 'src/Compiler/addArgument.cc' || echo '$(srcdir)/'`src/Compiler/addArgument.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-addArgument.Tpo src/Compiler/$(DEPDIR)/ccbuild-addArgument.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/addArgument.cc' object='src/Compiler/ccbuild-addArgument.o' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-addArgument.o: src/compiler/addArgument.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-addArgument.o -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-addArgument.Tpo -c -o src/compiler/ccbuild-addArgument.o `test -f 'src/compiler/addArgument.cc' || echo '$(srcdir)/'`src/compiler/addArgument.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-addArgument.Tpo src/compiler/$(DEPDIR)/ccbuild-addArgument.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/addArgument.cc' object='src/compiler/ccbuild-addArgument.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-addArgument.o `test -f 'src/Compiler/addArgument.cc' || echo '$(srcdir)/'`src/Compiler/addArgument.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-addArgument.o `test -f 'src/compiler/addArgument.cc' || echo '$(srcdir)/'`src/compiler/addArgument.cc
 
-src/Compiler/ccbuild-addArgument.obj: src/Compiler/addArgument.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/Compiler/ccbuild-addArgument.obj -MD -MP -MF src/Compiler/$(DEPDIR)/ccbuild-addArgument.Tpo -c -o src/Compiler/ccbuild-addArgument.obj `if test -f 'src/Compiler/addArgument.cc'; then $(CYGPATH_W) 'src/Compiler/addArgument.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/addArgument.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/Compiler/$(DEPDIR)/ccbuild-addArgument.Tpo src/Compiler/$(DEPDIR)/ccbuild-addArgument.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Compiler/addArgument.cc' object='src/Compiler/ccbuild-addArgument.obj' libtool=no @AMDEPBACKSLASH@
+src/compiler/ccbuild-addArgument.obj: src/compiler/addArgument.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/compiler/ccbuild-addArgument.obj -MD -MP -MF src/compiler/$(DEPDIR)/ccbuild-addArgument.Tpo -c -o src/compiler/ccbuild-addArgument.obj `if test -f 'src/compiler/addArgument.cc'; then $(CYGPATH_W) 'src/compiler/addArgument.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/addArgument.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/compiler/$(DEPDIR)/ccbuild-addArgument.Tpo src/compiler/$(DEPDIR)/ccbuild-addArgument.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/compiler/addArgument.cc' object='src/compiler/ccbuild-addArgument.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/Compiler/ccbuild-addArgument.obj `if test -f 'src/Compiler/addArgument.cc'; then $(CYGPATH_W) 'src/Compiler/addArgument.cc'; else $(CYGPATH_W) '$(srcdir)/src/Compiler/addArgument.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/compiler/ccbuild-addArgument.obj `if test -f 'src/compiler/addArgument.cc'; then $(CYGPATH_W) 'src/compiler/addArgument.cc'; else $(CYGPATH_W) '$(srcdir)/src/compiler/addArgument.cc'; fi`
 
 src/sources/ccbuild-statics.o: src/sources/statics.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sources/ccbuild-statics.o -MD -MP -MF src/sources/$(DEPDIR)/ccbuild-statics.Tpo -c -o src/sources/ccbuild-statics.o `test -f 'src/sources/statics.cc' || echo '$(srcdir)/'`src/sources/statics.cc
@@ -3142,117 +3139,103 @@ src/source/ccbuild-basenameWithoutExtension.obj: src/source/basenameWithoutExten
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/source/ccbuild-basenameWithoutExtension.obj `if test -f 'src/source/basenameWithoutExtension.cc'; then $(CYGPATH_W) 'src/source/basenameWithoutExtension.cc'; else $(CYGPATH_W) '$(srcdir)/src/source/basenameWithoutExtension.cc'; fi`
 
-src/SourceScanner/ccbuild-yylex.o: src/SourceScanner/yylex.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-yylex.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo -c -o src/SourceScanner/ccbuild-yylex.o `test -f 'src/SourceScanner/yylex.cc' || echo '$(srcdir)/'`src/SourceScanner/yylex.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/yylex.cc' object='src/SourceScanner/ccbuild-yylex.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeLocal.o: src/sourceScanner/storeLocal.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeLocal.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo -c -o src/sourceScanner/ccbuild-storeLocal.o `test -f 'src/sourceScanner/storeLocal.cc' || echo '$(srcdir)/'`src/sourceScanner/storeLocal.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeLocal.cc' object='src/sourceScanner/ccbuild-storeLocal.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-yylex.o `test -f 'src/SourceScanner/yylex.cc' || echo '$(srcdir)/'`src/SourceScanner/yylex.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeLocal.o `test -f 'src/sourceScanner/storeLocal.cc' || echo '$(srcdir)/'`src/sourceScanner/storeLocal.cc
 
-src/SourceScanner/ccbuild-yylex.obj: src/SourceScanner/yylex.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-yylex.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo -c -o src/SourceScanner/ccbuild-yylex.obj `if test -f 'src/SourceScanner/yylex.cc'; then $(CYGPATH_W) 'src/SourceScanner/yylex.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/yylex.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-yylex.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/yylex.cc' object='src/SourceScanner/ccbuild-yylex.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeLocal.obj: src/sourceScanner/storeLocal.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeLocal.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo -c -o src/sourceScanner/ccbuild-storeLocal.obj `if test -f 'src/sourceScanner/storeLocal.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeLocal.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeLocal.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeLocal.cc' object='src/sourceScanner/ccbuild-storeLocal.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-yylex.obj `if test -f 'src/SourceScanner/yylex.cc'; then $(CYGPATH_W) 'src/SourceScanner/yylex.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/yylex.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeLocal.obj `if test -f 'src/sourceScanner/storeLocal.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeLocal.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeLocal.cc'; fi`
 
-src/SourceScanner/ccbuild-storeLocal.o: src/SourceScanner/storeLocal.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeLocal.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo -c -o src/SourceScanner/ccbuild-storeLocal.o `test -f 'src/SourceScanner/storeLocal.cc' || echo '$(srcdir)/'`src/SourceScanner/storeLocal.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeLocal.cc' object='src/SourceScanner/ccbuild-storeLocal.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeIgnore.o: src/sourceScanner/storeIgnore.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeIgnore.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo -c -o src/sourceScanner/ccbuild-storeIgnore.o `test -f 'src/sourceScanner/storeIgnore.cc' || echo '$(srcdir)/'`src/sourceScanner/storeIgnore.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeIgnore.cc' object='src/sourceScanner/ccbuild-storeIgnore.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeLocal.o `test -f 'src/SourceScanner/storeLocal.cc' || echo '$(srcdir)/'`src/SourceScanner/storeLocal.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeIgnore.o `test -f 'src/sourceScanner/storeIgnore.cc' || echo '$(srcdir)/'`src/sourceScanner/storeIgnore.cc
 
-src/SourceScanner/ccbuild-storeLocal.obj: src/SourceScanner/storeLocal.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeLocal.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo -c -o src/SourceScanner/ccbuild-storeLocal.obj `if test -f 'src/SourceScanner/storeLocal.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeLocal.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeLocal.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeLocal.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeLocal.cc' object='src/SourceScanner/ccbuild-storeLocal.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeIgnore.obj: src/sourceScanner/storeIgnore.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeIgnore.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo -c -o src/sourceScanner/ccbuild-storeIgnore.obj `if test -f 'src/sourceScanner/storeIgnore.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeIgnore.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeIgnore.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeIgnore.cc' object='src/sourceScanner/ccbuild-storeIgnore.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeLocal.obj `if test -f 'src/SourceScanner/storeLocal.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeLocal.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeLocal.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeIgnore.obj `if test -f 'src/sourceScanner/storeIgnore.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeIgnore.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeIgnore.cc'; fi`
 
-src/SourceScanner/ccbuild-storeIgnore.o: src/SourceScanner/storeIgnore.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeIgnore.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo -c -o src/SourceScanner/ccbuild-storeIgnore.o `test -f 'src/SourceScanner/storeIgnore.cc' || echo '$(srcdir)/'`src/SourceScanner/storeIgnore.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeIgnore.cc' object='src/SourceScanner/ccbuild-storeIgnore.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeGlobal.o: src/sourceScanner/storeGlobal.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeGlobal.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo -c -o src/sourceScanner/ccbuild-storeGlobal.o `test -f 'src/sourceScanner/storeGlobal.cc' || echo '$(srcdir)/'`src/sourceScanner/storeGlobal.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeGlobal.cc' object='src/sourceScanner/ccbuild-storeGlobal.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeIgnore.o `test -f 'src/SourceScanner/storeIgnore.cc' || echo '$(srcdir)/'`src/SourceScanner/storeIgnore.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeGlobal.o `test -f 'src/sourceScanner/storeGlobal.cc' || echo '$(srcdir)/'`src/sourceScanner/storeGlobal.cc
 
-src/SourceScanner/ccbuild-storeIgnore.obj: src/SourceScanner/storeIgnore.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeIgnore.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo -c -o src/SourceScanner/ccbuild-storeIgnore.obj `if test -f 'src/SourceScanner/storeIgnore.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeIgnore.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeIgnore.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeIgnore.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeIgnore.cc' object='src/SourceScanner/ccbuild-storeIgnore.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-storeGlobal.obj: src/sourceScanner/storeGlobal.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-storeGlobal.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo -c -o src/sourceScanner/ccbuild-storeGlobal.obj `if test -f 'src/sourceScanner/storeGlobal.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeGlobal.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeGlobal.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/storeGlobal.cc' object='src/sourceScanner/ccbuild-storeGlobal.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeIgnore.obj `if test -f 'src/SourceScanner/storeIgnore.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeIgnore.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeIgnore.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-storeGlobal.obj `if test -f 'src/sourceScanner/storeGlobal.cc'; then $(CYGPATH_W) 'src/sourceScanner/storeGlobal.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/storeGlobal.cc'; fi`
 
-src/SourceScanner/ccbuild-storeGlobal.o: src/SourceScanner/storeGlobal.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeGlobal.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo -c -o src/SourceScanner/ccbuild-storeGlobal.o `test -f 'src/SourceScanner/storeGlobal.cc' || echo '$(srcdir)/'`src/SourceScanner/storeGlobal.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeGlobal.cc' object='src/SourceScanner/ccbuild-storeGlobal.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-sourceScanner.o: src/sourceScanner/sourceScanner.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-sourceScanner.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Tpo -c -o src/sourceScanner/ccbuild-sourceScanner.o `test -f 'src/sourceScanner/sourceScanner.cc' || echo '$(srcdir)/'`src/sourceScanner/sourceScanner.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/sourceScanner.cc' object='src/sourceScanner/ccbuild-sourceScanner.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeGlobal.o `test -f 'src/SourceScanner/storeGlobal.cc' || echo '$(srcdir)/'`src/SourceScanner/storeGlobal.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-sourceScanner.o `test -f 'src/sourceScanner/sourceScanner.cc' || echo '$(srcdir)/'`src/sourceScanner/sourceScanner.cc
 
-src/SourceScanner/ccbuild-storeGlobal.obj: src/SourceScanner/storeGlobal.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-storeGlobal.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo -c -o src/SourceScanner/ccbuild-storeGlobal.obj `if test -f 'src/SourceScanner/storeGlobal.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeGlobal.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeGlobal.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-storeGlobal.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/storeGlobal.cc' object='src/SourceScanner/ccbuild-storeGlobal.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-sourceScanner.obj: src/sourceScanner/sourceScanner.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-sourceScanner.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Tpo -c -o src/sourceScanner/ccbuild-sourceScanner.obj `if test -f 'src/sourceScanner/sourceScanner.cc'; then $(CYGPATH_W) 'src/sourceScanner/sourceScanner.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/sourceScanner.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-sourceScanner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/sourceScanner.cc' object='src/sourceScanner/ccbuild-sourceScanner.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-storeGlobal.obj `if test -f 'src/SourceScanner/storeGlobal.cc'; then $(CYGPATH_W) 'src/SourceScanner/storeGlobal.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/storeGlobal.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-sourceScanner.obj `if test -f 'src/sourceScanner/sourceScanner.cc'; then $(CYGPATH_W) 'src/sourceScanner/sourceScanner.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/sourceScanner.cc'; fi`
 
-src/SourceScanner/ccbuild-includes.o: src/SourceScanner/includes.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-includes.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-includes.Tpo -c -o src/SourceScanner/ccbuild-includes.o `test -f 'src/SourceScanner/includes.cc' || echo '$(srcdir)/'`src/SourceScanner/includes.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-includes.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-includes.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/includes.cc' object='src/SourceScanner/ccbuild-includes.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-includes.o: src/sourceScanner/includes.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-includes.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-includes.Tpo -c -o src/sourceScanner/ccbuild-includes.o `test -f 'src/sourceScanner/includes.cc' || echo '$(srcdir)/'`src/sourceScanner/includes.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-includes.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-includes.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/includes.cc' object='src/sourceScanner/ccbuild-includes.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-includes.o `test -f 'src/SourceScanner/includes.cc' || echo '$(srcdir)/'`src/SourceScanner/includes.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-includes.o `test -f 'src/sourceScanner/includes.cc' || echo '$(srcdir)/'`src/sourceScanner/includes.cc
 
-src/SourceScanner/ccbuild-includes.obj: src/SourceScanner/includes.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-includes.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-includes.Tpo -c -o src/SourceScanner/ccbuild-includes.obj `if test -f 'src/SourceScanner/includes.cc'; then $(CYGPATH_W) 'src/SourceScanner/includes.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/includes.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-includes.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-includes.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/includes.cc' object='src/SourceScanner/ccbuild-includes.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-includes.obj: src/sourceScanner/includes.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-includes.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-includes.Tpo -c -o src/sourceScanner/ccbuild-includes.obj `if test -f 'src/sourceScanner/includes.cc'; then $(CYGPATH_W) 'src/sourceScanner/includes.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/includes.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-includes.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-includes.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/includes.cc' object='src/sourceScanner/ccbuild-includes.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-includes.obj `if test -f 'src/SourceScanner/includes.cc'; then $(CYGPATH_W) 'src/SourceScanner/includes.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/includes.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-includes.obj `if test -f 'src/sourceScanner/includes.cc'; then $(CYGPATH_W) 'src/sourceScanner/includes.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/includes.cc'; fi`
 
-src/SourceScanner/ccbuild-hasMainFunction.o: src/SourceScanner/hasMainFunction.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-hasMainFunction.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo -c -o src/SourceScanner/ccbuild-hasMainFunction.o `test -f 'src/SourceScanner/hasMainFunction.cc' || echo '$(srcdir)/'`src/SourceScanner/hasMainFunction.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/hasMainFunction.cc' object='src/SourceScanner/ccbuild-hasMainFunction.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-hasMainFunction.o: src/sourceScanner/hasMainFunction.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-hasMainFunction.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo -c -o src/sourceScanner/ccbuild-hasMainFunction.o `test -f 'src/sourceScanner/hasMainFunction.cc' || echo '$(srcdir)/'`src/sourceScanner/hasMainFunction.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/hasMainFunction.cc' object='src/sourceScanner/ccbuild-hasMainFunction.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-hasMainFunction.o `test -f 'src/SourceScanner/hasMainFunction.cc' || echo '$(srcdir)/'`src/SourceScanner/hasMainFunction.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-hasMainFunction.o `test -f 'src/sourceScanner/hasMainFunction.cc' || echo '$(srcdir)/'`src/sourceScanner/hasMainFunction.cc
 
-src/SourceScanner/ccbuild-hasMainFunction.obj: src/SourceScanner/hasMainFunction.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-hasMainFunction.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo -c -o src/SourceScanner/ccbuild-hasMainFunction.obj `if test -f 'src/SourceScanner/hasMainFunction.cc'; then $(CYGPATH_W) 'src/SourceScanner/hasMainFunction.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/hasMainFunction.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/hasMainFunction.cc' object='src/SourceScanner/ccbuild-hasMainFunction.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-hasMainFunction.obj: src/sourceScanner/hasMainFunction.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-hasMainFunction.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo -c -o src/sourceScanner/ccbuild-hasMainFunction.obj `if test -f 'src/sourceScanner/hasMainFunction.cc'; then $(CYGPATH_W) 'src/sourceScanner/hasMainFunction.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/hasMainFunction.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-hasMainFunction.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/hasMainFunction.cc' object='src/sourceScanner/ccbuild-hasMainFunction.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-hasMainFunction.obj `if test -f 'src/SourceScanner/hasMainFunction.cc'; then $(CYGPATH_W) 'src/SourceScanner/hasMainFunction.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/hasMainFunction.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-hasMainFunction.obj `if test -f 'src/sourceScanner/hasMainFunction.cc'; then $(CYGPATH_W) 'src/sourceScanner/hasMainFunction.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/hasMainFunction.cc'; fi`
 
-src/SourceScanner/ccbuild-hasDefine.o: src/SourceScanner/hasDefine.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-hasDefine.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo -c -o src/SourceScanner/ccbuild-hasDefine.o `test -f 'src/SourceScanner/hasDefine.cc' || echo '$(srcdir)/'`src/SourceScanner/hasDefine.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/hasDefine.cc' object='src/SourceScanner/ccbuild-hasDefine.o' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-hasDefine.o: src/sourceScanner/hasDefine.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-hasDefine.o -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo -c -o src/sourceScanner/ccbuild-hasDefine.o `test -f 'src/sourceScanner/hasDefine.cc' || echo '$(srcdir)/'`src/sourceScanner/hasDefine.cc
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/hasDefine.cc' object='src/sourceScanner/ccbuild-hasDefine.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-hasDefine.o `test -f 'src/SourceScanner/hasDefine.cc' || echo '$(srcdir)/'`src/SourceScanner/hasDefine.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-hasDefine.o `test -f 'src/sourceScanner/hasDefine.cc' || echo '$(srcdir)/'`src/sourceScanner/hasDefine.cc
 
-src/SourceScanner/ccbuild-hasDefine.obj: src/SourceScanner/hasDefine.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-hasDefine.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo -c -o src/SourceScanner/ccbuild-hasDefine.obj `if test -f 'src/SourceScanner/hasDefine.cc'; then $(CYGPATH_W) 'src/SourceScanner/hasDefine.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/hasDefine.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/hasDefine.cc' object='src/SourceScanner/ccbuild-hasDefine.obj' libtool=no @AMDEPBACKSLASH@
+src/sourceScanner/ccbuild-hasDefine.obj: src/sourceScanner/hasDefine.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/sourceScanner/ccbuild-hasDefine.obj -MD -MP -MF src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo -c -o src/sourceScanner/ccbuild-hasDefine.obj `if test -f 'src/sourceScanner/hasDefine.cc'; then $(CYGPATH_W) 'src/sourceScanner/hasDefine.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/hasDefine.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Tpo src/sourceScanner/$(DEPDIR)/ccbuild-hasDefine.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/sourceScanner/hasDefine.cc' object='src/sourceScanner/ccbuild-hasDefine.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-hasDefine.obj `if test -f 'src/SourceScanner/hasDefine.cc'; then $(CYGPATH_W) 'src/SourceScanner/hasDefine.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/hasDefine.cc'; fi`
-
-src/SourceScanner/ccbuild-SourceScanner.o: src/SourceScanner/SourceScanner.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-SourceScanner.o -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Tpo -c -o src/SourceScanner/ccbuild-SourceScanner.o `test -f 'src/SourceScanner/SourceScanner.cc' || echo '$(srcdir)/'`src/SourceScanner/SourceScanner.cc
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/SourceScanner.cc' object='src/SourceScanner/ccbuild-SourceScanner.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-SourceScanner.o `test -f 'src/SourceScanner/SourceScanner.cc' || echo '$(srcdir)/'`src/SourceScanner/SourceScanner.cc
-
-src/SourceScanner/ccbuild-SourceScanner.obj: src/SourceScanner/SourceScanner.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/SourceScanner/ccbuild-SourceScanner.obj -MD -MP -MF src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Tpo -c -o src/SourceScanner/ccbuild-SourceScanner.obj `if test -f 'src/SourceScanner/SourceScanner.cc'; then $(CYGPATH_W) 'src/SourceScanner/SourceScanner.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/SourceScanner.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Tpo src/SourceScanner/$(DEPDIR)/ccbuild-SourceScanner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SourceScanner/SourceScanner.cc' object='src/SourceScanner/ccbuild-SourceScanner.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/SourceScanner/ccbuild-SourceScanner.obj `if test -f 'src/SourceScanner/SourceScanner.cc'; then $(CYGPATH_W) 'src/SourceScanner/SourceScanner.cc'; else $(CYGPATH_W) '$(srcdir)/src/SourceScanner/SourceScanner.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -c -o src/sourceScanner/ccbuild-hasDefine.obj `if test -f 'src/sourceScanner/hasDefine.cc'; then $(CYGPATH_W) 'src/sourceScanner/hasDefine.cc'; else $(CYGPATH_W) '$(srcdir)/src/sourceScanner/hasDefine.cc'; fi`
 
 src/arguments/ccbuild-values.o: src/arguments/values.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ccbuild_CXXFLAGS) $(CXXFLAGS) -MT src/arguments/ccbuild-values.o -MD -MP -MF src/arguments/$(DEPDIR)/ccbuild-values.Tpo -c -o src/arguments/ccbuild-values.o `test -f 'src/arguments/values.cc' || echo '$(srcdir)/'`src/arguments/values.cc
@@ -3674,16 +3657,12 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
-	-rm -f src/Compiler/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/Compiler/$(am__dirstamp)
 	-rm -f src/MD5Info/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/MD5Info/$(am__dirstamp)
-	-rm -f src/Resolver/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/Resolver/$(am__dirstamp)
-	-rm -f src/SourceScanner/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/SourceScanner/$(am__dirstamp)
 	-rm -f src/arguments/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/arguments/$(am__dirstamp)
+	-rm -f src/compiler/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/compiler/$(am__dirstamp)
 	-rm -f src/fileSystem/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/fileSystem/$(am__dirstamp)
 	-rm -f src/globallocks/$(DEPDIR)/$(am__dirstamp)
@@ -3694,8 +3673,12 @@ distclean-generic:
 	-rm -f src/options/$(am__dirstamp)
 	-rm -f src/problem/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/problem/$(am__dirstamp)
+	-rm -f src/resolver/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/resolver/$(am__dirstamp)
 	-rm -f src/source/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/source/$(am__dirstamp)
+	-rm -f src/sourceScanner/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/sourceScanner/$(am__dirstamp)
 	-rm -f src/sources/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/sources/$(am__dirstamp)
 	-rm -f src/string/$(DEPDIR)/$(am__dirstamp)
@@ -3712,7 +3695,7 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/MD5Info/$(DEPDIR) src/arguments/$(DEPDIR) src/compiler/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/resolver/$(DEPDIR) src/source/$(DEPDIR) src/sourceScanner/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -3760,7 +3743,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/Compiler/$(DEPDIR) src/MD5Info/$(DEPDIR) src/Resolver/$(DEPDIR) src/SourceScanner/$(DEPDIR) src/arguments/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/source/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/MD5Info/$(DEPDIR) src/arguments/$(DEPDIR) src/compiler/$(DEPDIR) src/fileSystem/$(DEPDIR) src/globallocks/$(DEPDIR) src/globals/$(DEPDIR) src/options/$(DEPDIR) src/problem/$(DEPDIR) src/resolver/$(DEPDIR) src/source/$(DEPDIR) src/sourceScanner/$(DEPDIR) src/sources/$(DEPDIR) src/string/$(DEPDIR) src/system/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -3800,7 +3783,7 @@ uninstall-man: uninstall-man1
 
 
 #Flex it!
-src/SourceScanner/yylex.cc: src/SourceScanner/lexer
+src/sourceScanner/yylex.cc: src/sourceScanner/lexer
 	${LEX} $<
 	mv yylex.cc $@
 

@@ -55,9 +55,9 @@ EOF
 echo "Running autotools:"
 ##BOOTSTRAP
 echo " aclocal"
-aclocal #Sometimes nice to have: -I /usr/share/autoconf-archive
+aclocal --force #Sometimes nice to have: -I /usr/share/autoconf-archive
 echo " autoconf"
-autoconf
+autoconf --force
 echo " automake"
 automake --add-missing --copy
 

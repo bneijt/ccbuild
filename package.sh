@@ -15,7 +15,7 @@
 
 #  You should have received a copy of the GNU General Public License
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
-
+set -e
 
 ccbuild distclean
 rm -rf src/ccbuild
@@ -28,22 +28,19 @@ YYLEX=src/sourceScanner/yylex.cc
 
 
 echo "]]] Makefile and A-A-P scripts"
-if [ -f $YYLEX ];	then
-	aap cleanALL;
-	
-	ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
-	ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
-else
-	echo "NO YYLEX.cc FOR SCRIPT GENERATION;"
-	echo "use: make -f Makefile.human src/sourceScanner/yylex.cc"
-	exit 1;
+if [ ! -f $YYLEX ];	then
+	make -f Makefile.human src/sourceScanner/yylex.cc
 fi;
+aap cleanALL;
+
+ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
+ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
 
 
 
 echo "]]] MD5 sum list of source"
 rm -f MD5SUMS*
-make clean
+make -f Makefile.human clean
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild -C src distclean
@@ -54,7 +51,7 @@ sh bootstrap
 sh bootstrap clean
 sh bootstrap
 
-rm $YYLEX
+rm -f "$YYLEX"
 rm -rf autom4te.cache
 
 echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
