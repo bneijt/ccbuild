@@ -17,6 +17,13 @@
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 set -e
 
+VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+if [ -z "$VERSION" ]; then
+    echo EMPTY VERSION FOUND
+    exit 1
+fi
+
+
 ccbuild distclean
 rm -rf src/ccbuild
 
@@ -55,4 +62,7 @@ rm -f "$YYLEX"
 rm -rf autom4te.cache
 
 echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
-
+echo "Version is now $VERSION"
+sed -r 's/AC_INIT\(ccbuild, [0-9.]+\)/AC_INIT(ccbuild, '$VERSION')/' -i configure.in
+sed -r 's/PROJECT_NUMBER         = [0-9.]+/PROJECT_NUMBER         = '$VERSION'/' -i Doxyfile
+echo "Update the version by changing src/ccResolutions"
