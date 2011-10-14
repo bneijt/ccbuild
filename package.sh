@@ -65,4 +65,5 @@ echo 'You can create a test archive using: git archive --format=tar --prefix=ccb
 echo "Version is now $VERSION"
 sed -r 's/AC_INIT\(ccbuild, [0-9.]+\)/AC_INIT(ccbuild, '$VERSION')/' -i configure.in
 sed -r 's/PROJECT_NUMBER         = [0-9.]+/PROJECT_NUMBER         = '$VERSION'/' -i Doxyfile
+sed 's/<version>.*/<version>'$VERSION'/' -i doc/ccbuild/ccbuild.sgml
 echo "Update the version by changing src/ccResolutions"

@@ -1,4 +1,4 @@
-#& -l --compiler g++-4.5 --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -DVERSION=\\\"2.0.1\\\" -std=c++0x"
+#& -l --compiler g++-4.5 --args "-Wall -g -Werror -Wstrict-null-sentinel -ansi -DVERSION=\\\"2.0.2\\\" -std=c++0x"
 # In the future, -std=c++0x is going to be default.
 # This file now requires ccbuild > 1.5.7
 #	Some options have no resolution, they should

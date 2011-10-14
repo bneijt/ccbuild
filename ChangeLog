@@ -1,3 +1,7 @@
+2.0.2:
+- Bugfix: fix configure build problem with newest bobcat library headers
+- Bugfix: lock PREC output
+
 2.0.1:
 - Bugfix: file path handling of files with multiple "../" elements was wrong.
 
