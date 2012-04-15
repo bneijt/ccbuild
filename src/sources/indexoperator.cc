@@ -20,49 +20,49 @@
 namespace{
 class DerivedEqual
 {
-	Source const * a;
+    Source const * a;
 
-	public:
-	DerivedEqual(Source const *target)
-		:
-			a(target)
-	{}
+    public:
+    DerivedEqual(Source const *target)
+        :
+            a(target)
+    {}
 
-	bool operator()(Source * const &b) const
-	{
-		return *a == *b;
-	}
+    bool operator()(Source * const &b) const
+    {
+        return *a == *b;
+    }
 };
-}	//Anon namespace
+}    //Anon namespace
 
 Source *Sources::operator[](std::string const &filename)
 {
 
-	_debugLevel2("Request for " << filename);
-	Source *s = new Source(filename);
-	if(!s)
-		throw Problem(Problem::Unable, "Unable allocate a Source class. Out of memory?");
+    _debugLevel2("Request for " << filename);
+    Source *s = new Source(filename);
+    if(!s)
+        throw Problem(Problem::Unable, "Unable allocate a Source class. Out of memory?");
 
-	if(!FileSystem::isReadable(s->filename()))
-	{
-		_debugLevel2("Requested file '" << s->filename() << "' not readable.");
-		delete s;
-		return 0;
-	}
+    if(!FileSystem::isReadable(s->filename()))
+    {
+        _debugLevel2("Requested file '" << s->filename() << "' not readable.");
+        delete s;
+        return 0;
+    }
 
-  OpenMP::ScopedLock sourceLock(d_sourcesLock);
-	std::set<Source *>::iterator pos = find_if(d_sources.begin(), d_sources.end(), DerivedEqual(s));
+    OpenMP::ScopedLock sourceLock(d_sourcesLock);
+    std::set<Source *>::iterator pos = find_if(d_sources.begin(), d_sources.end(), DerivedEqual(s));
 
-	if(pos == d_sources.end())
-	{
-		//Not found
-		_debugLevel4("Not found: " << filename << " so inserting it");
-		d_sources.insert(s);
-		return s;
-	}
-	
-	//Found
-	_debugLevel4("Found: " << filename);
-	delete s;
-	return *pos;
+    if(pos == d_sources.end())
+    {
+        //Not found
+        _debugLevel4("Not found: " << filename << " so inserting it");
+        d_sources.insert(s);
+        return s;
+    }
+    
+    //Found
+    _debugLevel4("Found: " << filename);
+    delete s;
+    return *pos;
 }

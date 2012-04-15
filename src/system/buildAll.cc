@@ -14,12 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "system.ih"
 void System::buildAll()
 {
@@ -46,17 +40,17 @@ void System::buildAll()
     if(!target->isBinTarget())
       continue;
       
-		++nbuilds;
-		
+    ++nbuilds;
+
     cerr << "Building: " << target->filename() << "\n";
     Compiler cc;
     System::build(target, cc);
   }
   if(nbuilds == 0)
   {
-  	if(Options::verbose)
- 			cerr << "ccbuild: Warning: Unable to find any binary targets.\n";
- 		cerr << "[build -> lib " << Options::progVersion << "]\n";
- 		lib(Options::progVersion);
+        if(Options::verbose)
+            cerr << "ccbuild: Warning: Unable to find any binary targets.\n";
+        cerr << "[build -> lib " << Options::progVersion << "]\n";
+        lib(Options::progVersion);
   }
 }
