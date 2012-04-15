@@ -39,7 +39,7 @@ class Problem: public std::exception
 			Suberror,					///<Subprocess error: non normal exit
 			Missing,					///<Anything which is missing
 			Unknown,					///<Anything which is unknown and thus a problem
-			Unable,					  ///<Anything which is just not doable and thus a problem
+			Unable					  ///<Anything which is just not doable and thus a problem
 		};
 
 		/** \brief Internal problem exception
