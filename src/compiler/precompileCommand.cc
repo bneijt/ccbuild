@@ -15,23 +15,18 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "compiler.ih"
 
-string Compiler::precompileCommand(std::string pwd, std::string target,
+string Compiler::precompileCommand(std::string target,
 		       std::string outputFile) const
 {
-  ostringstream command(d_baseCommand, ios::ate);
+    ostringstream command(d_baseCommand, ios::ate);
 
-  command << " " << Options::extraArgs << " ";
+    command << " " << Options::extraArgs << " ";
 
-  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
+    copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
 
-  command << "-c -o \"" << outputFile << "\" -x \"c++-header\" \"" << target << "\" ";
-  command << Options::commandAppend;
-	return command.str();
+    command << "-c -o \"" << outputFile << "\" -x \"c++-header\" \"" << target << "\" ";
+    command << Options::commandAppend;
+    return command.str();
 }

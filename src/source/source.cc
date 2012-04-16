@@ -17,9 +17,9 @@
 
 #include "source.ih"
 
-Source::Source(string const &filename)
+Source::Source(string const &sourceFilename)
    :
-   d_filename(filename),
+   d_filename(sourceFilename),
    d_inoDev(make_pair(0,0)),
    d_modTime(0),
    d_deps(),

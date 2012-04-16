@@ -22,16 +22,14 @@ std::string Resolver::resolve(std::string const &include) const
 	Globals &globs = Globals::getInstance();
 	
 	//Stupid but safe!
-	std::string *includePointer = globs[include];
+	std::string const *includePointer = globs[include];
 
 	//Check statics
 	std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
 	if(it != d_staticLinks.end())
 			return *(*it).second;
 
-
   return "FAIL";
-
 }
 
 std::string Resolver::resolve(std::string const *includePointer) const

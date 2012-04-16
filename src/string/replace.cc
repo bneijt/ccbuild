@@ -14,28 +14,24 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
 #include "string.ih"
 std::string String::replace(char from, char to) const
 {
-				std::string copy(*this);
-			__foreach(c, copy)
-				if(*c == from)
-					*c = to;
-			return copy;
-
+    std::string contentCopy(*this);
+    __foreach(c, contentCopy)
+        if(*c == from)
+            *c = to;
+    return contentCopy;
 }
 std::string String::replace(std::string const &from, std::string const &to) const
 {
-				std::string copy(*this);
-			while(true)
-			{
-			  std::string::size_type pos = copy.find(from);
-			  if(pos == std::string::npos)
-			    break;
-			  copy.replace(pos, from.size(), to);
-			}
-			return copy;
-
+    std::string contentCopy(*this);
+    while(true)
+    {
+        std::string::size_type pos = contentCopy.find(from);
+        if(pos == std::string::npos)
+           break;
+        contentCopy.replace(pos, from.size(), to);
+    }
+    return contentCopy;
 }

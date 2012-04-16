@@ -18,47 +18,46 @@
 #include "source.ih"
 void Source::buildBinTarget(Compiler & cc)
 {
-  OpenMP::ScopedLock slock(d_apiLock);
+    OpenMP::ScopedLock slock(d_apiLock);
 
-  _debugLevel4("Output filename: " << outputFilename());
+    _debugLevel4("Output filename: " << outputFilename());
 
-  vector<Source *> srcList;
-  vector<string const *> globalList;
-	dependencies(srcList, globalList);
-  Resolver &resolver = Resolver::getInstance();
+    vector<Source *> srcList;
+    vector<string const *> globalList;
+    dependencies(srcList, globalList);
+    Resolver &resolver = Resolver::getInstance();
 
-  //Resolve all globals into the compiler
-  __foreach(global, globalList)
-  	resolver.resolveInto(*global, cc);
+    //Resolve all globals into the compiler
+    __foreach(global, globalList)
+        resolver.resolveInto(*global, cc);
 
 
-	if(!upToDate(srcList))
-  {	//Need an update
+    if(!upToDate(srcList))
+    {    //Need an update
 
-	  string outputDirectory = directory() + "/o";
+        string outputDirectory = directory() + "/o";
 
-	  //Check for object directory existence (exists("o"))
-	  _debugLevel2("Ensure " + outputDirectory);
-	  FileSystem::ensureDirectory(outputDirectory);
+        //Check for object directory existence (exists("o"))
+        _debugLevel2("Ensure " + outputDirectory);
+        FileSystem::ensureDirectory(outputDirectory);
 
-    //Now, we have a compiler with all the objects in it.
-    int ret = cc.compile(directory(), d_filename, outputFilename());
-    //Compilation OK
-		//Update hash
-		if(Options::md5 && ret == 0)
-		{
-			MD5Info &md5i = MD5Info::getInstance();
-			string collectedHash = md5i.contentHash(filename());
-			
-			vector<Source *> srcList;
-			dependencies(srcList);
-			__foreach(src, srcList)
-				collectedHash += md5i.contentHash((*src)->filename());
-			
-			md5i.save(filename(), collectedHash);
-		}
-  }
-	
+        //Now, we have a compiler with all the objects in it.
+        int ret = cc.compile(d_filename, outputFilename());
+        //Compilation OK
+        //Update hash
+        if(Options::md5 && ret == 0) {
+            MD5Info &md5i = MD5Info::getInstance();
+            string collectedHash = md5i.contentHash(filename());
+
+            vector<Source *> depSrcList;
+            dependencies(depSrcList);
+            __foreach(src, depSrcList)
+               collectedHash += md5i.contentHash((*src)->filename());
+
+            md5i.save(filename(), collectedHash);
+        }
+    }
+
   //Now all local children are build, so now we can build our own functions.
   //compile me
   //Add my object to the list of objects in the compiler.

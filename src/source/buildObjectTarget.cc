@@ -16,7 +16,6 @@
 */
 #include "source.ih"
 
-
 void Source::buildObjectTarget(Compiler &cc)
 {
   OpenMP::ScopedLock slock(d_apiLock);
@@ -39,7 +38,7 @@ void Source::buildObjectTarget(Compiler &cc)
 	  FileSystem::ensureDirectory(outputDirectory);
 	
     //Now, we have a compiler with all the objects in it.
-    int ret = cc.compile(directory(), d_filename, outputFilename());
+    int ret = cc.compile(d_filename, outputFilename());
 		//Compilation OK
 		//Update hash
 		if(Options::md5 && ret == 0)
@@ -47,9 +46,9 @@ void Source::buildObjectTarget(Compiler &cc)
 			MD5Info &md5i = MD5Info::getInstance();
 			string collectedHash = md5i.contentHash(filename());
 			
-			vector<Source *> srcList;
-			dependencies(srcList);
-			__foreach(src, srcList)
+			vector<Source *> depSrcList;
+			dependencies(depSrcList);
+			__foreach(src, depSrcList)
 				collectedHash += md5i.contentHash((*src)->filename());
 			
 			md5i.save(filename(), collectedHash);

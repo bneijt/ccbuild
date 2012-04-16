@@ -15,16 +15,11 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "problem.ih"
 
-Problem::Problem(Id id, std::string const &message, int status) throw()
+Problem::Problem(Id problemId, std::string const &message, int status) throw()
 	:
 	d_stat(status),
 	d_msg(message),
-	d_id(id)
+	d_id(problemId)
 {}

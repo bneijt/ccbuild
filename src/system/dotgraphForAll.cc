@@ -47,12 +47,12 @@ void System::dotgraphForAll()
 		if(Options::simulate)
 			continue;
 
-    ofstream file(output.c_str(), ios::trunc);
-    if(!file.is_open())
+    ofstream ofile(output.c_str(), ios::trunc);
+    if(!ofile.is_open())
     	continue;
 
-    dotgraphFor(target, file);
-    file.close();
+    dotgraphFor(target, ofile);
+    ofile.close();
   }
 
 }

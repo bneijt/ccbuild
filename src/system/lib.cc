@@ -178,7 +178,7 @@ int System::lib(std::string const &version, Source *source)
   {
   		cc.ar(outputAr);
   		if(!version.empty())
-  			cc.lib(".", "lib" + pn + ".so", version);
+  			cc.lib("lib" + pn + ".so", version);
   }
   else
   {

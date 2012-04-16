@@ -35,7 +35,7 @@ void Source::buildHeader(Compiler & cc)
 
 	if(!upToDate(srcList))
 	{
-    int ret = cc.precompile(directory(), d_filename, outputFilename());
+    int ret = cc.precompile(d_filename, outputFilename());
     
     //Compilation OK
 		//Update hash
@@ -44,9 +44,9 @@ void Source::buildHeader(Compiler & cc)
 			MD5Info &md5i = MD5Info::getInstance();
 			string collectedHash = md5i.contentHash(filename());
 			
-			vector<Source *> srcList;
-			dependencies(srcList);
-			__foreach(src, srcList)
+			vector<Source *> depSrcList;
+			dependencies(depSrcList);
+			__foreach(src, depSrcList)
 				collectedHash += md5i.contentHash((*src)->filename());
 			
 			md5i.save(filename(), collectedHash);

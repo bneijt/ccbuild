@@ -18,74 +18,78 @@
 #include "source.ih"
 void Source::dependencies(std::vector<Source *> &srcList) const
 {
-  if(!d_depsDone)
-    throw Problem(Problem::Unable, "Unable to load dependencies without the file being scanned.");
+    if(!d_depsDone) {
+        throw Problem(Problem::Unable, "Unable to load dependencies without the file being scanned.");
+    }
 
-  //Collect all Source pointers needed
-  stack<Source *> srcStack;
-  srcStack.push(const_cast<Source *>(this));
+    //Collect all Source pointers needed
+    stack<Source *> srcStack;
+    srcStack.push(const_cast<Source *>(this));
 
-  //Gather all the global includes and sources
-  while(srcStack.size() > 0)
-  {
-    Source * current = srcStack.top();
-    srcStack.pop();
+    //Gather all the global includes and sources
+    while(srcStack.size() > 0)
+    {
+        Source * current = srcStack.top();
+        srcStack.pop();
 
-    //Have we seen this source?
-    if(find(srcList.begin(), srcList.end(), current) != srcList.end())
-      continue;
-		
-    //Copy dependencies to stack.
-    vector<Source *> deps;
-    current->directDeps(deps);
+        //Have we seen this source?
+        if(find(srcList.begin(), srcList.end(), current) != srcList.end()) {
+            continue;
+        }
 
-    //Push all sources to the stack
-    __foreach(dep, deps)
-				srcStack.push(*dep);
+        //Copy dependencies to stack.
+        vector<Source *> deps;
+        current->directDeps(deps);
 
-		//Never collect this in the list
-		if(current != this)
-	   	srcList.push_back(current);
-  }
-  _debugLevel2("Stacked up " << srcList.size() << " dependencies for " << d_filename);
+        //Push all sources to the stack
+        __foreach(dep, deps) {
+            srcStack.push(*dep);
+        }
+
+        //Never collect this in the list
+        if(current != this) {
+        srcList.push_back(current);
+        }
+    }
+    _debugLevel2("Stacked up " << srcList.size() << " dependencies for " << d_filename);
 }
 
 void Source::dependencies(std::vector<Source  *> &srcList, std::vector<std::string const*> &globalList) const
 {
-	//TODO: use std::set as srcList to check for contents?
-  //Collect all Source pointers needed
-  stack<Source *> srcStack;
-  srcStack.push(const_cast<Source *>(this));
-	
-	set<string *> globalSet(d_globalDeps);
+    //Collect all Source pointers needed
+    stack<Source *> srcStack;
+    srcStack.push(const_cast<Source *>(this));
 
-  //Gather all the global includes and sources
-  while(srcStack.size() > 0)
-  {
-    Source *current = srcStack.top();
-    srcStack.pop();
+    set<string const *> globalSet(d_globalDeps);
 
-    //Have we seen this source?
-    if(find(srcList.begin(), srcList.end(), current) != srcList.end())
-      continue;
-		
-    //Copy dependencies to stack.
-    vector<Source *> deps;
-    vector<string *> globals;
-    current->directDeps(deps, globals);
+    //Gather all the global includes and sources
+    while(srcStack.size() > 0)
+    {
+        Source *current = srcStack.top();
+        srcStack.pop();
+
+        //Have we seen this source?
+        if(find(srcList.begin(), srcList.end(), current) != srcList.end()) {
+            continue;
+        }
+
+        //Copy dependencies to stack.
+        vector<Source *> deps;
+        vector<string const *> globals;
+        current->directDeps(deps, globals);
 
 
-    //Push all sources to the stack
-    __foreach(dep, deps)
-				srcStack.push(*dep);
+        //Push all sources to the stack
+        __foreach(dep, deps) {
+            srcStack.push(*dep);
+        }
 
-    //Copy new global includes to the list.
-    copy(globals.begin(), globals.end(), inserter(globalSet, globalSet.begin()));
+        //Copy new global includes to the list.
+        copy(globals.begin(), globals.end(), inserter(globalSet, globalSet.begin()));
 
-   	srcList.push_back(current);
-  }
+        srcList.push_back(current);
+    }
 
-  srcList.erase(srcList.begin());	//Remove "this" from the srcList;
-  copy(globalSet.begin(), globalSet.end(), back_inserter(globalList));
-  
+    srcList.erase(srcList.begin()); //Remove "this" from the srcList;
+    copy(globalSet.begin(), globalSet.end(), back_inserter(globalList));
 }

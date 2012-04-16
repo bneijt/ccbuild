@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 void System::resolveTest(Source * s, ostream &str)
 {
@@ -33,7 +28,7 @@ void System::resolveTest(Source * s, set<string> *globals)
 	//cerr << "ccbuild: Resolving '" << s->filename() << "'" << endl;	//Flush, to get streams
 	vector<Source *> srcList, localList;
 	srcList.push_back(s);
-	vector<string *> globalList;
+	vector<string const *> globalList;
 	
 	Resolver const &resolver = Resolver::getInstance();
 	

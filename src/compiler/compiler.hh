@@ -80,19 +80,19 @@ class Compiler
 	    );
 
 		///\brief Run the compiler to precopmile a (header) file
-  	int precompile(std::string pwd,	///<Working directory to use
+  	int precompile(
 	       std::string target,		///<Target filename to compile
 	       std::string outputFile	///<The file to use for output
 	    ) const;
 
 		///\brief Return the compiler command to precopmile a (header) file
-  	std::string precompileCommand(std::string pwd,	///<Working directory to use
+  	std::string precompileCommand(
 	       std::string target,		///<Target filename to compile
 	       std::string outputFile	///<The file to use for output
 	    ) const;
 
 		///\brief Run the compiler to create an object
-  	int compile(std::string pwd,	///<Working directory to use
+  	int compile(
 	       std::string target,		///<Target filename to compile
 	       std::string outputFile	///<The file to use for output
 	    ) const;
@@ -104,11 +104,10 @@ class Compiler
 
 		/**\brief Create a library from all the objects
 
-	  	\param pwd Working directory to use
 	  	\param outputFile The name of the output file (libsomething.so)
 	  	\param version The version of the library (0.6.7)		
 		*/
-	  int lib(std::string pwd, std::string outputFile, std::string const &version) const;
+	  int lib(std::string outputFile, std::string const &version) const;
 
 	  /**\brief Create an archive from all the objects
 	  
@@ -121,7 +120,7 @@ class Compiler
 	  	\param pwd Working directory to use
 	  	\param outputFile The name of the output file (libsomething.so)
 		*/
-  	std::string libCommand(std::string pwd,
+  	std::string libCommand(
 	       std::string outputFile
 	    ) const;
 

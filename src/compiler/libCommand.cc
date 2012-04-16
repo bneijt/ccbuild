@@ -16,8 +16,7 @@
 */
 #include "compiler.ih"
 
-string Compiler::libCommand(std::string pwd,
-			std::string target) const
+string Compiler::libCommand(std::string target) const
 {
 
   ostringstream command(d_baseCommand, ios::ate);

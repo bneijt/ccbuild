@@ -17,7 +17,7 @@
 
 #include "compiler.ih"
 
-int Compiler::compile(std::string pwd, std::string target,
+int Compiler::compile(std::string target,
 		       std::string outputFile) const
 {
 	cls();

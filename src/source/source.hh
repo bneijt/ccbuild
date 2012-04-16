@@ -54,7 +54,7 @@ class Source
 		
 		//A source can never depend on the same sources twice
 		std::vector< Source * > d_deps;	///<Local dependencies (direct)
-		std::set< std::string *> d_globalDeps;///<Global dependencies
+		std::set< std::string const *> d_globalDeps;///<Global dependencies
 		std::vector< std::string > d_ignored;///<Ignored dependencies
 		
 		bool d_depsDone;	///< Have the dependencies been calculated?
@@ -99,10 +99,10 @@ class Source
 		void directDeps(std::vector<Source *> &localDeps) const;
 		
 		///\brief Give a list of all the sources that this source depends on.
-		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps) const;
+		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string const *> &globalDeps) const;
 		
 		///\brief Give a list of all the sources that this source depends on.
-		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string *> &globalDeps, std::vector<std::string> &ignored) const;
+		void directDeps(std::vector<Source *> &localDeps, std::vector<std::string const *> &globalDeps, std::vector<std::string> &ignored) const;
 
 		///\brief Give a list of all ignored dependencies
 		void ignoredDeps(std::vector<std::string> &ignored) const

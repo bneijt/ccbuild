@@ -15,8 +15,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "compiler.ih"
-int Compiler::lib(std::string pwd,
-			std::string outputFile, std::string const &version) const
+int Compiler::lib(std::string outputFile, std::string const &version) const
 {
 	cls();
     cerrLock.set();
@@ -24,7 +23,7 @@ int Compiler::lib(std::string pwd,
     cerrLock.unset();
 
 
-  string command = libCommand(pwd, outputFile + "." + version);
+  string command = libCommand(outputFile + "." + version);
 
 	int retValue = System::system(command.c_str());
 

@@ -16,9 +16,9 @@
 */
 
 #include "sourceScanner.ih"
-SourceScanner::SourceScanner(istream * yyin)
+SourceScanner::SourceScanner(istream * newYyin)
 	:
 	d_hasMainFunction(false)
 {
-  switch_streams(yyin, yyout);
+  switch_streams(newYyin, yyout);
 }

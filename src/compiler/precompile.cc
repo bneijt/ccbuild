@@ -22,7 +22,7 @@
 
 #include "compiler.ih"
 
-int Compiler::precompile(std::string pwd, std::string target,
+int Compiler::precompile(std::string target,
 		       std::string outputFile) const
 {
     cls();
@@ -32,7 +32,7 @@ int Compiler::precompile(std::string pwd, std::string target,
     cerrLock.unset();
 
 
-    string command = precompileCommand(pwd, target, outputFile);
+    string command = precompileCommand(target, outputFile);
 
     int retValue = System::system(command.c_str());
 

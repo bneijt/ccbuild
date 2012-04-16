@@ -19,14 +19,13 @@
 
 bool System::changeTo(string const &targetpath)
 {
-	string path = trimmed(targetpath);
-	if(chdir(path.c_str()) != 0)
-	{
-		cerr << "ccbuild: Error: Unable to change to '" << path << "'\n";
-		return false;
-	}
-	cerr << "Entering '" << path << "'\n";
-  return true;
-
+    string path = trimmed(targetpath);
+    if(chdir(path.c_str()) != 0)
+    {
+        cerr << "ccbuild: Error: Unable to change to '" << path << "'\n";
+        return false;
+    }
+    cerr << "Entering '" << path << "'\n";
+    return true;
 }
 

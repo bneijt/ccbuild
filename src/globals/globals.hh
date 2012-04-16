@@ -45,7 +45,7 @@ class Globals
 		static void destroy();
 		
 		///\brief Overwrite the index operator of map
-		std::string * const operator[](std::string const &global);
+		std::string const * operator[](std::string const &global);
 		
 		std::map<std::string, std::string *>::iterator begin()
 		{

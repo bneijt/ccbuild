@@ -68,7 +68,7 @@ bool Resolver::loadIfExists(std::string const &confFile, bool report)
 		System::trim(&global);
 		System::trim(&arguments);
 		
-		string *globalPointer = globs[global];
+		string const *globalPointer = globs[global];
 
 		//Only add link if it isn't mentioned before!
 		if(d_staticLinks.count(globalPointer))
