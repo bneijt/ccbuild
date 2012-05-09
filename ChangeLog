@@ -1,3 +1,6 @@
+2.0.3:
+- Bugfix: multiple variable shadow problems resolved
+
 2.0.2:
 - Bugfix: fix configure build problem with newest bobcat library headers
 - Bugfix: lock PREC output

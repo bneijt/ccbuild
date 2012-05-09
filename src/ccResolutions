@@ -1,4 +1,4 @@
-#& -l --compiler g++-4.5 --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -W -Wwrite-strings -Wshadow -ansi -DVERSION=\\\"2.0.2\\\" -std=c++0x"
+#& -l --compiler g++-4.6 --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -W -Wwrite-strings -Wshadow -ansi -DVERSION=\\\"2.0.3\\\" -std=c++0x"
 #Left out -Wconversion and -pedantic because of the ugly yylex.cc
 # In the future, -std=c++0x is going to be default.
 # This file now requires ccbuild > 1.5.7

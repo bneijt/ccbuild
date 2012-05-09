@@ -34,14 +34,16 @@ make -C doc/ccbuild
 YYLEX=src/sourceScanner/yylex.cc
 
 
-echo "]]] Makefile and A-A-P scripts"
-aap cleanALL;
+echo "]]] Makefile"
 if [ ! -f $YYLEX ];	then
 	make -f Makefile.human src/sourceScanner/yylex.cc
 fi;
 
 ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
-ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
+
+#echo "]]] A-A-P"
+#aap cleanALL;
+#ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
 
 
 
