@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #This script is used to clean up the directory
 #
 #  This file is part of ccbuild.
@@ -15,6 +15,7 @@
 
 #  You should have received a copy of the GNU General Public License
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
+cd "`dirname "$0"`"
 set -e
 
 VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
@@ -30,13 +31,14 @@ rm -rf src/ccbuild
 echo "]]] Documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
+cp README.md README #Required for autoconf default dist extra's
 
 YYLEX=src/sourceScanner/yylex.cc
 
 
 echo "]]] Makefile"
-if [ ! -f $YYLEX ];	then
-	make -f Makefile.human src/sourceScanner/yylex.cc
+if [ ! -f "$YYLEX" ];	then
+	make -f Makefile.human "$YYLEX"
 fi;
 
 ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
@@ -48,7 +50,7 @@ ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=
 
 
 echo "]]] MD5 sum list of source"
-rm MD5SUMS
+rm -f MD5SUMS
 if [ -f Makefile ]; then
     make clean
 fi
