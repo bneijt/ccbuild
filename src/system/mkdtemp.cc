@@ -23,12 +23,11 @@ std::string System::mkdtemp(std::string const& nameTemplate)
   tmpDirName[nameTemplate.size()] = '\0';
   ::strcpy(tmpDirName, nameTemplate.c_str());
   char const* tmpDir = ::mkdtemp(tmpDirName);
-  
+
   if(tmpDir == 0)
   {
     delete[] tmpDirName;
-    throw FBB::Errno();
-    //throw Problem(Problem::Unable, "Unable to create a temporary directory for batch compilation");
+    throw Problem(Problem::Unable, "Unable to create a temporary directory for batch compilation");
   }
   //Do I delete the modified version? I guess so
   std::string dirname(tmpDirName);
