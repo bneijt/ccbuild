@@ -1,0 +1,8 @@
+#!/bin/bash
+set -x
+pacman --noconfirm -U pkgs/*.tar.xz
+
+./configure && make && make install
+
+tar -cJf /dev/sdb /job_output.txt
+
