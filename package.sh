@@ -2,6 +2,7 @@
 #This script is used to clean up the directory
 #
 #  This file is part of ccbuild.
+#  Copyright (C) 2013  A. Bram Neijt <bneijt@gmail.com>
 
 #  ccbuild is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by

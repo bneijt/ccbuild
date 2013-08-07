@@ -1,5 +1,6 @@
 /*
   This file is part of ccbuild.
+  Copyright (C) 2013  A. Bram Neijt <bneijt@gmail.com>
 
   ccbuild is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -14,12 +15,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-
-
-
 #include "source.ih"
 
 bool Source::producesOutput()	const
