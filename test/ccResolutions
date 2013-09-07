@@ -1,4 +1,4 @@
-#& -I../src/ --compiler g++-4.5 --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -ansi -DVERSION=\\\"2.0.2\\\" -std=c++0x -fopenmp"
+#& -I../src/ --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -ansi -DVERSION=\\\"2.0.2\\\" -std=c++0x -fopenmp"
 getopt.h	
 png.h	-lstdc++ -lpng -lz
 sqlite3.h	-lsqlite3
