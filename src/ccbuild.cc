@@ -65,10 +65,10 @@ class ArgsDestroy
 			d_argv(0),
 			d_argc(0)
 		{}
-		
+
 		ArgsDestroy(ArgsDestroy const & o);//NI
     ArgsDestroy operator=(const ArgsDestroy&);//NI
-    
+
 		void set(unsigned argc, char *argv[])
 		{
 			assert(argc > 0);
