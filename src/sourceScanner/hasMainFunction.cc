@@ -16,7 +16,6 @@
 */
 
 #include "sourceScanner.ih"
-bool const &SourceScanner::hasMainFunction() const
-{
-	return d_hasMainFunction;
+bool const &SourceScanner::hasMainFunction() const {
+    return d_hasMainFunction;
 }

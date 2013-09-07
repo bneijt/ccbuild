@@ -23,28 +23,27 @@
 #include "arguments.ih"
 namespace {
 
-std::string const spaceAdd(std::string const &rvalue, std::string const &lvalue)
-{
-  _debugLevel4("rvalue.size=" << rvalue.size() << " lvalue.size=" << lvalue.size());
-	if(rvalue.size() > 0 && lvalue.size() > 0)
-		return rvalue + " " + lvalue;
-	return rvalue + lvalue;
+std::string const spaceAdd(std::string const &rvalue, std::string const &lvalue) {
+    _debugLevel4("rvalue.size=" << rvalue.size() << " lvalue.size=" << lvalue.size());
+    if(rvalue.size() > 0 && lvalue.size() > 0) {
+        return rvalue + " " + lvalue;
+    }
+    return rvalue + lvalue;
 }
 
 }
-std::string Arguments::value(std::string const &optionName) const
-{
+std::string Arguments::value(std::string const &optionName) const {
 
-	map<string, bool *>::const_iterator fi = d_flags.find(optionName);
-	
-	if(fi == d_flags.end())
-		return d_empty;
-		
-	map<bool *, std::vector<std::string> >::const_iterator vi = d_values.find((*fi).second);
-	if(vi != d_values.end())
-	{
-		return accumulate((*vi).second.begin(), (*vi).second.end(), string(""), spaceAdd);
-	}
-	else
-		return d_empty;
+    map<string, bool *>::const_iterator fi = d_flags.find(optionName);
+
+    if(fi == d_flags.end()) {
+        return d_empty;
+    }
+
+    map<bool *, std::vector<std::string> >::const_iterator vi = d_values.find((*fi).second);
+    if(vi != d_values.end()) {
+        return accumulate((*vi).second.begin(), (*vi).second.end(), string(""), spaceAdd);
+    } else {
+        return d_empty;
+    }
 }

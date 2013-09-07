@@ -22,24 +22,21 @@
 
 #include "system.ih"
 
-void System::localSourcesInto(vector<Source *> &list)
-{
-  vector<string> files;
+void System::localSourcesInto(vector<Source *> &list) {
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
-  
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    FileSystem::globSourceFilesInto(&files, ".");
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cerr << "Error loading '" << *file << "'\n";
-      continue;
+    __foreach(file, files) {
+        Source *target = s[*file];
+
+        //Error loading source??
+        if(target == 0) {
+            cerr << "Error loading '" << *file << "'\n";
+            continue;
+        }
+        list.push_back(target);
     }
-    list.push_back(target);
-  }
 }

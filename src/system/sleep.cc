@@ -22,7 +22,6 @@
 
 #include "system.ih"
 //This function is only here to keep ccbuild header list smaller
-unsigned System::sleep(unsigned const seconds)
-{
-	return ::sleep(seconds);
+unsigned System::sleep(unsigned const seconds) {
+    return ::sleep(seconds);
 }

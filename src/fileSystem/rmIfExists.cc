@@ -16,31 +16,31 @@
 */
 #include "fileSystem.ih"
 
-bool FileSystem::rmIfExists(std::string const &filename)
-{
-  if(! FileSystem::fileExists(filename))
-  	return false;
-  
-  cerrLock.set();
-  cerr << "[RM] " << filename << "\n";
-  cerrLock.unset();
-  
-  if(Options::simulate)
-		return true;
+bool FileSystem::rmIfExists(std::string const &filename) {
+    if(! FileSystem::fileExists(filename)) {
+        return false;
+    }
 
-  fsLock.set();
-	int retValue = unlink(filename.c_str());
-  fsLock.unset();
+    cerrLock.set();
+    cerr << "[RM] " << filename << "\n";
+    cerrLock.unset();
 
-	if(retValue != 0 && FileSystem::fileExists(filename))
-	{
-	  cerrLock.set();
-	  cerr << "Non zero exit status for unlink: status " << retValue << "\n";
-	  cerr << "    could not remove: " << filename << "\n";
-	  cerrLock.unset();
-	  return false;
-	}
+    if(Options::simulate) {
+        return true;
+    }
 
-	return true;
+    fsLock.set();
+    int retValue = unlink(filename.c_str());
+    fsLock.unset();
+
+    if(retValue != 0 && FileSystem::fileExists(filename)) {
+        cerrLock.set();
+        cerr << "Non zero exit status for unlink: status " << retValue << "\n";
+        cerr << "    could not remove: " << filename << "\n";
+        cerrLock.unset();
+        return false;
+    }
+
+    return true;
 }
 

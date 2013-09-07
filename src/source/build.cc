@@ -15,30 +15,23 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-void Source::build(Compiler & cc)
-{
-  d_apiLock.set(); //Protect d_filename
-
-  if(!FileSystem::isReadable(d_filename))
-  {
-    cerrLock.set();
-    cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
-    cerrLock.unset();
-  }
-  d_apiLock.unset();
-
-	if(isHeader())
-  {
-    buildHeader(cc);
-  }
-  else if(isObjectTarget())
-  {
-    buildObjectTarget(cc);
-  }
-  else
-  {
+void Source::build(Compiler & cc) {
     d_apiLock.set(); //Protect d_filename
-    cerr << "ccbuild: Error: Unknown file type: " << d_filename << "\n";
+
+    if(!FileSystem::isReadable(d_filename)) {
+        cerrLock.set();
+        cerr << "ccbuild: Warning: Trying to build a non-readable file: '" << d_filename << "'" << endl;
+        cerrLock.unset();
+    }
     d_apiLock.unset();
-  }
+
+    if(isHeader()) {
+        buildHeader(cc);
+    } else if(isObjectTarget()) {
+        buildObjectTarget(cc);
+    } else {
+        d_apiLock.set(); //Protect d_filename
+        cerr << "ccbuild: Error: Unknown file type: " << d_filename << "\n";
+        d_apiLock.unset();
+    }
 }

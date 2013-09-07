@@ -16,10 +16,10 @@
 */
 #include "globals.ih"
 
-Globals &Globals::getInstance()
-{
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance == 0)
-		s_instance = new Globals();
-	return *s_instance;
+Globals &Globals::getInstance() {
+    OpenMP::ScopedLock instantiateLock(s_instanceLock);
+    if(s_instance == 0) {
+        s_instance = new Globals();
+    }
+    return *s_instance;
 }

@@ -16,15 +16,13 @@
 */
 
 #include "fileSystem.ih"
-time_t FileSystem::modTime(string const &file) throw (Problem)
-{
-  OpenMP::ScopedLock asdf(fsLock);
+time_t FileSystem::modTime(string const &file) throw (Problem) {
+    OpenMP::ScopedLock asdf(fsLock);
 
-  struct stat statbuff;
-  if(stat(file.c_str(), &statbuff) != 0)
-  {
-    throw Problem(Problem::Missing, "Could not stat \"" + file +"\"\n\tFailed to get requested modTime.");
-  	return 0;
-  }
-  return statbuff.st_mtime;
+    struct stat statbuff;
+    if(stat(file.c_str(), &statbuff) != 0) {
+        throw Problem(Problem::Missing, "Could not stat \"" + file +"\"\n\tFailed to get requested modTime.");
+        return 0;
+    }
+    return statbuff.st_mtime;
 }

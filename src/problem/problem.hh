@@ -19,56 +19,50 @@
 
 
 #ifndef Problem_HH_INCLUDED_
-#define	Problem_HH_INCLUDED_
+#define Problem_HH_INCLUDED_
 
 #include <string>
 
-namespace bneijt
-{
+namespace bneijt {
 
-class Problem: public std::exception
-{
-		int d_stat;
-		std::string d_msg;
+class Problem: public std::exception {
+        int d_stat;
+        std::string d_msg;
 
-		
-	public:
-		enum Id
-		{
-			Subfailure = 1,		///<Subprocess failure: return code nonzero
-			Suberror,					///<Subprocess error: non normal exit
-			Missing,					///<Anything which is missing
-			Unknown,					///<Anything which is unknown and thus a problem
-			Unable					  ///<Anything which is just not doable and thus a problem
-		};
 
-		/** \brief Internal problem exception
-		\param id The Id of the given problem, should be used as the return status of the program.
-		\param message The human readable version of the problem.
-		\param status If available the status of the subprocess or subfunction.
-		*/
-		Problem(Id id, std::string const &message, int status = 0) throw();
-		
-		~Problem() throw()
-		{}
-		
-		char const *what() const throw()
-		{
-			return d_msg.c_str();
-		}
-		
-		unsigned stat() const throw()
-		{
-			return d_stat;
-		}
+    public:
+        enum Id {
+            Subfailure = 1,     ///<Subprocess failure: return code nonzero
+            Suberror,                   ///<Subprocess error: non normal exit
+            Missing,                    ///<Anything which is missing
+            Unknown,                    ///<Anything which is unknown and thus a problem
+            Unable                    ///<Anything which is just not doable and thus a problem
+        };
 
-		Id id() const throw()
-		{
-			return d_id;
-		}
-		
-	private:
-		Id d_id;
+        /** \brief Internal problem exception
+        \param id The Id of the given problem, should be used as the return status of the program.
+        \param message The human readable version of the problem.
+        \param status If available the status of the subprocess or subfunction.
+        */
+        Problem(Id id, std::string const &message, int status = 0) throw();
+
+        ~Problem() throw()
+        {}
+
+        char const *what() const throw() {
+            return d_msg.c_str();
+        }
+
+        unsigned stat() const throw() {
+            return d_stat;
+        }
+
+        Id id() const throw() {
+            return d_id;
+        }
+
+    private:
+        Id d_id;
 };
 
 }//namespace

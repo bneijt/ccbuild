@@ -18,42 +18,41 @@
 
 #include "MD5Info.ih"
 
-void MD5Info::load(std::string const &filename)
-{
-  OpenMP::ScopedLock oldLock(d_oldLock);
-  
-	//Load a configuration file if it exists
-	std::string const confFile = hashFilenameFor(filename);
-	
-  ifstream file(confFile.c_str());
-  _debugLevel1("Loading: '" << confFile << "'");
-	
-  if(!file.is_open())
-  {
-  	_debugLevel1("Unable to open: '" << confFile << "'");
-  	return;
-  }
+void MD5Info::load(std::string const &filename) {
+    OpenMP::ScopedLock oldLock(d_oldLock);
 
-  while(file)
-  {
-  	//TODO Optimize or extend with extra options
-   	string line;
-   	string hashInfo;
-		
-    getline(file, line);
-    
-    if(file.eof())
-			break;
+    //Load a configuration file if it exists
+    std::string const confFile = hashFilenameFor(filename);
 
-		//Try the next line if there aren't enough characters
-		if(line.size() < 32)
-			continue;
-		
-		hashInfo = line;
+    ifstream file(confFile.c_str());
+    _debugLevel1("Loading: '" << confFile << "'");
 
-    _debugLevel4("Recall: " << hashInfo << " for '" << filename << "'");
-    d_old[filename] = hashInfo;
-  }
+    if(!file.is_open()) {
+        _debugLevel1("Unable to open: '" << confFile << "'");
+        return;
+    }
 
-  file.close(); 
+    while(file) {
+        //TODO Optimize or extend with extra options
+        string line;
+        string hashInfo;
+
+        getline(file, line);
+
+        if(file.eof()) {
+            break;
+        }
+
+        //Try the next line if there aren't enough characters
+        if(line.size() < 32) {
+            continue;
+        }
+
+        hashInfo = line;
+
+        _debugLevel4("Recall: " << hashInfo << " for '" << filename << "'");
+        d_old[filename] = hashInfo;
+    }
+
+    file.close();
 }

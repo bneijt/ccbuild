@@ -16,19 +16,19 @@
 */
 
 #include "resolver.ih"
-bool Resolver::resolveInto(std::string const *include, Compiler & cc, bool quiet) const
-{
-  string argument = resolve(include);
+bool Resolver::resolveInto(std::string const *include, Compiler & cc, bool quiet) const {
+    string argument = resolve(include);
 
-  //TODO: use exceptions??
-  if(argument == "FAIL")
-  {
-    if(not Options::noWarn)
-  	  if(! quiet)
-	  	  cerr << "ccbuild: Unable to resolve: \"" << *include << "\"\n";
-    return false;
-  }
-  if(argument.size() > 0)
-    cc.addArgument(argument);
-  return true;
+    //TODO: use exceptions??
+    if(argument == "FAIL") {
+        if(not Options::noWarn)
+            if(! quiet) {
+                cerr << "ccbuild: Unable to resolve: \"" << *include << "\"\n";
+            }
+        return false;
+    }
+    if(argument.size() > 0) {
+        cc.addArgument(argument);
+    }
+    return true;
 }

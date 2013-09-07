@@ -17,7 +17,6 @@
 
 #include "arguments.ih"
 
-Arguments &Arguments::getInstance()
-{
-	return *s_instance;
+Arguments &Arguments::getInstance() {
+    return *s_instance;
 }

@@ -16,7 +16,6 @@
 */
 
 #include "sourceScanner.ih"
-void SourceScanner::storeLocal()
-{
-  d_locals.push_back(d_linclude);
+void SourceScanner::storeLocal() {
+    d_locals.push_back(d_linclude);
 }

@@ -17,11 +17,12 @@
 */
 #include "source.ih"
 
-bool Source::producesOutput()	const
-{
-	if(isHeader() && Options::precompileAll)
-		return true;
-	if(isInternalHeader() && Options::precompile)
-		return true;
-	return hasSourceExtension();
+bool Source::producesOutput()   const {
+    if(isHeader() && Options::precompileAll) {
+        return true;
+    }
+    if(isInternalHeader() && Options::precompile) {
+        return true;
+    }
+    return hasSourceExtension();
 }

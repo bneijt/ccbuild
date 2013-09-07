@@ -22,23 +22,22 @@
 
 #include "arguments.ih"
 
-void Arguments::clear()
-{
-	//Reduce memory usage
-	std::set<bool *> pointerList;
+void Arguments::clear() {
+    //Reduce memory usage
+    std::set<bool *> pointerList;
 
-	//std::map<std::string, bool * > d_flags;
-	__foreach(flag, d_flags)
-		pointerList.insert((*flag).second);
+    //std::map<std::string, bool * > d_flags;
+    __foreach(flag, d_flags)
+    pointerList.insert((*flag).second);
 
-	//std::map<bool *, std::string> d_value;
-	__foreach(flag, d_values)
-		pointerList.insert((*flag).first);
+    //std::map<bool *, std::string> d_value;
+    __foreach(flag, d_values)
+    pointerList.insert((*flag).first);
 
-	//Kill all boolean pointers
-	__foreach(p, pointerList)
-		delete *p;
+    //Kill all boolean pointers
+    __foreach(p, pointerList)
+    delete *p;
 
-	d_rest.clear();
-	d_errors.clear();
+    d_rest.clear();
+    d_errors.clear();
 }

@@ -17,19 +17,17 @@
 
 #include "sourceScanner.ih"
 void SourceScanner::includes(std::vector < std::string > *local,
-			      std::vector < std::string > *global, std::vector < std::string > *ignore)
-{
-  local->resize(d_locals.size());
-  copy(d_locals.begin(), d_locals.end(), local->begin());
-  
-  global->resize(d_globals.size());
- 	copy(d_globals.begin(), d_globals.end(), global->begin());
- 	
-	//If exists: Resize Write
-	if(ignore)
-	{
-	  ignore->resize(d_ignore.size());
-  	copy(d_ignore.begin(), d_ignore.end(), ignore->begin());
-  }
-  
+                             std::vector < std::string > *global, std::vector < std::string > *ignore) {
+    local->resize(d_locals.size());
+    copy(d_locals.begin(), d_locals.end(), local->begin());
+
+    global->resize(d_globals.size());
+    copy(d_globals.begin(), d_globals.end(), global->begin());
+
+    //If exists: Resize Write
+    if(ignore) {
+        ignore->resize(d_ignore.size());
+        copy(d_ignore.begin(), d_ignore.end(), ignore->begin());
+    }
+
 }

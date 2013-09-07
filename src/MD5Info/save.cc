@@ -17,31 +17,29 @@
 
 #include "MD5Info.ih"
 
-void MD5Info::save(std::string const &filename, std::string const &hash)
-{
-  
-	//Save information out of current
-	std::string hashFilename = hashFilenameFor(filename);
-	_debugLevel2("Saving hash information to disk for " << filename << "\n\tto " << hashFilename);
-	
-	d_oldLock.set();
-  d_old[filename] = hash;
-	d_oldLock.unset();
+void MD5Info::save(std::string const &filename, std::string const &hash) {
 
-  
-	//Ensure directory	
-	FileSystem::ensureDirectory(FileSystem::directoryName(hashFilename));
+    //Save information out of current
+    std::string hashFilename = hashFilenameFor(filename);
+    _debugLevel2("Saving hash information to disk for " << filename << "\n\tto " << hashFilename);
 
-	//Open and write file	
-	std::ofstream file(hashFilename.c_str(), ios::trunc);
+    d_oldLock.set();
+    d_old[filename] = hash;
+    d_oldLock.unset();
 
-	if(!file.is_open())
-	{
-		cerr << "ccbuild: Warning: Unable to write MD5 info to '" << hashFilename << "'.\n";
-		return;
-	}
 
-	file << hash << "\n";
-	file.close();
+    //Ensure directory
+    FileSystem::ensureDirectory(FileSystem::directoryName(hashFilename));
+
+    //Open and write file
+    std::ofstream file(hashFilename.c_str(), ios::trunc);
+
+    if(!file.is_open()) {
+        cerr << "ccbuild: Warning: Unable to write MD5 info to '" << hashFilename << "'.\n";
+        return;
+    }
+
+    file << hash << "\n";
+    file.close();
 }
 

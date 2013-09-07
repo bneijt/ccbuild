@@ -15,50 +15,44 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "system.ih"
-void System::inspect()
-{
-  vector<string> files;
+void System::inspect() {
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
+    FileSystem::globSourceFilesInto(&files, ".");
 
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    __foreach(file, files) {
+        Source *target = s[*file];
+
+        //Error loading source??
+        if(target == 0) {
+            cout << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::inspect(target);
+    }
+}
+
+void System::inspect(std::string rootSource) {
+    //Load this source
+    Sources & s = Sources::getInstance();
+    Source *root = s[rootSource];
 
     //Error loading source??
-    if(target == 0)
-    {
-      cout << "Error loading '" << *file << "'\n";
-      continue;
+    if(root == 0) {
+        cout << "Error loading source\n";
+        return;
     }
 
-    System::inspect(target);
-  }
+    //Push all local and global on the stack
+    //Generate source dependencies
+    _debugLevel4("Calling genDeps");
+    root->genDeps();
 }
 
-void System::inspect(std::string rootSource)
-{
-	//Load this source
-  Sources & s = Sources::getInstance();
-  Source *root = s[rootSource];
-
-  //Error loading source??
-  if(root == 0)
-  {
-    cout << "Error loading source\n";
-    return;
-  }
-
-  //Push all local and global on the stack
-  //Generate source dependencies
-  _debugLevel4("Calling genDeps");
-  root->genDeps();
-}
-
-void System::inspect(Source * root)
-{
-  _debugLevel4("Calling genDeps");	//Generate source dependencies
-  root->genDeps();
+void System::inspect(Source * root) {
+    _debugLevel4("Calling genDeps");  //Generate source dependencies
+    root->genDeps();
 }

@@ -18,45 +18,42 @@
 #include "source.ih"
 
 Source::Source(string const &sourceFilename)
-   :
-   d_filename(sourceFilename),
-   d_inoDev(make_pair(0,0)),
-   d_modTime(0),
-   d_deps(),
-   d_globalDeps(),
-   d_ignored(),
-   d_depsDone(false),
-   d_update(0),
-   d_hasMainFunction(false),
-   d_srcType(Unknown)
-{
-  d_filename = FileSystem::cleanPath(d_filename);
-  _debugLevel2("Loaded \"" << filename << "\" as \"" << d_filename << "\"");
+    :
+    d_filename(sourceFilename),
+    d_inoDev(make_pair(0,0)),
+    d_modTime(0),
+    d_deps(),
+    d_globalDeps(),
+    d_ignored(),
+    d_depsDone(false),
+    d_update(0),
+    d_hasMainFunction(false),
+    d_srcType(Unknown) {
+    d_filename = FileSystem::cleanPath(d_filename);
+    _debugLevel2("Loaded \"" << filename << "\" as \"" << d_filename << "\"");
 
- 	struct stat a;
+    struct stat a;
 
- 	if(stat(d_filename.c_str(), &a) == 0)
- 	{
-		d_inoDev.first = a.st_dev;
-		d_inoDev.second = a.st_ino;
-		d_modTime = a.st_mtime;
-	}
-	setType();
+    if(stat(d_filename.c_str(), &a) == 0) {
+        d_inoDev.first = a.st_dev;
+        d_inoDev.second = a.st_ino;
+        d_modTime = a.st_mtime;
+    }
+    setType();
 }
 
 //Empty source initializer
 Source::Source()
-   :
-   d_filename(""),
-   d_inoDev(make_pair(0,0)),
-   d_modTime(0),
-   d_deps(),
-   d_globalDeps(),
-   d_ignored(),
-   d_depsDone(false),
-   d_update(0),
-   d_hasMainFunction(false),
-   d_srcType(Unknown)
-{
-  setType();
+    :
+    d_filename(""),
+    d_inoDev(make_pair(0,0)),
+    d_modTime(0),
+    d_deps(),
+    d_globalDeps(),
+    d_ignored(),
+    d_depsDone(false),
+    d_update(0),
+    d_hasMainFunction(false),
+    d_srcType(Unknown) {
+    setType();
 }

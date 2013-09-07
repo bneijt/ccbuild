@@ -19,34 +19,31 @@
 
 
 #include "system.ih"
- 
-/** Get information from host 
+
+/** Get information from host
       #include <sys/utsname.h>
-      
+
       Field is a character which is the same as uname:
       'm' == `uname -m`
       'n' == `uname -n`
 */
-std::string System::uname(char const field)
-{
-  std::string rvalue;
-  utsname sysinfo;
-  if(::uname(&sysinfo) == 0)
-  {
-    switch(field)
-    {
-      case 'm':
-        rvalue = sysinfo.machine;
-        break;
-      case 'n':
-        rvalue = sysinfo.nodename;
-        break;
-      case 's':
-        rvalue = sysinfo.sysname;
-        break;
-      default:
-        throw Problem(Problem::Unable, "Not implemented field requisted from uname.");
+std::string System::uname(char const field) {
+    std::string rvalue;
+    utsname sysinfo;
+    if(::uname(&sysinfo) == 0) {
+        switch(field) {
+        case 'm':
+            rvalue = sysinfo.machine;
+            break;
+        case 'n':
+            rvalue = sysinfo.nodename;
+            break;
+        case 's':
+            rvalue = sysinfo.sysname;
+            break;
+        default:
+            throw Problem(Problem::Unable, "Not implemented field requisted from uname.");
+        }
     }
-  }
-  return rvalue;
+    return rvalue;
 }

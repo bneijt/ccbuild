@@ -16,13 +16,14 @@
 */
 
 #include "fileSystem.ih"
-bool FileSystem::newer(string const &file1, string const &file2)
-{
-  OpenMP::ScopedLock asdf(fsLock);
-  struct stat stat1, stat2;
-  if(stat(file1.c_str(), &stat1) != 0)
-    return false;
-  if(stat(file2.c_str(), &stat2) != 0)
-    return false;
-  return stat1.st_mtime > stat2.st_mtime;
+bool FileSystem::newer(string const &file1, string const &file2) {
+    OpenMP::ScopedLock asdf(fsLock);
+    struct stat stat1, stat2;
+    if(stat(file1.c_str(), &stat1) != 0) {
+        return false;
+    }
+    if(stat(file2.c_str(), &stat2) != 0) {
+        return false;
+    }
+    return stat1.st_mtime > stat2.st_mtime;
 }

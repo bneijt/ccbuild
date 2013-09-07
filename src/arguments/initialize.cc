@@ -17,9 +17,8 @@
 
 #include "arguments.ih"
 
-void Arguments::initialize(Option const *options, int argc, char *argv[])
-{
-  Arguments::destroy();
-	s_instance = new Arguments(options, argc, argv);
-	return;
+void Arguments::initialize(Option const *options, int argc, char *argv[]) {
+    Arguments::destroy();
+    s_instance = new Arguments(options, argc, argv);
+    return;
 }

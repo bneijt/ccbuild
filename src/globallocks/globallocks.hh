@@ -17,12 +17,11 @@
 */
 
 #ifndef globallocks_hh_included_
-#define	globallocks_hh_included_
+#define globallocks_hh_included_
 
 #include "../openmp/lock/lock.hh"
 
-namespace bneijt
-{
+namespace bneijt {
 
 static OpenMP::Lock cerrLock;
 static OpenMP::Lock coutLock;

@@ -17,20 +17,20 @@
 
 #include "fileSystem.ih"
 
-std::string FileSystem::absolutePath(std::string const &filename)
-{
-  /*
-  if file exists
-  	char * p = realpath(filename.c_str(), 0);
-  	if(not p)
-  	  throw Problem(Problem::Unable, "Unable to create an absolute path from " + filename);
-  	std::string pf(p);
-    delete p;
-    return pf;
-  */
-  //If it is already absolute, return it cleaned
-  if(filename[0] == '/')
-    return FileSystem::cleanPath(filename);
-  //It is not root yet, so make it relative to cwd and clean it.
-  return FileSystem::cleanPath(FileSystem::cwd() +"/"+ filename);
+std::string FileSystem::absolutePath(std::string const &filename) {
+    /*
+    if file exists
+      char * p = realpath(filename.c_str(), 0);
+      if(not p)
+        throw Problem(Problem::Unable, "Unable to create an absolute path from " + filename);
+      std::string pf(p);
+      delete p;
+      return pf;
+    */
+    //If it is already absolute, return it cleaned
+    if(filename[0] == '/') {
+        return FileSystem::cleanPath(filename);
+    }
+    //It is not root yet, so make it relative to cwd and clean it.
+    return FileSystem::cleanPath(FileSystem::cwd() +"/"+ filename);
 }

@@ -17,34 +17,31 @@
 
 #include "sources.ih"
 
-namespace{
-class DerivedEqual
-{
-    Source const * a;
+namespace {
+class DerivedEqual {
+        Source const * a;
 
     public:
-    DerivedEqual(Source const *target)
-        :
+        DerivedEqual(Source const *target)
+            :
             a(target)
-    {}
+        {}
 
-    bool operator()(Source * const &b) const
-    {
-        return *a == *b;
-    }
+        bool operator()(Source * const &b) const {
+            return *a == *b;
+        }
 };
 }    //Anon namespace
 
-Source *Sources::operator[](std::string const &filename)
-{
+Source *Sources::operator[](std::string const &filename) {
 
     _debugLevel2("Request for " << filename);
     Source *s = new Source(filename);
-    if(!s)
+    if(!s) {
         throw Problem(Problem::Unable, "Unable allocate a Source class. Out of memory?");
+    }
 
-    if(!FileSystem::isReadable(s->filename()))
-    {
+    if(!FileSystem::isReadable(s->filename())) {
         _debugLevel2("Requested file '" << s->filename() << "' not readable.");
         delete s;
         return 0;
@@ -53,14 +50,13 @@ Source *Sources::operator[](std::string const &filename)
     OpenMP::ScopedLock sourceLock(d_sourcesLock);
     std::set<Source *>::iterator pos = find_if(d_sources.begin(), d_sources.end(), DerivedEqual(s));
 
-    if(pos == d_sources.end())
-    {
+    if(pos == d_sources.end()) {
         //Not found
         _debugLevel4("Not found: " << filename << " so inserting it");
         d_sources.insert(s);
         return s;
     }
-    
+
     //Found
     _debugLevel4("Found: " << filename);
     delete s;

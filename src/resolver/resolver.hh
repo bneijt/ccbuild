@@ -24,76 +24,74 @@
 #include <string>
 #include <map>
 
-#include "../openmp/lock/lock.hh"		
+#include "../openmp/lock/lock.hh"
 #include "../compiler/compiler.hh"
 
-namespace bneijt
-{
+namespace bneijt {
 
 ///\brief Gobal header -> compiler arguments resolver
 ///
 ///This class will do all header to compiler arguments resolution
-class Resolver
-{
-		std::map<std::string const*, std::string const*> d_staticLinks; ///< Link global to argument
+class Resolver {
+        std::map<std::string const*, std::string const*> d_staticLinks; ///< Link global to argument
 
-		std::string d_empty;	///<An empty string
+        std::string d_empty;    ///<An empty string
 
-		static Resolver *s_instance;///<Static pointer to the instance
-		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
-		
-	public:
-		///\brief	Get the instance of the Resolver
-		static Resolver &getInstance();
+        static Resolver *s_instance;///<Static pointer to the instance
+        static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
-		///\brief	Clear the instance of the Resolver
-		static void destroy();
+    public:
+        ///\brief   Get the instance of the Resolver
+        static Resolver &getInstance();
 
-		/**\brief Resolve this include into the given compiler
-		
-		 \param include A pointer to a string containing the name of the include
-		 \param cc Use this compiler to store resolves
-		 \param quiet Wether or not to output an error message on failure
-		 \return True on success, false otherwise
-		*/
-		bool resolveInto(std::string const *include,
-										Compiler &cc,
-										bool quiet = false
-										) const;
+        ///\brief   Clear the instance of the Resolver
+        static void destroy();
 
+        /**\brief Resolve this include into the given compiler
+
+         \param include A pointer to a string containing the name of the include
+         \param cc Use this compiler to store resolves
+         \param quiet Wether or not to output an error message on failure
+         \return True on success, false otherwise
+        */
+        bool resolveInto(std::string const *include,
+                         Compiler &cc,
+                         bool quiet = false
+                        ) const;
 
 
-		/**\brief Load a configuration file if it exists
-		
-			\param confFile The configuration file to load
-			\param report	Wether to report errors
-			\return Wether the file was loaded or not
-		*/
-		bool loadIfExists(std::string const &confFile, bool report = false);
 
-		/**\brief Resolve the given include and return the commandline options
-		
-		\param include The global include needed.
-		\return Return the resolved value for the given include or "FAIL" otherwise.
-		*/
-		std::string resolve(std::string const &include) const;
+        /**\brief Load a configuration file if it exists
 
-		///\brief This is a dangerous speed up taking an internal Globals pointer
-		std::string resolve(std::string const *include) const;
+            \param confFile The configuration file to load
+            \param report   Wether to report errors
+            \return Wether the file was loaded or not
+        */
+        bool loadIfExists(std::string const &confFile, bool report = false);
 
-	private:
-		
+        /**\brief Resolve the given include and return the commandline options
 
-		///\brief Call the expand function on this string.
-		std::string expand(std::string const &name) const;
+        \param include The global include needed.
+        \return Return the resolved value for the given include or "FAIL" otherwise.
+        */
+        std::string resolve(std::string const &include) const;
 
-		Resolver();
-		~Resolver();
+        ///\brief This is a dangerous speed up taking an internal Globals pointer
+        std::string resolve(std::string const *include) const;
 
-		///\brief Not implemented
-		Resolver(Resolver const &other);						//NI
-		///\brief Not implemented
-		Resolver &operator=(Resolver const &other);	//NI
+    private:
+
+
+        ///\brief Call the expand function on this string.
+        std::string expand(std::string const &name) const;
+
+        Resolver();
+        ~Resolver();
+
+        ///\brief Not implemented
+        Resolver(Resolver const &other);                        //NI
+        ///\brief Not implemented
+        Resolver &operator=(Resolver const &other); //NI
 };
 }//namespace
 

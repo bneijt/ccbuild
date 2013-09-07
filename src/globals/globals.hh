@@ -26,46 +26,42 @@
 #include <map>
 #include "../openmp/scopedLock/scopedLock.hh"
 
-namespace bneijt
-{
+namespace bneijt {
 
 ///\brief Globals singleton. List of all loaded Globals
 ///
-class Globals
-{
-		static Globals *s_instance;	///<Static pointer to the instance
-		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
+class Globals {
+        static Globals *s_instance; ///<Static pointer to the instance
+        static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
-    std::map<std::string, std::string *> d_map;
-	public:
-		///\brief Get the instance of the Globals class
-		static Globals &getInstance();
+        std::map<std::string, std::string *> d_map;
+    public:
+        ///\brief Get the instance of the Globals class
+        static Globals &getInstance();
 
-		///\brief Destroy the instance
-		static void destroy();
-		
-		///\brief Overwrite the index operator of map
-		std::string const * operator[](std::string const &global);
-		
-		std::map<std::string, std::string *>::iterator begin()
-		{
-		  return d_map.begin();
-		}
+        ///\brief Destroy the instance
+        static void destroy();
 
-		std::map<std::string, std::string *>::iterator end()
-		{
-		  return d_map.end();
-		}
-		
-	private:
-		Globals();
-		~Globals();
+        ///\brief Overwrite the index operator of map
+        std::string const * operator[](std::string const &global);
 
-		///\brief Not implemented
-		Globals(Globals const &other);						//NI
+        std::map<std::string, std::string *>::iterator begin() {
+            return d_map.begin();
+        }
 
-		///\brief Not implemented
-		Globals &operator=(Globals const &other);	//NI
+        std::map<std::string, std::string *>::iterator end() {
+            return d_map.end();
+        }
+
+    private:
+        Globals();
+        ~Globals();
+
+        ///\brief Not implemented
+        Globals(Globals const &other);                      //NI
+
+        ///\brief Not implemented
+        Globals &operator=(Globals const &other);   //NI
 };
 }//namespace
 

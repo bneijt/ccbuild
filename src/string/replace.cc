@@ -16,22 +16,21 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "string.ih"
-std::string String::replace(char from, char to) const
-{
+std::string String::replace(char from, char to) const {
     std::string contentCopy(*this);
     __foreach(c, contentCopy)
-        if(*c == from)
-            *c = to;
+    if(*c == from) {
+        *c = to;
+    }
     return contentCopy;
 }
-std::string String::replace(std::string const &from, std::string const &to) const
-{
+std::string String::replace(std::string const &from, std::string const &to) const {
     std::string contentCopy(*this);
-    while(true)
-    {
+    while(true) {
         std::string::size_type pos = contentCopy.find(from);
-        if(pos == std::string::npos)
-           break;
+        if(pos == std::string::npos) {
+            break;
+        }
         contentCopy.replace(pos, from.size(), to);
     }
     return contentCopy;

@@ -16,12 +16,11 @@
 */
 #include "system.ih"
 
-void System::destroy() throw()
-{
-	//Destroy singletons...
-	Sources::destroy(); //Thread Safe
-	Arguments::destroy(); //TS
-	Resolver::destroy(); //TS
-	Globals::destroy(); //TS
-	MD5Info::destroy(); //TS
+void System::destroy() throw() {
+    //Destroy singletons...
+    Sources::destroy(); //Thread Safe
+    Arguments::destroy(); //TS
+    Resolver::destroy(); //TS
+    Globals::destroy(); //TS
+    MD5Info::destroy(); //TS
 }

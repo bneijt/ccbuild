@@ -16,30 +16,29 @@
 */
 #include "compiler.ih"
 int Compiler::link(std::string pwd,
-			std::string outputFile) const
-{
-	cls();
+                   std::string outputFile) const {
+    cls();
 
-	//TODO If arguments/object come above 32000, the we should collapse object files in the same directory
-	// to *.o where possible.
-  cerr << "[LINK] " << outputFile << "\n";
+    //TODO If arguments/object come above 32000, the we should collapse object files in the same directory
+    // to *.o where possible.
+    cerr << "[LINK] " << outputFile << "\n";
 
-  string command = linkCommand(pwd, outputFile);
+    string command = linkCommand(pwd, outputFile);
 
-	int retValue = System::system(command.c_str());
+    int retValue = System::system(command.c_str());
 
 
-	if(retValue != 0)
-	{
-	  cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    if(retValue != 0) {
+        cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
 
-    if(!Options::brute)
-    	throw Problem(Problem::Subfailure, "Linking failed.", retValue);
-	    
-		FileSystem::rmIfExists(outputFile);
-	}
-  else if(!Options::execOnPass.empty())
-   	System::system((Options::execOnPass + " \"" + outputFile + "\"").c_str());
+        if(!Options::brute) {
+            throw Problem(Problem::Subfailure, "Linking failed.", retValue);
+        }
 
-	return retValue;
+        FileSystem::rmIfExists(outputFile);
+    } else if(!Options::execOnPass.empty()) {
+        System::system((Options::execOnPass + " \"" + outputFile + "\"").c_str());
+    }
+
+    return retValue;
 }

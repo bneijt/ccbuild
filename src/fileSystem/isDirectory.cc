@@ -17,18 +17,19 @@
 
 #include "fileSystem.ih"
 
-bool FileSystem::isDirectory(std::string const &filename)
-{
+bool FileSystem::isDirectory(std::string const &filename) {
     OpenMP::ScopedLock scopedFsLock(fsLock);
 
     struct stat a;
     int rcode = stat(filename.c_str(), &a);
 
-    if(rcode != 0) //Stat failed
-       return false;
+    if(rcode != 0) { //Stat failed
+        return false;
+    }
 
-    if(S_ISDIR(a.st_mode))
-       return true;
+    if(S_ISDIR(a.st_mode)) {
+        return true;
+    }
 
     return false;
 }

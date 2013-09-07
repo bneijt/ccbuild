@@ -15,9 +15,8 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-bool Source::isBinTarget() const
-{
-	//Return true if this source contains a
-  //"int main(" function
-  return d_hasMainFunction && hasSourceExtension();
+bool Source::isBinTarget() const {
+    //Return true if this source contains a
+    //"int main(" function
+    return d_hasMainFunction && hasSourceExtension();
 }

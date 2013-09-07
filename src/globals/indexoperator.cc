@@ -16,13 +16,11 @@
 */
 #include "globals.ih"
 
-std::string const * Globals::operator[](std::string const &global)
-{
-	string *p = d_map[global];
-	if(p == 0)
-	{
-	   p = new string(global);
-	   d_map[global] = p;
-	}
-	return p;
+std::string const * Globals::operator[](std::string const &global) {
+    string *p = d_map[global];
+    if(p == 0) {
+        p = new string(global);
+        d_map[global] = p;
+    }
+    return p;
 }

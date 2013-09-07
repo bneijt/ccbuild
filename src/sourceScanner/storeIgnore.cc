@@ -16,7 +16,6 @@
 */
 
 #include "sourceScanner.ih"
-void SourceScanner::storeIgnore()
-{
-  d_ignore.push_back(d_iinclude);
+void SourceScanner::storeIgnore() {
+    d_ignore.push_back(d_iinclude);
 }

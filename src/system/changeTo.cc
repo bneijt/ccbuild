@@ -17,11 +17,9 @@
 
 #include "system.ih"
 
-bool System::changeTo(string const &targetpath)
-{
+bool System::changeTo(string const &targetpath) {
     string path = trimmed(targetpath);
-    if(chdir(path.c_str()) != 0)
-    {
+    if(chdir(path.c_str()) != 0) {
         cerr << "ccbuild: Error: Unable to change to '" << path << "'\n";
         return false;
     }

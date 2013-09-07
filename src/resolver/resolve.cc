@@ -16,31 +16,31 @@
 */
 
 #include "resolver.ih"
-std::string Resolver::resolve(std::string const &include) const
-{
-  _debugLevel3("Resolving: " << include);
-	Globals &globs = Globals::getInstance();
-	
-	//Stupid but safe!
-	std::string const *includePointer = globs[include];
+std::string Resolver::resolve(std::string const &include) const {
+    _debugLevel3("Resolving: " << include);
+    Globals &globs = Globals::getInstance();
 
-	//Check statics
-	std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
-	if(it != d_staticLinks.end())
-			return *(*it).second;
+    //Stupid but safe!
+    std::string const *includePointer = globs[include];
 
-  return "FAIL";
+    //Check statics
+    std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
+    if(it != d_staticLinks.end()) {
+        return *(*it).second;
+    }
+
+    return "FAIL";
 }
 
-std::string Resolver::resolve(std::string const *includePointer) const
-{
-  _debugLevel3("Resolving: " << *includePointer);
+std::string Resolver::resolve(std::string const *includePointer) const {
+    _debugLevel3("Resolving: " << *includePointer);
 
-	//Check statics
-	std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
-	if(it != d_staticLinks.end())
-			return *(*it).second;
+    //Check statics
+    std::map<std::string const*, std::string const*>::const_iterator it = d_staticLinks.find(includePointer);
+    if(it != d_staticLinks.end()) {
+        return *(*it).second;
+    }
 
-  return "FAIL";
+    return "FAIL";
 
 }

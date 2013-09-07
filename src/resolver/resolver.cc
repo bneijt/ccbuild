@@ -18,75 +18,73 @@
 #include "resolver.ih"
 
 Resolver::Resolver()
-  :
-  d_staticLinks(),
-  d_empty("")
-{
-	//Load commandline given extra resolution files
-	__foreach(xr, Options::extraResolutions)
-		loadIfExists(*xr, true);//Load if exists, reporting errors
+    :
+    d_staticLinks(),
+    d_empty("") {
+    //Load commandline given extra resolution files
+    __foreach(xr, Options::extraResolutions)
+    loadIfExists(*xr, true);//Load if exists, reporting errors
 
-	//Load default
-	//Try username, try hostname dependent, try system name, try architecture dependent, try username, try default
-	loadIfExists("./ccResolutions."+ FBB::User().name())
-	  || loadIfExists("./ccResolutions."+System::uname('n'))
-	  || loadIfExists("./ccResolutions."+System::uname('s'))
-	  || loadIfExists("./ccResolutions."+System::uname('m'))
-	  || loadIfExists("./ccResolutions");
+    //Load default
+    //Try username, try hostname dependent, try system name, try architecture dependent, try username, try default
+    loadIfExists("./ccResolutions."+ FBB::User().name())
+    || loadIfExists("./ccResolutions."+System::uname('n'))
+    || loadIfExists("./ccResolutions."+System::uname('s'))
+    || loadIfExists("./ccResolutions."+System::uname('m'))
+    || loadIfExists("./ccResolutions");
 
 
-	//Load global resolution files
-	if(Options::loadGlobalRes)
-	{
-		_debugLevel3("Loading global resolution files");
-		loadIfExists(expand("~/.ccbuild/ccResolutions"));
+    //Load global resolution files
+    if(Options::loadGlobalRes) {
+        _debugLevel3("Loading global resolution files");
+        loadIfExists(expand("~/.ccbuild/ccResolutions"));
 
-		//The ccResolutions directory
-		vector<string> files;
+        //The ccResolutions directory
+        vector<string> files;
 
-		FileSystem::globFilesInto(&files, "~/.ccbuild/ccResolutions.d/*", true);
+        FileSystem::globFilesInto(&files, "~/.ccbuild/ccResolutions.d/*", true);
 
-		__foreach(file, files)
-			loadIfExists(*file);
-	}
-	
-	Globals &gl = Globals::getInstance();
-	
-	//ANSI C++ headers...
-	static char const * const ccHeaders[] = {
-		"algorithm",
-  		"bitset",
-  		"deque",
-  		"exception",
-  		"fstream",
-  		"functional",
-  		"iomanip",
-  		"ios",
-  		"iosfwd",
-  		"iostream",
-  		"istream",
-  		"iterator",
-  		"limits",
-  		"list",
-  		"locale",
-  		"map",
-  		"memory",
-  		"new",
-  		"numeric",
-  		"ostream",
-  		"queue",
-  		"set",
-  		"sstream",
-  		"stack",
-  		"stdexcept",
-  		"streambuf",
-  		"string",
-  		"typeinfo",
-  		"utility",
-  		"valarray",
-  		"vector",
+        __foreach(file, files)
+        loadIfExists(*file);
+    }
 
-	//C++ equivalent of ANSI C headers...
+    Globals &gl = Globals::getInstance();
+
+    //ANSI C++ headers...
+    static char const * const ccHeaders[] = {
+        "algorithm",
+        "bitset",
+        "deque",
+        "exception",
+        "fstream",
+        "functional",
+        "iomanip",
+        "ios",
+        "iosfwd",
+        "iostream",
+        "istream",
+        "iterator",
+        "limits",
+        "list",
+        "locale",
+        "map",
+        "memory",
+        "new",
+        "numeric",
+        "ostream",
+        "queue",
+        "set",
+        "sstream",
+        "stack",
+        "stdexcept",
+        "streambuf",
+        "string",
+        "typeinfo",
+        "utility",
+        "valarray",
+        "vector",
+
+        //C++ equivalent of ANSI C headers...
         "cassert",
         "cctype",
         "cerrno",
@@ -105,25 +103,26 @@ Resolver::Resolver()
         "ctime",
         "cwchar",
         "cwtype",
-        0};
+        0
+    };
 
-	for(unsigned i = 0; ccHeaders[i]; ++i)
-		if(d_staticLinks.count(gl[ccHeaders[i]]) == 0)
-			d_staticLinks[gl[ccHeaders[i]]] = &d_empty;
+    for(unsigned i = 0; ccHeaders[i]; ++i)
+        if(d_staticLinks.count(gl[ccHeaders[i]]) == 0) {
+            d_staticLinks[gl[ccHeaders[i]]] = &d_empty;
+        }
 
 }
 
-Resolver::~Resolver()
-{
-	//Todo: cleanup using unique_copy etc.
-	set<std::string const*> pointers;
-	
-	__foreach(link, d_staticLinks)
-			pointers.insert((*link).second);
+Resolver::~Resolver() {
+    //Todo: cleanup using unique_copy etc.
+    set<std::string const*> pointers;
 
-	pointers.erase(&d_empty);
-	
-	__foreach(pointer, pointers)
-		delete (*pointer);
-	
+    __foreach(link, d_staticLinks)
+    pointers.insert((*link).second);
+
+    pointers.erase(&d_empty);
+
+    __foreach(pointer, pointers)
+    delete (*pointer);
+
 }

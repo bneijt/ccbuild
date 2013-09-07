@@ -16,23 +16,22 @@
 */
 #include "compiler.ih"
 
-string Compiler::libCommand(std::string target) const
-{
+string Compiler::libCommand(std::string target) const {
 
-  ostringstream command(d_baseCommand, ios::ate);
-  command << " -shared -Wl,-soname,\"" << target << "\" " << Options::extraArgs << " ";
+    ostringstream command(d_baseCommand, ios::ate);
+    command << " -shared -Wl,-soname,\"" << target << "\" " << Options::extraArgs << " ";
 
 
-  __foreach(obj, d_objects)
+    __foreach(obj, d_objects)
     command << " \"" << (*obj) << "\" ";
 
-  copy(d_link.begin(), d_link.end(), ostream_iterator<string>(command, " "));
+    copy(d_link.begin(), d_link.end(), ostream_iterator<string>(command, " "));
 
-  command << "-o \"" << target << "\" ";
-  
+    command << "-o \"" << target << "\" ";
 
-  command << Options::commandAppend;
 
-	return command.str();
+    command << Options::commandAppend;
+
+    return command.str();
 }
 

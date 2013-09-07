@@ -16,92 +16,89 @@
 */
 
 #include "system.ih"
-bool System::addArguments(int &argc, char ** &argv)
-{
-	ifstream ccResolutions("ccResolutions");
-	if(! ccResolutions.is_open())
-	  return false;
+bool System::addArguments(int &argc, char ** &argv) {
+    ifstream ccResolutions("ccResolutions");
+    if(! ccResolutions.is_open()) {
+        return false;
+    }
 
-	string confLine;
-	getline(ccResolutions, confLine);
+    string confLine;
+    getline(ccResolutions, confLine);
 
-	//Configuration line ok and starts with "#&" ??
-	if(ccResolutions.eof()
-			|| confLine.size() < 3
-			|| confLine.substr(0,2) != "#&")
-	  return false;
-	 
-	confLine = confLine.substr(2);
+    //Configuration line ok and starts with "#&" ??
+    if(ccResolutions.eof()
+            || confLine.size() < 3
+            || confLine.substr(0,2) != "#&") {
+        return false;
+    }
 
-#ifdef _NO_WORDEXP_	
-	cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp missing.\n";
-	
-	return false;
+    confLine = confLine.substr(2);
+
+#ifdef _NO_WORDEXP_
+    cerr << "ccbuild: NOT adding ccResolutions arguments due to word_exp missing.\n";
+
+    return false;
 #else
-	cerr << "ccbuild: Adding ccResolutions arguments.\n";
-	_debugLevel1("ccbuild: Arugment line: '" << confLine << "'");
+    cerr << "ccbuild: Adding ccResolutions arguments.\n";
+    _debugLevel1("ccbuild: Arugment line: '" << confLine << "'");
 
-	wordexp_t p;
+    wordexp_t p;
 
-	int retv = wordexp(confLine.c_str(), &p, 0);
-	if(retv != 0)
-	{
-		cerr << "ccbuild: Error shell expanding '" << confLine << "'.\n";
-		cerr << "ccbuild: You might want to check your ccResolutions file.\n";
-		//TODO Move this error code to the same as exapand.cc
-		switch(retv)
-		{
-			case WRDE_BADCHAR:
-			cerr << "ccbuild: Illegal  occurrence of newline or one of |, &, ;, <, >, (, ), {,}.\n";
-			break;
-//				case WRDE_BADVAL:
-//			cerr << "ccbuild: An undefined shell variable was referenced, and  the  WRDE_UNDEF flag told us toconsider this an error.\n";
-//			break;
-				case WRDE_CMDSUB:
-				cerr << "ccbuild: Command  substitution  occurred, and the WRDE_NOCMD flag told us\n";
-				cerr << "ccbuild:   to consider this an error.\n";
-				break;
-				case WRDE_NOSPACE:
-				cerr << "ccbuild: Out of memory.\n";
-				break;
-				case WRDE_SYNTAX:
-				cerr << "ccbuild: Shell syntax error, such as unbalanced parentheses or unmatched quotes.\n";
-				break;
-	   }
-	   
-		wordfree(&p);
-	   return false;
-	}//If retValue != 0
+    int retv = wordexp(confLine.c_str(), &p, 0);
+    if(retv != 0) {
+        cerr << "ccbuild: Error shell expanding '" << confLine << "'.\n";
+        cerr << "ccbuild: You might want to check your ccResolutions file.\n";
+        //TODO Move this error code to the same as exapand.cc
+        switch(retv) {
+        case WRDE_BADCHAR:
+            cerr << "ccbuild: Illegal  occurrence of newline or one of |, &, ;, <, >, (, ), {,}.\n";
+            break;
+//              case WRDE_BADVAL:
+//          cerr << "ccbuild: An undefined shell variable was referenced, and  the  WRDE_UNDEF flag told us toconsider this an error.\n";
+//          break;
+        case WRDE_CMDSUB:
+            cerr << "ccbuild: Command  substitution  occurred, and the WRDE_NOCMD flag told us\n";
+            cerr << "ccbuild:   to consider this an error.\n";
+            break;
+        case WRDE_NOSPACE:
+            cerr << "ccbuild: Out of memory.\n";
+            break;
+        case WRDE_SYNTAX:
+            cerr << "ccbuild: Shell syntax error, such as unbalanced parentheses or unmatched quotes.\n";
+            break;
+        }
 
-	//Create a new arguments array
-	char ** newArgs = new char *[argc + p.we_wordc + 1];
+        wordfree(&p);
+        return false;
+    }//If retValue != 0
 
-	//Copy argv values
-	for(int i = 0; i < argc; ++i)
-	{
-	 	newArgs[i] = new char[strlen(argv[i]) + 1];
-	 	strcpy(newArgs[i], argv[i]);
-	}
-		
-	//Append wordexp values
-	for(unsigned i = 0; i < p.we_wordc; ++i)
-	{
-	 	newArgs[argc + i] = new char[strlen(p.we_wordv[i]) + 1];
-	 	strcpy(newArgs[argc + i], p.we_wordv[i]);
-	}
-		
-	//Argv array must be 0 terminated (Probably 3.6.1 p2 of C++ standard)
-	newArgs[argc + p.we_wordc] = 0;
+    //Create a new arguments array
+    char ** newArgs = new char *[argc + p.we_wordc + 1];
 
-	//Free wordexp values
-	wordfree(&p);
-		
-	//Export values
-	//!!! Start of possible memory leak. We new it here, does anybody delete it?
-	argv = newArgs;	
-	argc += p.we_wordc;
+    //Copy argv values
+    for(int i = 0; i < argc; ++i) {
+        newArgs[i] = new char[strlen(argv[i]) + 1];
+        strcpy(newArgs[i], argv[i]);
+    }
 
-#endif	 	
+    //Append wordexp values
+    for(unsigned i = 0; i < p.we_wordc; ++i) {
+        newArgs[argc + i] = new char[strlen(p.we_wordv[i]) + 1];
+        strcpy(newArgs[argc + i], p.we_wordv[i]);
+    }
 
-	return true;
+    //Argv array must be 0 terminated (Probably 3.6.1 p2 of C++ standard)
+    newArgs[argc + p.we_wordc] = 0;
+
+    //Free wordexp values
+    wordfree(&p);
+
+    //Export values
+    //!!! Start of possible memory leak. We new it here, does anybody delete it?
+    argv = newArgs;
+    argc += p.we_wordc;
+
+#endif
+
+    return true;
 }

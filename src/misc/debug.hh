@@ -40,37 +40,37 @@
 
 //No include guards, to keep the defenitions as much up to date as possible, due to the dependencie on DEBUGLEVEL.
 #ifdef NODEBUG
-  #ifdef DEBUGLEVEL
-    #undef DEBUGLEVEL
-  #endif
-  #define DEBUGLEVEL 0
+#ifdef DEBUGLEVEL
+#undef DEBUGLEVEL
+#endif
+#define DEBUGLEVEL 0
 #endif
 
 #if DEBUGLEVEL > 0
 #include <iostream>
-	#define _debugLevel1(info) std::cerr << "D1:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
+#define _debugLevel1(info) std::cerr << "D1:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
 #else
-	///\brief Output info when DEBUGLEVEL is 1 or more
-	#define _debugLevel1(info)
+///\brief Output info when DEBUGLEVEL is 1 or more
+#define _debugLevel1(info)
 #endif
 
 #if DEBUGLEVEL > 1
-	#define _debugLevel2(info) std::cerr << "D2:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
+#define _debugLevel2(info) std::cerr << "D2:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
 #else
-	///\brief Output info when DEBUGLEVEL is 2 or more
-	#define _debugLevel2(info)
+///\brief Output info when DEBUGLEVEL is 2 or more
+#define _debugLevel2(info)
 #endif
 
 #if DEBUGLEVEL > 2
-	#define _debugLevel3(info) std::cerr << "D3:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
+#define _debugLevel3(info) std::cerr << "D3:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
 #else
-	///\brief Output info when DEBUGLEVEL is 3 or more
-	#define _debugLevel3(info)
+///\brief Output info when DEBUGLEVEL is 3 or more
+#define _debugLevel3(info)
 #endif
 
 #if DEBUGLEVEL > 3
-	#define _debugLevel4(info) std::cerr << "D4:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
+#define _debugLevel4(info) std::cerr << "D4:" << __FILE__ << ":" << __LINE__ << ": " << info << std::endl
 #else
-	///\brief Output info when DEBUGLEVEL is 4 or more
-	#define _debugLevel4(info)
+///\brief Output info when DEBUGLEVEL is 4 or more
+#define _debugLevel4(info)
 #endif

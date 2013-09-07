@@ -18,15 +18,13 @@
 #include "sources.ih"
 
 Sources::Sources()
-	:
-	d_sources()
+    :
+    d_sources()
 {}
 
-Sources::~Sources()
-{
-  OpenMP::ScopedLock slock(d_sourcesLock);
-	__foreach(src, d_sources)
-	{
-		delete *src;
-	}
+Sources::~Sources() {
+    OpenMP::ScopedLock slock(d_sourcesLock);
+    __foreach(src, d_sources) {
+        delete *src;
+    }
 }

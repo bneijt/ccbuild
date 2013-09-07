@@ -18,13 +18,14 @@
 
 #include "source.ih"
 
-bool Source::stale()
-{
-	if(!FileSystem::fileExists(filename()))
-		return true;
+bool Source::stale() {
+    if(!FileSystem::fileExists(filename())) {
+        return true;
+    }
 
-	if(Options::md5)
-		return changed();
+    if(Options::md5) {
+        return changed();
+    }
 
-	return d_modTime == 0 || d_modTime != FileSystem::modTime(filename());
+    return d_modTime == 0 || d_modTime != FileSystem::modTime(filename());
 }

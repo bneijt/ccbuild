@@ -17,18 +17,16 @@
 
 #include "source.ih"
 
-void Source::markAsDone() const
-{
-  //If this is not MD5, then everything should be automatic
-	if(Options::md5)
-	{
-		MD5Info &md5i = MD5Info::getInstance();
-		string collectedHash = md5i.contentHash(filename());
-		
-		vector<Source *> srcList;
-		dependencies(srcList);
-		__foreach(src, srcList)
-			collectedHash += md5i.contentHash((*src)->filename());
-		md5i.save(filename(), collectedHash);
-	}
+void Source::markAsDone() const {
+    //If this is not MD5, then everything should be automatic
+    if(Options::md5) {
+        MD5Info &md5i = MD5Info::getInstance();
+        string collectedHash = md5i.contentHash(filename());
+
+        vector<Source *> srcList;
+        dependencies(srcList);
+        __foreach(src, srcList)
+        collectedHash += md5i.contentHash((*src)->filename());
+        md5i.save(filename(), collectedHash);
+    }
 }

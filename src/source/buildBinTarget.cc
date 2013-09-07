@@ -16,8 +16,7 @@
 */
 
 #include "source.ih"
-void Source::buildBinTarget(Compiler & cc)
-{
+void Source::buildBinTarget(Compiler & cc) {
     OpenMP::ScopedLock slock(d_apiLock);
 
     _debugLevel4("Output filename: " << outputFilename());
@@ -29,11 +28,11 @@ void Source::buildBinTarget(Compiler & cc)
 
     //Resolve all globals into the compiler
     __foreach(global, globalList)
-        resolver.resolveInto(*global, cc);
+    resolver.resolveInto(*global, cc);
 
 
-    if(!upToDate(srcList))
-    {    //Need an update
+    if(!upToDate(srcList)) {
+        //Need an update
 
         string outputDirectory = directory() + "/o";
 
@@ -52,14 +51,14 @@ void Source::buildBinTarget(Compiler & cc)
             vector<Source *> depSrcList;
             dependencies(depSrcList);
             __foreach(src, depSrcList)
-               collectedHash += md5i.contentHash((*src)->filename());
+            collectedHash += md5i.contentHash((*src)->filename());
 
             md5i.save(filename(), collectedHash);
         }
     }
 
-  //Now all local children are build, so now we can build our own functions.
-  //compile me
-  //Add my object to the list of objects in the compiler.
-  cc.addObject(outputFilename());
+    //Now all local children are build, so now we can build our own functions.
+    //compile me
+    //Add my object to the list of objects in the compiler.
+    cc.addObject(outputFilename());
 }

@@ -19,25 +19,27 @@
 
 
 #include "compiler.ih"
-Compiler const Compiler::operator+(Compiler const &rvalue)
-{
-	//Adding two compilers will merge their options
-	//Copying only the needed parts.
-  //Keep base command: d_baseCommand(other.d_baseCommand),
-	//Add objects
-	__foreach(object, rvalue.d_objects)
-	  if(find(d_objects.begin(), d_objects.end(), *object) == d_objects.end())
-	    d_objects.push_back(*object);
-	
-	//Add compiler arguments
-	__foreach(carg, rvalue.d_objects)
-	  if(find(d_compile.begin(), d_compile.end(), *carg) == d_compile.end())
-	    d_compile.push_back(*carg);
-	
-	//Add linking arguments
-	__foreach(largument, rvalue.d_link)
-	  if(find(d_link.begin(), d_link.end(), *largument) == d_link.end())
-	    d_link.push_back(*largument);
+Compiler const Compiler::operator+(Compiler const &rvalue) {
+    //Adding two compilers will merge their options
+    //Copying only the needed parts.
+    //Keep base command: d_baseCommand(other.d_baseCommand),
+    //Add objects
+    __foreach(object, rvalue.d_objects)
+    if(find(d_objects.begin(), d_objects.end(), *object) == d_objects.end()) {
+        d_objects.push_back(*object);
+    }
 
-	return *this;
+    //Add compiler arguments
+    __foreach(carg, rvalue.d_objects)
+    if(find(d_compile.begin(), d_compile.end(), *carg) == d_compile.end()) {
+        d_compile.push_back(*carg);
+    }
+
+    //Add linking arguments
+    __foreach(largument, rvalue.d_link)
+    if(find(d_link.begin(), d_link.end(), *largument) == d_link.end()) {
+        d_link.push_back(*largument);
+    }
+
+    return *this;
 }

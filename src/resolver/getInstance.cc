@@ -16,10 +16,10 @@
 */
 
 #include "resolver.ih"
-Resolver & Resolver::getInstance()
-{
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-  if(s_instance == 0)
-    s_instance = new Resolver();
-  return *s_instance;
+Resolver & Resolver::getInstance() {
+    OpenMP::ScopedLock instantiateLock(s_instanceLock);
+    if(s_instance == 0) {
+        s_instance = new Resolver();
+    }
+    return *s_instance;
 }

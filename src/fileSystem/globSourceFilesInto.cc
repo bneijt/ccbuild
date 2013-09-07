@@ -17,18 +17,17 @@
 
 #include "fileSystem.ih"
 
-void FileSystem::globSourceFilesInto(vector<string> *list, string const &directory)
-{
-	//C++ source files
-	globFilesInto(list, directory + "/*.cc");
-  globFilesInto(list, directory + "/*.cp");
-  globFilesInto(list, directory + "/*.cxx");
-  globFilesInto(list, directory + "/*.cpp");
-  globFilesInto(list, directory + "/*.CPP");
-  globFilesInto(list, directory + "/*.c++");
-  globFilesInto(list, directory + "/*.C");
+void FileSystem::globSourceFilesInto(vector<string> *list, string const &directory) {
+    //C++ source files
+    globFilesInto(list, directory + "/*.cc");
+    globFilesInto(list, directory + "/*.cp");
+    globFilesInto(list, directory + "/*.cxx");
+    globFilesInto(list, directory + "/*.cpp");
+    globFilesInto(list, directory + "/*.CPP");
+    globFilesInto(list, directory + "/*.c++");
+    globFilesInto(list, directory + "/*.C");
 
-  //C source files ???
-  //globFilesInto(list, directory + "/*.c");
+    //C source files ???
+    //globFilesInto(list, directory + "/*.c");
 
 }

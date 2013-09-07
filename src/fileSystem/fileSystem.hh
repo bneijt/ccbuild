@@ -31,125 +31,123 @@
 #endif
 
 
-namespace bneijt
-{
+namespace bneijt {
 ///\brief FileSystem
 ///
 ///A small collection of FileSystem functions.
-class FileSystem
-{
-  public:
+class FileSystem {
+    public:
 
-    /**\brief Get a vector of regular files matching the glob pattern.
-    
-    	\param list The vector to place the result into
-    	\param pattern The glob pattern
-    	\param sort	Wether or not to use a sorting glob call
-    */
-    static void globFilesInto(std::vector < std::string > *list,
-    										std::string const &pattern,
-    										bool sort = true
-      			);
+        /**\brief Get a vector of regular files matching the glob pattern.
 
-    ///\brief Get a vector of regular files matching the glob pattern.
-    static void globSourceFilesInto(std::vector < std::string > *list,	///< The vector to place the result into
-			      std::string const &directory	///< The directory
-      );
+            \param list The vector to place the result into
+            \param pattern The glob pattern
+            \param sort Wether or not to use a sorting glob call
+        */
+        static void globFilesInto(std::vector < std::string > *list,
+                                  std::string const &pattern,
+                                  bool sort = true
+                                 );
+
+        ///\brief Get a vector of regular files matching the glob pattern.
+        static void globSourceFilesInto(std::vector < std::string > *list,  ///< The vector to place the result into
+                                        std::string const &directory  ///< The directory
+                                       );
 
 
-    /**\brief Get a vector of regular directories matching the glob pattern.
-    
-    	\param list The vector to place the result into
-    	\param pattern The glob pattern
-    	\param sort	Wether or not to use a sorting glob call
-    */
-    static void globDirectoriesInto(std::vector < std::string > *list,
-			      std::string const &pattern,
-			      bool sort = false
-      );
-    
-    ///\brief Glob all subdirectories of this directory
-		static void recursiveGlobDirectoriesInto(std::vector< std::string> *list, std::string const &directory);
-		
-    /**\brief Get a vector of files matching the glob pattern.
-    
-    	\param list The vector to place the result into
-    	\param pattern The glob pattern
-    	\param sort	Wether or not to use a sorting glob call
-    */
-    static void globInto(std::vector < std::string > *list,	///< The vector to place the result into
-			      std::string const &pattern,	///< The glob pattern
-			      bool sort = true
-      );
+        /**\brief Get a vector of regular directories matching the glob pattern.
 
-		///\brief Returns true if the file exists, in any form (it may be a directory)
-    static bool fileExists(std::string const &filename,	///< The filename of the file to check
-    	      bool noDir = false ///< The file is not a directory
-    	);
+            \param list The vector to place the result into
+            \param pattern The glob pattern
+            \param sort Wether or not to use a sorting glob call
+        */
+        static void globDirectoriesInto(std::vector < std::string > *list,
+                                        std::string const &pattern,
+                                        bool sort = false
+                                       );
 
-		///\brief Remove the file it it exitst, return true on succes.
-    static bool rmIfExists(std::string const &filename	///< The filename of the file to remove
-    	);
+        ///\brief Glob all subdirectories of this directory
+        static void recursiveGlobDirectoriesInto(std::vector< std::string> *list, std::string const &directory);
 
-		///\brief Remove the directory it it exitst, return true on succes.
-    static bool rmDirectoryIfExists(std::string const &filename	///< The filename of the file to remove
-    	);
+        /**\brief Get a vector of files matching the glob pattern.
 
-		/**\brief Returns a cleaner version of the given path ("./a/../b" -> "./b")
-			\param filename The filename of the file to check
-		*/
-    static std::string cleanPath(std::string const &filename);
-		
-		/**\brief Returns the directory part of a path
-			\param filename The filename of the file to check
-		*/
-    static std::string directoryName(std::string const &filename);
+            \param list The vector to place the result into
+            \param pattern The glob pattern
+            \param sort Wether or not to use a sorting glob call
+        */
+        static void globInto(std::vector < std::string > *list, ///< The vector to place the result into
+                             std::string const &pattern,   ///< The glob pattern
+                             bool sort = true
+                            );
 
-		/**\brief Returns cleanPath(cwd + "/" + filename)
-			\param filename The filename of the file to check
-		*/
-    static std::string absolutePath(std::string const &filename);
-    	
-		/**\brief Returns base of the filename (filename, withouth path, without extension)
-		
-		\param filename The filename to do the conversion on
-		\return The resulting stripped basename
-		*/
-    static std::string baseName(std::string const &filename);
-    
-		/**\brief Returns the filename (filename, withouth path)
-		
-		\param filename The filename to do the conversion on
-		\result The resulting stripped filename
-		*/
-    static std::string fileName(std::string const &filename);
+        ///\brief Returns true if the file exists, in any form (it may be a directory)
+        static bool fileExists(std::string const &filename, ///< The filename of the file to check
+                               bool noDir = false ///< The file is not a directory
+                              );
 
-    ///\brief Touch the given file
-    static bool touch(std::string const &filename	///< The filename of the file to touch
-    	);
+        ///\brief Remove the file it it exitst, return true on succes.
+        static bool rmIfExists(std::string const &filename  ///< The filename of the file to remove
+                              );
 
-    ///\brief Return the current working directory
-		static std::string cwd();
+        ///\brief Remove the directory it it exitst, return true on succes.
+        static bool rmDirectoryIfExists(std::string const &filename ///< The filename of the file to remove
+                                       );
 
-    /**\brief Check wether file1 is newer then file2
-    	If either file doesn't exist, the function returns false.
-    */
-    static bool newer(std::string const &file1, std::string const &file2);
-    
-    ///\brief Return the modification time for the given file
-		static time_t modTime(std::string const &file) throw (Problem);
-		
-    ///\brief Returns true when the given file is readable
-    static bool isReadable(std::string const &file);
-    
-    ///\brief Returns true when the given file is a directory
-    static bool isDirectory(std::string const &file);
+        /**\brief Returns a cleaner version of the given path ("./a/../b" -> "./b")
+            \param filename The filename of the file to check
+        */
+        static std::string cleanPath(std::string const &filename);
 
-    ///\brief If the given directory doesn't exist, create it.
-    static void ensureDirectory(std::string const &directoryName);
+        /**\brief Returns the directory part of a path
+            \param filename The filename of the file to check
+        */
+        static std::string directoryName(std::string const &filename);
 
-    ///\brief Rename the given path to the other path
-    static bool rename(std::string const &from, std::string const&to);
+        /**\brief Returns cleanPath(cwd + "/" + filename)
+            \param filename The filename of the file to check
+        */
+        static std::string absolutePath(std::string const &filename);
+
+        /**\brief Returns base of the filename (filename, withouth path, without extension)
+
+        \param filename The filename to do the conversion on
+        \return The resulting stripped basename
+        */
+        static std::string baseName(std::string const &filename);
+
+        /**\brief Returns the filename (filename, withouth path)
+
+        \param filename The filename to do the conversion on
+        \result The resulting stripped filename
+        */
+        static std::string fileName(std::string const &filename);
+
+        ///\brief Touch the given file
+        static bool touch(std::string const &filename   ///< The filename of the file to touch
+                         );
+
+        ///\brief Return the current working directory
+        static std::string cwd();
+
+        /**\brief Check wether file1 is newer then file2
+            If either file doesn't exist, the function returns false.
+        */
+        static bool newer(std::string const &file1, std::string const &file2);
+
+        ///\brief Return the modification time for the given file
+        static time_t modTime(std::string const &file) throw (Problem);
+
+        ///\brief Returns true when the given file is readable
+        static bool isReadable(std::string const &file);
+
+        ///\brief Returns true when the given file is a directory
+        static bool isDirectory(std::string const &file);
+
+        ///\brief If the given directory doesn't exist, create it.
+        static void ensureDirectory(std::string const &directoryName);
+
+        ///\brief Rename the given path to the other path
+        static bool rename(std::string const &from, std::string const&to);
 };
-}				//namespace
+}               //namespace
 #endif

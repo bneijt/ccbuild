@@ -23,8 +23,7 @@
 #include "compiler.ih"
 
 int Compiler::precompile(std::string target,
-		       std::string outputFile) const
-{
+                         std::string outputFile) const {
     cls();
 
     cerrLock.set();
@@ -37,23 +36,24 @@ int Compiler::precompile(std::string target,
     int retValue = System::system(command.c_str());
 
 
-    if(retValue != 0)
-    {
+    if(retValue != 0) {
         cerrLock.set();
         cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
         cerrLock.unset();
 
-        if(!Options::execOnFail.empty())
+        if(!Options::execOnFail.empty()) {
             System::system((Options::execOnFail + " \"" + target + "\"").c_str());
+        }
 
-        if(!Options::brute)
-            throw Problem(Problem::Subfailure, "Precompilation failed on " + target, retValue);    
+        if(!Options::brute) {
+            throw Problem(Problem::Subfailure, "Precompilation failed on " + target, retValue);
+        }
 
         //Remove output, to make sure the gch is not used by g++
         FileSystem::rmIfExists(outputFile);
-    }
-    else if(!Options::execOnPass.empty())
+    } else if(!Options::execOnPass.empty()) {
         System::system((Options::execOnPass + " \"" + target + "\"").c_str());
+    }
 
     return retValue;
 }

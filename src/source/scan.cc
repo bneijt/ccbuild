@@ -16,54 +16,48 @@
 */
 
 #include "source.ih"
-void Source::scan(vector < string > *local, vector < string > *global, vector < string > *ignore)
-{
-	//Scan the file for all information
-  if(FileSystem::isDirectory(d_filename))
-  {
-    cerrLock.set();
-    cerr << "Warning: encountered a directory in the local includes,\n\tignoring: " << d_filename << endl;
-    cerrLock.unset();
-    return;
-  }
-	//Scan sourcecode
-  ifstream file(d_filename.c_str());
-  if(!file)
-  {
-    cerrLock.set();
-    cerr << "Could not open the source file for scanning: " << d_filename << endl;
-    cerrLock.unset();
-    return;
-  }
-  OpenMP::ScopedLock fl(flexLock);
-  
-  SourceScanner *scanner = new SourceScanner(&file);
-  try
-  {
-    scanner->yylex();
-    d_hasMainFunction = scanner->hasMainFunction();
-    //d_hasDefine = scanner->hasDefine();
-		if(ignore == 0)
-			ignore = &d_ignored;
+void Source::scan(vector < string > *local, vector < string > *global, vector < string > *ignore) {
+    //Scan the file for all information
+    if(FileSystem::isDirectory(d_filename)) {
+        cerrLock.set();
+        cerr << "Warning: encountered a directory in the local includes,\n\tignoring: " << d_filename << endl;
+        cerrLock.unset();
+        return;
+    }
+    //Scan sourcecode
+    ifstream file(d_filename.c_str());
+    if(!file) {
+        cerrLock.set();
+        cerr << "Could not open the source file for scanning: " << d_filename << endl;
+        cerrLock.unset();
+        return;
+    }
+    OpenMP::ScopedLock fl(flexLock);
 
-    scanner->includes(local, global, ignore);
-    _debugLevel2("Scan resulted in " << local->size() << " local, " << global->size() << " global, and " << ignore->size() << " ignored includes\n\t for file " << d_filename);
-		if(Options::verbose && ignore->size() > 0)
-		{
-		  cerrLock.set();
-			__foreach(ig, *ignore)
-				cerr << "ccbuild: warning: ignoring \"" << *ig << "\" in \"" << filename() << "\"\n";
-		  cerrLock.unset();
-		}
-  }
-  catch(SourceScanner::Error err)
-  {
-  	//Errors are seen just after they are encountered, thus decrement lineno.
-  	coutLock.set();
-    cout << "Include scanning error on line " << scanner->lineno() - 1
-    		 << " in file " << d_filename << "\n";
-  	coutLock.unset();
-  }
+    SourceScanner *scanner = new SourceScanner(&file);
+    try {
+        scanner->yylex();
+        d_hasMainFunction = scanner->hasMainFunction();
+        //d_hasDefine = scanner->hasDefine();
+        if(ignore == 0) {
+            ignore = &d_ignored;
+        }
 
-  delete scanner;
+        scanner->includes(local, global, ignore);
+        _debugLevel2("Scan resulted in " << local->size() << " local, " << global->size() << " global, and " << ignore->size() << " ignored includes\n\t for file " << d_filename);
+        if(Options::verbose && ignore->size() > 0) {
+            cerrLock.set();
+            __foreach(ig, *ignore)
+            cerr << "ccbuild: warning: ignoring \"" << *ig << "\" in \"" << filename() << "\"\n";
+            cerrLock.unset();
+        }
+    } catch(SourceScanner::Error err) {
+        //Errors are seen just after they are encountered, thus decrement lineno.
+        coutLock.set();
+        cout << "Include scanning error on line " << scanner->lineno() - 1
+             << " in file " << d_filename << "\n";
+        coutLock.unset();
+    }
+
+    delete scanner;
 }

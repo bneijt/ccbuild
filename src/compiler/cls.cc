@@ -17,8 +17,8 @@
 */
 #include "compiler.ih"
 
-void Compiler::cls() const
-{
-	if(Options::clearPerCommand)
-		cout << s_clear << flush;
+void Compiler::cls() const {
+    if(Options::clearPerCommand) {
+        cout << s_clear << flush;
+    }
 }

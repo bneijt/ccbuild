@@ -18,33 +18,31 @@
 #include "compiler.ih"
 
 string Compiler::compileCommand(std::string target,
-		       std::string outputFile) const
-{
-  ostringstream command(d_baseCommand, ios::ate);
+                                std::string outputFile) const {
+    ostringstream command(d_baseCommand, ios::ate);
 
-  command << " " << Options::extraArgs << " -c ";
+    command << " " << Options::extraArgs << " -c ";
 
-  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
+    copy(d_compile.begin(), d_compile.end(), ostream_iterator<string>(command, " "));
 
 
-  command << "-o \"" << outputFile << "\" \"" << target << "\" ";
+    command << "-o \"" << outputFile << "\" \"" << target << "\" ";
 
-  command << Options::commandAppend;
+    command << Options::commandAppend;
 
-	return command.str();
+    return command.str();
 }
 
-std::string Compiler::compileCommand(std::vector<std::string > const &targets) const
-{
-  ostringstream command(d_baseCommand, ios::ate);
+std::string Compiler::compileCommand(std::vector<std::string > const &targets) const {
+    ostringstream command(d_baseCommand, ios::ate);
 
-  command << " " << Options::extraArgs << " -c ";
+    command << " " << Options::extraArgs << " -c ";
 
-  copy(d_compile.begin(), d_compile.end(), ostream_iterator<string const>(command, " "));
-  
-  __foreach(target, targets)
+    copy(d_compile.begin(), d_compile.end(), ostream_iterator<string const>(command, " "));
+
+    __foreach(target, targets)
     command << " \"" << (*target) << "\"";
-  command << Options::commandAppend;
+    command << Options::commandAppend;
 
-	return command.str();
+    return command.str();
 }

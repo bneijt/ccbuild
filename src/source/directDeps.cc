@@ -18,21 +18,19 @@
 
 #include "source.ih"
 
-void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string const *> &globalDeps, std::vector<string> &ignored) const
-{
-  if(!d_depsDone) {
-    throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
-  }
+void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string const *> &globalDeps, std::vector<string> &ignored) const {
+    if(!d_depsDone) {
+        throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
+    }
 
-	localDeps = d_deps;
-	copy(d_globalDeps.begin(), d_globalDeps.end(), back_inserter(globalDeps));
+    localDeps = d_deps;
+    copy(d_globalDeps.begin(), d_globalDeps.end(), back_inserter(globalDeps));
 
-	//String copying!	
-	ignored = d_ignored;
+    //String copying!
+    ignored = d_ignored;
 }
 
-void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string const *> &globalDeps) const
-{
+void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string const *> &globalDeps) const {
     if(!d_depsDone) {
         throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
     }
@@ -40,9 +38,9 @@ void Source::directDeps(std::vector<Source*> &localDeps, std::vector<std::string
     copy(d_globalDeps.begin(), d_globalDeps.end(), back_inserter(globalDeps));
 }
 
-void Source::directDeps(std::vector<Source*> &localDeps) const
-{
-  if(!d_depsDone)
-    throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
-	localDeps = d_deps;
+void Source::directDeps(std::vector<Source*> &localDeps) const {
+    if(!d_depsDone) {
+        throw Problem(Problem::Unable, "Unable to get directDeps without the file being scanned.");
+    }
+    localDeps = d_deps;
 }

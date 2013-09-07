@@ -21,12 +21,12 @@
 
 
 #include "source.ih"
-bool Source::isLibTarget() const
-{
-	if(d_hasMainFunction 
-				|| d_filename.size() < 5
-				|| (! hasSourceExtension())
-				)
-		return false;
-  return d_filename.substr(0, 3) == "lib";
+bool Source::isLibTarget() const {
+    if(d_hasMainFunction
+            || d_filename.size() < 5
+            || (! hasSourceExtension())
+      ) {
+        return false;
+    }
+    return d_filename.substr(0, 3) == "lib";
 }

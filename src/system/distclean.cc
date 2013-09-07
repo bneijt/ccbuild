@@ -17,106 +17,102 @@
 
 #include "system.ih"
 
-namespace{
+namespace {
 
-bool leaveDirectory(std::string const &rvalue)
-{
-	if(rvalue.size() < 2)
-		return true;
-	return rvalue.compare(rvalue.size() -2, 2, "/o") != 0;
+bool leaveDirectory(std::string const &rvalue) {
+    if(rvalue.size() < 2) {
+        return true;
+    }
+    return rvalue.compare(rvalue.size() -2, 2, "/o") != 0;
 }
 
-bool stringLength(std::string const &a, std::string const &b)
-{
-  return a.size() < b.size();
+bool stringLength(std::string const &a, std::string const &b) {
+    return a.size() < b.size();
 }
 
-void recursivelyRemoveGCH()
-{
-  	//Clean everything
-	stack<string> directoryStack;
-	directoryStack.push(".");
-	vector<string> rmList;
-	
-	//TODO: Rewrite to rm -rf o (but smarter) and the old rm */*/*.gch
-	
-	//Generate a list of directories
-	while(directoryStack.size() > 0)
-	{
-		vector<string> list;
-		string dir = directoryStack.top();
-		directoryStack.pop();
+void recursivelyRemoveGCH() {
+    //Clean everything
+    stack<string> directoryStack;
+    directoryStack.push(".");
+    vector<string> rmList;
 
-		FileSystem::globDirectoriesInto(&list, dir + "/*");
-		__foreach(d, list)
-			if(find(rmList.begin(), rmList.end(), *d) == rmList.end())
-				directoryStack.push(*d);
+    //TODO: Rewrite to rm -rf o (but smarter) and the old rm */*/*.gch
 
-		//Clear local files out of the directory
-		vector<string> fileList;
-		FileSystem::globFilesInto(&fileList, dir + "/*.gch");
+    //Generate a list of directories
+    while(directoryStack.size() > 0) {
+        vector<string> list;
+        string dir = directoryStack.top();
+        directoryStack.pop();
 
-		__foreach(target, fileList)
-		{
-			cerr << "[RM] '" << *target << "'\n";
-			if(unlink((*target).c_str()) != 0)
-				cerr << "[RM] failed on '" << *target << "'\n";
-		}
-	}
+        FileSystem::globDirectoriesInto(&list, dir + "/*");
+        __foreach(d, list)
+        if(find(rmList.begin(), rmList.end(), *d) == rmList.end()) {
+            directoryStack.push(*d);
+        }
+
+        //Clear local files out of the directory
+        vector<string> fileList;
+        FileSystem::globFilesInto(&fileList, dir + "/*.gch");
+
+        __foreach(target, fileList) {
+            cerr << "[RM] '" << *target << "'\n";
+            if(unlink((*target).c_str()) != 0) {
+                cerr << "[RM] failed on '" << *target << "'\n";
+            }
+        }
+    }
 
 }
 }
 
-void System::distclean()
-{
-  //Remove all GCH files
-  recursivelyRemoveGCH();
+void System::distclean() {
+    //Remove all GCH files
+    recursivelyRemoveGCH();
 
-  //Remove archives
-  {
-		vector<string> fileList;
-  	FileSystem::globFilesInto(&fileList, Options::cacheRoot + "/*.a");
-  	__foreach(target, fileList)
-  		FileSystem::rmIfExists(*target);
-  }
-  
-	//Clean everything else in the O directory
-	stack<string> directoryStack;
-	directoryStack.push(Options::cacheRoot);
-	vector<string> rmList;
-	vector<string> directoryDeathList;
-	
-	//Generate a list of directories
-	while(directoryStack.size() > 0)
-	{
-		vector<string> list;
-		string dir = directoryStack.top();
-		directoryStack.pop();
+    //Remove archives
+    {
+        vector<string> fileList;
+        FileSystem::globFilesInto(&fileList, Options::cacheRoot + "/*.a");
+        __foreach(target, fileList)
+        FileSystem::rmIfExists(*target);
+    }
 
-		FileSystem::globDirectoriesInto(&list, dir + "/*");
-		__foreach(d, list)
-			if(find(rmList.begin(), rmList.end(), *d) == rmList.end())
-				directoryStack.push(*d);
+    //Clean everything else in the O directory
+    stack<string> directoryStack;
+    directoryStack.push(Options::cacheRoot);
+    vector<string> rmList;
+    vector<string> directoryDeathList;
 
-		//Clear local files out of the directory
-		vector<string> fileList;
+    //Generate a list of directories
+    while(directoryStack.size() > 0) {
+        vector<string> list;
+        string dir = directoryStack.top();
+        directoryStack.pop();
 
-		//All *.md5 and *.o
-		FileSystem::globFilesInto(&fileList, dir + "/*.md5");
-		FileSystem::globFilesInto(&fileList, dir + "/*.o");
-		
-		__foreach(target, fileList)
-			FileSystem::rmIfExists(*target);
-		directoryDeathList.push_back(dir);
-		
-	}
-	vector<string>::iterator end = unique(directoryDeathList.begin(), directoryDeathList.end());
-	directoryDeathList.erase(end, directoryDeathList.end());
-	sort(directoryDeathList.rbegin(), directoryDeathList.rend(), stringLength);
-	
-  __foreach(dir, directoryDeathList)
-  {
-		//Remove if directory, will only work when empty
-		FileSystem::rmDirectoryIfExists(*dir);
-  }
+        FileSystem::globDirectoriesInto(&list, dir + "/*");
+        __foreach(d, list)
+        if(find(rmList.begin(), rmList.end(), *d) == rmList.end()) {
+            directoryStack.push(*d);
+        }
+
+        //Clear local files out of the directory
+        vector<string> fileList;
+
+        //All *.md5 and *.o
+        FileSystem::globFilesInto(&fileList, dir + "/*.md5");
+        FileSystem::globFilesInto(&fileList, dir + "/*.o");
+
+        __foreach(target, fileList)
+        FileSystem::rmIfExists(*target);
+        directoryDeathList.push_back(dir);
+
+    }
+    vector<string>::iterator end = unique(directoryDeathList.begin(), directoryDeathList.end());
+    directoryDeathList.erase(end, directoryDeathList.end());
+    sort(directoryDeathList.rbegin(), directoryDeathList.rend(), stringLength);
+
+    __foreach(dir, directoryDeathList) {
+        //Remove if directory, will only work when empty
+        FileSystem::rmDirectoryIfExists(*dir);
+    }
 }

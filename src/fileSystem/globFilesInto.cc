@@ -20,26 +20,25 @@
 //Using the path given, add all globstring results to the string vector list
 namespace {
 
-bool notFile(string target)
-{
-	//Return true if the string doesn't point to a normal file
-	struct stat statbuf;
-	if(stat(target.c_str(), &statbuf) == 0)
-		if(S_ISREG(statbuf.st_mode)) //Returns true if the statbuf denotes a regular file
-			return false;
-	_debugLevel4("NOT regular file: '" << target << "'");
-	return true;
+bool notFile(string target) {
+    //Return true if the string doesn't point to a normal file
+    struct stat statbuf;
+    if(stat(target.c_str(), &statbuf) == 0)
+        if(S_ISREG(statbuf.st_mode)) { //Returns true if the statbuf denotes a regular file
+            return false;
+        }
+    _debugLevel4("NOT regular file: '" << target << "'");
+    return true;
 }
 }//anon namespace
 
-void FileSystem::globFilesInto(vector<string> *list, string const &pattern, bool sort)
-{
-	globInto(list, pattern, sort);
-	_debugLevel3("Globbging '" << pattern << "' matches " << list->size());
+void FileSystem::globFilesInto(vector<string> *list, string const &pattern, bool sort) {
+    globInto(list, pattern, sort);
+    _debugLevel3("Globbging '" << pattern << "' matches " << list->size());
 
-	//Remove the not regular file entries that were added
-	vector<string>::iterator endOfFiles = remove_if(list->begin(), list->end(), notFile);
+    //Remove the not regular file entries that were added
+    vector<string>::iterator endOfFiles = remove_if(list->begin(), list->end(), notFile);
 
-	//Delete the elements
-	list->erase(endOfFiles, list->end());
+    //Delete the elements
+    list->erase(endOfFiles, list->end());
 }

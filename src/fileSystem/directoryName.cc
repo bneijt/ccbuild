@@ -16,16 +16,17 @@
 */
 
 #include "fileSystem.ih"
-std::string FileSystem::directoryName(string const &filename)
-{  
-	//TODO allow for slash escaping of the character??
-  string::size_type lastSlashPos = filename.find_last_of("/");
-  if(lastSlashPos == string::npos) //No slash in the path
-    return ".";
-  if(lastSlashPos == 0)
-    return "/"; //Last slash is the root
- 
-	_debugLevel2("dir(" + filename + ") = " + filename.substr(0, lastSlashPos));
+std::string FileSystem::directoryName(string const &filename) {
+    //TODO allow for slash escaping of the character??
+    string::size_type lastSlashPos = filename.find_last_of("/");
+    if(lastSlashPos == string::npos) { //No slash in the path
+        return ".";
+    }
+    if(lastSlashPos == 0) {
+        return "/";    //Last slash is the root
+    }
 
-  return filename.substr(0, lastSlashPos);
+    _debugLevel2("dir(" + filename + ") = " + filename.substr(0, lastSlashPos));
+
+    return filename.substr(0, lastSlashPos);
 }

@@ -27,19 +27,16 @@
 using namespace std;
 using namespace bneijt;
 int main(int argc, char **argv)
-try
-{
-  String s("a hello b");
+try {
+    String s("a hello b");
 #define REP(a,b) std::cout << "Replace '" << a << "' with '" << b << "': " << s.replace(a,b) << "\n"
-  REP("a","b");
-  REP("a", "hello");
-  REP("hello", "billy");
-  cout << "\n";
-  return 0;
-}
-catch(const std::exception &e)
-{
-	//All is LOST... nothing to do here but die
-  cerr << "Caught std::exception (" << typeid(e).name() << "): " << e.what();
-  cerr << "\nPlease report this as a bug.\n";
+    REP("a","b");
+    REP("a", "hello");
+    REP("hello", "billy");
+    cout << "\n";
+    return 0;
+} catch(const std::exception &e) {
+    //All is LOST... nothing to do here but die
+    cerr << "Caught std::exception (" << typeid(e).name() << "): " << e.what();
+    cerr << "\nPlease report this as a bug.\n";
 }

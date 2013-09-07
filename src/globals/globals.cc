@@ -17,15 +17,14 @@
 #include "globals.ih"
 
 Globals::Globals()
-	:
-	d_map()
-{
+    :
+    d_map() {
 }
 
-Globals::~Globals()
-{
-	__foreach(link, *this)
-		if(link->second)
-			delete link->second;
-		
+Globals::~Globals() {
+    __foreach(link, *this)
+    if(link->second) {
+        delete link->second;
+    }
+
 }

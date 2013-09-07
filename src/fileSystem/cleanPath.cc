@@ -16,56 +16,59 @@
 */
 
 #include "fileSystem.ih"
-std::string FileSystem::cleanPath(string const &filename)
-{
-	//TODO Use a standard function for this, I might overlook something here
- 	//Strip filename of excess ../ parts
- 	_debugLevel2("Clean path from: " << filename);
- 	istringstream f(filename);
-  size_t partNum = 0;
- 	vector<string> path;
-	//Split path into parts
- 	while(true)
- 	{
-		string part;
-		getline(f, part, '/');
-    ++partNum;
-		if(!f)
-			break;
-	  
-	  //Double slash lower in the path is ignored ("//" or "/hello//something")
-	  //  but we can not ignore the first empty part, so we keep partNum as a reference
-	  if(part.empty() && partNum != 1)
-	    continue;
-	  
-	  //Skip pushing a single .
-	  if(part == ".")
-	    continue;
+std::string FileSystem::cleanPath(string const &filename) {
+    //TODO Use a standard function for this, I might overlook something here
+    //Strip filename of excess ../ parts
+    _debugLevel2("Clean path from: " << filename);
+    istringstream f(filename);
+    size_t partNum = 0;
+    vector<string> path;
+    //Split path into parts
+    while(true) {
+        string part;
+        getline(f, part, '/');
+        ++partNum;
+        if(!f) {
+            break;
+        }
 
-	  //If it's .. , then pop the last pushed part if that part is not '..'
-	  if(part == ".." && path.size() > 0 && path.back() != "../")
-	  {
-	    _debugLevel3("Popping " << path.back() << " from path.");
-	    path.pop_back();
-	    continue;
-	  }
-      
-    _debugLevel4("Push " << part << "/");
-		path.push_back(part + "/");
-	}
-	string clean = accumulate(path.begin(), path.end(), string());
+        //Double slash lower in the path is ignored ("//" or "/hello//something")
+        //  but we can not ignore the first empty part, so we keep partNum as a reference
+        if(part.empty() && partNum != 1) {
+            continue;
+        }
 
- 	//Strip last "/" if it is not the first slash
- 	if(clean.size() > 1)
-   	clean = clean.substr(0, clean.length() -1);
- 	
- 	//Strip superflourous './' for local path
-  if(clean[0] == '.' && clean[1] == '/')
- 	  clean = clean.substr(2);
-  //Return a single "." if we want the current path
- 	if(clean.empty())
- 	  clean = ".";
-  _debugLevel2("Cleaned path to: " << clean);
-  
-  return clean;
+        //Skip pushing a single .
+        if(part == ".") {
+            continue;
+        }
+
+        //If it's .. , then pop the last pushed part if that part is not '..'
+        if(part == ".." && path.size() > 0 && path.back() != "../") {
+            _debugLevel3("Popping " << path.back() << " from path.");
+            path.pop_back();
+            continue;
+        }
+
+        _debugLevel4("Push " << part << "/");
+        path.push_back(part + "/");
+    }
+    string clean = accumulate(path.begin(), path.end(), string());
+
+    //Strip last "/" if it is not the first slash
+    if(clean.size() > 1) {
+        clean = clean.substr(0, clean.length() -1);
+    }
+
+    //Strip superflourous './' for local path
+    if(clean[0] == '.' && clean[1] == '/') {
+        clean = clean.substr(2);
+    }
+    //Return a single "." if we want the current path
+    if(clean.empty()) {
+        clean = ".";
+    }
+    _debugLevel2("Cleaned path to: " << clean);
+
+    return clean;
 }

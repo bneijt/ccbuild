@@ -21,7 +21,6 @@
 
 
 #include "source.ih"
-bool Source::isHeader() const
-{
-  return isLocalHeader() || isInternalHeader();
+bool Source::isHeader() const {
+    return isLocalHeader() || isInternalHeader();
 }

@@ -18,8 +18,7 @@
 #include "compiler.ih"
 
 string Compiler::precompileCommand(std::string target,
-		       std::string outputFile) const
-{
+                                   std::string outputFile) const {
     ostringstream command(d_baseCommand, ios::ate);
 
     command << " " << Options::extraArgs << " ";

@@ -22,41 +22,37 @@
 
 #include "sources.ih"
 
-void Sources::reloadStaleSources()
-{
-  OpenMP::ScopedLock dslock(d_sourcesLock);
-  
-	__foreach(src, d_sources)
-	{
-	 	if((*src)->stale())
-	 	{
-			if((*src)->reload())
-				continue;
+void Sources::reloadStaleSources() {
+    OpenMP::ScopedLock dslock(d_sourcesLock);
 
-			//Reloading failed!
-			_debugLevel1("Reload failed on " << (*src)->filename() << ". Cleaning up all sources.");
+    __foreach(src, d_sources) {
+        if((*src)->stale()) {
+            if((*src)->reload()) {
+                continue;
+            }
 
-			cerr << "ccbuild: Source tree change. Forcing refresh.\n";
+            //Reloading failed!
+            _debugLevel1("Reload failed on " << (*src)->filename() << ". Cleaning up all sources.");
 
-			//Forget all memory resident hashes
-			MD5Info::destroy();
-			MD5Info::getInstance();
+            cerr << "ccbuild: Source tree change. Forcing refresh.\n";
 
-			//Remove the object of any binary target to ensure relinking
-			__foreach(i, d_sources)
-			{
-				if((*i)->isBinTarget())
-				{
-					FileSystem::rmIfExists((*i)->outputFilename());
-				}
-			}
-			
-			//Cleanup
-			//Remove all dependency knowledge because of stale pointers...
-			__foreach(i, d_sources)
-				delete *i;
-			d_sources.clear();
-			break;		
-		}
-	}
+            //Forget all memory resident hashes
+            MD5Info::destroy();
+            MD5Info::getInstance();
+
+            //Remove the object of any binary target to ensure relinking
+            __foreach(i, d_sources) {
+                if((*i)->isBinTarget()) {
+                    FileSystem::rmIfExists((*i)->outputFilename());
+                }
+            }
+
+            //Cleanup
+            //Remove all dependency knowledge because of stale pointers...
+            __foreach(i, d_sources)
+            delete *i;
+            d_sources.clear();
+            break;
+        }
+    }
 }

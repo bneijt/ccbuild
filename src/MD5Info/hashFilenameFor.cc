@@ -17,8 +17,7 @@
 
 #include "MD5Info.ih"
 
-std::string MD5Info::hashFilenameFor(std::string const &filename)
-{
-	return FileSystem::cleanPath(Options::cacheRoot + FileSystem::absolutePath(filename) + ".md5");
+std::string MD5Info::hashFilenameFor(std::string const &filename) {
+    return FileSystem::cleanPath(Options::cacheRoot + FileSystem::absolutePath(filename) + ".md5");
 }
 

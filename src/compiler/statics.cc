@@ -17,8 +17,8 @@
 
 #include "compiler.ih"
 
-std::string const Compiler::s_highLightOff("\x1b\x5b\x30\x6d");		//\\e[0m
-std::string const Compiler::s_highLightOn("\x1b\x5b\x33\x31\x6d");	//\e[31m
+std::string const Compiler::s_highLightOff("\x1b\x5b\x30\x6d");     //\\e[0m
+std::string const Compiler::s_highLightOn("\x1b\x5b\x33\x31\x6d");  //\e[31m
 std::string const Compiler::s_clear("\33[H\33[2J");
 
 //Messages

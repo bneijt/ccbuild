@@ -16,7 +16,6 @@
 */
 
 #include "sourceScanner.ih"
-bool const &SourceScanner::hasDefine() const
-{
-	return d_hasDefine;
+bool const &SourceScanner::hasDefine() const {
+    return d_hasDefine;
 }

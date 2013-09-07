@@ -17,79 +17,77 @@
 
 #include "source.ih"
 
-void Source::genDeps()
-{
-	//If we already have deps, we are done.
-	if(d_depsDone)
-		return;
-  
-  d_apiLock.set();
+void Source::genDeps() {
+    //If we already have deps, we are done.
+    if(d_depsDone) {
+        return;
+    }
 
-	if(d_depsDone)
-		return;
+    d_apiLock.set();
+
+    if(d_depsDone) {
+        return;
+    }
 
 
-  d_depsDone = true; //TODO Use an atomic variable for these kinds of checks?
-  
-  
-	Sources &sources = Sources::getInstance();
+    d_depsDone = true; //TODO Use an atomic variable for these kinds of checks?
 
-  //stack<Source *> srcStack;
-  //vector<Source *> srcList;
 
-	vector<string> localIncludes, globalDeps;
-  scan(&localIncludes, &globalDeps);
+    Sources &sources = Sources::getInstance();
 
-	Globals &globs = Globals::getInstance();
-	__foreach(globalDep, globalDeps)
-		d_globalDeps.insert(globs[*globalDep]);
-		
-  __foreach(li, localIncludes)
-	{
-	  std::string iname(directory() + "/" + *li);
-	  _debugLevel4("Loading source for local include: " << iname);
-	 	Source *s = sources[iname];
+    //stack<Source *> srcStack;
+    //vector<Source *> srcList;
 
-	 	if(s == this)
-	 	{
-	 	  cerrLock.set();
-	 		cerr << "ccbuild: Recursive include encountered in '" << filename() << "'\n";
-	 		cerr << "ccbuild:   ignoring self dependency.\n";
-	 	  cerrLock.unset();
-	 		continue;
-	 	}
-	 	//if it's not there, try it from the local directory (The -I. might be used on the source tree)
-    /*This variant is used for header files of your own program. It searches for a file named file first in the directory containing the current file, then in the quote directories and then the same directories used for <file>. You can prepend directories to the list of quote directories with the -iquote option.*/
-    
-    //-I option for ccbuild local resolution
-    vector<string> includePaths(Options::includePaths);
-    __foreach(path, includePaths)
-    {
-    	if(s != 0)
-    		break;
-    	_debugLevel4("Trying path: " << *path << " for " << *li);
-	 		s = sources[*path + "/" + *li];
-	 	}
-	 	
-	 	if(s == 0)
-	 	{
-	 	  cerrLock.set();
-	 		cerr << "ccbuild: Unable to read '" << iname << "'\n";
-	 		cerr << "ccbuild:   mentioned in '" << filename() << "'\n";
-	 	  cerrLock.unset();
-	 		continue;
-	 	}
-	 	d_deps.push_back(s);
-	}
-	
-  _debugLevel2("genDeps done: " << d_deps.size() << " local, " << d_globalDeps.size() << " global, and " << d_ignored.size() << " ignored includes\n\t for file " << d_filename);
-  
-	//Trigger generation of sub-source dependencies: copy pointers, unlock api, call sub-generation
-	vector<Source *> deps(d_deps.begin(), d_deps.end());
-  d_apiLock.unset();
-	__foreach(dep, deps)
-	  (*dep)->genDeps();
+    vector<string> localIncludes, globalDeps;
+    scan(&localIncludes, &globalDeps);
 
-	//All sources we _directly_ depend on now have d_deps filled and genDeps ran.	
+    Globals &globs = Globals::getInstance();
+    __foreach(globalDep, globalDeps)
+    d_globalDeps.insert(globs[*globalDep]);
+
+    __foreach(li, localIncludes) {
+        std::string iname(directory() + "/" + *li);
+        _debugLevel4("Loading source for local include: " << iname);
+        Source *s = sources[iname];
+
+        if(s == this) {
+            cerrLock.set();
+            cerr << "ccbuild: Recursive include encountered in '" << filename() << "'\n";
+            cerr << "ccbuild:   ignoring self dependency.\n";
+            cerrLock.unset();
+            continue;
+        }
+        //if it's not there, try it from the local directory (The -I. might be used on the source tree)
+        /*This variant is used for header files of your own program. It searches for a file named file first in the directory containing the current file, then in the quote directories and then the same directories used for <file>. You can prepend directories to the list of quote directories with the -iquote option.*/
+
+        //-I option for ccbuild local resolution
+        vector<string> includePaths(Options::includePaths);
+        __foreach(path, includePaths) {
+            if(s != 0) {
+                break;
+            }
+            _debugLevel4("Trying path: " << *path << " for " << *li);
+            s = sources[*path + "/" + *li];
+        }
+
+        if(s == 0) {
+            cerrLock.set();
+            cerr << "ccbuild: Unable to read '" << iname << "'\n";
+            cerr << "ccbuild:   mentioned in '" << filename() << "'\n";
+            cerrLock.unset();
+            continue;
+        }
+        d_deps.push_back(s);
+    }
+
+    _debugLevel2("genDeps done: " << d_deps.size() << " local, " << d_globalDeps.size() << " global, and " << d_ignored.size() << " ignored includes\n\t for file " << d_filename);
+
+    //Trigger generation of sub-source dependencies: copy pointers, unlock api, call sub-generation
+    vector<Source *> deps(d_deps.begin(), d_deps.end());
+    d_apiLock.unset();
+    __foreach(dep, deps)
+    (*dep)->genDeps();
+
+    //All sources we _directly_ depend on now have d_deps filled and genDeps ran.
 }
 

@@ -28,7 +28,7 @@
 #include <FlexLexer.h>
 #endif
 
-namespace bneijt{
+namespace bneijt {
 
 ///\brief Parse the given source
 ///
@@ -36,66 +36,64 @@ namespace bneijt{
 /// - The local includes it uses
 /// - The global includes it uses
 /// - Wether it contains a "int main" function
-class SourceScanner: public yyFlexLexer
-{
-  std::vector < std::string > d_globals;	///< Global dependencies
-  std::vector < std::string > d_locals;		///< Local dependencies
-  std::vector < std::string > d_ignore;		///< Ignored dependencies
-  
-  std::string d_ginclude;	///< global include collecting string
-  std::string d_linclude;	///< local include collecting string
-  std::string d_iinclude;	///< local include collecting string
-  
-  bool d_hasMainFunction;	///< Has main function state bit
-  bool d_hasDefine;				///< Has \#define state bit
+class SourceScanner: public yyFlexLexer {
+        std::vector < std::string > d_globals;    ///< Global dependencies
+        std::vector < std::string > d_locals;     ///< Local dependencies
+        std::vector < std::string > d_ignore;     ///< Ignored dependencies
 
-	public:
-		///\brief An enumeration of possible error codes
-		enum Error
-  	{
-  		invalidInclude
-  	};
+        std::string d_ginclude;   ///< global include collecting string
+        std::string d_linclude;   ///< local include collecting string
+        std::string d_iinclude;   ///< local include collecting string
 
-  	///\brief Initialize the SourceScanner on the given stream
-    SourceScanner(std::istream * yyin ///< Stream to scan
-    		);
+        bool d_hasMainFunction;   ///< Has main function state bit
+        bool d_hasDefine;             ///< Has \#define state bit
 
-    /**\brief Put the known local and global includes into these vectors
+    public:
+        ///\brief An enumeration of possible error codes
+        enum Error {
+            invalidInclude
+        };
 
-			\param local	Vector for local includes
-    	\param global Vector for global includes
-    	\param ignore Vector for ignored includes
-    */
-  	void includes(std::vector<std::string> *local,
-									std::vector<std::string> *global,
-									std::vector<std::string> *ignore = 0	
-									);
+        ///\brief Initialize the SourceScanner on the given stream
+        SourceScanner(std::istream * yyin ///< Stream to scan
+                     );
 
-		///\brief Returns true when the scanned source contained a main function
-		bool const &hasMainFunction() const;
+        /**\brief Put the known local and global includes into these vectors
 
-		///\brief Returns true when the scanned source contained a \#define directive
-		bool const &hasDefine() const;
+                \param local    Vector for local includes
+            \param global Vector for global includes
+            \param ignore Vector for ignored includes
+        */
+        void includes(std::vector<std::string> *local,
+                      std::vector<std::string> *global,
+                      std::vector<std::string> *ignore = 0
+                     );
+
+        ///\brief Returns true when the scanned source contained a main function
+        bool const &hasMainFunction() const;
+
+        ///\brief Returns true when the scanned source contained a \#define directive
+        bool const &hasDefine() const;
 
 
-		///\brief The yylex function, to run the parser
-  	virtual int yylex();
-	private:
-	
-		///\brief Not implemented
-		SourceScanner(SourceScanner const &other);	// NI
-		
-		///\brief Not implemented
-  	SourceScanner &operator=(SourceScanner const &other);	// NI
+        ///\brief The yylex function, to run the parser
+        virtual int yylex();
+    private:
 
-		///\brief Push d_ginclude to the d_gobals vector
-  	void storeGlobal();
-	
-		///\brief Push d_ginclude to the d_gobals vector
-  	void storeIgnore();
-  	
-		///\brief Push d_linclude to the d_locals vector
-  	void storeLocal();
+        ///\brief Not implemented
+        SourceScanner(SourceScanner const &other);  // NI
+
+        ///\brief Not implemented
+        SourceScanner &operator=(SourceScanner const &other);   // NI
+
+        ///\brief Push d_ginclude to the d_gobals vector
+        void storeGlobal();
+
+        ///\brief Push d_ginclude to the d_gobals vector
+        void storeIgnore();
+
+        ///\brief Push d_linclude to the d_locals vector
+        void storeLocal();
 };
 
 }//Namespace

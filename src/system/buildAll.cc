@@ -15,42 +15,40 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "system.ih"
-void System::buildAll()
-{
-  vector<string> files;
+void System::buildAll() {
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
-  unsigned nbuilds(0);
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    FileSystem::globSourceFilesInto(&files, ".");
+    unsigned nbuilds(0);
+    __foreach(file, files) {
+        Source *target = s[*file];
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cerr << "Error loading '" << *file << "'\n";
-      continue;
+        //Error loading source??
+        if(target == 0) {
+            cerr << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::inspect(target);
+
+        //isBinTarget test can only be done after the inspect
+        if(!target->isBinTarget()) {
+            continue;
+        }
+
+        ++nbuilds;
+
+        cerr << "Building: " << target->filename() << "\n";
+        Compiler cc;
+        System::build(target, cc);
     }
-
-    System::inspect(target);
-
-    //isBinTarget test can only be done after the inspect
-    if(!target->isBinTarget())
-      continue;
-      
-    ++nbuilds;
-
-    cerr << "Building: " << target->filename() << "\n";
-    Compiler cc;
-    System::build(target, cc);
-  }
-  if(nbuilds == 0)
-  {
-        if(Options::verbose)
+    if(nbuilds == 0) {
+        if(Options::verbose) {
             cerr << "ccbuild: Warning: Unable to find any binary targets.\n";
+        }
         cerr << "[build -> lib " << Options::progVersion << "]\n";
         lib(Options::progVersion);
-  }
+    }
 }

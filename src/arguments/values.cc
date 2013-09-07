@@ -22,17 +22,18 @@
 
 #include "arguments.ih"
 
-std::vector<std::string> const &Arguments::values(std::string const &optionName) const
-{
+std::vector<std::string> const &Arguments::values(std::string const &optionName) const {
 
-	map<string, bool *>::const_iterator fi = d_flags.find(optionName);
-	
-	if(fi == d_flags.end())
-		return d_emptyList;
-		
-	map<bool *, std::vector<std::string> >::const_iterator vi = d_values.find((*fi).second);
-	if(vi != d_values.end())
-		return (*vi).second;
-	else
-		return d_emptyList;
+    map<string, bool *>::const_iterator fi = d_flags.find(optionName);
+
+    if(fi == d_flags.end()) {
+        return d_emptyList;
+    }
+
+    map<bool *, std::vector<std::string> >::const_iterator vi = d_values.find((*fi).second);
+    if(vi != d_values.end()) {
+        return (*vi).second;
+    } else {
+        return d_emptyList;
+    }
 }

@@ -16,43 +16,39 @@
 */
 
 #include "system.ih"
-void System::md5(Source *source)
-{
-  vector<Source *> srcList;
-  srcList.push_back(source);
-  collectTargets(srcList);
-  MD5Info &md5i = MD5Info::getInstance();
-	__foreach(src, srcList)
-	{
-		cout << md5i.contentHash((*src)->filename()) << "  " << (*src)->filename() << "\n";
-	}	
+void System::md5(Source *source) {
+    vector<Source *> srcList;
+    srcList.push_back(source);
+    collectTargets(srcList);
+    MD5Info &md5i = MD5Info::getInstance();
+    __foreach(src, srcList) {
+        cout << md5i.contentHash((*src)->filename()) << "  " << (*src)->filename() << "\n";
+    }
 }
 
-void System::md5()
-{
-	vector<string> files;
+void System::md5() {
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
+    FileSystem::globSourceFilesInto(&files, ".");
 
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    __foreach(file, files) {
+        Source *target = s[*file];
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cerr << "Error loading '" << *file << "'\n";
-      continue;
+        //Error loading source??
+        if(target == 0) {
+            cerr << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::inspect(target);
+
+        //isBinTarget test can only be done after the inspect
+        if(!target->isBinTarget()) {
+            continue;
+        }
+        cerr << "[md5 " << target->filename() << "]\n";
+        System::md5(target);
     }
-
-    System::inspect(target);
-
-    //isBinTarget test can only be done after the inspect
-    if(!target->isBinTarget())
-      continue;
-		cerr << "[md5 " << target->filename() << "]\n";
-    System::md5(target);
-  }
 }

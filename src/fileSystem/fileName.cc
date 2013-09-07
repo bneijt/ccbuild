@@ -16,11 +16,11 @@
 */
 
 #include "fileSystem.ih"
-std::string FileSystem::fileName(string const &filename)
-{
-  string::size_type i = filename.find_last_of('/') + 1;
-  if(i == string::npos)
-  	i = 0;
+std::string FileSystem::fileName(string const &filename) {
+    string::size_type i = filename.find_last_of('/') + 1;
+    if(i == string::npos) {
+        i = 0;
+    }
 
-  return filename.substr(i);
+    return filename.substr(i);
 }

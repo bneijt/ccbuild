@@ -15,7 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-bool Source::isLocalHeader() const
-{
-  return d_srcType == LocalHeader;
+bool Source::isLocalHeader() const {
+    return d_srcType == LocalHeader;
 }

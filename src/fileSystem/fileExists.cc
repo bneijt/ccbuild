@@ -17,18 +17,19 @@
 
 #include "fileSystem.ih"
 
-bool FileSystem::fileExists(std::string const &filename, bool noDir)
-{
+bool FileSystem::fileExists(std::string const &filename, bool noDir) {
     OpenMP::ScopedLock scopedFsLock(fsLock);
 
     struct stat a;
     int rcode = stat(filename.c_str(), &a);
 
-    if(rcode != 0) //Stat failed
+    if(rcode != 0) { //Stat failed
         return false;
+    }
 
-    if(noDir and S_ISDIR(a.st_mode))
+    if(noDir and S_ISDIR(a.st_mode)) {
         return false;
+    }
 
     return true;
 }

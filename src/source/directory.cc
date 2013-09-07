@@ -16,8 +16,7 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-std::string Source::directory() const
-{
-	//Return current directory name
-	return FileSystem::directoryName(d_filename);
+std::string Source::directory() const {
+    //Return current directory name
+    return FileSystem::directoryName(d_filename);
 }

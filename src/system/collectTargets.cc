@@ -17,53 +17,52 @@
 
 #include "system.ih"
 
-void System::collectTargets(vector<Source *> &sources, bool skipBin)
-{
-	//Collect the targets for the current given sourcestack.
-	set<Source *> roots(sources.begin(), sources.end());
-	vector<Source *> srcStack(sources);
-	sources.clear();
-	vector<Source *> srcs;
-	
-	while(srcStack.size() > 0)
-	{
-		Source *src = srcStack.back();
-		srcStack.pop_back();
-		inspect(src);
+void System::collectTargets(vector<Source *> &sources, bool skipBin) {
+    //Collect the targets for the current given sourcestack.
+    set<Source *> roots(sources.begin(), sources.end());
+    vector<Source *> srcStack(sources);
+    sources.clear();
+    vector<Source *> srcs;
 
-		//We skip if: isbinary, and is not part of the roots
-		if(skipBin
-				&& src->isBinTarget()
-				&& roots.count(src) == 0)
-			continue;
-			
-		src->directDeps(srcs);
-		
-    if(find(sources.begin(), sources.end(),
-					  src) != sources.end())
-			continue;
+    while(srcStack.size() > 0) {
+        Source *src = srcStack.back();
+        srcStack.pop_back();
+        inspect(src);
 
-		sources.push_back(src);
+        //We skip if: isbinary, and is not part of the roots
+        if(skipBin
+                && src->isBinTarget()
+                && roots.count(src) == 0) {
+            continue;
+        }
 
-		copy(srcs.begin(), srcs.end(), back_inserter(srcStack));
-		
-		//Collect all source files surrounding local includes
-		if(src->isHeader())
-		{
-			//Collect all surrounding object targets
-			Sources &mainSrcList = Sources::getInstance();
-			vector<string> files;
-			FileSystem::globSourceFilesInto(&files, src->directory());
-			__foreach(file, files)
-			{
-				//Load file using sources
-				Source *loadedSrc = mainSrcList[*file];
-				
-				//Push sources to stack.
-				if(loadedSrc)
-					srcStack.push_back(loadedSrc);
-			}
-		}
-	}
-	
+        src->directDeps(srcs);
+
+        if(find(sources.begin(), sources.end(),
+                src) != sources.end()) {
+            continue;
+        }
+
+        sources.push_back(src);
+
+        copy(srcs.begin(), srcs.end(), back_inserter(srcStack));
+
+        //Collect all source files surrounding local includes
+        if(src->isHeader()) {
+            //Collect all surrounding object targets
+            Sources &mainSrcList = Sources::getInstance();
+            vector<string> files;
+            FileSystem::globSourceFilesInto(&files, src->directory());
+            __foreach(file, files) {
+                //Load file using sources
+                Source *loadedSrc = mainSrcList[*file];
+
+                //Push sources to stack.
+                if(loadedSrc) {
+                    srcStack.push_back(loadedSrc);
+                }
+            }
+        }
+    }
+
 }

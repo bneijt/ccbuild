@@ -16,7 +16,6 @@
 */
 
 #include "sourceScanner.ih"
-void SourceScanner::storeGlobal()
-{
-  d_globals.push_back(d_ginclude);
+void SourceScanner::storeGlobal() {
+    d_globals.push_back(d_ginclude);
 }

@@ -17,93 +17,92 @@
 
 #include "compiler.ih"
 namespace {
-bool startsWith(std::string const &a, std::string const &b)
-{
-	//Return wether a starts with b
-	if(a.size() < b.size())
-		return false;
-	return a.compare(0, b.length(), b) == 0;
+bool startsWith(std::string const &a, std::string const &b) {
+    //Return wether a starts with b
+    if(a.size() < b.size()) {
+        return false;
+    }
+    return a.compare(0, b.length(), b) == 0;
 }
 
 }//namespace
 
 
-unsigned Compiler::countFirstLinkerArguments(std::vector<std::string> &arguments) const
-{
-	//Add argument taking linker options here, flags below
-	//The following options take an argument:
-	char const* takeArg[] = {
-		"-Wl," //-Wl,option
-		,"-Xlinker"
-		,"-u"
-		,"-L"
-		,"-l"
-//		,""
-		,0
-		};
+unsigned Compiler::countFirstLinkerArguments(std::vector<std::string> &arguments) const {
+    //Add argument taking linker options here, flags below
+    //The following options take an argument:
+    char const* takeArg[] = {
+        "-Wl," //-Wl,option
+        ,"-Xlinker"
+        ,"-u"
+        ,"-L"
+        ,"-l"
+//      ,""
+        ,0
+    };
 
-	//The following options are simple flags
-	char const *flag[] = {
-		"-nostartfiles"
-		,"-nodefaultlibs"
-		,"-nostdlib"
-		,"-pie"
-		,"-s"
-		,"-static"
-		,"-static-libgcc"
-		,"-shared"
-		,"-shared-libgcc"
-		,"-symbolic"
-		,"-rdynamic"
-//		,"-threads"
-//		,"-pthreads"
-//		,""
-//		,""
-		,0
-	};
-
+    //The following options are simple flags
+    char const *flag[] = {
+        "-nostartfiles"
+        ,"-nodefaultlibs"
+        ,"-nostdlib"
+        ,"-pie"
+        ,"-s"
+        ,"-static"
+        ,"-static-libgcc"
+        ,"-shared"
+        ,"-shared-libgcc"
+        ,"-symbolic"
+        ,"-rdynamic"
+//      ,"-threads"
+//      ,"-pthreads"
+//      ,""
+//      ,""
+        ,0
+    };
 
 
 
-	//TODO optimize: arguments.size() test is possibly not necessary in nested for loop
-	unsigned count(0);
-	for(; count < arguments.size(); ++count)
-	{
-		bool found = false;
-		
-		//If one of the takeArg is found, count++
-		for(unsigned i = 0; count < arguments.size() && takeArg[i]; ++i)
-			if(startsWith(arguments[count], takeArg[i]))
-			{
-				_debugLevel2("Found: '" << takeArg[i] << "'");
 
-				//If the argument is not attached to the flag				
-				if(arguments[count].size() == strlen(takeArg[i]))
-					++count;
-				found = true;
-				break;
-			}
-		
-		//Go for the next one
-		if(found)
-			continue;
-		
-		//The flags
-		for(unsigned i = 0; count < arguments.size() && flag[i]; ++i)
-			if(arguments[count] == flag[i])
-			{
-				found = true;
-				break;
-			}		
-		
-		if(!found)
-			break;
-	}
-	
-	//If not any argument, break
-	_debugLevel2("Stopped at: '" << (count < arguments.size() ? arguments[count] : "THE END" ) << "' counting " << count);
+    //TODO optimize: arguments.size() test is possibly not necessary in nested for loop
+    unsigned count(0);
+    for(; count < arguments.size(); ++count) {
+        bool found = false;
 
-	return count;
+        //If one of the takeArg is found, count++
+        for(unsigned i = 0; count < arguments.size() && takeArg[i]; ++i)
+            if(startsWith(arguments[count], takeArg[i])) {
+                _debugLevel2("Found: '" << takeArg[i] << "'");
+
+                //If the argument is not attached to the flag
+                if(arguments[count].size() == strlen(takeArg[i])) {
+                    ++count;
+                }
+                found = true;
+                break;
+            }
+
+        //Go for the next one
+        if(found) {
+            continue;
+        }
+
+        //The flags
+        for(unsigned i = 0; count < arguments.size() && flag[i]; ++i)
+            if(arguments[count] == flag[i]) {
+                found = true;
+                break;
+            }
+
+        if(!found) {
+            break;
+        }
+    }
+
+    //If not any argument, break
+    _debugLevel2("Stopped at: '" << (count < arguments.size() ? arguments[count] : "THE END" ) << "' counting " << count);
+
+    return count;
 }
 /*
 
@@ -184,5 +183,5 @@ object-file-name
     Pass option as an option to the linker. If option contains commas, it is split into multiple options at the commas.
 (-u symbol)
     Pretend the symbol symbol is undefined, to force linking of library modules to define it. You can use -u multiple times with different symbols to force loading of additional library modules.
-    
-*/ 
+
+*/

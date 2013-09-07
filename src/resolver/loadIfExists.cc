@@ -16,84 +16,91 @@
 */
 
 #include "resolver.ih"
-bool Resolver::loadIfExists(std::string const &confFile, bool report)
-{
+bool Resolver::loadIfExists(std::string const &confFile, bool report) {
 
-	//Load a configuration file if it exists
-  ifstream file(confFile.c_str());
-  _debugLevel1("Loading: '" << confFile << "'");
-  std::vector<string> lines;
-  
-	map<string, string *> expandCache;
-	Globals &globs = Globals::getInstance();
-	
-  if(!file.is_open())
-  {
-  	_debugLevel1("Unable to open: " << confFile);
-  	if(report)
-  		cerr << "ccbuild: Unable to open: '" << confFile << "'\n";
-  	return false;
-  }
+    //Load a configuration file if it exists
+    ifstream file(confFile.c_str());
+    _debugLevel1("Loading: '" << confFile << "'");
+    std::vector<string> lines;
 
-	unsigned linenr=0;
-  while(true)
-  {
-    string line;
-   	string global, arguments;
+    map<string, string *> expandCache;
+    Globals &globs = Globals::getInstance();
 
-    getline(file, line);
-		++linenr;
+    if(!file.is_open()) {
+        _debugLevel1("Unable to open: " << confFile);
+        if(report) {
+            cerr << "ccbuild: Unable to open: '" << confFile << "'\n";
+        }
+        return false;
+    }
 
-    if(file.eof())
-			break;
+    unsigned linenr=0;
+    while(true) {
+        string line;
+        string global, arguments;
 
-  	if(line.size() < 1)	//Empty lines
-  		continue;
+        getline(file, line);
+        ++linenr;
 
-  	if(line[0] == '#')	//Comment lines
-  		continue;
+        if(file.eof()) {
+            break;
+        }
 
-    //Find a seperating tab
-    string::size_type i = line.find_first_of("\t");
+        if(line.size() < 1) { //Empty lines
+            continue;
+        }
 
-    if(i == string::npos) //Try to recover with a space seperation
-	    i = line.find_first_of(" ");
+        if(line[0] == '#') { //Comment lines
+            continue;
+        }
 
-		global = line.substr(0, i);
+        //Find a seperating tab
+        string::size_type i = line.find_first_of("\t");
 
-		arguments = "";
-		if(i != string::npos)
-  		arguments = line.substr(i + 1);
+        if(i == string::npos) { //Try to recover with a space seperation
+            i = line.find_first_of(" ");
+        }
 
-		System::trim(&global);
-		System::trim(&arguments);
-		
-		string const *globalPointer = globs[global];
+        global = line.substr(0, i);
 
-		//Only add link if it isn't mentioned before!
-		if(d_staticLinks.count(globalPointer))
-			continue;
-		
+        arguments = "";
+        if(i != string::npos) {
+            arguments = line.substr(i + 1);
+        }
 
-		//Use local expand cache
-		if(expandCache.find(arguments) == expandCache.end())
-			expandCache[arguments] = new string(expand(arguments));
+        System::trim(&global);
+        System::trim(&arguments);
 
-		if(System::trimmed(*expandCache[arguments]).size() == 0 && arguments.size() > 0)
-			cerr << "ccbuild: Warning: Expansion to an empty string,\nccbuild: Warning: from \"" << arguments << "\"\n";
+        string const *globalPointer = globs[global];
 
-    _debugLevel4("Link: '" << global << "' -> '" << arguments << "'");
-    d_staticLinks[globalPointer] = expandCache[arguments];
-  }
-
-  file.close();
-
-  if(Options::verbose)
-    cerr << "Loaded resolutions file: " << confFile << "\n";
+        //Only add link if it isn't mentioned before!
+        if(d_staticLinks.count(globalPointer)) {
+            continue;
+        }
 
 
-	//Clean up expand cache??
-	//NO The pointer part is stored in d_staticLinks
-	// and will be deleted when the Resolver is destroyed.
-	return true;
+        //Use local expand cache
+        if(expandCache.find(arguments) == expandCache.end()) {
+            expandCache[arguments] = new string(expand(arguments));
+        }
+
+        if(System::trimmed(*expandCache[arguments]).size() == 0 && arguments.size() > 0) {
+            cerr << "ccbuild: Warning: Expansion to an empty string,\nccbuild: Warning: from \"" << arguments << "\"\n";
+        }
+
+        _debugLevel4("Link: '" << global << "' -> '" << arguments << "'");
+        d_staticLinks[globalPointer] = expandCache[arguments];
+    }
+
+    file.close();
+
+    if(Options::verbose) {
+        cerr << "Loaded resolutions file: " << confFile << "\n";
+    }
+
+
+    //Clean up expand cache??
+    //NO The pointer part is stored in d_staticLinks
+    // and will be deleted when the Resolver is destroyed.
+    return true;
 }

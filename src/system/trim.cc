@@ -21,12 +21,11 @@
 
 
 #include "system.ih"
-void System::trim(std::string *argument)
-{
-  char const * const trimstring("\x01\x02\x03\x04\x05\x06\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20");
-	string::size_type pos = argument->find_first_not_of(trimstring);
-	argument->erase(0, pos);
+void System::trim(std::string *argument) {
+    char const * const trimstring("\x01\x02\x03\x04\x05\x06\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20");
+    string::size_type pos = argument->find_first_not_of(trimstring);
+    argument->erase(0, pos);
 
-	pos = argument->find_last_not_of(trimstring);
-	argument->erase(pos + 1);
+    pos = argument->find_last_not_of(trimstring);
+    argument->erase(pos + 1);
 }

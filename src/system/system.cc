@@ -17,49 +17,52 @@
 
 #include "system.ih"
 
-int System::system(std::string const &command, bool simulate) throw (Problem)
-{
-	boost::circular_buffer_space_optimized<string> output(1024);
-  if(Options::showCommands)
-  	cout << command << "\n";
-  
-  //Run command caching output
-	int status = 0;
-	_debugLevel3((simulate ? "Simulation on" : "Simulation off"));
-	if(!simulate)
-	{
-    FBB::Process process(FBB::Process::CIN |
-                                  FBB::Process::COUT |
-                                  FBB::Process::MERGE_COUT_CERR,
-                         FBB::Process::USE_PATH,
-                         command);
-    process.start();
-    //Close input
-    process.close(); //We specified CIN so this should be ok.
-    
-    //TODO Rewrite to copy call with back_inserter
-		string line;
-		while(getline(process, line))
-		  output.push_back(line);
-		status = process.stop();	
-	}
+int System::system(std::string const &command, bool simulate) throw (Problem) {
+    boost::circular_buffer_space_optimized<string> output(1024);
+    if(Options::showCommands) {
+        cout << command << "\n";
+    }
 
-  cerrLock.set();
+    //Run command caching output
+    int status = 0;
+    _debugLevel3((simulate ? "Simulation on" : "Simulation off"));
+    if(!simulate) {
+        FBB::Process process(FBB::Process::CIN |
+                             FBB::Process::COUT |
+                             FBB::Process::MERGE_COUT_CERR,
+                             FBB::Process::USE_PATH,
+                             command);
+        process.start();
+        //Close input
+        process.close(); //We specified CIN so this should be ok.
 
-	//Highlight ON
-  if(Options::highlight)
-	  cerr << "\x1b\x5b\x33\x31\x6d"; //\e[31m
+        //TODO Rewrite to copy call with back_inserter
+        string line;
+        while(getline(process, line)) {
+            output.push_back(line);
+        }
+        status = process.stop();
+    }
 
-  copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
+    cerrLock.set();
 
-	//Highlight OFF
-  if(Options::highlight)
-	  cerr << "\x1b\x5b\x30\x6d"; //\\e[0m
+    //Highlight ON
+    if(Options::highlight) {
+        cerr << "\x1b\x5b\x33\x31\x6d";    //\e[31m
+    }
 
-  cerrLock.unset();
+    copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
 
-	//On normal termination return the exit status, otherwise throw a problem
-	if(!WIFEXITED(status))
-		throw Problem(Problem::Suberror, "Abnormal sub process termination", WEXITSTATUS(status));
-	return WEXITSTATUS(status);
+    //Highlight OFF
+    if(Options::highlight) {
+        cerr << "\x1b\x5b\x30\x6d";    //\\e[0m
+    }
+
+    cerrLock.unset();
+
+    //On normal termination return the exit status, otherwise throw a problem
+    if(!WIFEXITED(status)) {
+        throw Problem(Problem::Suberror, "Abnormal sub process termination", WEXITSTATUS(status));
+    }
+    return WEXITSTATUS(status);
 }

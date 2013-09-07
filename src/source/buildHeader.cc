@@ -16,40 +16,37 @@
 */
 
 #include "source.ih"
-void Source::buildHeader(Compiler & cc)
-{
-  OpenMP::ScopedLock slock(d_apiLock);
+void Source::buildHeader(Compiler & cc) {
+    OpenMP::ScopedLock slock(d_apiLock);
 
-	//To build a header, precompile it
+    //To build a header, precompile it
 
 
-  vector<Source *> srcList;
-  vector<string const*> globalList;
-	dependencies(srcList, globalList);
+    vector<Source *> srcList;
+    vector<string const*> globalList;
+    dependencies(srcList, globalList);
 
-	Resolver &resolver = Resolver::getInstance();
+    Resolver &resolver = Resolver::getInstance();
 
-  //Resolve all globals into the compiler
-  __foreach(global, globalList)
-  	resolver.resolveInto(*global, cc);
+    //Resolve all globals into the compiler
+    __foreach(global, globalList)
+    resolver.resolveInto(*global, cc);
 
-	if(!upToDate(srcList))
-	{
-    int ret = cc.precompile(d_filename, outputFilename());
-    
-    //Compilation OK
-		//Update hash
-		if(Options::md5 && ret == 0)
-		{
-			MD5Info &md5i = MD5Info::getInstance();
-			string collectedHash = md5i.contentHash(filename());
-			
-			vector<Source *> depSrcList;
-			dependencies(depSrcList);
-			__foreach(src, depSrcList)
-				collectedHash += md5i.contentHash((*src)->filename());
-			
-			md5i.save(filename(), collectedHash);
-		}
-	}
+    if(!upToDate(srcList)) {
+        int ret = cc.precompile(d_filename, outputFilename());
+
+        //Compilation OK
+        //Update hash
+        if(Options::md5 && ret == 0) {
+            MD5Info &md5i = MD5Info::getInstance();
+            string collectedHash = md5i.contentHash(filename());
+
+            vector<Source *> depSrcList;
+            dependencies(depSrcList);
+            __foreach(src, depSrcList)
+            collectedHash += md5i.contentHash((*src)->filename());
+
+            md5i.save(filename(), collectedHash);
+        }
+    }
 }

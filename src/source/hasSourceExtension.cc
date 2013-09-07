@@ -16,23 +16,28 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-bool Source::hasSourceExtension() const
-{
-	//Return true if this source has an  extension
-	// *.cc .cp *.cxx *.cpp *.c++ *.C
-	
-  if(d_filename.size() > 1 && d_filename.substr(d_filename.size() - 2) == ".C")
-  	return true;
-  if(d_filename.size() > 2 && d_filename.substr(d_filename.size() - 3) == ".cc")
-  	return true;
-  if(d_filename.size() > 2 && d_filename.substr(d_filename.size() - 3) == ".cp")
-  	return true;
-  if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".cxx")
-  	return true;
-  if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".cpp")
-  	return true;
-  if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".c++")
-  	return true;
+bool Source::hasSourceExtension() const {
+    //Return true if this source has an  extension
+    // *.cc .cp *.cxx *.cpp *.c++ *.C
 
-  return false;
+    if(d_filename.size() > 1 && d_filename.substr(d_filename.size() - 2) == ".C") {
+        return true;
+    }
+    if(d_filename.size() > 2 && d_filename.substr(d_filename.size() - 3) == ".cc") {
+        return true;
+    }
+    if(d_filename.size() > 2 && d_filename.substr(d_filename.size() - 3) == ".cp") {
+        return true;
+    }
+    if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".cxx") {
+        return true;
+    }
+    if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".cpp") {
+        return true;
+    }
+    if(d_filename.size() > 3 && d_filename.substr(d_filename.size() - 4) == ".c++") {
+        return true;
+    }
+
+    return false;
 }

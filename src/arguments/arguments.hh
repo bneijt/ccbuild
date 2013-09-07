@@ -29,8 +29,7 @@
 #include <iosfwd>
 #include "../openmp/lock/lock.hh"
 
-namespace bneijt
-{
+namespace bneijt {
 
 /**
 \brief Arguments singleton. Gives simple access to the give program arguments
@@ -52,123 +51,119 @@ Options should be a 3xN array of character pointers, ending in {0,0,0}. Options 
 
 int main(int argc, char *argv[])
 {
-	using namespace bneijt;
-	using namespace std;
+    using namespace bneijt;
+    using namespace std;
 
-	Arguments::Option options[] = {
-	  {"f force-update", "", "Force an update"},
-		{"a add", "<file to add>", "Add something to a list"},
-	  {"b", "[maybe]", "Force an update"},
-	  {0, 0, 0}
-	};
+    Arguments::Option options[] = {
+      {"f force-update", "", "Force an update"},
+        {"a add", "<file to add>", "Add something to a list"},
+      {"b", "[maybe]", "Force an update"},
+      {0, 0, 0}
+    };
 
-	Arguments::initialize(options, argc, argv);
-	Arguments &args = Arguments::getInstance();
-	if(args.flagged("a"))
-		cout << "Add: " << args.value("a") <<"\n";
+    Arguments::initialize(options, argc, argv);
+    Arguments &args = Arguments::getInstance();
+    if(args.flagged("a"))
+        cout << "Add: " << args.value("a") <<"\n";
 
-	if(args.errors().size() > 0)
-	{
-		vector<string> &err = args.errors();
+    if(args.errors().size() > 0)
+    {
+        vector<string> &err = args.errors();
 
-		foreach(e, err)
-		{
-			cout << "ERROR: " << (*e) << "\n";
-		}
-	}
+        foreach(e, err)
+        {
+            cout << "ERROR: " << (*e) << "\n";
+        }
+    }
 
-	if(args.rest().size() > 0)
-	{
-		vector<string> &err = args.rest();
+    if(args.rest().size() > 0)
+    {
+        vector<string> &err = args.rest();
 
-		foreach(e, err)
-		{
-			cout << "REST: " << (*e) << "\n";
-		}
-	}
+        foreach(e, err)
+        {
+            cout << "REST: " << (*e) << "\n";
+        }
+    }
 
-	args.destroy();	//Destroy the instance.
+    args.destroy(); //Destroy the instance.
 
-	return 0;
+    return 0;
 }
 \endcode
 
 */
-class Arguments
-{
-		std::map<std::string, bool * > d_flags;	///<The flags and their link to the values
-//std::map<bool *, std::string> d_value;	///<Map between the argument value and the flag option
-		std::map<bool *, std::vector<std::string> > d_values;	///<Map between the argument value and the flag option
-		std::vector<std::string> d_rest;				///<All remaining arguments
-		std::vector<std::string> d_errors;			///<All options which caused errors
-		std::vector<std::string> d_emptyList;		///<A non const empty stringList
-		std::string d_empty;										///<A non const empty string
+class Arguments {
+        std::map<std::string, bool * > d_flags; ///<The flags and their link to the values
+//std::map<bool *, std::string> d_value;    ///<Map between the argument value and the flag option
+        std::map<bool *, std::vector<std::string> > d_values;   ///<Map between the argument value and the flag option
+        std::vector<std::string> d_rest;                ///<All remaining arguments
+        std::vector<std::string> d_errors;          ///<All options which caused errors
+        std::vector<std::string> d_emptyList;       ///<A non const empty stringList
+        std::string d_empty;                                        ///<A non const empty string
 
-		static Arguments *s_instance;	///<Pointer to the singleton instance
-		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
-
-
-	public:
-		///\brief A structure containing the defenition of a commandline option
-		struct Option
-		{
-			std::string flags;	///<All flags it can be called with, space seperated ("f force" will allow "-f" and "--force")
-			std::string value;	///<The value, if any, the argument of the option is called. "<value>" for required, "[value]" for optional.
-			std::string helpText;	///< The help text, describing this option. This is used when generating the help output.
-		};
+        static Arguments *s_instance;   ///<Pointer to the singleton instance
+        static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
 
-		///\brief Initialize the singleton with options and argv, argc
-		///
-		///
-		static void initialize(Option const *options, int argc, char *argv[]);
-
-		///\brief Get the instance of the Arguments class. Use this only after initializing it.
-		static Arguments &getInstance();
-
-		///\brief Return true when an option if flagged, false otherwise.
-		bool flagged(std::string const &optionName) const;
-
-		///\brief Returns the argument of an option or an empty string.
-		std::string value(std::string const &optionName) const;
-
-		///\brief Returns the argument of an option or an empty string.
-		std::vector<std::string> const &values(std::string const &optionName) const;
-
-		///\brief Returns a vector containing all the remaining commandline options.
-		std::vector<std::string> &rest()
-		{
-			return d_rest;
-		}
-
-		///\brief Returns a vector containing all the commanline options generating errors.
-		std::vector<std::string> &errors()
-		{
-			return d_errors;
-		}
-
-		///\brief Delete the instance. Use this only if you aren't going to use the Arguments class instance.
-		static void destroy();
-
-		///\brief Output a list of the flags and help information onto the given stream.
-		void outputOptions(std::ostream &stream) const;
-
-	private:
-		Option const *d_options;	///< A pointer to the options used to initialize the Arguments class
+    public:
+        ///\brief A structure containing the defenition of a commandline option
+        struct Option {
+            std::string flags;  ///<All flags it can be called with, space seperated ("f force" will allow "-f" and "--force")
+            std::string value;  ///<The value, if any, the argument of the option is called. "<value>" for required, "[value]" for optional.
+            std::string helpText;   ///< The help text, describing this option. This is used when generating the help output.
+        };
 
 
-		///\brief Clear the class, clearing all vectors and freeing pointers.
-		void clear();
+        ///\brief Initialize the singleton with options and argv, argc
+        ///
+        ///
+        static void initialize(Option const *options, int argc, char *argv[]);
 
-		///\brief Parse the argc and argv using the given options
-		Arguments(Option const *options, int argc, char *argv[]);
+        ///\brief Get the instance of the Arguments class. Use this only after initializing it.
+        static Arguments &getInstance();
 
-		~Arguments();
+        ///\brief Return true when an option if flagged, false otherwise.
+        bool flagged(std::string const &optionName) const;
 
-		///\brief Not implemented
-		Arguments(Arguments const &other);						//NI
-		///\brief Not implemented
-		Arguments &operator=(Arguments const &other);	//NI
+        ///\brief Returns the argument of an option or an empty string.
+        std::string value(std::string const &optionName) const;
+
+        ///\brief Returns the argument of an option or an empty string.
+        std::vector<std::string> const &values(std::string const &optionName) const;
+
+        ///\brief Returns a vector containing all the remaining commandline options.
+        std::vector<std::string> &rest() {
+            return d_rest;
+        }
+
+        ///\brief Returns a vector containing all the commanline options generating errors.
+        std::vector<std::string> &errors() {
+            return d_errors;
+        }
+
+        ///\brief Delete the instance. Use this only if you aren't going to use the Arguments class instance.
+        static void destroy();
+
+        ///\brief Output a list of the flags and help information onto the given stream.
+        void outputOptions(std::ostream &stream) const;
+
+    private:
+        Option const *d_options;    ///< A pointer to the options used to initialize the Arguments class
+
+
+        ///\brief Clear the class, clearing all vectors and freeing pointers.
+        void clear();
+
+        ///\brief Parse the argc and argv using the given options
+        Arguments(Option const *options, int argc, char *argv[]);
+
+        ~Arguments();
+
+        ///\brief Not implemented
+        Arguments(Arguments const &other);                      //NI
+        ///\brief Not implemented
+        Arguments &operator=(Arguments const &other);   //NI
 
 };
 

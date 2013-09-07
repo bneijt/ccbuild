@@ -17,8 +17,7 @@
 
 #include "fileSystem.ih"
 
-bool FileSystem::rename(std::string const &from, std::string const&to)
-{
-  OpenMP::ScopedLock asdf(fsLock);
-  return ::rename(from.c_str(), to.c_str()) == 0;
+bool FileSystem::rename(std::string const &from, std::string const&to) {
+    OpenMP::ScopedLock asdf(fsLock);
+    return ::rename(from.c_str(), to.c_str()) == 0;
 }

@@ -17,8 +17,8 @@
 */
 #include "compiler.ih"
 
-void Compiler::addObject(std::string objFilename)
-{
-	if(find(d_objects.begin(), d_objects.end(), objFilename) == d_objects.end())
- 		d_objects.push_back(objFilename);
+void Compiler::addObject(std::string objFilename) {
+    if(find(d_objects.begin(), d_objects.end(), objFilename) == d_objects.end()) {
+        d_objects.push_back(objFilename);
+    }
 }

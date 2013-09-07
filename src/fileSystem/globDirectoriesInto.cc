@@ -20,42 +20,42 @@
 
 namespace {
 
-bool notDirectory(string target)
-{
-	//Return true if the string doesn't point to a normal file
-	struct stat statbuf;
-	if(stat(target.c_str(), &statbuf) == 0)
-		if(S_ISDIR(statbuf.st_mode)) //Returns true if the statbuf denotes a regular file
-			return false;
-	return true;
+bool notDirectory(string target) {
+    //Return true if the string doesn't point to a normal file
+    struct stat statbuf;
+    if(stat(target.c_str(), &statbuf) == 0)
+        if(S_ISDIR(statbuf.st_mode)) { //Returns true if the statbuf denotes a regular file
+            return false;
+        }
+    return true;
 }
 }//anon namespace
 
-void FileSystem::globDirectoriesInto(vector<string> *list, string const &pattern, bool sort)
-{
-  OpenMP::ScopedLock asdf(fsLock);
-	glob_t globbuf;	//Needs to be globfreed at the end
+void FileSystem::globDirectoriesInto(vector<string> *list, string const &pattern, bool sort) {
+    OpenMP::ScopedLock asdf(fsLock);
+    glob_t globbuf; //Needs to be globfreed at the end
 
-	//Use glob to get canditates
-	//XXX GLOB_ONLYDIR doesn't seem to work well with simlinks
-	if(sort)
-		::glob(pattern.c_str(), GLOB_ONLYDIR | GLOB_TILDE, NULL, &globbuf);
-	else
-		::glob(pattern.c_str(), GLOB_ONLYDIR | GLOB_NOSORT | GLOB_TILDE, NULL, &globbuf);
+    //Use glob to get canditates
+    //XXX GLOB_ONLYDIR doesn't seem to work well with simlinks
+    if(sort) {
+        ::glob(pattern.c_str(), GLOB_ONLYDIR | GLOB_TILDE, NULL, &globbuf);
+    } else {
+        ::glob(pattern.c_str(), GLOB_ONLYDIR | GLOB_NOSORT | GLOB_TILDE, NULL, &globbuf);
+    }
 
-	//Copy all the matches
-	copy(&globbuf.gl_pathv[0],
-			 &globbuf.gl_pathv[globbuf.gl_pathc],
-			 back_inserter(*list)
-			 );
+    //Copy all the matches
+    copy(&globbuf.gl_pathv[0],
+         &globbuf.gl_pathv[globbuf.gl_pathc],
+         back_inserter(*list)
+        );
 
 
-	//Remove the not directory entries
-	vector<string>::iterator endOfFiles = remove_if(list->begin(), list->end(), notDirectory);
+    //Remove the not directory entries
+    vector<string>::iterator endOfFiles = remove_if(list->begin(), list->end(), notDirectory);
 
-	//Delete the elements
-	list->erase(endOfFiles, list->end());
+    //Delete the elements
+    list->erase(endOfFiles, list->end());
 
-	//Cleanup
-	globfree(&globbuf);
+    //Cleanup
+    globfree(&globbuf);
 }

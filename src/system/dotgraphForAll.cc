@@ -16,43 +16,43 @@
 */
 #include "system.ih"
 
-void System::dotgraphForAll()
-{
+void System::dotgraphForAll() {
 
-  vector<string> files;
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
+    FileSystem::globSourceFilesInto(&files, ".");
 
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    __foreach(file, files) {
+        Source *target = s[*file];
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cerr << "Error loading '" << *file << "'\n";
-      continue;
+        //Error loading source??
+        if(target == 0) {
+            cerr << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::inspect(target);
+
+        //isBinTarget test can only be done after the inspect
+        if(!target->isBinTarget()) {
+            continue;
+        }
+        string output = target->directory() + "/" + target->basenameWithoutExtension() + ".dot";
+        cerr << "Graphing: " << target->filename() << " to " << output << "\n";
+
+        if(Options::simulate) {
+            continue;
+        }
+
+        ofstream ofile(output.c_str(), ios::trunc);
+        if(!ofile.is_open()) {
+            continue;
+        }
+
+        dotgraphFor(target, ofile);
+        ofile.close();
     }
-
-    System::inspect(target);
-
-    //isBinTarget test can only be done after the inspect
-    if(!target->isBinTarget())
-      continue;
-		string output = target->directory() + "/" + target->basenameWithoutExtension() + ".dot";
-    cerr << "Graphing: " << target->filename() << " to " << output << "\n";
-
-		if(Options::simulate)
-			continue;
-
-    ofstream ofile(output.c_str(), ios::trunc);
-    if(!ofile.is_open())
-    	continue;
-
-    dotgraphFor(target, ofile);
-    ofile.close();
-  }
 
 }

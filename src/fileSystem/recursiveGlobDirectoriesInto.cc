@@ -19,24 +19,23 @@
 #include "fileSystem.ih"
 
 
-void FileSystem::recursiveGlobDirectoriesInto(vector<string> *list, string const &directory)
-{
-	stack<string> directoryStack;
-	directoryStack.push(directory);
-	set<string> directories;
+void FileSystem::recursiveGlobDirectoriesInto(vector<string> *list, string const &directory) {
+    stack<string> directoryStack;
+    directoryStack.push(directory);
+    set<string> directories;
 
-	while(directoryStack.size() > 0)
-	{
-		string dir = directoryStack.top();
-		directoryStack.pop();
+    while(directoryStack.size() > 0) {
+        string dir = directoryStack.top();
+        directoryStack.pop();
 
-		vector<string> dirList;
-		FileSystem::globDirectoriesInto(&dirList, dir + "/*");
-		__foreach(d, dirList)
-			if(!directories.count(*d))
-				directoryStack.push(*d);
-		directories.insert(dir);
-	}
-	
-	copy(directories.begin(), directories.end(), back_inserter(*list));
+        vector<string> dirList;
+        FileSystem::globDirectoriesInto(&dirList, dir + "/*");
+        __foreach(d, dirList)
+        if(!directories.count(*d)) {
+            directoryStack.push(*d);
+        }
+        directories.insert(dir);
+    }
+
+    copy(directories.begin(), directories.end(), back_inserter(*list));
 }

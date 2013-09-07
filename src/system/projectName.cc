@@ -16,23 +16,24 @@
 */
 #include "system.ih"
 
-std::string System::projectName()
-{
-	//Find out the project name:
-	//1) This directory, if it's not src.
-	std::string d = FileSystem::fileName(FileSystem::cwd());
+std::string System::projectName() {
+    //Find out the project name:
+    //1) This directory, if it's not src.
+    std::string d = FileSystem::fileName(FileSystem::cwd());
 
-	//2) The directory above this one.
-	if(d == "src")
-		d = FileSystem::fileName(FileSystem::cleanPath(FileSystem::cwd() + "/.."));
+    //2) The directory above this one.
+    if(d == "src") {
+        d = FileSystem::fileName(FileSystem::cleanPath(FileSystem::cwd() + "/.."));
+    }
 
-  //Strip ^lib
-  if(String(d).startsWith("lib"))
-    d = d.substr(3);
-  
-	//TODO Strip any version number
-	// Any single occuring _ or - might be the seperator
-	// The last of these is the seperation point
-	// The version number has at least one point
-	return d;
+    //Strip ^lib
+    if(String(d).startsWith("lib")) {
+        d = d.substr(3);
+    }
+
+    //TODO Strip any version number
+    // Any single occuring _ or - might be the seperator
+    // The last of these is the seperation point
+    // The version number has at least one point
+    return d;
 }

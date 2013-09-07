@@ -17,13 +17,12 @@
 
 #include "MD5Info.ih"
 
-void MD5Info::destroy()
-{
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance) {
-		delete s_instance;
-	} else {
-		_debugLevel1("Already destroyed, but not a problem.");
-	}
-	s_instance = 0;
+void MD5Info::destroy() {
+    OpenMP::ScopedLock instantiateLock(s_instanceLock);
+    if(s_instance) {
+        delete s_instance;
+    } else {
+        _debugLevel1("Already destroyed, but not a problem.");
+    }
+    s_instance = 0;
 }

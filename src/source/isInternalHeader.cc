@@ -16,7 +16,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "source.ih"
-bool Source::isInternalHeader() const
-{
-  return d_srcType == InternalHeader;
+bool Source::isInternalHeader() const {
+    return d_srcType == InternalHeader;
 }

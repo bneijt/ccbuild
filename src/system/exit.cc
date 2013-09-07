@@ -22,8 +22,7 @@
 
 #include "system.ih"
 
-void System::exit(int retValue)
-{
-	destroy();
-	::exit(retValue);
+void System::exit(int retValue) {
+    destroy();
+    ::exit(retValue);
 }

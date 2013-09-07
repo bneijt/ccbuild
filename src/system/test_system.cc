@@ -21,7 +21,6 @@
 
 using namespace bneijt;
 using namespace std;
-int main()
-{
-  System::system("echo hello");
+int main() {
+    System::system("echo hello");
 }

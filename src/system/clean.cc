@@ -22,44 +22,39 @@
 
 #include "system.ih"
 
-void System::clean()
-{
-  vector<string> files;
+void System::clean() {
+    vector<string> files;
 
-  Sources &s = Sources::getInstance();
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
+    FileSystem::globSourceFilesInto(&files, ".");
 
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    __foreach(file, files) {
+        Source *target = s[*file];
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cout << "Error loading '" << *file << "'\n";
-      continue;
+        //Error loading source??
+        if(target == 0) {
+            cout << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+
+        System::inspect(target);
+
+        System::clean(target);
     }
-
-
-    System::inspect(target);
-
-    System::clean(target);
-  }
 }
-void System::clean(Source *source)
-{
-	cerr << "Cleaning: " << source->filename() << "\n";
+void System::clean(Source *source) {
+    cerr << "Cleaning: " << source->filename() << "\n";
 
-	vector<Source *> srcList;
-	srcList.push_back(source);
-	collectTargets(srcList);
-	__foreach(src, srcList)
-	{
-		//Remove output from:
-		FileSystem::rmIfExists((*src)->outputFilename());
-		FileSystem::rmIfExists(MD5Info::hashFilenameFor((*src)->filename()));
-	}
+    vector<Source *> srcList;
+    srcList.push_back(source);
+    collectTargets(srcList);
+    __foreach(src, srcList) {
+        //Remove output from:
+        FileSystem::rmIfExists((*src)->outputFilename());
+        FileSystem::rmIfExists(MD5Info::hashFilenameFor((*src)->filename()));
+    }
 
 }
 

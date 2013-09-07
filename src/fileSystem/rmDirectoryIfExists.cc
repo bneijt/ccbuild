@@ -17,25 +17,24 @@
 
 #include "fileSystem.ih"
 
-bool FileSystem::rmDirectoryIfExists(std::string const &dir)
-{
-  if(! FileSystem::fileExists(dir))
-  	return false;
-  
-  cerrLock.set();
-	cerr << "[RMDIR] " << dir << "\n";
-	cerrLock.unset();
-	
-  fsLock.set();
-  int retValue = rmdir(dir.c_str());
-  fsLock.unset();
-	if(retValue != 0 && FileSystem::fileExists(dir))
-	{
-	  cerrLock.set();
-	  cerr << "Non zero exit status for rmdir: status " << retValue << "\n";
-	  cerr << "    could not remove: " << dir << "\n";
-	  cerrLock.unset();
-	  return false;
-  }
-  return true;
+bool FileSystem::rmDirectoryIfExists(std::string const &dir) {
+    if(! FileSystem::fileExists(dir)) {
+        return false;
+    }
+
+    cerrLock.set();
+    cerr << "[RMDIR] " << dir << "\n";
+    cerrLock.unset();
+
+    fsLock.set();
+    int retValue = rmdir(dir.c_str());
+    fsLock.unset();
+    if(retValue != 0 && FileSystem::fileExists(dir)) {
+        cerrLock.set();
+        cerr << "Non zero exit status for rmdir: status " << retValue << "\n";
+        cerr << "    could not remove: " << dir << "\n";
+        cerrLock.unset();
+        return false;
+    }
+    return true;
 }

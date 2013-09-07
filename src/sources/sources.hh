@@ -30,59 +30,56 @@
 
 #include "../source/source.hh"
 
-namespace bneijt
-{
+namespace bneijt {
 
 ///\brief Sources singleton. List of all loaded sources
 ///
-class Sources
-{
-		std::set<Source *> d_sources;	///< A list of all loaded
-		OpenMP::Lock d_sourcesLock; ///<Lock for autmoatic instantiation and destruction
+class Sources {
+        std::set<Source *> d_sources;   ///< A list of all loaded
+        OpenMP::Lock d_sourcesLock; ///<Lock for autmoatic instantiation and destruction
 
-		static Sources *s_instance;///< Static instance pointer
-		static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
+        static Sources *s_instance;///< Static instance pointer
+        static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
 
-	public:
-		///\brief Get the instance of the sources class
-		static Sources &getInstance();
+    public:
+        ///\brief Get the instance of the sources class
+        static Sources &getInstance();
 
-		///\brief Delete the instance
-		static void destroy();
+        ///\brief Delete the instance
+        static void destroy();
 
-		///\brief Get the Source pointer for the given file
-		Source* operator[](std::string const &filename	///<Filename of source file
-			);
-			
-		///\brief Remove the given source from the list
-		void erase(Source * src);
-		
-		///\brief Reload all sources which are "stale()"
-		///
-		///Because sources contain pointers to other sources
-		/// if one source needs to be removed, all need to be remove
-		///However, if it only needs to be reloaded, then we're ok.
-		void reloadStaleSources();
-		
-		///\brief Get a vector of all currently known sources
-		std::set<Source *> const &sources() const
-		{
-			return d_sources;
-		}
+        ///\brief Get the Source pointer for the given file
+        Source* operator[](std::string const &filename  ///<Filename of source file
+                          );
 
-	private:
-		///\brief Initializer
-		Sources();
-		///\brief Destructor
-		~Sources();
+        ///\brief Remove the given source from the list
+        void erase(Source * src);
 
-		///\brief Not implemented
-		Sources(Sources const &other);						//NI
+        ///\brief Reload all sources which are "stale()"
+        ///
+        ///Because sources contain pointers to other sources
+        /// if one source needs to be removed, all need to be remove
+        ///However, if it only needs to be reloaded, then we're ok.
+        void reloadStaleSources();
+
+        ///\brief Get a vector of all currently known sources
+        std::set<Source *> const &sources() const {
+            return d_sources;
+        }
+
+    private:
+        ///\brief Initializer
+        Sources();
+        ///\brief Destructor
+        ~Sources();
+
+        ///\brief Not implemented
+        Sources(Sources const &other);                      //NI
 
 
 
-		///\brief Not implemented
-		Sources &operator=(Sources const &other);	//NI
+        ///\brief Not implemented
+        Sources &operator=(Sources const &other);   //NI
 };
 }//namespace
 

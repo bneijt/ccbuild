@@ -17,12 +17,10 @@
 
 #include "sources.ih"
 
-void Sources::erase(Source *src)
-{
-  OpenMP::ScopedLock slock(d_sourcesLock);
-	if(d_sources.count(src))
-	{
-		d_sources.erase(src);
-		delete src;
-	}
+void Sources::erase(Source *src) {
+    OpenMP::ScopedLock slock(d_sourcesLock);
+    if(d_sources.count(src)) {
+        d_sources.erase(src);
+        delete src;
+    }
 }

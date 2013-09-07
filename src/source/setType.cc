@@ -16,18 +16,17 @@
 */
 
 #include "source.ih"
-void Source::setType()
-{
-	//Determine file type
-  String fname(d_filename);
-  
-	//Return true if this source has an .ih extension
-	if(fname.endsIn(".ih"))
-	{
-  	d_srcType = InternalHeader;
-    return;
-  }
-  if(hasSourceExtension())
-    return;
-  d_srcType = LocalHeader;
+void Source::setType() {
+    //Determine file type
+    String fname(d_filename);
+
+    //Return true if this source has an .ih extension
+    if(fname.endsIn(".ih")) {
+        d_srcType = InternalHeader;
+        return;
+    }
+    if(hasSourceExtension()) {
+        return;
+    }
+    d_srcType = LocalHeader;
 }

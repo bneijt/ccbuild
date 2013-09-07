@@ -16,31 +16,27 @@
 */
 
 #ifndef with_hh_included_
-#define	with_hh_included_
+#define with_hh_included_
 
-namespace bneijt
-{
+namespace bneijt {
 /**\brief Scoped temporary assignment
   Assignment of a temporary value which on destruction of this class will be reset to the old value.
 */
 template<typename T>
-class With
-{
-    T d_oldValue;
-    T &target;
-	public:
+class With {
+        T d_oldValue;
+        T &target;
+    public:
 
-	  With(T &a, T const &temporary)
-	    :
-	    d_oldValue(a),
-	    target(a)
-	  {
-	    a = temporary;
-	  }
-	  ~With()
-	  {
-	    target = d_oldValue;
-	  }
+        With(T &a, T const &temporary)
+            :
+            d_oldValue(a),
+            target(a) {
+            a = temporary;
+        }
+        ~With() {
+            target = d_oldValue;
+        }
 };
 } //Namespace
 #endif

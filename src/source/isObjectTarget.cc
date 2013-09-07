@@ -17,8 +17,7 @@
 */
 
 #include "source.ih"
-bool Source::isObjectTarget() const
-{
-	//It is an object target is it has a source extension
-  return hasSourceExtension();
+bool Source::isObjectTarget() const {
+    //It is an object target is it has a source extension
+    return hasSourceExtension();
 }

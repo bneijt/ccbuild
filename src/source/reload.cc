@@ -18,31 +18,29 @@
 
 #include "source.ih"
 
-bool Source::reload()
-{
-  OpenMP::ScopedLock slock(d_apiLock);
-  d_inoDev = make_pair(0,0);
-  d_depsDone = false;
-  d_hasMainFunction = false;
-  
-  /* Filename has not changed, so not
-  d_srcType = Unknown;
+bool Source::reload() {
+    OpenMP::ScopedLock slock(d_apiLock);
+    d_inoDev = make_pair(0,0);
+    d_depsDone = false;
+    d_hasMainFunction = false;
 
-  d_filename = FileSystem::cleanPath(d_filename);
-  setType();
-  */
- 	struct stat a;
+    /* Filename has not changed, so not
+    d_srcType = Unknown;
 
- 	if(stat(d_filename.c_str(), &a) == 0)
- 	{
-		d_inoDev.first = a.st_dev;
-		d_inoDev.second = a.st_ino;
-		d_modTime = a.st_mtime;
+    d_filename = FileSystem::cleanPath(d_filename);
+    setType();
+    */
+    struct stat a;
 
-	}
-	
-	//Clear vectors
-	d_deps.clear();
-	d_globalDeps.clear();
-	return d_inoDev != InodeDevPair(0,0);
+    if(stat(d_filename.c_str(), &a) == 0) {
+        d_inoDev.first = a.st_dev;
+        d_inoDev.second = a.st_ino;
+        d_modTime = a.st_mtime;
+
+    }
+
+    //Clear vectors
+    d_deps.clear();
+    d_globalDeps.clear();
+    return d_inoDev != InodeDevPair(0,0);
 }

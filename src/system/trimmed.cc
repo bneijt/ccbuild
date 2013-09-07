@@ -21,9 +21,8 @@
 
 
 #include "system.ih"
-std::string System::trimmed(std::string const &arg)
-{
-	string argument = arg;
-	trim(&argument);
-	return argument;
+std::string System::trimmed(std::string const &arg) {
+    string argument = arg;
+    trim(&argument);
+    return argument;
 }

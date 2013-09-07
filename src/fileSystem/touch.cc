@@ -17,11 +17,10 @@
 
 #include "fileSystem.ih"
 
-bool FileSystem::touch(std::string const &filename)
-{
-  OpenMP::ScopedLock asdf(fsLock);
-  ofstream file(filename.c_str(), ios::app);
-  bool succes = file.is_open();
-  file.close();
-  return succes;
+bool FileSystem::touch(std::string const &filename) {
+    OpenMP::ScopedLock asdf(fsLock);
+    ofstream file(filename.c_str(), ios::app);
+    bool succes = file.is_open();
+    file.close();
+    return succes;
 }

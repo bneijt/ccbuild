@@ -16,24 +16,24 @@
 */
 #include "fileSystem.ih"
 
-void FileSystem::globInto(vector<string> *list, string const &pattern, bool sort)
-{
-  OpenMP::ScopedLock asdf(fsLock);
-	glob_t globbuf;	//Needs to be globfreed at the end
+void FileSystem::globInto(vector<string> *list, string const &pattern, bool sort) {
+    OpenMP::ScopedLock asdf(fsLock);
+    glob_t globbuf; //Needs to be globfreed at the end
 
-	//Use glob to get canditates
-	if(sort)
-		::glob(pattern.c_str(), GLOB_TILDE, NULL, &globbuf);
-	else
-		::glob(pattern.c_str(), GLOB_TILDE | GLOB_NOSORT, NULL, &globbuf);
-	
+    //Use glob to get canditates
+    if(sort) {
+        ::glob(pattern.c_str(), GLOB_TILDE, NULL, &globbuf);
+    } else {
+        ::glob(pattern.c_str(), GLOB_TILDE | GLOB_NOSORT, NULL, &globbuf);
+    }
 
-	//Copy all the matches
-	copy(&globbuf.gl_pathv[0],
-			 &globbuf.gl_pathv[globbuf.gl_pathc],
-			 back_inserter(*list)
-			 );
 
-	//Cleanup
-	globfree(&globbuf);
+    //Copy all the matches
+    copy(&globbuf.gl_pathv[0],
+         &globbuf.gl_pathv[globbuf.gl_pathc],
+         back_inserter(*list)
+        );
+
+    //Cleanup
+    globfree(&globbuf);
 }

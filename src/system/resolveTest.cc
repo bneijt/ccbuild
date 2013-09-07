@@ -16,57 +16,50 @@
 */
 
 #include "system.ih"
-void System::resolveTest(Source * s, ostream &str)
-{
-	set<string> globals;
-	resolveTest(s, &globals);
-	copy(globals.begin(), globals.end(), ostream_iterator<string>(str, "\t\n"));
+void System::resolveTest(Source * s, ostream &str) {
+    set<string> globals;
+    resolveTest(s, &globals);
+    copy(globals.begin(), globals.end(), ostream_iterator<string>(str, "\t\n"));
 }
 
-void System::resolveTest(Source * s, set<string> *globals)
-{
-	//cerr << "ccbuild: Resolving '" << s->filename() << "'" << endl;	//Flush, to get streams
-	vector<Source *> srcList, localList;
-	srcList.push_back(s);
-	vector<string const *> globalList;
-	
-	Resolver const &resolver = Resolver::getInstance();
-	
-	collectTargets(srcList);
-	__foreach(source, srcList)
-	{
-		(*source)->directDeps(localList, globalList);
-		__foreach(gi, globalList)
-			if(resolver.resolve(**gi) == "FAIL" && globals->count(**gi) == 0)
-			{
-				cerr << "ccbuild: Unable to resolve \"" << **gi << "\"\n";
-				cerr << "ccbuild:   first found in \"" << (*source)->filename() << "\"\n";
-				globals->insert(**gi);
-			}
-	}
-}
+void System::resolveTest(Source * s, set<string> *globals) {
+    //cerr << "ccbuild: Resolving '" << s->filename() << "'" << endl;   //Flush, to get streams
+    vector<Source *> srcList, localList;
+    srcList.push_back(s);
+    vector<string const *> globalList;
 
-void System::resolveTest(ostream &str)
-{
-	//Resolve all
-  vector<string> files;
+    Resolver const &resolver = Resolver::getInstance();
 
-  Sources &s = Sources::getInstance();
-	
-  FileSystem::globSourceFilesInto(&files, ".");
-	set<string> globals;
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
-
-    //Error loading source??
-    if(target == 0)
-    {
-      cout << "Error loading '" << *file << "'\n";
-      continue;
+    collectTargets(srcList);
+    __foreach(source, srcList) {
+        (*source)->directDeps(localList, globalList);
+        __foreach(gi, globalList)
+        if(resolver.resolve(**gi) == "FAIL" && globals->count(**gi) == 0) {
+            cerr << "ccbuild: Unable to resolve \"" << **gi << "\"\n";
+            cerr << "ccbuild:   first found in \"" << (*source)->filename() << "\"\n";
+            globals->insert(**gi);
+        }
     }
+}
 
-    System::resolveTest(target, &globals);
-  }
-	copy(globals.begin(), globals.end(), ostream_iterator<string>(str, "\t\n"));
+void System::resolveTest(ostream &str) {
+    //Resolve all
+    vector<string> files;
+
+    Sources &s = Sources::getInstance();
+
+    FileSystem::globSourceFilesInto(&files, ".");
+    set<string> globals;
+    __foreach(file, files) {
+        Source *target = s[*file];
+
+        //Error loading source??
+        if(target == 0) {
+            cout << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::resolveTest(target, &globals);
+    }
+    copy(globals.begin(), globals.end(), ostream_iterator<string>(str, "\t\n"));
 }

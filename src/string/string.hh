@@ -1,6 +1,6 @@
 /*
-	This file is part of the metalink program
-	Copyright (C) 2008  A. Bram Neijt <bneijt@gmail.com>
+    This file is part of the metalink program
+    Copyright (C) 2008  A. Bram Neijt <bneijt@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,71 +20,65 @@
 
 
 #ifndef _String_HH_INCLUDED_
-#define	_String_HH_INCLUDED_
+#define _String_HH_INCLUDED_
 
 #include <string>
-namespace bneijt{
-class String: public std::string
-{
-	public:
-		String()
-		:
-			std::string()
-		{}
+namespace bneijt {
+class String: public std::string {
+    public:
+        String()
+            :
+            std::string()
+        {}
 
-		String(std::string const & string)
-		:
-			std::string(string)
-		{}
-		
-		String const &operator=(std::string const &s)
-		{
-			this->assign(s);
-			return *this;
-		}
+        String(std::string const & string)
+            :
+            std::string(string)
+        {}
 
-		void strip()
-		{
-			char const * const trimstring("\x01\x02\x03\x04\x05\x06\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20");
-			std::string::size_type pos = this->find_first_not_of(trimstring);
-			this->erase(0, pos);
-			pos = this->find_last_not_of(trimstring);
-			this->erase(pos + 1);
-		}
-		
-		///\brief Return true if the string ends with the given character
-		bool endsIn(char const endc) const
-		{
-			return this->size() > 1 && (*this)[this->size() -1] == endc;
-		}
-		
-		///\brief Return true if the string ends with the given string
-		bool endsIn(std::string const &ending) const
-		{
-			return this->size() >= ending.size()
-				&&  this->compare(
-					this->size() - ending.size(),
-					ending.size(),
-					ending
-					) == 0;
-		}
-		
-		///\brief Return true if the string starts with the given string
-		bool startsWith(std::string const &beginning) const
-		{
-			return this->size() >= beginning.size()
-				&&  this->compare(
-					0,
-					beginning.size(),
-					beginning
-					) == 0;
-		}
+        String const &operator=(std::string const &s) {
+            this->assign(s);
+            return *this;
+        }
 
-		///\brief Transform this string to uppercase
-		void toUpper();
-		
-		std::string replace(char from, char to) const;
-		std::string replace(std::string const &from, std::string const &to) const;
+        void strip() {
+            char const * const trimstring("\x01\x02\x03\x04\x05\x06\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20");
+            std::string::size_type pos = this->find_first_not_of(trimstring);
+            this->erase(0, pos);
+            pos = this->find_last_not_of(trimstring);
+            this->erase(pos + 1);
+        }
+
+        ///\brief Return true if the string ends with the given character
+        bool endsIn(char const endc) const {
+            return this->size() > 1 && (*this)[this->size() -1] == endc;
+        }
+
+        ///\brief Return true if the string ends with the given string
+        bool endsIn(std::string const &ending) const {
+            return this->size() >= ending.size()
+                   &&  this->compare(
+                       this->size() - ending.size(),
+                       ending.size(),
+                       ending
+                   ) == 0;
+        }
+
+        ///\brief Return true if the string starts with the given string
+        bool startsWith(std::string const &beginning) const {
+            return this->size() >= beginning.size()
+                   &&  this->compare(
+                       0,
+                       beginning.size(),
+                       beginning
+                   ) == 0;
+        }
+
+        ///\brief Transform this string to uppercase
+        void toUpper();
+
+        std::string replace(char from, char to) const;
+        std::string replace(std::string const &from, std::string const &to) const;
 };
 }
 #endif

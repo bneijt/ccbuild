@@ -17,8 +17,7 @@
 */
 
 #include "source.ih"
-void Source::dependencies(std::vector<Source *> &srcList) const
-{
+void Source::dependencies(std::vector<Source *> &srcList) const {
     if(!d_depsDone) {
         throw Problem(Problem::Unable, "Unable to load dependencies without the file being scanned.");
     }
@@ -28,8 +27,7 @@ void Source::dependencies(std::vector<Source *> &srcList) const
     srcStack.push(const_cast<Source *>(this));
 
     //Gather all the global includes and sources
-    while(srcStack.size() > 0)
-    {
+    while(srcStack.size() > 0) {
         Source * current = srcStack.top();
         srcStack.pop();
 
@@ -49,14 +47,13 @@ void Source::dependencies(std::vector<Source *> &srcList) const
 
         //Never collect this in the list
         if(current != this) {
-        srcList.push_back(current);
+            srcList.push_back(current);
         }
     }
     _debugLevel2("Stacked up " << srcList.size() << " dependencies for " << d_filename);
 }
 
-void Source::dependencies(std::vector<Source  *> &srcList, std::vector<std::string const*> &globalList) const
-{
+void Source::dependencies(std::vector<Source  *> &srcList, std::vector<std::string const*> &globalList) const {
     //Collect all Source pointers needed
     stack<Source *> srcStack;
     srcStack.push(const_cast<Source *>(this));
@@ -64,8 +61,7 @@ void Source::dependencies(std::vector<Source  *> &srcList, std::vector<std::stri
     set<string const *> globalSet(d_globalDeps);
 
     //Gather all the global includes and sources
-    while(srcStack.size() > 0)
-    {
+    while(srcStack.size() > 0) {
         Source *current = srcStack.top();
         srcStack.pop();
 

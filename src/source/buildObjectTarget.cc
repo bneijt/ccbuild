@@ -16,44 +16,41 @@
 */
 #include "source.ih"
 
-void Source::buildObjectTarget(Compiler &cc)
-{
-  OpenMP::ScopedLock slock(d_apiLock);
+void Source::buildObjectTarget(Compiler &cc) {
+    OpenMP::ScopedLock slock(d_apiLock);
 
-  vector<Source *> srcList;
-  vector<string const*> globalList;
-	dependencies(srcList, globalList);
+    vector<Source *> srcList;
+    vector<string const*> globalList;
+    dependencies(srcList, globalList);
 
-  Resolver &resolver = Resolver::getInstance();
-  //Resolve all globals into the compiler
-  __foreach(global, globalList)
-  	resolver.resolveInto(*global, cc);
+    Resolver &resolver = Resolver::getInstance();
+    //Resolve all globals into the compiler
+    __foreach(global, globalList)
+    resolver.resolveInto(*global, cc);
 
-  if(!upToDate(srcList))
-  {
-  	//Need an update
-	  string outputDirectory = FileSystem::directoryName(outputFilename());//OLD directory() + "/o";
+    if(!upToDate(srcList)) {
+        //Need an update
+        string outputDirectory = FileSystem::directoryName(outputFilename());//OLD directory() + "/o";
 
-	  //Check for object directory existence (exists("o"))
-	  FileSystem::ensureDirectory(outputDirectory);
-	
-    //Now, we have a compiler with all the objects in it.
-    int ret = cc.compile(d_filename, outputFilename());
-		//Compilation OK
-		//Update hash
-		if(Options::md5 && ret == 0)
-		{
-			MD5Info &md5i = MD5Info::getInstance();
-			string collectedHash = md5i.contentHash(filename());
-			
-			vector<Source *> depSrcList;
-			dependencies(depSrcList);
-			__foreach(src, depSrcList)
-				collectedHash += md5i.contentHash((*src)->filename());
-			
-			md5i.save(filename(), collectedHash);
-		}
-  }
-  //Add my object to the list of objects in the compiler.
-  cc.addObject(outputFilename());
+        //Check for object directory existence (exists("o"))
+        FileSystem::ensureDirectory(outputDirectory);
+
+        //Now, we have a compiler with all the objects in it.
+        int ret = cc.compile(d_filename, outputFilename());
+        //Compilation OK
+        //Update hash
+        if(Options::md5 && ret == 0) {
+            MD5Info &md5i = MD5Info::getInstance();
+            string collectedHash = md5i.contentHash(filename());
+
+            vector<Source *> depSrcList;
+            dependencies(depSrcList);
+            __foreach(src, depSrcList)
+            collectedHash += md5i.contentHash((*src)->filename());
+
+            md5i.save(filename(), collectedHash);
+        }
+    }
+    //Add my object to the list of objects in the compiler.
+    cc.addObject(outputFilename());
 }

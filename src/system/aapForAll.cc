@@ -17,41 +17,38 @@
 
 #include "system.ih"
 
-void System::aapForAll(ostream &str)
-{
-  vector<string> files;
-  vector<Source *> targets;
-  Sources &s = Sources::getInstance();
+void System::aapForAll(ostream &str) {
+    vector<string> files;
+    vector<Source *> targets;
+    Sources &s = Sources::getInstance();
 
-  FileSystem::globSourceFilesInto(&files, ".");
+    FileSystem::globSourceFilesInto(&files, ".");
 
 
-  string allRule = "all :";
-  __foreach(file, files)
-  {
-    Source *target = s[*file];
+    string allRule = "all :";
+    __foreach(file, files) {
+        Source *target = s[*file];
 
-    //Error loading source??
-    if(target == 0)
-    {
-      cout << "Error loading '" << *file << "'\n";
-      continue;
+        //Error loading source??
+        if(target == 0) {
+            cout << "Error loading '" << *file << "'\n";
+            continue;
+        }
+
+        System::inspect(target);
+
+        //isBinTarget test can only be done after the inspect
+        if(!target->isBinTarget()) {
+            continue;
+        }
+
+        targets.push_back(target);
+        allRule += " " + target->directory() + "/" + target->basenameWithoutExtension();
     }
 
-		System::inspect(target);
+    str << allRule << "\n\n";
 
-    //isBinTarget test can only be done after the inspect
-    if(!target->isBinTarget())
-      continue;
-
-   	targets.push_back(target);
-		allRule += " " + target->directory() + "/" + target->basenameWithoutExtension();
-  }
-
-	str << allRule << "\n\n";
-	
-	__foreach(target, targets)
-	{
-		aapFor(*target, str);
-	}
+    __foreach(target, targets) {
+        aapFor(*target, str);
+    }
 }

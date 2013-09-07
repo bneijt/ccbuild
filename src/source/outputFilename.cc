@@ -17,17 +17,16 @@
 
 #include "source.ih"
 
-std::string Source::outputFilename() const
-{
-	if(isObjectTarget() || isBinTarget())
-	{
-	  //Output into a seperate directory with path in filename
-		// OLD per directory output directory directory() + "/o/" + basename() + ".o";
-		String oname = FileSystem::absolutePath(directory()) +"/"+ FileSystem::baseName(d_filename) + ".o";
-		return Options::cacheRoot + "/" + oname.substr(1);
-  }
-	if(isHeader())
-		return filename() + ".gch";
-  throw Problem(Problem::Unable, "Output filename could not be determined. This is an internal error and should be reported as a bug.");
-	return "";
+std::string Source::outputFilename() const {
+    if(isObjectTarget() || isBinTarget()) {
+        //Output into a seperate directory with path in filename
+        // OLD per directory output directory directory() + "/o/" + basename() + ".o";
+        String oname = FileSystem::absolutePath(directory()) +"/"+ FileSystem::baseName(d_filename) + ".o";
+        return Options::cacheRoot + "/" + oname.substr(1);
+    }
+    if(isHeader()) {
+        return filename() + ".gch";
+    }
+    throw Problem(Problem::Unable, "Output filename could not be determined. This is an internal error and should be reported as a bug.");
+    return "";
 }

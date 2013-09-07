@@ -16,13 +16,12 @@
 */
 #include "arguments.ih"
 
-void Arguments::destroy()
-{
-  OpenMP::ScopedLock instantiateLock(s_instanceLock);
-	if(s_instance) {
-		delete s_instance;
-	} else {
-		_debugLevel1("Already destroyed!!");
-	}
-	s_instance = 0;
+void Arguments::destroy() {
+    OpenMP::ScopedLock instantiateLock(s_instanceLock);
+    if(s_instance) {
+        delete s_instance;
+    } else {
+        _debugLevel1("Already destroyed!!");
+    }
+    s_instance = 0;
 }

@@ -18,38 +18,38 @@
 #include "compiler.ih"
 
 int Compiler::compile(std::string target,
-		       std::string outputFile) const
-{
-	cls();
+                      std::string outputFile) const {
+    cls();
 
-  cerrLock.set();
-  cerr << "[CC] " << target << "\n";
-  cerrLock.unset();
-  assert(target != outputFile);
-  string command = compileCommand(target, outputFile);
-
-	//If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)
-
- 	int retValue = System::system(command);
-
-  if(retValue != 0)
-  {
     cerrLock.set();
-    cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+    cerr << "[CC] " << target << "\n";
     cerrLock.unset();
+    assert(target != outputFile);
+    string command = compileCommand(target, outputFile);
 
-    if(!Options::execOnFail.empty())
-    	System::system((Options::execOnFail + " \"" + target + "\"").c_str());
+    //If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)
 
-    if(!Options::brute)
-    	throw Problem(Problem::Subfailure, "Compilation failed on " + target, retValue);
+    int retValue = System::system(command);
 
-    //Remove the output file, to make sure linking fails
-    FileSystem::rmIfExists(outputFile);
-  }
-  else if(!Options::execOnPass.empty())
-   	System::system((Options::execOnPass + " \"" + target + "\"").c_str());
+    if(retValue != 0) {
+        cerrLock.set();
+        cerr << "ccbuild: Non zero exit status (" << retValue << ")\n";
+        cerrLock.unset();
 
-	//TODO retValue is always 0, thus meaningless because of exceptions.
-  return retValue;
+        if(!Options::execOnFail.empty()) {
+            System::system((Options::execOnFail + " \"" + target + "\"").c_str());
+        }
+
+        if(!Options::brute) {
+            throw Problem(Problem::Subfailure, "Compilation failed on " + target, retValue);
+        }
+
+        //Remove the output file, to make sure linking fails
+        FileSystem::rmIfExists(outputFile);
+    } else if(!Options::execOnPass.empty()) {
+        System::system((Options::execOnPass + " \"" + target + "\"").c_str());
+    }
+
+    //TODO retValue is always 0, thus meaningless because of exceptions.
+    return retValue;
 }

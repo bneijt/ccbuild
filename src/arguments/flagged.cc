@@ -17,11 +17,11 @@
 
 #include "arguments.ih"
 
-bool Arguments::flagged(std::string const &optionName) const
-{
-	//The options are there, return the value if it is (which it is, because of arguments. But we still want to be const)
-	map<string, bool*>::const_iterator flag =  d_flags.find(optionName);
-	if(flag != d_flags.end() && (*flag).second)
-		return *((*flag).second);
-	return false;
+bool Arguments::flagged(std::string const &optionName) const {
+    //The options are there, return the value if it is (which it is, because of arguments. But we still want to be const)
+    map<string, bool*>::const_iterator flag =  d_flags.find(optionName);
+    if(flag != d_flags.end() && (*flag).second) {
+        return *((*flag).second);
+    }
+    return false;
 }
