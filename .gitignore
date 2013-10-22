@@ -1,6 +1,8 @@
 .deps
 .dirstamp
 src/o
+test/o
+src/*/*.o
 src/ccbuild
 pkgs
 README

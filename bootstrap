@@ -31,6 +31,17 @@ PNAME=`basename "${PSOURCE}" .cc`
 echo "Generating Makefile.am from ccbuild"
 which ccbuild && (ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS)
 SOURCES=`sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' < MD5SUMS | tr '\n' ' '`
+export VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+
+#Write CMakeLists.txt
+cat > CMakeLists.txt <<EOF
+cmake_minimum_required (VERSION 2.6)
+project (ccbuild)
+add_definitions(-DVERSION="${VERSION}")
+link_libraries(libgcrypt gomp bobcat openssl)
+add_definitions(-std=c++11 -fopenmp)
+add_executable(ccbuild ${SOURCES})
+EOF
 
 #Overwrite Makefile.am
 cat > Makefile.am <<EOF
@@ -39,9 +50,9 @@ AUTOMAKE_OPTIONS = subdir-objects
 bin_PROGRAMS = ${PNAME}
 
 #Sources, generated list from ccbuild md5 output
-${PNAME}_SOURCES = ${SOURCES}	
+${PNAME}_SOURCES = ${SOURCES}
 
-${PNAME}_CXXFLAGS = \${DEPS_CFLAGS} \${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=c++0x
+${PNAME}_CXXFLAGS = \${DEPS_CFLAGS} \${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=c++11
 ${PNAME}_LDADD = \${DEPS_LIBS} \${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openssl
 man_MANS = doc/${PNAME}/${PNAME}.1
 

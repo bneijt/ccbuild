@@ -311,6 +311,7 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 GREP = @GREP@
+HAVE_CXX11 = @HAVE_CXX11@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -481,7 +482,7 @@ ccbuild_SOURCES = src/ccbuild.cc src/misc/debug.hh \
 	src/arguments/initialize.cc src/arguments/getInstance.cc \
 	src/arguments/flagged.cc src/arguments/destroy.cc \
 	src/arguments/clear.cc src/arguments/arguments.cc
-ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=c++0x
+ccbuild_CXXFLAGS = ${DEPS_CFLAGS} ${BOOST_CPPFLAGS} -DNODEBUG -fopenmp -std=c++11
 ccbuild_LDADD = ${DEPS_LIBS} ${BOOST_LDFLAGS} -lbobcat -lgomp -lgnutls-openssl
 man_MANS = doc/ccbuild/ccbuild.1
 all: all-am
