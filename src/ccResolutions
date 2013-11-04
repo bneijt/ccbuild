@@ -1,4 +1,4 @@
-#& -l --compiler g++-4.7 --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -W -Wwrite-strings -Wshadow -ansi -DVERSION=\\\"2.0.4\\\" -std=c++11 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall"
+#& -l --compiler g++-4.7 --args "-Wall -g -Werror -Wstrict-null-sentinel -Wformat-security -W -Wwrite-strings -Wshadow -ansi -DVERSION=\\\"2.0.5\\\" -std=c++11 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall"
 #Left out -Wconversion and -pedantic because of the ugly yylex.cc
 # In the future, -std=c++0x is going to be default.
 # This file now requires ccbuild > 1.5.7
