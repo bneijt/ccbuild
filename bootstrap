@@ -66,7 +66,7 @@ EOF
 echo "Running autotools:"
 ##BOOTSTRAP
 echo " aclocal"
-aclocal --force #Sometimes nice to have: -I /usr/share/autoconf-archive
+aclocal --force -I m4 #Sometimes nice to have: -I /usr/share/autoconf-archive
 echo " autoconf"
 autoconf --force
 echo " automake"

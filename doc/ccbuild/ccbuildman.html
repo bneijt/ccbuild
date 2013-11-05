@@ -1,0 +1,862 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>ccbuild</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><H1
+><A
+NAME="AEN1"
+></A
+>ccbuild</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN15"
+></A
+><H2
+>Name</H2
+>ccbuild&nbsp;--&nbsp;Strict C++ developer&apos;s build utility</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN18"
+></A
+><H2
+>Synopsis</H2
+><P
+><B
+CLASS="COMMAND"
+>ccbuild</B
+>  [options] [command]</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN25"
+></A
+><H2
+>DESCRIPTION</H2
+><P
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include &lt;something&gt;) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The file name and arguments are separated by tab character(s) or a space. <B
+CLASS="COMMAND"
+>ccbuild</B
+> reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only <TT
+CLASS="FILENAME"
+>./ccResolutions</TT
+> is used, but there are more possibilities. See the section FILES for more information.</P
+><P
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> will follow any local include (#include &quot;something.hh&quot;) to try to find more source code to compile. To keep <B
+CLASS="COMMAND"
+>ccbuild</B
+> from following up on an include statement, separate the #-sign and the include statement by a single space (&quot;# include&quot;).</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN34"
+></A
+><H2
+>COMMANDS</H2
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>build [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Build everything or the given source.</P
+></DD
+><DT
+>lib [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build with symbolic links. This currently forces the -fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src.</P
+><P
+>Example: create an empty .cc file which simply includes all the local libraries, run <B
+CLASS="COMMAND"
+>ccbuild</B
+> --pversion 0.0.1 lib thatfile.cc</P
+></DD
+><DT
+>clean [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Clean everything or the given source.</P
+></DD
+><DT
+>distclean</DT
+><DD
+><P
+>Recursively remove all &quot;o&quot; directories after removing all .md5 and .o files therein. And removes all .gch files.</P
+></DD
+><DT
+>deps [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>List all files this source depends on. It lists three lines separated by empty lines.
+          The first contains the local dependencies, 
+          the second the ignored headers (for the file) and the last contains all global includes needed.
+          </P
+></DD
+><DT
+>dot [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the <CODE
+CLASS="OPTION"
+>--verbose</CODE
+> flag is used
+          the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line.</P
+></DD
+><DT
+>makefile [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated.</P
+></DD
+><DT
+>aap [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Generate an A-A-P file on stdout. If the file name is not given, an &quot;all&quot; rule will be added and all local binary targets will be listed.</P
+></DD
+><DT
+>check [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Dsplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the <CODE
+CLASS="OPTION"
+>--verbose</CODE
+> flag is used, another tab separated column will be inserted containing a two letter file type <B
+CLASS="COMMAND"
+>ccbuild</B
+> identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</P
+></DD
+><DT
+>icmake [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>icmake</B
+> slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If <CODE
+CLASS="OPTION"
+>--verbose</CODE
+> is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by running: <B
+CLASS="COMMAND"
+>ccbuild</B
+> icmake &gt;&gt; CLASSES</P
+></DD
+><DT
+>resolve [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: <B
+CLASS="COMMAND"
+>ccbuild</B
+> resolve &gt;&gt; ccResolutions .</P
+></DD
+><DT
+>md5 [<TT
+CLASS="REPLACEABLE"
+><I
+>filename.cc</I
+></TT
+>]</DT
+><DD
+><P
+>MD5 sum all sources needed to compile all binary targets, or the given source on stdout.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN105"
+></A
+><H2
+>OPTIONS</H2
+><P
+>Options are used to change the behaviour of the commands. Some options are useless for some commands.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>-f</CODE
+> <CODE
+CLASS="OPTION"
+>--force-update</CODE
+></DT
+><DD
+><P
+>Update everything by labelling everything as old.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-h</CODE
+> <CODE
+CLASS="OPTION"
+>--help</CODE
+></DT
+><DD
+><P
+>Get a list of options and commands.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--gnutouch</CODE
+></DT
+><DD
+><P
+>Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-s</CODE
+> <CODE
+CLASS="OPTION"
+>--no-act</CODE
+></DT
+><DD
+><P
+>Simulate, don&apos;t really execute any writing commands.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--compiler</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>cmd</I
+></TT
+></DT
+><DD
+><P
+>Set the compiler command. The default is &quot;g++&quot;.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-a</CODE
+> <CODE
+CLASS="OPTION"
+>--args</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>argument</I
+></TT
+></DT
+><DD
+><P
+>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Multiple uses of this option are concatenated with spaces.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-C</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>path</I
+></TT
+></DT
+><DD
+><P
+>Change directory before anything else.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-p</CODE
+> <CODE
+CLASS="OPTION"
+>--precompile-ih</CODE
+></DT
+><DD
+><P
+>Pre-compile only internal headers. This requires g++ version 3.4 up.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--precompile-all</CODE
+></DT
+><DD
+><P
+>Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don&apos;t use internal headers, this pre-compilation is all you&apos;ve got.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--brute</CODE
+></DT
+><DD
+><P
+>Continue on compiler errors.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--md5</CODE
+></DT
+><DD
+><P
+>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only	stored after a clean exit from <B
+CLASS="COMMAND"
+>ccbuild</B
+> (last line showing &quot;[WR] MD5 data&quot;) or a successful compilation.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-I</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>path</I
+></TT
+></DT
+><DD
+><P
+>Add this path to the local include search path of <B
+CLASS="COMMAND"
+>ccbuild</B
+> and the compiler (which will receive the same argument).</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--recursive-include</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>path</I
+></TT
+></DT
+><DD
+><P
+>This is just like <CODE
+CLASS="OPTION"
+>-I</CODE
+>, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behaviour, that would be bad practice.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-l</CODE
+> <CODE
+CLASS="OPTION"
+>--highlight</CODE
+></DT
+><DD
+><P
+>Highlight the output of the compiler using a red terminal colour.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--xof</CODE
+> <CODE
+CLASS="OPTION"
+>--exec-on-fail</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+></DT
+><DD
+><P
+>Execute this command when the command (pre)compilation returns anything but 0.
+           The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don&apos;t want to use the file name, you can append an echo command like &quot;sleep 2; echo&quot;.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--xop</CODE
+> <CODE
+CLASS="OPTION"
+>--exec-on-pass</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>cmd</I
+></TT
+></DT
+><DD
+><P
+>This is the same as <CODE
+CLASS="OPTION"
+>--exec-on-fail</CODE
+>, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--clearpc</CODE
+></DT
+><DD
+><P
+>Clear the screen just before executing the command (clear per command).</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--append</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>cmd</I
+></TT
+></DT
+><DD
+><P
+>Append this to every command. This can be used to redirect output or set up pipes for compiler output.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--loop</CODE
+></DT
+><DD
+><P
+>          Loop the system with one second intervals. This only works for the build command at the moment.
+          All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded.
+          </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodefargs</CODE
+></DT
+><DD
+><P
+>Do not read the first line of ./ccResolutions for extra arguments.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodefres</CODE
+></DT
+><DD
+><P
+>Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or discover your project&apos;s dependencies with the resolve command.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--addres</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>filename</I
+></TT
+></DT
+><DD
+><P
+>Load the given resolution file before any other.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--pversion</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>version</I
+></TT
+></DT
+><DD
+><P
+>Set the program version you are working on to <TT
+CLASS="REPLACEABLE"
+><I
+>version</I
+></TT
+>. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes.
+          </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--ar</CODE
+></DT
+><DD
+><P
+>Archive the objects before linking. This should reduce the binary size because it leaves out unused objects.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--verbose</CODE
+></DT
+><DD
+><P
+>Show commands and produce more output for dot and check commands.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-V</CODE
+> <CODE
+CLASS="OPTION"
+>--version</CODE
+></DT
+><DD
+><P
+>Output version number on stdout and copyright/license on stderr.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--xml</CODE
+></DT
+><DD
+><P
+>Output in XML where supported. Currently this is only the check command.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nowarn</CODE
+></DT
+><DD
+><P
+>Leave out most warnings.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--batch</CODE
+></DT
+><DD
+><P
+>Compile a batch of files with one g++ call before any other compilation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience.</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-j</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>number_threads</I
+></TT
+></DT
+><DD
+><P
+>Set the maximum number of threads used during build. Only available when OpenMP is enabled.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN284"
+></A
+><H2
+>RESOLUTION CONFIGURATION</H2
+><P
+>The ccResolutions file links global headers to compiler arguments. Every line should be either empty, start with a comment character &quot;#&quot; or contain a configuration line. 
+    A configuration line contains the name of the global header, followed by one or more tab characters and then the additional arguments needed when a source depends on this global header.
+    The arguments are POSIX shell expanded.</P
+><P
+>    If the first line of the ccResolutions file starts with &quot;#&amp;&quot;, the rest of this line is shell expanded and used and appended to the argument list of <B
+CLASS="COMMAND"
+>ccbuild</B
+>.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN289"
+></A
+><H2
+>EXAMPLES</H2
+><P
+>Examples of program use.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> resolve &gt;&gt; ccResolutions</DT
+><DD
+><P
+>Add any of the unknown global headers to the ccResolutions file. You can also use --nowarn to keep <B
+CLASS="COMMAND"
+>ccbuild</B
+> quiet, but you will have to think twice if you get compilation errors.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> --brute</DT
+><DD
+><P
+>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> -p --compiler &apos;g++-3.4&apos; --args -Wall --args &apos;-Wextra -ansi&apos;</DT
+><DD
+><P
+>Precompile internal headers using <B
+CLASS="COMMAND"
+>g++-3.4</B
+> and highlight all compiler output (-l). Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> -f --args -O3</DT
+><DD
+><P
+>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> --verbose dot; <B
+CLASS="COMMAND"
+>dotty</B
+> *.dot</DT
+><DD
+><P
+>Graph the dependencies for all programs with colours. Then view these using <B
+CLASS="COMMAND"
+>dotty</B
+>. This can help you to discover irregular dependencies and what test programs use.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> --xof &apos;gedit&apos;</DT
+><DD
+><P
+>Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> --compiler distcc -j 20</DT
+><DD
+><P
+>Use 20 distcc compilers to compile the project.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ccbuild</B
+> --nodefargs -f --args &apos;-Wall -Werror&apos; &amp;&amp; <B
+CLASS="COMMAND"
+>svn</B
+> commit -m &apos;buildable backup&apos;</DT
+><DD
+><P
+>If all the sources are buildable without any warnings, commit everything to the repository using subversion.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN338"
+></A
+><H2
+>FILES</H2
+><P
+>Configuration files used by <B
+CLASS="COMMAND"
+>ccbuild</B
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="FILENAME"
+>./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]</TT
+></DT
+><DD
+><P
+>Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolutions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolutions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with <B
+CLASS="COMMAND"
+>uname -nsm</B
+>.</P
+></DD
+><DT
+><TT
+CLASS="FILENAME"
+>&tilde;/.ccbuild/ccResolutions</TT
+></DT
+><DD
+><P
+>Global configuration file.</P
+></DD
+><DT
+><TT
+CLASS="FILENAME"
+>&tilde;/.ccbuild/ccResolutions.d</TT
+></DT
+><DD
+><P
+>The resolution configuration directory. All files in this directory are considered configuration files.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN359"
+></A
+><H2
+>CAVEATS</H2
+><P
+>Don&apos;t place any file into <TT
+CLASS="FILENAME"
+>o</TT
+> directories, these will be removed when using the distclean command. Also don&apos;t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example &quot;add.cc&quot; and &quot;add.cpp&quot; in the same directory).</P
+><P
+>Currently there is no way to allow one object file to effect the command-line parameters of another. This means that if all objects need a flag, you must use the --args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</P
+><P
+>ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN365"
+></A
+><H2
+>REPORTING BUGS</H2
+><P
+>Report any issue with ccbuild at: http://www.logfish.net/pr/ccbuild/</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN368"
+></A
+><H2
+>RESTRICTIONS</H2
+><P
+>ccbuild will not follow or act on any include statements with a single space between the #-sign and the include. So all include statements starting with &quot;#&nbsp;include&quot; will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (--verbose) these are mentioned as warnings.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN371"
+></A
+><H2
+>AUTHOR</H2
+><P
+>A. Bram Neijt &lt;bneijt@gmail.com&gt;</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN374"
+></A
+><H2
+>SEE ALSO</H2
+><P
+>pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1)</P
+></DIV
+></BODY
+></HTML
+>
