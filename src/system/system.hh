@@ -201,7 +201,7 @@ class System {
             \param simulate When true, the actual command is not run.
             \return On normal exit it, the exit status, otherwise 255.
         */
-        static int system(std::string const &command, bool simulate = Options::simulate) throw(Problem);
+        static int system(std::string const &command, bool simulate = Options::simulate) throw();
 
         /** \brief Batch compile a list of objects
           If we compile multiple objects with the same G++ we get a performance boost
@@ -224,10 +224,13 @@ class System {
         */
         static std::string uname(char const field);
         /** \brief Create a temporary directory from the template name and return it
-
-          Will throw a Problem on failure.
         */
-        static std::string mkdtemp(std::string const& nameTemplate);
+        static std::string mkdtemp(std::string const& nameTemplate) throw();
+
+        /**\brief Return the current username of the running process
+        */
+        static std::string username() throw();
+
 };
 
 }   //namespace

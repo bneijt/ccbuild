@@ -17,6 +17,8 @@
 
 #include "resolver.ih"
 
+
+
 Resolver::Resolver()
     :
     d_staticLinks(),
@@ -27,7 +29,7 @@ Resolver::Resolver()
 
     //Load default
     //Try username, try hostname dependent, try system name, try architecture dependent, try username, try default
-    loadIfExists("./ccResolutions."+ FBB::User().name())
+    loadIfExists("./ccResolutions."+ System::username())
     || loadIfExists("./ccResolutions."+System::uname('n'))
     || loadIfExists("./ccResolutions."+System::uname('s'))
     || loadIfExists("./ccResolutions."+System::uname('m'))

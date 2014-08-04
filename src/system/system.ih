@@ -46,6 +46,7 @@
 #include <sys/utsname.h>
 #include <boost/circular_buffer.hpp>
 #include <boost/lexical_cast.hpp>
+#include <pwd.h>
 
 #include "../posix/wordexp.h"
 //#ifndef _NO_WORDEXP_
@@ -58,6 +59,7 @@
 //#define DEBUGLEVEL 2
 
 #include "../misc/debug.hh"
+#include "../misc/foreach.hh"
 #include "../misc/foreach.hh"
 
 using namespace std;

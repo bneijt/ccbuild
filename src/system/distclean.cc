@@ -19,13 +19,6 @@
 
 namespace {
 
-bool leaveDirectory(std::string const &rvalue) {
-    if(rvalue.size() < 2) {
-        return true;
-    }
-    return rvalue.compare(rvalue.size() -2, 2, "/o") != 0;
-}
-
 bool stringLength(std::string const &a, std::string const &b) {
     return a.size() < b.size();
 }
@@ -63,7 +56,7 @@ void recursivelyRemoveGCH() {
     }
 
 }
-}
+} //anonymous namespace
 
 void System::distclean() {
     //Remove all GCH files
