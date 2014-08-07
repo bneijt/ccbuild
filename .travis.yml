@@ -7,6 +7,8 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq g++-4.8 libbobcat-dev libgcrypt11-dev libboost-dev
 
+env: CXX=g++4.8
+
 before_script:
   - cmake .
 
