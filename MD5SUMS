@@ -17,9 +17,10 @@ bc9756d0a4cd6612e5d631a346da1cad  src/options/options.hh
 ce89c4b489094be4b160c6c8a9e4d348  src/options/options.ih
 4f59235af3d706eb788a8803689231e3  src/openmp/scopedLock/scopedLock.hh
 247614c2fde0cd71cd17be63dfa1f912  src/openmp/lock/lock.hh
-38721869e23e0f486a8298c6ef590826  src/system/system.hh
+7d9811d5f3a55aff791ee78210afff0c  src/system/system.hh
+acbb82d39a80294bf6981181b9495ba5  src/system/username.cc
+85e4d9a1f4cdf08937ec7904c16ca8f5  src/system/system.ih
 cfd0b439dd5b1bd7ce0fb235628ce203  src/system/uname.cc
-e59e5b623c4ebe4df924b8bf40a9966f  src/system/system.ih
 daa382bb5d172778b781d76cac1c6530  src/system/trimmed.cc
 2c0bd5ee05c1333156639a1b632b0a76  src/system/trim.cc
 0661fea575978c620b126abcf59993d1  src/system/system.cc
@@ -28,7 +29,7 @@ e95c7e83a1febc484095460026c66579  src/system/statics.cc
 a5657ecb4ab3e0cb6009a9deded5d59c  src/system/resolveTest.cc
 5b3810b3ae044db68122bc8e417c4dba  src/system/projectName.cc
 5e978e57ab33a1f39c5939087b314f11  src/system/parseArguments.cc
-837f60bb758d5712528dedbde8bd83c0  src/system/mkdtemp.cc
+497469d0aa7537ba10f29b64a461045e  src/system/mkdtemp.cc
 e6a20f6c03b325d4e50798a5bb1ebb39  src/system/md5.cc
 423958de81ef135d4bfeabe2be1fc20f  src/system/makefileForAll.cc
 78e61e88e045ef53c9581199885bb901  src/system/makefileFor.cc
@@ -39,7 +40,7 @@ bc4575ce620de7a210b3d56f664aa98c  src/system/icmake.cc
 27d11e24593d82f065859b9788e2bec7  src/system/exit.cc
 5aced9790aecea17a993ca0d37e29ce0  src/system/dotgraphForAll.cc
 412bae78ba236854a14b5cbf9ebf4b41  src/system/dotgraphFor.cc
-7eeb1c0cd39f3c6da697c6cda7e86ca8  src/system/distclean.cc
+df45ad3d380c99e66e6823da6f802b05  src/system/distclean.cc
 70e73052c192f5951e2494eb5af20e87  src/system/destroy.cc
 a9d2c49cb25b7d0f4fdb519dbecf0746  src/system/depsFor.cc
 e439f47f5861b31a9507314fb73ccc5b  src/system/collectTargets.cc
@@ -96,8 +97,8 @@ af53b3b2dd794c292675ee83258913a0  src/fileSystem/directoryName.cc
 8ef300c8f27dd67e7973769e38628a5c  src/problem/problem.ih
 e2e687f0975413aed601c0db8aad1b7f  src/resolver/resolver.hh
 6b8b2e3c7168f4e87fae3be896ef995b  src/resolver/statics.cc
-afaaedc3ebfe98fde7445e31678cc5e0  src/resolver/resolver.ih
-a7bec295206587b352697cdcb18937e3  src/resolver/resolver.cc
+c3f156e8a231b2b3050d7664d4967eb3  src/resolver/resolver.ih
+6000a6aea4caca6ae1091f89e0ab6363  src/resolver/resolver.cc
 64d5b38d24a7ace09b3a6bedb794b37d  src/resolver/resolveInto.cc
 1a10cf005a95c35e864ef06447aa9980  src/resolver/resolve.cc
 d096845661a86dc043d8c9bcd2b8c3c8  src/resolver/loadIfExists.cc
@@ -160,7 +161,7 @@ d6fd001913c07aaab91b447b1b167851  src/source/buildBinTarget.cc
 8994f13bacbd519506e6e50be7e51a3d  src/source/build.cc
 b4d699f462393b82d275abb44319868d  src/source/basenameWithoutExtension.cc
 d3bbc4b264a483f1e6a984a9544be54d  src/sourceScanner/sourceScanner.hh
-99ee21308d5b30ffdb5520b062fd11aa  src/sourceScanner/yylex.cc
+fa22e0772b95b75a20986878e908cf35  src/sourceScanner/yylex.cc
 b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
 30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
 4bc2d81bddb4c3177cd97aad4d3cab55  src/sourceScanner/storeIgnore.cc
