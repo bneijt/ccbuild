@@ -3,7 +3,9 @@ language: cpp
 compiler:
   - gcc
 
-install: libbobcat
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq  libbobcat-dev libgcrypt11-dev libboost-dev
 
 before_script:
   - cmake .
