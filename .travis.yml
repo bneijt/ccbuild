@@ -1,2 +1,11 @@
 language: cpp
+
+compiler:
+  - gcc
+
 install: libbobcat
+
+before_script:
+  - cmake .
+
+script: make
