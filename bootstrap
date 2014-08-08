@@ -38,7 +38,7 @@ cat > CMakeLists.txt <<EOF
 cmake_minimum_required (VERSION 2.6)
 project (ccbuild)
 add_definitions(-DVERSION="${VERSION}")
-link_libraries(libgcrypt gomp bobcat openssl)
+link_libraries(gomp bobcat gnutls-openssl)
 add_definitions(-std=c++11 -fopenmp)
 add_executable(ccbuild ${SOURCES})
 EOF
@@ -70,6 +70,7 @@ aclocal --force -I m4 #Sometimes nice to have: -I /usr/share/autoconf-archive
 echo " autoconf"
 autoconf --force
 echo " automake"
+cp -f README.md README
 automake --add-missing --copy
 
 
