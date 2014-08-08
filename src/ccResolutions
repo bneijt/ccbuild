@@ -7,7 +7,6 @@
 #  require extra options, for example: Flex, GNU GetOpt
 FlexLexer.h	
 getopt.h	
-gcrypt.h	`libgcrypt-config --cflags --libs`
 errno.h	
 glob.h	
 pwd.h 
