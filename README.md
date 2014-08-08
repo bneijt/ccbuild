@@ -1,5 +1,5 @@
 ccbuild: A strict developer's build utility
-===========================================				
+===========================================
 
     by A. Bram Neijt <bneijt@gmail.com>
 
@@ -36,7 +36,7 @@ Directories
 Examples of use
 ---------------
 * Compile for debugging and development: `ccbuild`
-* When recompiling for benchmark (force recompile, use `-O3`): 
+* When recompiling for benchmark (force recompile, use `-O3`):
        `ccbuild -f --args -O3`
 * Generate a `Makefile` for a friend developer, who hasn't got `ccbuild`: `ccbuild makefile > Makefile`
 * Look at the dependencies for you program(s): `ccbuild deps`
@@ -59,11 +59,11 @@ The following is a list of things you shouldn't do when using ccbuild:
 
 Hacking the code, possible start-up problems
 --------------------------------------------
-*   Flex scanner must be generated, use:
-    
+* Flex scanner must be generated, use:
+
         rm src/SourceScanner/yylex.cc; make -f Makefile.human src/SourceScanner/yylex.cc
-  
-    Use this if the compiler complains about something with `SourceScanner`
+
+  Use this if the compiler complains about something with `SourceScanner`
 * If the compiler complains about `FFB::Process` constructor called incorrectly,
   make sure you have `libbobcat 2.02.03` or higher.
 
