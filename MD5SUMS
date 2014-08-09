@@ -161,7 +161,7 @@ d6fd001913c07aaab91b447b1b167851  src/source/buildBinTarget.cc
 8994f13bacbd519506e6e50be7e51a3d  src/source/build.cc
 b4d699f462393b82d275abb44319868d  src/source/basenameWithoutExtension.cc
 d3bbc4b264a483f1e6a984a9544be54d  src/sourceScanner/sourceScanner.hh
-fa22e0772b95b75a20986878e908cf35  src/sourceScanner/yylex.cc
+e871b3860956cef7ba71cc2a04e0de89  src/sourceScanner/yylex.cc
 b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
 30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
 4bc2d81bddb4c3177cd97aad4d3cab55  src/sourceScanner/storeIgnore.cc
