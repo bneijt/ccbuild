@@ -1,165 +1,462 @@
-.TH "ccbuild" "1" 
-.SH "NAME" 
-ccbuild \(em Strict C++ developer\&'s build utility 
-.SH "SYNOPSIS" 
-.PP 
-\fBccbuild\fR [options ]  [command ]  
-.SH "DESCRIPTION" 
-.PP 
-\fBccbuild\fR is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the right arguments. The link between compiler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The file name and arguments are separated by tab character(s) or a space. \fBccbuild\fR reads these configuration files in order. Only the first mention of a global header file in these files is used. Usually only \fB./ccResolutions\fP is used, but there are more possibilities. See the section FILES for more information. 
-.PP 
-\fBccbuild\fR will follow any local include (#include "something.hh") to try to find more source code to compile. To keep \fBccbuild\fR from following up on an include statement, separate the #\-sign and the include statement by a single space ("# include"). 
-.SH "COMMANDS" 
-.IP "build [\fIfilename.cc\fR]" 10 
-Build everything or the given source. 
-.IP "lib [\fIfilename.cc\fR]" 10 
-Collect all objects into an archive. If a version is given, using \-\-pversion, then a shared library is also build with symbolic links. This currently forces the \-fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src. 
-.IP "" 10 
-Example: create an empty .cc file which simply includes all the local libraries, run \fBccbuild\fR \-\-pversion 0.0.1 lib thatfile.cc 
-.IP "clean [\fIfilename.cc\fR]" 10 
-Clean everything or the given source. 
-.IP "distclean" 10 
-Recursively remove all "o" directories after removing all .md5 and .o files therein. And removes all .gch files. 
-.IP "deps [\fIfilename.cc\fR]" 10 
-List all files this source depends on. It lists three lines separated by empty lines. 
-The first contains the local dependencies,  
-the second the ignored headers (for the file) and the last contains all global includes needed. 
- 
-.IP "dot [\fIfilename.cc\fR]" 10 
-Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the \fB\-\-verbose\fP flag is used 
-the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line. 
-.IP "makefile [\fIfilename.cc\fR]" 10 
-Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated. 
-.IP "aap [\fIfilename.cc\fR]" 10 
-Generate an A-A-P file on stdout. If the file name is not given, an "all" rule will be added and all local binary targets will be listed. 
-.IP "check [\fIfilename.cc\fR]" 10 
-Dsplay source status and file name on the stdout. Status and source path are separated with a tab character. Status is either "old" or "ok". When the \fB\-\-verbose\fP flag is used, another tab separated column will be inserted containing a two letter file type \fBccbuild\fR identifies it as. This file type is "bt", "ot", "ih" or "hh" for binary target, object target, internal header and header respectively. 
-.IP "icmake [\fIfilename.cc\fR]" 10 
-\fBicmake\fR slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If \fB\-\-verbose\fP is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by running: \fBccbuild\fR icmake >> CLASSES 
-.IP "resolve [\fIfilename.cc\fR]" 10 
-Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: \fBccbuild\fR resolve >> ccResolutions . 
-.IP "md5 [\fIfilename.cc\fR]" 10 
-MD5 sum all sources needed to compile all binary targets, or the given source on stdout. 
-.SH "OPTIONS" 
-.PP 
-Options are used to change the behaviour of the commands. Some options are useless for some commands. 
-.IP "\fB-f\fP \fB\-\-force-update\fP" 10 
-Update everything by labelling everything as old. 
-.IP "\fB-h\fP \fB\-\-help\fP" 10 
-Get a list of options and commands. 
-.IP "\fB\-\-gnutouch\fP" 10 
-Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog. 
-.IP "\fB-s\fP \fB\-\-no-act\fP" 10 
-Simulate, don\&'t really execute any writing commands. 
-.IP "\fB\-\-compiler\fP \fIcmd\fR" 10 
-Set the compiler command. The default is "g++". 
-.IP "\fB-a\fP \fB\-\-args\fP \fIargument\fR" 10 
-Set these default compiler arguments, removing the standard default arguments ("\-Wall \-g"). Multiple uses of this option are concatenated with spaces. 
-.IP "\fB-C\fP \fIpath\fR" 10 
-Change directory before anything else. 
-.IP "\fB-p\fP \fB\-\-precompile-ih\fP" 10 
-Pre-compile only internal headers. This requires g++ version 3.4 up. 
-.IP "\fB\-\-precompile-all\fP" 10 
-Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don\&'t use internal headers, this pre-compilation is all you\&'ve got. 
-.IP "\fB\-\-brute\fP" 10 
-Continue on compiler errors. 
-.IP "\fB\-\-md5\fP" 10 
-Use MD5 hashes to check for file changes. The hashes are store in "o/filename.md5" for every file. These sums are only	stored after a clean exit from \fBccbuild\fR (last line showing "[WR] MD5 data") or a successful compilation. 
-.IP "\fB-I\fP \fIpath\fR" 10 
-Add this path to the local include search path of \fBccbuild\fR and the compiler (which will receive the same argument). 
-.IP "\fB\-\-recursive-include\fP \fIpath\fR" 10 
-This is just like \fB-I\fP, but for the given path and every non-empty directory with a name other then "o". Make sure you do not come to depend on this behaviour, that would be bad practice. 
-.IP "\fB-l\fP \fB\-\-highlight\fP" 10 
-Highlight the output of the compiler using a red terminal colour. 
-.IP "\fB\-\-xof\fP \fB\-\-exec-on-fail\fP \fIcommand\fR" 10 
-Execute this command when the command (pre)compilation returns anything but 0. 
-The first argument given to the command will be relative path to the file the command was executed on (which is either a C++ source or header). If you don\&'t want to use the file name, you can append an echo command like "sleep 2; echo". 
-.IP "\fB\-\-xop\fP \fB\-\-exec-on-pass\fP \fIcmd\fR" 10 
-This is the same as \fB\-\-exec-on-fail\fP, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on. 
-.IP "\fB\-\-clearpc\fP" 10 
-Clear the screen just before executing the command (clear per command). 
-.IP "\fB\-\-append\fP \fIcmd\fR" 10 
-Append this to every command. This can be used to redirect output or set up pipes for compiler output. 
-.IP "\fB\-\-loop\fP" 10 
-Loop the system with one second intervals. This only works for the build command at the moment. 
-All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded. 
- 
-.IP "\fB\-\-nodefargs\fP" 10 
-Do not read the first line of ./ccResolutions for extra arguments. 
-.IP "\fB\-\-nodefres\fP" 10 
-Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or discover your project\&'s dependencies with the resolve command. 
-.IP "\fB\-\-addres\fP \fIfilename\fR" 10 
-Load the given resolution file before any other. 
-.IP "\fB\-\-pversion\fP \fIversion\fR" 10 
-Set the program version you are working on to \fIversion\fR. This is currently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes. 
- 
-.IP "\fB\-\-ar\fP" 10 
-Archive the objects before linking. This should reduce the binary size because it leaves out unused objects. 
-.IP "\fB\-\-verbose\fP" 10 
-Show commands and produce more output for dot and check commands. 
-.IP "\fB-V\fP \fB\-\-version\fP" 10 
-Output version number on stdout and copyright/license on stderr. 
-.IP "\fB\-\-xml\fP" 10 
-Output in XML where supported. Currently this is only the check command. 
-.IP "\fB\-\-nowarn\fP" 10 
-Leave out most warnings. 
-.IP "\fB\-\-batch\fP" 10 
-Compile a batch of files with one g++ call before any other compilation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience. 
-.IP "\fB-j\fP \fInumber_threads\fR" 10 
-Set the maximum number of threads used during build. Only available when OpenMP is enabled. 
-.SH "RESOLUTION CONFIGURATION" 
-.PP 
-The ccResolutions file links global headers to compiler arguments. Every line should be either empty, start with a comment character "#" or contain a configuration line.  
-A configuration line contains the name of the global header, followed by one or more tab characters and then the additional arguments needed when a source depends on this global header. 
-The arguments are POSIX shell expanded. 
-.PP 
-If the first line of the ccResolutions file starts with "#&", the rest of this line is shell expanded and used and appended to the argument list of \fBccbuild\fR. 
- 
-.SH "EXAMPLES" 
-.PP 
-Examples of program use. 
-.IP "\fBccbuild\fR resolve >> ccResolutions" 10 
-Add any of the unknown global headers to the ccResolutions file. You can also use \-\-nowarn to keep \fBccbuild\fR quiet, but you will have to think twice if you get compilation errors. 
-.IP "\fBccbuild\fR \-\-brute" 10 
-Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call. 
-.IP "\fBccbuild\fR \-p \-\-compiler \&'g++\-3.4\&' \-\-args \-Wall \-\-args \&'\-Wextra \-ansi\&'" 10 
-Precompile internal headers using \fBg++\-3.4\fR and highlight all compiler output (\-l). Also give all compiler commands the parameters "\-Wall \-Wextra \-ansi". 
-.IP "\fBccbuild\fR \-f \-\-args \-O3" 10 
-Recompiling your project for benchmarking tests. Forces the update of all code (\-f) and sets the compiler argument to \-O3. 
-.IP "\fBccbuild\fR \-\-verbose dot; \fBdotty\fR *.dot" 10 
-Graph the dependencies for all programs with colours. Then view these using \fBdotty\fR. This can help you to discover irregular dependencies and what test programs use. 
-.IP "\fBccbuild\fR \-\-xof \&'gedit\&'" 10 
-Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class. 
-.IP "\fBccbuild\fR \-\-compiler distcc \-j 20" 10 
-Use 20 distcc compilers to compile the project. 
-.IP "\fBccbuild\fR \-\-nodefargs \-f \-\-args \&'\-Wall \-Werror\&' && \fBsvn\fR commit \-m \&'buildable backup\&'" 10 
-If all the sources are buildable without any warnings, commit everything to the repository using subversion. 
-.SH "FILES" 
-.PP 
-Configuration files used by \fBccbuild\fR 
-.IP "\fB./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]\fP" 10 
-Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolutions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolutions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with \fBuname \-nsm\fR. 
-.IP "\fB~/.ccbuild/ccResolutions\fP" 10 
-Global configuration file. 
-.IP "\fB~/.ccbuild/ccResolutions.d\fP" 10 
-The resolution configuration directory. All files in this directory are considered configuration files. 
-.SH "CAVEATS" 
-.PP 
-Don\&'t place any file into \fBo\fP directories, these will be removed when using the distclean command. Also don\&'t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example "add.cc" and "add.cpp" in the same directory). 
-.PP 
-Currently there is no way to allow one object file to effect the command-line parameters of another. This means that if all objects need a flag, you must use the \-\-args argument and cannot use a global header resolution line. Examples of these flags that need to be defined everywhere are \-pthreads, \-mthreads and \-threads. Please read the g++ manual for more information on usage of flags. 
-.PP 
-ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn't seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won't link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file. 
-.SH "REPORTING BUGS" 
-.PP 
-Report any issue with ccbuild at: http://www.logfish.net/pr/ccbuild/ 
-.SH "RESTRICTIONS" 
-.PP 
-ccbuild will not follow or act on any include statements with a single space between the #\-sign and the include. So all include statements starting with "#\ include" will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (\-\-verbose) these are mentioned as warnings. 
-.SH "AUTHOR" 
-.PP 
-A. Bram Neijt <bneijt@gmail.com> 
-.SH "SEE ALSO" 
-.PP 
-pkg-config(1), dotty(1), make(1), icmake(1), g++(1), aap(1), svn(1) 
-.\" created by instant / docbook-to-man, Tue 05 Nov 2013, 18:29 
+.TH "ccbuild" "1" "August 8, 2014" "General Commands Manual" ""
+.SH NAME
+.PP
+ccbuild \[em] Strict C++ developer\[aq]s build utility
+.SH SYNOPSIS
+.PP
+\f[B]ccbuild\f[] [options] [command]
+.SH DESCRIPTION
+.PP
+\f[B]ccbuild\f[] is a build utility that will read C++ source.
+It collects all source surrounding your local includes and links these
+to your main program.
+Global include statements (#include ) are used to make sure the compiler
+gets the` right arguments.
+The link between com‐ piler arguments and these global includes is made
+using configuration files.
+These files contain lines with a global header file name and the extra
+arguments the compiler needs to find and use this file.
+The file name and arguments are separated by tab character(s) or a
+space.
+ccbuild reads these configuration files in order.
+Only the first men‐ tion of a global header file in these files is used.
+Usually only \f[B]\&./ccResolutions\f[] is used, but there are more
+possibilities.
+See the sec‐ tion FILES for more information.
+.PP
+\f[B]ccbuild\f[] will follow any local include (#include "something.hh")
+to try to find more source code to compile.
+To keep \f[B]ccbuild\f[] from following up on an include statement,
+separate the #\-sign and the include statement by a single space ("#
+include").
+.SH COMMANDS
+.TP
+.B build [filename.cc]
+Build everything or the given source.
+.RS
+.RE
+.TP
+.B lib [filename.cc]
+Collect all objects into an archive.
+If a version is given, using \-\-pversion, then a shared library is also
+build with symbolic links.
+This currently forces the \-fPIC argument addition.
+The name of your library is given the name of the current directory or
+it\[aq]s parent when the current directory is called src.
+.RS
+.PP
+Example: create an empty .cc file which simply includes all the local
+libraries, run ccbuild \-\-pversion 0.0.1 lib that‐ file.cc
+.RE
+.TP
+.B clean [filename.cc]
+Clean everything or the given source.
+.RS
+.RE
+.TP
+.B distclean
+Recursively remove all "o" directories after removing all .md5 and .o
+files therein.
+And removes all .gch files.
+.RS
+.RE
+.TP
+.B deps [filename.cc]
+List all files this source depends on.
+It lists three lines separated by empty lines.
+The first contains the local dependencies, the second the ignored
+headers (for the file) and the last contains all global includes needed.
+.RS
+.RE
+.TP
+.B dot [filename.cc]
+Generate dot graph files for sources on the stdout.
+If no source file name is given, then for all binary targets in the
+local directory a .dot file will be created.
+If the \-\-verbose flag is used the dot graph will also contain all
+object file names and their dependencies and lists of ignored headers.
+Objects will be coloured light grey, binary targets light blue, ignored
+headers by a red line.
+.RS
+.RE
+.TP
+.B makefile [filename.cc]
+Generate a Makefile on stdout.
+If no file name is given, an all rule will be generated.
+Otherwise only the rules for the given file are generated.
+.RS
+.RE
+.TP
+.B aap [filename.cc]
+Generate an A\-A\-P file on stdout.
+If the file name is not given, an "all" rule will be added and all local
+binary tar‐ gets will be listed.
+.RS
+.RE
+.TP
+.B check [filename.cc]
+Display source status and file name on the stdout.
+Status and source path are separated with a tab character.
+Status is either "old" or "ok".
+When the \-\-verbose flag is used, another tab separated column will be
+inserted containing a two letter file type ccbuild identifies it as.
+This file type is "bt", "ot", "ih" or "hh" for binary target, object
+target, internal header and header respectively.
+.RS
+.RE
+.TP
+.B icmake [filename.cc]
+icmake slave mode.
+This will output the used directories with one directory per line.
+If a CLASSES file already exists, it will only output the class
+directories not mentioned in the CLASSES file.
+If \-\-verbose is given, all classes will be listed.
+The output will not contain directories with only header files.
+Updating the CLASSES is typically done by run‐ ning: ccbuild icmake >>
+CLASSES
+.RS
+.RE
+.TP
+.B resolve [filename.cc]
+Print all unresolved globals onto the stdout followed by a tab
+character.
+These can be appended to the ccResolutions file using: ccbuild resolve
+>> ccResolutions .
+.RS
+.RE
+.TP
+.B md5 [filename.cc]
+MD5 sum all sources needed to compile all binary targets, or the given
+source on stdout.
+.RS
+.RE
+.SH OPTIONS
+.PP
+Options are used to change the behaviour of the commands.
+Some options are useless for some commands.
+.TP
+.B \-f \-\-force\-update
+Update everything by labelling everything as old.
+.RS
+.RE
+.TP
+.B \-h \-\-help
+Get a list of options and commands.
+.RS
+.RE
+.TP
+.B \-\-gnutouch
+Touch files part of the GNU software standard.
+They will be touched in ../ except when there is a directory called src
+in the current directory, then the current directory will be used.
+This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and
+ChangeLog.
+.RS
+.RE
+.TP
+.B \-s \-\-no\-act
+Simulate, don\[aq]t really execute any writing commands.
+.RS
+.RE
+.TP
+.B \-\-compiler cmd
+Set the compiler command.
+The default is "g++".
+.RS
+.RE
+.TP
+.B \-a \-\-args argument
+Set these default compiler arguments, removing the standard default
+arguments ("\-Wall \-g").
+Multiple uses of this option are concate‐ nated with spaces.
+.RS
+.RE
+.TP
+.B \-C path
+Change directory before anything else.
+.RS
+.RE
+.TP
+.B \-p \-\-precompile\-ih
+Pre\-compile only internal headers.
+This requires g++ version 3.4 up.
+.RS
+.RE
+.TP
+.B \-\-precompile\-all
+Pre\-compile both internal headers and normal headers.
+This requires g++ version 3.4 up.
+When you use internal headers, this will only slow you down.
+However, when you don\[aq]t use internal headers, this pre\-compilation
+is all you\[aq]ve got.
+.RS
+.RE
+.TP
+.B \-\-brute
+Continue on compiler errors.
+.RS
+.RE
+.TP
+.B \-\-md5
+Use MD5 hashes to check for file changes.
+The hashes are store in "o/filename.md5" for every file.
+These sums are only stored after a clean exit from ccbuild (last line
+showing "[WR] MD5 data") or a successful compilation.
+.RS
+.RE
+.TP
+.B \-I path
+Add this path to the local include search path of ccbuild and the
+compiler (which will receive the same argument).
+.RS
+.RE
+.TP
+.B \-\-recursive\-include path
+This is just like \-I, but for the given path and every non\-empty
+directory with a name other then "o".
+Make sure you do not come to depend on this behaviour, that would be bad
+practice.
+.RS
+.RE
+.TP
+.B \-l \-\-highlight
+Highlight the output of the compiler using a red terminal colour.
+.RS
+.RE
+.TP
+.B \-\-xof \-\-exec\-on\-fail command
+Execute this command when the command (pre)compilation returns any‐
+thing but 0.
+The first argument given to the command will be rela‐ tive path to the
+file the command was executed on (which is either a C++ source or
+header).
+If you don\[aq]t want to use the file name, you can append an echo
+command like "sleep 2; echo".
+.RS
+.RE
+.TP
+.B \-\-xop \-\-exec\-on\-pass cmd
+This is the same as \-\-exec\-on\-fail, except it only works when the
+command returns 0.
+The first argument given to the command will be the relative path to the
+file the command was executed on.
+.RS
+.RE
+.TP
+.B \-\-clearpc
+Clear the screen just before executing the command (clear per com‐
+mand).
+.RS
+.RE
+.TP
+.B \-\-append cmd
+Append this to every command.
+This can be used to redirect output or set up pipes for compiler output.
+.RS
+.RE
+.TP
+.B \-\-loop
+Loop the system with one second intervals.
+This only works for the build command at the moment.
+All sources who are touched will be reloaded.
+If a file is removed, the whole source tree is reloaded.
+.RS
+.RE
+.TP
+.B \-\-nodefargs
+Do not read the first line of ./ccResolutions for extra arguments.
+.RS
+.RE
+.TP
+.B \-\-nodefres
+Do not load any ccResolutions files outside of ./ccResolutions.
+This can be used to create a monolithic ccResolutions file or dis‐ cover
+your project\[aq]s dependencies with the resolve command.
+.RS
+.RE
+.TP
+.B \-\-addres filename
+Load the given resolution file before any other.
+.RS
+.RE
+.TP
+.B \-\-pversion version
+Set the program version you are working on to version.
+This is cur‐ rently only used for the library command.
+When defined, the library command can make a shared object (.so) and
+symbolic links by using the version number.
+It should not contain any file system special characters like slashes.
+.RS
+.RE
+.TP
+.B \-\-ar
+Archive the objects before linking.
+This should reduce the binary size because it leaves out unused objects.
+.RS
+.RE
+.TP
+.B \-\-verbose
+Show commands and produce more output for dot and check commands.
+.RS
+.RE
+.TP
+.B \-V \-\-version
+Output version number on stdout and copyright/license on stderr.
+.RS
+.RE
+.TP
+.B \-\-xml
+Output in XML where supported.
+Currently this is only the check command.
+.RS
+.RE
+.TP
+.B \-\-nowarn
+Leave out most warnings.
+.RS
+.RE
+.TP
+.B \-\-batch
+Compile a batch of files with one g++ call before any other compi‐
+lation.
+This effectively disables any multi\-threading, but may speed things up
+for larger collections of small files.
+This process involves creating a temporary directory in
+/tmp/ccbuild_batch.XXXX.
+The exact behaviour of this option may change in the future based on
+performance results and user experience.
+.RS
+.RE
+.TP
+.B \-j number_threads
+Set the maximum number of threads used during build.
+Only available when OpenMP is enabled.
+.RS
+.RE
+.SH RESOLUTION CONFIGURATION
+.PP
+The ccResolutions file links global headers to compiler arguments.
+Every line should be either empty, start with a comment character "#" or
+contain a con‐ figuration line.
+A configuration line contains the name of the global header, followed by
+one or more tab characters and then the additional argu‐ ments needed
+when a source depends on this global header.
+The arguments are POSIX shell expanded.
+.PP
+If the first line of the ccResolutions file starts with "#&", the rest
+of this line is shell expanded and used and appended to the argument
+list of \f[I]ccbuild\f[].
+.SH EXAMPLES
+.PP
+Examples of program use.
+.TP
+.B ccbuild resolve >> ccResolutions
+Add any of the unknown global headers to the ccResolutions file.
+You can also use \-\-nowarn to keep ccbuild quiet, but you will have to
+think twice if you get compilation errors.
+.RS
+.RE
+.TP
+.B ccbuild \-\-brute
+Get back to development after a distclean.
+This will update as much objects as will compile.
+Which will allow you to focus on the errors in the next ccbuild call.
+.RS
+.RE
+.TP
+.B ccbuild \-p \-\-compiler \[aq]g++\-3.4\[aq] \-\-args \-Wall \-\-args \[aq]\-Wextra \-ansi\[aq]
+Precompile internal headers using g++\-3.4 and highlight all com‐ piler
+output (\-l).
+Also give all compiler commands the parameters "\-Wall \-Wextra \-ansi".
+.RS
+.RE
+.TP
+.B ccbuild \-f \-\-args \-O3
+Recompiling your project for benchmarking tests.
+Forces the update of all code (\-f) and sets the compiler argument to
+\-O3.
+.RS
+.RE
+.PP
+ccbuild \-\-verbose dot; dotty *.dot : Graph the dependencies for all
+programs with colours.
+Then view these using dotty.
+This can help you to discover irregular depen‐ dencies and what test
+programs use.
+.TP
+.B ccbuild \-\-xof \[aq]gedit\[aq]
+Try to compile the program and open the first file that does not compile
+correctly.
+Open all error producing sources in gedit.
+Very useful for when you change the interface of a class.
+.RS
+.RE
+.TP
+.B ccbuild \-\-compiler distcc \-j 20
+Use 20 distcc compilers to compile the project.
+.RS
+.RE
+.SH FILES
+.PP
+Configuration files used by ccbuild
+.TP
+.B \&./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]
+Local configuration which is project specific.
+It will load the first existing file of: ./ccResolutions.USERNAME,
+./ccResolu‐ tions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolu‐
+tions.MACHINE, ./ccResolutions.
+Hostname, kernel name and machine can be found with uname \-nsm.
+.RS
+.RE
+.TP
+.B ~/.ccbuild/ccResolutions
+Global configuration file.
+.RS
+.RE
+.TP
+.B ~/.ccbuild/ccResolutions.d
+The resolution configuration directory.
+All files in this directory are considered configuration files.
+.RS
+.RE
+.SH CAVEATS
+.PP
+Do not place any file into o directories, these will be removed when
+using the distclean command.
+Also don\[aq]t use files with the same basename, but different C++
+extensions, this will give problems with the objects created (for
+example "add.cc" and "add.cpp" in the same directory).
+.PP
+Currently there is no way to allow one object file to effect the
+command\-line parameters of another.
+This means that if all objects need a flag, you must use the \-\-args
+argument and cannot use a global header resolution line.
+Exam‐ ples of these flags that need to be defined everywhere are
+\-pthreads, \-mthreads and \-threads.
+Please read the g++ manual for more information on usage of flags.
+.PP
+ccbuild seems to be incompatible with flex 2.5.4.
+That version of flex places an int main function in the resulting
+scanner and there doesn\[aq]t seem to be a way to stop it from
+mentioning it.
+The result is that ccbuild will think that the generated scanner is a
+test program for your class and won\[aq]t link it into the main program.
+A solution is to move to a newer version of flex or find a way to remove
+the int main function from the resulting scanner file.
+.SH REPORTING BUGS
+.PP
+Report any issue with ccbuild at: https://github.com/bneijt/ccbuild
+.SH RESTRICTIONS
+.PP
+ccbuild will not follow or act on any include statements with a single
+space between the #\-sign and the include.
+So all include statements starting with "# include" will be ignored, all
+other combinations will be acted on.
+This is a feature, not a bug.
+In verbose mode (\-\-verbose) these are mentioned as warnings.
+.SH SEE ALSO
+.PP
+\f[C]pkg\-config\f[](1), \f[C]dotty\f[](1), \f[C]make\f[](1),
+\f[C]icmake\f[](1), \f[C]g++\f[](1), \f[C]aap\f[](1), \f[C]svn\f[](1)
+.SH AUTHORS
+A. Bram Neijt <bneijt@gmail.com>.

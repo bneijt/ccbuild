@@ -1,19 +1,20 @@
 .PHONY: all
-all: ccbuild.1 ccbuild.html ccbuildman.html ccbuild.pdf
-	
+all: ccbuild.1 ccbuildman.html
+#TODO Add ccbuild.pdf and ccbuild.html back to the list
 
-ccbuild.1: ccbuildman.sgml
-	docbook-to-man $< > $@
 
-ccbuildman.html: ccbuildman.sgml
-	docbook2html -u -o . $<
+ccbuild.1:  ccbuild.1.md
+	pandoc -s -t man $< > $@
+
+ccbuildman.html:  ccbuild.1.md
+	pandoc -s -t html $< > $@
 
 ccbuild.pdf: ccbuild.dvi
 	dvipdf $<
 
 ccbuild.dvi: ccbuild.sgml
 	debiandoc2dvi $<
-	
+
 ccbuild.html: ccbuild.sgml
 	debiandoc2html $<
 
