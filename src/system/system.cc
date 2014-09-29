@@ -27,9 +27,7 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
     int status = 0;
     _debugLevel3((simulate ? "Simulation on" : "Simulation off"));
     if(!simulate) {
-        FBB::Process process(FBB::Process::CIN |
-                             FBB::Process::COUT |
-                             FBB::Process::MERGE_COUT_CERR,
+        FBB::Process process(FBB::Process::MERGE_COUT_CERR,
                              FBB::Process::USE_PATH,
                              command);
         process.start();
