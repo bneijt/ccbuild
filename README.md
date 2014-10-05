@@ -7,6 +7,8 @@ See [INSTALL](INSTALL) for installation instructions.
 
 Thank you for downloading `ccbuild`!
 
+![Travis CI build status](https://api.travis-ci.org/bneijt/ccbuild.svg)
+
 
 Documentation
 -------------
@@ -59,6 +61,18 @@ The following is a list of things you shouldn't do when using ccbuild:
 
 Hacking the code, possible start-up problems
 --------------------------------------------
+
+`ccbuild` development requires `ccbuild` to generate basic
+build files for `autotools`. For source releases this has
+been done using `bootstrap`. If you do not have a `ccbuild`
+release working yet, you can use
+
+    make -f Makefile.ccbuild src/ccbuild
+
+to build ccbuild using a generated Makefile.
+
+Another option is using `cmake` which is used in the [Travis-CI build](https://travis-ci.org/bneijt/ccbuild).
+
 * Flex scanner must be generated, use:
 
         rm src/SourceScanner/yylex.cc; make -f Makefile.human src/SourceScanner/yylex.cc
