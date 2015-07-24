@@ -28,7 +28,8 @@
 #include <iterator>
 #include <iostream>
 #include <cassert>
-#include <gnutls/openssl.h>
+#include <gnutls/gnutls.h>
+#include <gnutls/crypto.h>
 
 #include <fstream>
 #include <cstdio>
@@ -39,6 +40,8 @@
 
 //#define DEBUGLEVEL 6
 #include "../misc/debug.hh"
+
+#define MD5_DIGEST_LENGTH 16
 
 using namespace bneijt;
 using namespace std;

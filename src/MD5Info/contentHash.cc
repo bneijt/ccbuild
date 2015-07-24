@@ -25,8 +25,8 @@ std::string const &MD5Info::contentHash(std::string const &filename) {
         //#define MD5_DIGEST_LENGTH 16
 
         unsigned char md[MD5_DIGEST_LENGTH];
-        MD5_CTX context;
-        MD5_Init(&context);
+        gnutls_hash_hd_t context;
+        gnutls_hash_init (&context, GNUTLS_DIG_MD5);
 
         //Start updating with the file content
         size_t const bufferSize = 1024*512/8; //512-bit block multiple for update
@@ -34,11 +34,12 @@ std::string const &MD5Info::contentHash(std::string const &filename) {
         ifstream ifile(filename.c_str());
         while(ifile) {
             ifile.read(buffer, bufferSize);
-            MD5_Update(&context, buffer, ifile.gcount());
+            gnutls_hash (context, buffer, ifile.gcount());
         }
         delete[] buffer;
 
-        MD5_Final(&md[0], &context); //context is automatically cleaned-up
+        gnutls_hash_deinit (context, &md[0]);
+        // gnutls_free (context);
         char hex_hash[(MD5_DIGEST_LENGTH * 2) + 1];
         for(size_t i = 0; i < MD5_DIGEST_LENGTH; ++i) {
             sprintf(&hex_hash[i*2], "%02x", md[i]);

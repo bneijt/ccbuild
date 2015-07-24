@@ -22,5 +22,6 @@ stddef.h
 boost/circular_buffer.hpp	
 boost/lexical_cast.hpp	
 openssl/evp.h	`pkg-config --libs --cflags openssl`
-gnutls/openssl.h	-lgnutls-openssl
 bobcat/process -lbobcat
+gnutls/crypto.h	-lgnutls
+gnutls/gnutls.h	-lgnutls
