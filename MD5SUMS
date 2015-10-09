@@ -2,14 +2,14 @@ f1cbc85bea3f70d88362d7e7989a6074  src/ccbuild.cc
 bad9bd0cafa0b1552f03b4ec3799783c  src/misc/debug.hh
 1eb06a3c7cd7be60632055d44f2dbd5b  src/MD5Info/MD5Info.hh
 ca475bbd58f6c3096f945ccb5f307ec0  src/MD5Info/statics.cc
-ccd5309ae31d81a271719e22e292a1a2  src/MD5Info/MD5Info.ih
+1aa3a0f0ddfc2c30d8d754da153efa45  src/MD5Info/MD5Info.ih
 6c8662c8d1d75633db009bea901eb21d  src/MD5Info/save.cc
 e7c16abc6d375d57fcc37c4ad26bdffd  src/MD5Info/old.cc
 9c61452501a27486e7a6a4980e57f699  src/MD5Info/load.cc
 e62e068190c0bb8bafad9766a51f0af8  src/MD5Info/hashFilenameFor.cc
 dbc3bc50365748c58966356a74404b9f  src/MD5Info/getInstance.cc
 25545ba799fc2e82700a2a27d69fd02c  src/MD5Info/destroy.cc
-9c4f8c91f8ed6d5db0f746c579e2daea  src/MD5Info/contentHash.cc
+4ce3f3ff3ce515edb639a70f3543f969  src/MD5Info/contentHash.cc
 8f956c434ecafcd6d150b2de46ca43db  src/MD5Info/MD5Info.cc
 1a067f7e20797c5aef214410c75d5fdd  src/misc/foreach.hh
 bc9756d0a4cd6612e5d631a346da1cad  src/options/options.hh
@@ -23,7 +23,7 @@ acbb82d39a80294bf6981181b9495ba5  src/system/username.cc
 cfd0b439dd5b1bd7ce0fb235628ce203  src/system/uname.cc
 daa382bb5d172778b781d76cac1c6530  src/system/trimmed.cc
 2c0bd5ee05c1333156639a1b632b0a76  src/system/trim.cc
-0661fea575978c620b126abcf59993d1  src/system/system.cc
+c4ebacd23df6f55c82716de965986cd2  src/system/system.cc
 e95c7e83a1febc484095460026c66579  src/system/statics.cc
 1cda3cc84c91ba757074ce0949447511  src/system/sleep.cc
 a5657ecb4ab3e0cb6009a9deded5d59c  src/system/resolveTest.cc
@@ -161,7 +161,7 @@ d6fd001913c07aaab91b447b1b167851  src/source/buildBinTarget.cc
 8994f13bacbd519506e6e50be7e51a3d  src/source/build.cc
 b4d699f462393b82d275abb44319868d  src/source/basenameWithoutExtension.cc
 d3bbc4b264a483f1e6a984a9544be54d  src/sourceScanner/sourceScanner.hh
-e871b3860956cef7ba71cc2a04e0de89  src/sourceScanner/yylex.cc
+fa22e0772b95b75a20986878e908cf35  src/sourceScanner/yylex.cc
 b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
 30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
 4bc2d81bddb4c3177cd97aad4d3cab55  src/sourceScanner/storeIgnore.cc

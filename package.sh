@@ -25,14 +25,12 @@ if [ -z "$VERSION" ]; then
     exit 1
 fi
 
-
 ccbuild distclean
 rm -rf src/ccbuild
 
 echo "]]] Documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
-cp README.md README #Required for autoconf default dist extra's
 
 YYLEX=src/sourceScanner/yylex.cc
 
@@ -42,13 +40,9 @@ if [ ! -f "$YYLEX" ];	then
 	make -f Makefile.human "$YYLEX"
 fi;
 
-ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' makefile src/ccbuild.cc > Makefile.ccbuild;
+ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefile.ccbuild;
 
-#echo "]]] A-A-P"
-#aap cleanALL;
-#ccbuild --addres src/ccResolutions --nodefargs --args '-std=c++0x -O2 -DVERSION=\"2.0.0\"' aap src/ccbuild.cc > ccbuild.aap;
-
-
+make -f Makefile.human ./src/sourceScanner/yylex.cc
 
 echo "]]] MD5 sum list of source"
 rm -f MD5SUMS
@@ -60,17 +54,11 @@ ccbuild md5 src/ccbuild.cc > MD5SUMS
 ccbuild -C src distclean
 
 echo "]]] Configure scripts for distribution: create, distclean, create"
-sh bootstrap
-./configure
-sh bootstrap clean
-sh bootstrap
-
-rm -f "$YYLEX"
-rm -rf autom4te.cache
+./bootstrap clean
+./bootstrap
 
 echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
 echo "Version is now $VERSION"
-sed -r 's/AC_INIT\(ccbuild, [0-9.]+\)/AC_INIT(ccbuild, '$VERSION')/' -i configure.ac
 sed -r 's/PROJECT_NUMBER         = [0-9.]+/PROJECT_NUMBER         = '$VERSION'/' -i Doxyfile
 sed 's/<version>.*/<version>'$VERSION'/' -i doc/ccbuild/ccbuild.sgml
 echo "Update the version by changing src/ccResolutions"
