@@ -5,56 +5,57 @@ system you can find and report any problems online at
 
 Shortcut: cmake .; make install
 
+Shortcut for other prefix: cmake .; make DESTDIR=/tmp/prefix install
+
 Currently there is only one binary, so installation should be easy...
 1)
-	Install the dependences:
+    Install the dependences:
     libbobcat 2.0 or higher (correct API of Process class)
     libgomp 1.0+ (OpenMP)
     libgnutls (for MD5 algorithm)
-  	libboost 1.37 or higher.
-  	  Boost circular buffer is available since 1.35, but 1.35 seems to give build problems.
+    libboost 1.37 or higher.
+    Boost circular buffer is available since 1.35, but 1.35 seems to give build problems.
     flex 2.5.31 or newer (for the source scanner)
 
 2)
-	If you have absolutly no rights on the system:
-		Run "sh localinstall.sh" as the user you want to develop under.
-		This will use the first writeable PATH path as binary directory
-		and install the configuration files to your home directory.
+    If you have absolutly no rights on the system, add a writable (for example ${HOME}/bin) to your path and run "sh localinstall.sh".
 
-		Don't forget to awnser "yes" to the final do-you-really-want-this
-		question.
+    This will use the first writeable PATH path as binary directory
+    and install the configuration files to your home directory.
 
-	If you have some rights on the system and have autotools:
-		./configure
-		make
-		sudo make install
-	If you are an aap (www.a-a-p.org) fan, try:
-		aap install
+    Don't forget to awnser "yes" to the final do-you-really-want-this
+    question.
+
+    If you have some rights on the system and have cmake installed:
+        cmake .
+        make
+        sudo make install
 
 3)
-	For the user of ccbuild, it might be nice to add the standard Unix
-	headers as empty resolutions by copying the tools/ccResolutions.d
-	directory to ~/.ccbuild (this is not automatically done by any
-	of the install scripts).
+    For the user of ccbuild, it might be nice to add the standard Unix
+    headers as empty resolutions by copying the tools/ccResolutions.d
+    directory to ~/.ccbuild (this is not automatically done by any
+    of the install scripts).
 
 If anything (or everything) fails mail me or try the manual way:
 
-==Manually building and installing...
+Manually building and installing...
+===================================
 1) Build ccbuild
-		Using make: type 'make -f Makefile.human'
+        Using make: type 'make -f Makefile.human'
 
 2) Install
-		Copy 'ccbuild' to any directory given by 'echo $PATH'
+        Copy 'ccbuild' to any directory given by 'echo $PATH'
 
 3) Default configuration (optional)
-		You can copy the default configuration from the tools directory
-		your local .ccbuild directory:
-		mkdir ~/.ccbuild
-		cp -r tools/ccResolutions.d ~/.ccbuild
+        You can copy the default configuration from the tools directory
+        your local .ccbuild directory:
+        mkdir ~/.ccbuild
+        cp -r tools/ccResolutions.d ~/.ccbuild
 
 4) Source code documentation (optional)
     Run doxygen in the root directory of ccbuild, this will generate
-		documentation in the ./doc/html directory.
+    documentation in the ./doc/html directory.
 
 The test sources, usable for examples, are now separately packaged.
 If you want to try some examples, download the example codes from the

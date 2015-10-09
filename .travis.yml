@@ -12,5 +12,5 @@ before_script:
     - CXX=g++-4.8 cmake .
 
 script:
-    - make
-    - ./ccbuild -C src
+    - make DESTDIR=/tmp/prefix install
+    - ./ccbuild -j 1 -C src

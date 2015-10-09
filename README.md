@@ -73,7 +73,7 @@ to build ccbuild using a generated Makefile.
 
 Another option is using `cmake` which is used in the [Travis-CI build](https://travis-ci.org/bneijt/ccbuild).
 
-* Flex scanner must be generated, use:
+* Flex scanner may need to be generated, use:
 
         rm src/SourceScanner/yylex.cc; make -f Makefile.human src/SourceScanner/yylex.cc
 
