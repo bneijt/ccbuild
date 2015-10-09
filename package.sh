@@ -42,8 +42,6 @@ fi;
 
 ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefile.ccbuild;
 
-make -f Makefile.human ./src/sourceScanner/yylex.cc
-
 echo "]]] MD5 sum list of source"
 rm -f MD5SUMS
 if [ -f Makefile ]; then
