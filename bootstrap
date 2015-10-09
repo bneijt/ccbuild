@@ -39,6 +39,8 @@ add_definitions(-DVERSION="${VERSION}")
 link_libraries(gomp bobcat gnutls)
 add_definitions(-fopenmp)
 add_executable(ccbuild ${SOURCES})
+install(TARGETS ccbuild DESTINATION bin)
+install(FILES doc/ccbuild/ccbuild.1 DESTINATION share/man/man1)
 EOF
 
 
