@@ -27,6 +27,8 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
     int status = 0;
     _debugLevel3((simulate ? "Simulation on" : "Simulation off"));
     if(!simulate) {
+        //TODO Replace popen with fork/exec/dup2 to redirect more cleanly?
+        //     or find another way to handle the redirect of stderr
         FILE *processOutputDescriptor = popen(command.c_str(), "r");
         if(processOutputDescriptor == NULL) {
             //TODO read errno here
