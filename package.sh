@@ -26,7 +26,7 @@ if [ -z "$VERSION" ]; then
 fi
 
 ccbuild distclean
-rm -rf src/ccbuild
+rm -f src/ccbuild
 
 echo "]]] Documentation"
 make -C doc/ccbuild clean
@@ -44,9 +44,6 @@ ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefil
 
 echo "]]] MD5 sum list of source"
 rm -f MD5SUMS
-if [ -f Makefile ]; then
-    make clean
-fi
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
 ccbuild -C src distclean

@@ -19,5 +19,6 @@ ccbuild.html: ccbuild.sgml
 	debiandoc2html $<
 
 clean:
-	rm -f ccbuild.1 ccbuild.dvi ccbuild.pdf ccbuildman.html ccbuild.log ccbuild.tex-in ccbuild.toc ccbuild.aux missfont.log ccbuild.tex
-	rm -rf ccbuild.html
+	rm -f ccbuild.1 ccbuildman.html ccbuild.log ccbuild.tex-in ccbuild.toc ccbuild.aux missfont.log ccbuild.tex
+	#rm -f ccbuild.pdf ccbuild.dvi
+	#rm -rf ccbuild.html
