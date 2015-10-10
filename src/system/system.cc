@@ -37,7 +37,9 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
         while (fgets(buffer, sizeof(buffer), processOutputDescriptor)) {
             output.push_back(string(buffer));
         }
-        //TODO check feof
+        if(ferror(processOutputDescriptor) != 0) {
+            output.push_back("PLEASE NOTE: the subprocess output stream ended with an error status.");
+        }
         status = pclose(processOutputDescriptor);
         if(status == -1) {
             throw Problem(Problem::Unable, "Popen was unable to read the child exit status");
