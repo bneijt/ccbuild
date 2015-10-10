@@ -46,21 +46,23 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
         }
     }
 
-    cerrLock.set();
+    if(output.size() > 0) {
+        cerrLock.set();
 
-    //Highlight ON
-    if(Options::highlight) {
-        cerr << "\x1b\x5b\x33\x31\x6d";    //\e[31m
+        //Highlight ON
+        if(Options::highlight) {
+            cerr << "\x1b\x5b\x33\x31\x6d";    //\e[31m
+        }
+
+        copy(output.begin(), output.end(), ostream_iterator<string>(cerr));
+
+        //Highlight OFF
+        if(Options::highlight) {
+            cerr << "\x1b\x5b\x30\x6d";    //\\e[0m
+        }
+
+        cerrLock.unset();
     }
-
-    copy(output.begin(), output.end(), ostream_iterator<string>(cerr));
-
-    //Highlight OFF
-    if(Options::highlight) {
-        cerr << "\x1b\x5b\x30\x6d";    //\\e[0m
-    }
-
-    cerrLock.unset();
 
     //On normal termination return the exit status, otherwise throw a problem
     if(!WIFEXITED(status)) {
