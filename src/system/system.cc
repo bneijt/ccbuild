@@ -27,19 +27,21 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
     int status = 0;
     _debugLevel3((simulate ? "Simulation on" : "Simulation off"));
     if(!simulate) {
-        FBB::Process process(FBB::Process::MERGE_COUT_CERR,
-                             FBB::Process::USE_PATH,
-                             command);
-        process.start();
-        //Close input
-        process.close(); //We specified CIN so this should be ok.
-
-        //TODO Rewrite to copy call with back_inserter
-        string line;
-        while(getline(process, line)) {
-            output.push_back(line);
+        FILE *processOutputDescriptor = popen(command.c_str(), "r");
+        if(processOutputDescriptor == NULL) {
+            //TODO read errno here
+            throw Problem(Problem::Unable, "The fork(2) or pipe(2) calls failed, or we cannot allocate memory");
         }
-        status = process.stop();
+        char buffer[1024];
+
+        while (fgets(buffer, sizeof(buffer), processOutputDescriptor)) {
+            output.push_back(string(buffer));
+        }
+        //TODO check feof
+        status = pclose(processOutputDescriptor);
+        if(status == -1) {
+            throw Problem(Problem::Unable, "Popen was unable to read the child exit status");
+        }
     }
 
     cerrLock.set();
@@ -49,7 +51,7 @@ int System::system(std::string const &command, bool simulate) throw (Problem) {
         cerr << "\x1b\x5b\x33\x31\x6d";    //\e[31m
     }
 
-    copy(output.begin(), output.end(), ostream_iterator<string>(cerr, "\n"));
+    copy(output.begin(), output.end(), ostream_iterator<string>(cerr));
 
     //Highlight OFF
     if(Options::highlight) {
