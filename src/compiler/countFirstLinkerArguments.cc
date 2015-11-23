@@ -18,7 +18,7 @@
 #include "compiler.ih"
 namespace {
 bool startsWith(std::string const &a, std::string const &b) {
-    //Return wether a starts with b
+    //Return whether a starts with b
     if(a.size() < b.size()) {
         return false;
     }

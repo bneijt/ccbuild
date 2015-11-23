@@ -202,13 +202,13 @@ class Source {
         ///\brief Mark the souce as done, using MD5 update if that is enabled
         void markAsDone() const;
 
-        ///\brief Return wether this source produces output.
+        ///\brief Return whether this source produces output.
         bool producesOutput() const;
 
-        /** \brief Return wether this source has changed since last seen
+        /** \brief Return whether this source has changed since last seen
 
             This is a helper function, introduced with the MD5 sum checking.
-            It returns wether this source changed since last run. If we don't use
+            It returns whether this source changed since last run. If we don't use
             md5 hashing, we need a substitute output file to check the modtime
             against for when the source doesn't produce output.
 
@@ -219,11 +219,11 @@ class Source {
         */
         bool changed(std::string const &substituteOutput) const;
 
-        ///\brief Check wether this source has changed since last seen
+        ///\brief Check whether this source has changed since last seen
         bool changed() const;
 
 
-        /**\brief Return wether the source is up to date given a collection of reference sources
+        /**\brief Return whether the source is up to date given a collection of reference sources
 
             \param sources The sources this source's output file needs to be newer then.
             \return True if this source is up to date, false otherwise.

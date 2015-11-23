@@ -156,7 +156,7 @@ bool System::parseArguments(Arguments &arg) {
         cout << " dot [source.cc]\tGenerate dot graph files for sources\n";
         cout << " makefile [source.cc]\tGenerate a Makefile on stdout\n";
         cout << " aap [source.cc]\tGenerate an a-a-p file on stdout\n";
-        cout << " check [source.cc]\tShow wether files are up to date\n";
+        cout << " check [source.cc]\tShow whether files are up to date\n";
         cout << " icmake [source.cc]\ticmake slave mode: output used directories\n";
         cout << " clean [source.cc]\tClean everything or the given source\n";
         cout << " distclean \t\tRecursively remove 'o' and '.gch' files\n";
