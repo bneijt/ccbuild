@@ -17,7 +17,8 @@
 
 #include "sourceScanner.ih"
 void SourceScanner::includes(std::vector < std::string > *local,
-                             std::vector < std::string > *global, std::vector < std::string > *ignore) {
+                             std::vector < std::string > *global,
+                             std::vector < std::string > *ignore) {
     local->resize(d_locals.size());
     copy(d_locals.begin(), d_locals.end(), local->begin());
 
