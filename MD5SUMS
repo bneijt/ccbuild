@@ -28,7 +28,7 @@ e95c7e83a1febc484095460026c66579  src/system/statics.cc
 1cda3cc84c91ba757074ce0949447511  src/system/sleep.cc
 a5657ecb4ab3e0cb6009a9deded5d59c  src/system/resolveTest.cc
 5b3810b3ae044db68122bc8e417c4dba  src/system/projectName.cc
-5e978e57ab33a1f39c5939087b314f11  src/system/parseArguments.cc
+7e5049ba5ead1d774cf056f16a4b1f29  src/system/parseArguments.cc
 497469d0aa7537ba10f29b64a461045e  src/system/mkdtemp.cc
 e6a20f6c03b325d4e50798a5bb1ebb39  src/system/md5.cc
 423958de81ef135d4bfeabe2be1fc20f  src/system/makefileForAll.cc
@@ -69,7 +69,7 @@ f7b66b7df9a03f9254d9fc0ed323f616  src/string/replace.cc
 44dd218bad6288439a8d5072f4170a28  src/globals/globals.cc
 5ae08430dbe943e6fdb6ca7fabc481c5  src/globals/getInstance.cc
 ca004eb5484f2c82b0f71a4ab1ebf219  src/globals/destroy.cc
-6946b072e1ac16df9c7399fd47ed0545  src/fileSystem/fileSystem.hh
+4c46087f977b24ebe2020a672b9960de  src/fileSystem/fileSystem.hh
 0a0def8c487933a94d1d2ce68367a3b3  src/fileSystem/touch.cc
 3e90537f883973248f8fa1f501ba50f0  src/fileSystem/fileSystem.ih
 18ef36225ed842899eff7ef9db6da158  src/fileSystem/rmIfExists.cc
@@ -116,7 +116,7 @@ d023d810b371eda6a14fee209e637d74  src/compiler/linkCommand.cc
 2a405b4644f955e8d76db56424a2ba84  src/compiler/link.cc
 6fa0f65baac2cce7b2a3b6e2ace447b7  src/compiler/libCommand.cc
 66fe78596249451efc3d9dd1dcbfbd3b  src/compiler/lib.cc
-f3b694dc151d88300da538804e357da0  src/compiler/countFirstLinkerArguments.cc
+a0ee5b96502c1201b28417bf967db171  src/compiler/countFirstLinkerArguments.cc
 3045eabe1cbe9cd661b8cfb2ec8e918c  src/compiler/compileCommand.cc
 33334a3413ce1d88c875bb3d7d8ee05f  src/compiler/compile.cc
 94f60a260f2573c156d22edfbe926e99  src/compiler/cls.cc
@@ -132,7 +132,7 @@ a4e315cdbe730a4c1a474ca342defd24  src/sources/indexoperator.cc
 00ce055a004a91e98827090113d1cf1a  src/sources/getInstance.cc
 43eaf01ddd34db5944e0a18e05292ccb  src/sources/erase.cc
 24e13377c6cb15fda07fe374d35977a9  src/sources/destroy.cc
-5f6f144c489d07be086b61c6e37c79ed  src/source/source.hh
+3bde57962a33ca09480fdc2cb747c507  src/source/source.hh
 c80ce0d4bbc2ef2c2b7e786baeea8bc6  src/source/upToDate.cc
 1145569c57544065de0cff245011d9c6  src/source/source.ih
 1fb812d3ec03ecf83abe2f167eb802e7  src/source/stale.cc
@@ -161,13 +161,12 @@ d6fd001913c07aaab91b447b1b167851  src/source/buildBinTarget.cc
 8994f13bacbd519506e6e50be7e51a3d  src/source/build.cc
 b4d699f462393b82d275abb44319868d  src/source/basenameWithoutExtension.cc
 d3bbc4b264a483f1e6a984a9544be54d  src/sourceScanner/sourceScanner.hh
-2d09ced5cd67e77986659f2107d95299  src/sourceScanner/yylex.cc
-b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
 30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
+b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
 4bc2d81bddb4c3177cd97aad4d3cab55  src/sourceScanner/storeIgnore.cc
 9e9eab44cb9222de403a996ec3c5d228  src/sourceScanner/storeGlobal.cc
-1d87cba1baa251831845800da4145c2d  src/sourceScanner/sourceScanner.cc
-9efb79815c93bc3945d7b5e4a6de31a6  src/sourceScanner/includes.cc
+a06f3ab3b41a58ac40a96a21736f851f  src/sourceScanner/sourceScanner.cc
+73630ca0e94e2513cdb83c71517bfe69  src/sourceScanner/includes.cc
 3483405cf6855c00ae6ce027147de51a  src/sourceScanner/hasMainFunction.cc
 b72f2bbec099824487a3d1950984d869  src/sourceScanner/hasDefine.cc
 03299e5f1330144933d7c84b6a428f0d  src/sourceScanner/lexer.h
