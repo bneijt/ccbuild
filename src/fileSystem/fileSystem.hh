@@ -129,7 +129,7 @@ class FileSystem {
         ///\brief Return the current working directory
         static std::string cwd();
 
-        /**\brief Check wether file1 is newer then file2
+        /**\brief Check whether file1 is newer then file2
             If either file doesn't exist, the function returns false.
         */
         static bool newer(std::string const &file1, std::string const &file2);
