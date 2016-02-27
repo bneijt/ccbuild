@@ -161,11 +161,12 @@ d6fd001913c07aaab91b447b1b167851  src/source/buildBinTarget.cc
 8994f13bacbd519506e6e50be7e51a3d  src/source/build.cc
 b4d699f462393b82d275abb44319868d  src/source/basenameWithoutExtension.cc
 d3bbc4b264a483f1e6a984a9544be54d  src/sourceScanner/sourceScanner.hh
-30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
+8d2d69df65d99fb148b730c833673eb2  src/sourceScanner/yylex.cc
 b8f7c112735774713602f696d233a6be  src/sourceScanner/sourceScanner.ih
+30c5fe4bf636a3e4eb735b5297b28f52  src/sourceScanner/storeLocal.cc
 4bc2d81bddb4c3177cd97aad4d3cab55  src/sourceScanner/storeIgnore.cc
 9e9eab44cb9222de403a996ec3c5d228  src/sourceScanner/storeGlobal.cc
-a06f3ab3b41a58ac40a96a21736f851f  src/sourceScanner/sourceScanner.cc
+3705abfea3bfc73625f502f4829a81d1  src/sourceScanner/sourceScanner.cc
 73630ca0e94e2513cdb83c71517bfe69  src/sourceScanner/includes.cc
 3483405cf6855c00ae6ce027147de51a  src/sourceScanner/hasMainFunction.cc
 b72f2bbec099824487a3d1950984d869  src/sourceScanner/hasDefine.cc

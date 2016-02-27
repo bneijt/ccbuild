@@ -25,7 +25,7 @@
 #include <vector>
 #include <stack>
 #ifndef _SKIP_YYFLEXLEXER_
-#include <FlexLexer.h>
+#include "FlexLexer.h"
 #endif
 
 namespace bneijt {

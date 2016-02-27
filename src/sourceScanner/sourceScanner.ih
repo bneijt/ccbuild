@@ -27,7 +27,7 @@
 #include <iterator>
 
 #ifndef _SKIP_YYFLEXLEXER_
-#include <FlexLexer.h>
+#include "FlexLexer.h"
 #endif
 
 using namespace std;
