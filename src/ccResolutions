@@ -24,3 +24,4 @@ openssl/evp.h	`pkg-config --libs --cflags openssl`
 bobcat/process -lbobcat
 gnutls/crypto.h	-lgnutls
 gnutls/gnutls.h	-lgnutls
+boost/numeric/conversion/cast.hpp	
