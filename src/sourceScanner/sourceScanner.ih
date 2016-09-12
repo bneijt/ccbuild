@@ -25,9 +25,10 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <boost/numeric/conversion/cast.hpp>
 
 #ifndef _SKIP_YYFLEXLEXER_
-#include "FlexLexer.h"
+#include <FlexLexer.h>
 #endif
 
 using namespace std;

@@ -16,8 +16,10 @@
 */
 
 #include "sourceScanner.ih"
-SourceScanner::SourceScanner(istream * newYyin)
+SourceScanner::SourceScanner(istream *newYyin)
     :
     d_hasMainFunction(false) {
+// TODO switch based on FLEX_VERSION (2.6.1 is current Arch)
+// #pragma message "FLEX_VERSION    IS " FLEX_VERSION
     switch_streams(*newYyin, yyout);
 }

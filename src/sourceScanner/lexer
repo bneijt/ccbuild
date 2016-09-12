@@ -10,7 +10,7 @@
     ///\cond
 %}
 
-%option yyclass="SourceScanner" outfile="yylex.cc" c++ 8bit warn noyywrap yylineno
+%option yyclass="SourceScanner" c++ 8bit warn noyywrap yylineno
 
 /*
 	Debug is now off... the sourcescanner seems to work ok.
@@ -63,7 +63,7 @@ int[ \t\n]+main[ \t\n]*\(					d_hasMainFunction = true;
 ^[ \t]*#" "include[ \t]+[<\"]       BEGIN iinclude;
 <iinclude>[^>\"]*							d_iinclude = yytext;
 <iinclude>[>\"][^\n]*\n       {
-                                 
+
                             	   BEGIN INITIAL;
 	                               storeIgnore();
 		                           }
@@ -111,4 +111,3 @@ int[ \t\n]+main[ \t\n]*\(					d_hasMainFunction = true;
 %%
 
 ///\endcond
-

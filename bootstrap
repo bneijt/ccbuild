@@ -19,14 +19,19 @@
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 
 if [ "x$1" = "xclean" ]; then
-    echo Cleaning
-    rm -rf CMakeFiles
+    echo cleaning
+    rm -rf cmakefiles
     exit
 fi
 ## Generate Makefile.am from ccbuild
 PSOURCE=src/ccbuild.cc
 PNAME=`basename "${PSOURCE}" .cc`
 echo "Updating MD5SUMS file"
+
+if [ -f "src/sourceScanner/yylex.cc" ]; then
+    rm src/sourceScanner/yylex.cc
+fi
+
 which ccbuild && (ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS)
 SOURCES=`egrep .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
 VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
@@ -35,12 +40,14 @@ VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
 cat > CMakeLists.txt <<EOF
 cmake_minimum_required (VERSION 2.6)
 project (ccbuild)
-add_definitions(-DVERSION="${VERSION}")
+
+find_package(FLEX)
+FLEX_TARGET(SourceScanner "src/sourceScanner/lexer"  "src/sourceScanner/yylex.cc" )
+
+add_definitions(-DVERSION="${VERSION}" -DFLEX_VERSION="\${FLEX_VERSION}")
 link_libraries(gomp bobcat gnutls)
 add_definitions(-fopenmp)
-add_executable(ccbuild ${SOURCES})
+add_executable(ccbuild ${SOURCES} \${FLEX_SourceScanner_OUTPUTS})
 install(TARGETS ccbuild DESTINATION bin)
 install(FILES doc/ccbuild/ccbuild.1 DESTINATION share/man/man1)
 EOF
-
-
