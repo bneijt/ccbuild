@@ -11,12 +11,7 @@
 <body>
 <div id="header">
 <h1 class="title">ccbuild(1) General Commands Manual</h1>
-<h2 class="author">A. Bram Neijt <script type="text/javascript">
-<!--
-h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#98;&#110;&#x65;&#x69;&#106;&#116;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
-// -->
-</script><noscript>&#98;&#110;&#x65;&#x69;&#106;&#116;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript></h2>
+<h2 class="author">A. Bram Neijt <a href="mailto:bneijt@gmail.com">bneijt@gmail.com</a></h2>
 <h3 class="date">August 8, 2014</h3>
 </div>
 <h1 id="name">NAME</h1>
@@ -29,135 +24,135 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
 <h1 id="commands">COMMANDS</h1>
 <dl>
 <dt>build [filename.cc]</dt>
-<dd><p>Build everything or the given source.</p>
+<dd>Build everything or the given source.
 </dd>
 <dt>lib [filename.cc]</dt>
 <dd><p>Collect all objects into an archive. If a version is given, using --pversion, then a shared library is also build with symbolic links. This currently forces the -fPIC argument addition. The name of your library is given the name of the current directory or it's parent when the current directory is called src.</p>
 <p>Example: create an empty .cc file which simply includes all the local libraries, run ccbuild --pversion 0.0.1 lib that‐ file.cc</p>
 </dd>
 <dt>clean [filename.cc]</dt>
-<dd><p>Clean everything or the given source.</p>
+<dd>Clean everything or the given source.
 </dd>
 <dt>distclean</dt>
-<dd><p>Recursively remove all &quot;o&quot; directories after removing all .md5 and .o files therein. And removes all .gch files.</p>
+<dd>Recursively remove all &quot;o&quot; directories after removing all .md5 and .o files therein. And removes all .gch files.
 </dd>
 <dt>deps [filename.cc]</dt>
-<dd><p>List all files this source depends on. It lists three lines separated by empty lines. The first contains the local dependencies, the second the ignored headers (for the file) and the last contains all global includes needed.</p>
+<dd>List all files this source depends on. It lists three lines separated by empty lines. The first contains the local dependencies, the second the ignored headers (for the file) and the last contains all global includes needed.
 </dd>
 <dt>dot [filename.cc]</dt>
-<dd><p>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the --verbose flag is used the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line.</p>
+<dd>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the --verbose flag is used the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line.
 </dd>
 <dt>makefile [filename.cc]</dt>
-<dd><p>Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated.</p>
+<dd>Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated.
 </dd>
 <dt>aap [filename.cc]</dt>
-<dd><p>Generate an A-A-P file on stdout. If the file name is not given, an &quot;all&quot; rule will be added and all local binary tar‐ gets will be listed.</p>
+<dd>Generate an A-A-P file on stdout. If the file name is not given, an &quot;all&quot; rule will be added and all local binary tar‐ gets will be listed.
 </dd>
 <dt>check [filename.cc]</dt>
-<dd><p>Display source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the --verbose flag is used, another tab separated column will be inserted containing a two letter file type ccbuild identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.</p>
+<dd>Display source status and file name on the stdout. Status and source path are separated with a tab character. Status is either &quot;old&quot; or &quot;ok&quot;. When the --verbose flag is used, another tab separated column will be inserted containing a two letter file type ccbuild identifies it as. This file type is &quot;bt&quot;, &quot;ot&quot;, &quot;ih&quot; or &quot;hh&quot; for binary target, object target, internal header and header respectively.
 </dd>
 <dt>icmake [filename.cc]</dt>
-<dd><p>icmake slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If --verbose is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by run‐ ning: ccbuild icmake &gt;&gt; CLASSES</p>
+<dd>icmake slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If --verbose is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by run‐ ning: ccbuild icmake &gt;&gt; CLASSES
 </dd>
 <dt>resolve [filename.cc]</dt>
-<dd><p>Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: ccbuild resolve &gt;&gt; ccResolutions .</p>
+<dd>Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: ccbuild resolve &gt;&gt; ccResolutions .
 </dd>
 <dt>md5 [filename.cc]</dt>
-<dd><p>MD5 sum all sources needed to compile all binary targets, or the given source on stdout.</p>
+<dd>MD5 sum all sources needed to compile all binary targets, or the given source on stdout.
 </dd>
 </dl>
 <h1 id="options">OPTIONS</h1>
 <p>Options are used to change the behaviour of the commands. Some options are useless for some commands.</p>
 <dl>
 <dt>-f --force-update</dt>
-<dd><p>Update everything by labelling everything as old.</p>
+<dd>Update everything by labelling everything as old.
 </dd>
 <dt>-h --help</dt>
-<dd><p>Get a list of options and commands.</p>
+<dd>Get a list of options and commands.
 </dd>
 <dt>--gnutouch</dt>
-<dd><p>Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.</p>
+<dd>Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.
 </dd>
 <dt>-s --no-act</dt>
-<dd><p>Simulate, don't really execute any writing commands.</p>
+<dd>Simulate, don't really execute any writing commands.
 </dd>
 <dt>--compiler cmd</dt>
-<dd><p>Set the compiler command. The default is &quot;g++&quot;.</p>
+<dd>Set the compiler command. The default is &quot;g++&quot;.
 </dd>
 <dt>-a --args argument</dt>
-<dd><p>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Multiple uses of this option are concate‐ nated with spaces.</p>
+<dd>Set these default compiler arguments, removing the standard default arguments (&quot;-Wall -g&quot;). Multiple uses of this option are concate‐ nated with spaces.
 </dd>
 <dt>-C path</dt>
-<dd><p>Change directory before anything else.</p>
+<dd>Change directory before anything else.
 </dd>
 <dt>-p --precompile-ih</dt>
-<dd><p>Pre-compile only internal headers. This requires g++ version 3.4 up.</p>
+<dd>Pre-compile only internal headers. This requires g++ version 3.4 up.
 </dd>
 <dt>--precompile-all</dt>
-<dd><p>Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don't use internal headers, this pre-compilation is all you've got.</p>
+<dd>Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don't use internal headers, this pre-compilation is all you've got.
 </dd>
 <dt>--brute</dt>
-<dd><p>Continue on compiler errors.</p>
+<dd>Continue on compiler errors.
 </dd>
 <dt>--md5</dt>
-<dd><p>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only stored after a clean exit from ccbuild (last line showing &quot;[WR] MD5 data&quot;) or a successful compilation.</p>
+<dd>Use MD5 hashes to check for file changes. The hashes are store in &quot;o/filename.md5&quot; for every file. These sums are only stored after a clean exit from ccbuild (last line showing &quot;[WR] MD5 data&quot;) or a successful compilation.
 </dd>
 <dt>-I path</dt>
-<dd><p>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).</p>
+<dd>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).
 </dd>
 <dt>--recursive-include path</dt>
-<dd><p>This is just like -I, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behaviour, that would be bad practice.</p>
+<dd>This is just like -I, but for the given path and every non-empty directory with a name other then &quot;o&quot;. Make sure you do not come to depend on this behaviour, that would be bad practice.
 </dd>
 <dt>-l --highlight</dt>
-<dd><p>Highlight the output of the compiler using a red terminal colour.</p>
+<dd>Highlight the output of the compiler using a red terminal colour.
 </dd>
 <dt>--xof --exec-on-fail command</dt>
-<dd><p>Execute this command when the command (pre)compilation returns any‐ thing but 0. The first argument given to the command will be rela‐ tive path to the file the command was executed on (which is either a C++ source or header). If you don't want to use the file name, you can append an echo command like &quot;sleep 2; echo&quot;.</p>
+<dd>Execute this command when the command (pre)compilation returns any‐ thing but 0. The first argument given to the command will be rela‐ tive path to the file the command was executed on (which is either a C++ source or header). If you don't want to use the file name, you can append an echo command like &quot;sleep 2; echo&quot;.
 </dd>
 <dt>--xop --exec-on-pass cmd</dt>
-<dd><p>This is the same as --exec-on-fail, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on.</p>
+<dd>This is the same as --exec-on-fail, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on.
 </dd>
 <dt>--clearpc</dt>
-<dd><p>Clear the screen just before executing the command (clear per com‐ mand).</p>
+<dd>Clear the screen just before executing the command (clear per com‐ mand).
 </dd>
 <dt>--append cmd</dt>
-<dd><p>Append this to every command. This can be used to redirect output or set up pipes for compiler output.</p>
+<dd>Append this to every command. This can be used to redirect output or set up pipes for compiler output.
 </dd>
 <dt>--loop</dt>
-<dd><p>Loop the system with one second intervals. This only works for the build command at the moment. All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded.</p>
+<dd>Loop the system with one second intervals. This only works for the build command at the moment. All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded.
 </dd>
 <dt>--nodefargs</dt>
-<dd><p>Do not read the first line of ./ccResolutions for extra arguments.</p>
+<dd>Do not read the first line of ./ccResolutions for extra arguments.
 </dd>
 <dt>--nodefres</dt>
-<dd><p>Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or dis‐ cover your project's dependencies with the resolve command.</p>
+<dd>Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or dis‐ cover your project's dependencies with the resolve command.
 </dd>
 <dt>--addres filename</dt>
-<dd><p>Load the given resolution file before any other.</p>
+<dd>Load the given resolution file before any other.
 </dd>
 <dt>--pversion version</dt>
-<dd><p>Set the program version you are working on to version. This is cur‐ rently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes.</p>
+<dd>Set the program version you are working on to version. This is cur‐ rently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes.
 </dd>
 <dt>--ar</dt>
-<dd><p>Archive the objects before linking. This should reduce the binary size because it leaves out unused objects.</p>
+<dd>Archive the objects before linking. This should reduce the binary size because it leaves out unused objects.
 </dd>
 <dt>--verbose</dt>
-<dd><p>Show commands and produce more output for dot and check commands.</p>
+<dd>Show commands and produce more output for dot and check commands.
 </dd>
 <dt>-V --version</dt>
-<dd><p>Output version number on stdout and copyright/license on stderr.</p>
+<dd>Output version number on stdout and copyright/license on stderr.
 </dd>
 <dt>--xml</dt>
-<dd><p>Output in XML where supported. Currently this is only the check command.</p>
+<dd>Output in XML where supported. Currently this is only the check command.
 </dd>
 <dt>--nowarn</dt>
-<dd><p>Leave out most warnings.</p>
+<dd>Leave out most warnings.
 </dd>
 <dt>--batch</dt>
-<dd><p>Compile a batch of files with one g++ call before any other compi‐ lation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience.</p>
+<dd>Compile a batch of files with one g++ call before any other compi‐ lation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience.
 </dd>
 <dt>-j number_threads</dt>
-<dd><p>Set the maximum number of threads used during build. Only available when OpenMP is enabled.</p>
+<dd>Set the maximum number of threads used during build. Only available when OpenMP is enabled.
 </dd>
 </dl>
 <h1 id="resolution-configuration">RESOLUTION CONFIGURATION</h1>
@@ -167,38 +162,38 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
 <p>Examples of program use.</p>
 <dl>
 <dt>ccbuild resolve &gt;&gt; ccResolutions</dt>
-<dd><p>Add any of the unknown global headers to the ccResolutions file. You can also use --nowarn to keep ccbuild quiet, but you will have to think twice if you get compilation errors.</p>
+<dd>Add any of the unknown global headers to the ccResolutions file. You can also use --nowarn to keep ccbuild quiet, but you will have to think twice if you get compilation errors.
 </dd>
 <dt>ccbuild --brute</dt>
-<dd><p>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call.</p>
+<dd>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call.
 </dd>
 <dt>ccbuild -p --compiler 'g++-3.4' --args -Wall --args '-Wextra -ansi'</dt>
-<dd><p>Precompile internal headers using g++-3.4 and highlight all com‐ piler output (-l). Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.</p>
+<dd>Precompile internal headers using g++-3.4 and highlight all com‐ piler output (-l). Also give all compiler commands the parameters &quot;-Wall -Wextra -ansi&quot;.
 </dd>
 <dt>ccbuild -f --args -O3</dt>
-<dd><p>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.</p>
+<dd>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.
 </dd>
-</dl>
-<p>ccbuild --verbose dot; dotty *.dot : Graph the dependencies for all programs with colours. Then view these using dotty. This can help you to discover irregular depen‐ dencies and what test programs use.</p>
-<dl>
+<dt>ccbuild --verbose dot; dotty *.dot</dt>
+<dd>Graph the dependencies for all programs with colours. Then view these using dotty. This can help you to discover irregular depen‐ dencies and what test programs use.
+</dd>
 <dt>ccbuild --xof 'gedit'</dt>
-<dd><p>Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class.</p>
+<dd>Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class.
 </dd>
 <dt>ccbuild --compiler distcc -j 20</dt>
-<dd><p>Use 20 distcc compilers to compile the project.</p>
+<dd>Use 20 distcc compilers to compile the project.
 </dd>
 </dl>
 <h1 id="files">FILES</h1>
 <p>Configuration files used by ccbuild</p>
 <dl>
 <dt>./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]</dt>
-<dd><p>Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolu‐ tions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolu‐ tions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with uname -nsm.</p>
+<dd>Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolu‐ tions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolu‐ tions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with uname -nsm.
 </dd>
 <dt>~/.ccbuild/ccResolutions</dt>
-<dd><p>Global configuration file.</p>
+<dd>Global configuration file.
 </dd>
 <dt>~/.ccbuild/ccResolutions.d</dt>
-<dd><p>The resolution configuration directory. All files in this directory are considered configuration files.</p>
+<dd>The resolution configuration directory. All files in this directory are considered configuration files.
 </dd>
 </dl>
 <h1 id="caveats">CAVEATS</h1>

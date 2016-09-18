@@ -12,8 +12,7 @@ help:
 	@echo help       Show this message.
 
 ./src/sourceScanner/yylex.cc: ./src/sourceScanner/lexer
-	flex $<
-	mv yylex.cc $@
+	flex --outfile=$@ $<
 
 include Makefile.ccbuild
 

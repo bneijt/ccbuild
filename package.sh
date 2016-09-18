@@ -43,6 +43,7 @@ fi;
 ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefile.ccbuild;
 
 echo "]]] MD5 sum list of source"
+rm -f "$YYLEX"
 rm -f MD5SUMS
 ccbuild md5 src/ccbuild.cc > MD5SUMS
 
