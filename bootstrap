@@ -43,8 +43,10 @@ project (ccbuild)
 
 find_package(FLEX)
 FLEX_TARGET(SourceScanner "src/sourceScanner/lexer"  "src/sourceScanner/yylex.cc" )
+string(SUBSTRING \${FLEX_VERSION} 0 1 FLEX_VERSION_MAJOR)
+string(SUBSTRING \${FLEX_VERSION} 2 1 FLEX_VERSION_MINOR)
 
-add_definitions(-DVERSION="${VERSION}" -DFLEX_VERSION="\${FLEX_VERSION}")
+add_definitions(-DVERSION="${VERSION}" -DFLEX_VERSION_MAJOR=\${FLEX_VERSION_MAJOR} -DFLEX_VERSION_MINOR=\${FLEX_VERSION_MINOR})
 link_libraries(gomp bobcat gnutls)
 add_definitions(-fopenmp)
 add_executable(ccbuild ${SOURCES} \${FLEX_SourceScanner_OUTPUTS})
