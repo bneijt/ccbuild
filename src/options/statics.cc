@@ -12,7 +12,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
+  along with ccbuild.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "options.ih"
@@ -23,7 +23,7 @@ std::string Options::execOnPass("");
 std::string Options::extraArgs("");
 std::string Options::commandAppend("");
 std::string Options::execOnFail("");
-std::string Options::homepage("http://www.logfish.net/pr/ccbuild/");
+std::string Options::homepage("https://github.com/bneijt/ccbuild");
 std::string Options::progVersion("");
 std::string Options::cacheRoot("o");
 //std::string Options::("");

@@ -20,7 +20,7 @@
 //		THIS FILE IS ONLY HERE FOR DOCUMENTATION PURPOSES
 /**
    \mainpage ccbuild
-   See the ccbuild homepage at: <a href="http://www.logfish.net/pr/ccbuild">http://www.logfish.net/pr/ccbuild</a>
+   See the ccbuild homepage at: <a href="https://github.com/bneijt/ccbuild">https://github.com/bneijt/ccbuild</a>
    \section intro_sec Introduction
   
    ccbuild is a simple build utility. It is site specific (not multiplatform) and probably Linux specific. This however, adds some additional simplicity to the compilation of your source.

@@ -8,7 +8,7 @@
 	<version>2.0.8
 	<abstract>This document is a general usage manual to &ccb;. It will introduce ways of
 	using &ccb;. It will also explain &ccb;'s behaviour in more words then the manual does.
-	The newest version of &ccb; can be found at the <url name="http://www.logfish.net/pr/ccbuild/" id="http://www.logfish.net/pr/ccbuild/">
+	The newest version of &ccb; can be found at the <url name="https://github.com/bneijt/ccbuild" id="https://github.com/bneijt/ccbuild">
 
 	<copyright>Copyright &copy; 2005 A. Bram Neijt
     <p>

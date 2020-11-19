@@ -507,7 +507,7 @@
   <refsect1>
     <title>REPORTING BUGS</title>
 
-    <para>Report any issue with &manpackage; at: http://www.logfish.net/pr/ccbuild/</para>
+    <para>Report any issue with &manpackage; at: https://github.com/bneijt/ccbuild</para>
   </refsect1>
 
   <refsect1>

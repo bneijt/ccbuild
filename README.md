@@ -13,7 +13,7 @@ Thank you for downloading `ccbuild`!
 Documentation
 -------------
 All documentation can be found in the doc directory. If you want to hack ccbuild, don't forget to run `doxygen` first.
-You can also use the online versions of these documents via the homepage, most easily found using [http://www.logfish.net/pr/ccbuild/](http://www.logfish.net/pr/ccbuild/)
+You can also use the online versions of these documents via the homepage, most easily found using [https://github.com/bneijt/ccbuild](https://github.com/bneijt/ccbuild)
 
 
 Program usage
