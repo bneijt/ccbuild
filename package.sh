@@ -38,8 +38,13 @@ echo "]]] Update documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
-awk '/^\s*$/{exit}//{print}' < ChangeLog > release.md
+mkdir -p build
+
+awk '/^\s*$/{exit}//{print}' < ChangeLog > build/release.md
 
 echo "Version is now $VERSION"
 echo "::set-output name=version::$VERSION"
-git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | gzip > ccbuild-$VERSION.tar.gz
+git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | tar -xC build
+cp -rf doc build/ccbuild-$VERSION
+cd build
+tar -czf ccbuild-$VERSION.tar.gz ccbuild-$VERSION
