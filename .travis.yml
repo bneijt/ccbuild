@@ -10,7 +10,7 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-4.8
+    - g++-4.9
     - libbobcat-dev
     - libgcrypt11-dev
     - libboost-dev
