@@ -19,10 +19,14 @@ jobs:
     - name: Build
       run: cmake --build . --config Release
     - name: Package
-      run: ./package.sh
+      run: |
+        . package.sh
+        echo "::set-output name=version::$VERSION"
+      id: package
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "ccbuild*.tar.gz"
         bodyFile: "release.md"
         token: ASDF
+        tag: ${{ setps.package.outputs.version }}
         # token: ${{ secrets.GITHUB_TOKEN }}
