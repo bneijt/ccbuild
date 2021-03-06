@@ -39,5 +39,7 @@ echo "]]] Update documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
+awk '/^\s*$/{exit}//{print}' < ChangeLog > release.md
+
 echo "Version is now $VERSION"
-echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
+git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | gzip > ccbuild-$VERSION.tar.gz
