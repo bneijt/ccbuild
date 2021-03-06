@@ -22,12 +22,11 @@ set -e
 echo "]]] Clean cmake config"
 ./update_cmakelists.sh clean
 
-# VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
-
 echo "]]] Update cmake config"
 . ./update_cmakelists.sh
 
 if [ -z "$VERSION" ]; then
+    # VERSION should come from the import of update_cmakelists
     echo EMPTY VERSION FOUND
     exit 1
 fi
@@ -39,5 +38,14 @@ echo "]]] Update documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
+rm -rf build
+mkdir -p build
+
+awk '/^\s*$/{exit}//{print}' < ChangeLog > build/release.md
+
 echo "Version is now $VERSION"
-echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
+echo "::set-output name=version::$VERSION"
+git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | tar -xC build
+cp -rf doc build/ccbuild-$VERSION
+cd build
+tar -czf ccbuild-$VERSION.tar.gz ccbuild-$VERSION

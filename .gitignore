@@ -5,6 +5,7 @@
 /src/*/*.o
 /src/ccbuild
 /pkgs
+/build
 /README
 /Makefile
 /CMakeCache.txt

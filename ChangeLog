@@ -1,3 +1,6 @@
+2.0.9:
+ - Refresh build dependencies and upgrade to C++17
+
 2.0.8:
  - Use cmake to generate flex scanner
 

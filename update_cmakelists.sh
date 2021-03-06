@@ -17,9 +17,11 @@
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 set -e
 
+CCBUILD=$(which ccbuild || echo ./ccbuild)
+
 if [ "x$1" = "xclean" ]; then
     echo cleaning
-    ccbuild distclean
+    $CCBUILD distclean
     rm -rf CMakeFiles
     rm -f CMakeCache.txt
     rm -f src/sourceScanner/yylex.cc
@@ -35,10 +37,9 @@ if [ -f "src/sourceScanner/yylex.cc" ]; then
     rm src/sourceScanner/yylex.cc
 fi
 
-ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS
+$CCBUILD md5 --recursive-include . "${PSOURCE}" > MD5SUMS
 SOURCES=`egrep .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
-VERSION=$(git describe --abbrev=0 --dirty)
-# VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+VERSION=$(git describe)
 
 #Write CMakeLists.txt
 cat > CMakeLists.txt <<EOF
