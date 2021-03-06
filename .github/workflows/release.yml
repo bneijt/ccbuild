@@ -28,5 +28,5 @@ jobs:
         artifacts: "ccbuild*.tar.gz"
         bodyFile: "release.md"
         token: ASDF
-        tag: ${{ setps.package.outputs.version }}
+        tag: ${{ steps.package.outputs.version }}
         # token: ${{ secrets.GITHUB_TOKEN }}
