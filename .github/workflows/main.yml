@@ -8,7 +8,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup
-      run: cmake .
+      run: |
+        sudo apt-get install libgnutls-dev
+        cmake .
     - name: Build
       run: cmake --build . --config Release
     - name: Test
