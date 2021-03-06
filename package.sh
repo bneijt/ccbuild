@@ -22,12 +22,11 @@ set -e
 echo "]]] Clean cmake config"
 ./update_cmakelists.sh clean
 
-# VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
-
 echo "]]] Update cmake config"
 . ./update_cmakelists.sh
 
 if [ -z "$VERSION" ]; then
+    # VERSION should come from the import of update_cmakelists
     echo EMPTY VERSION FOUND
     exit 1
 fi
