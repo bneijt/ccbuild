@@ -9,8 +9,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup
       run: |
-        sudo apt-get install -y libgnutls28-dev
-        cmake .
+        sudo apt-get install -y libgnutls28-dev g++-4.8 libbobcat-dev libgcrypt11-dev libboost-dev libgnutls-dev
+        CXX=g++-4.8 cmake .
     - name: Build
       run: cmake --build . --config Release
     - name: Test
