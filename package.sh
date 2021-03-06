@@ -44,7 +44,6 @@ mkdir -p build
 awk '/^\s*$/{exit}//{print}' < ChangeLog > build/release.md
 
 echo "Version is now $VERSION"
-echo "::set-output name=version::$VERSION"
 git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | tar -xC build
 cp -rf doc build/ccbuild-$VERSION
 cd build
