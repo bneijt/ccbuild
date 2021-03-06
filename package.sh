@@ -41,4 +41,5 @@ make -C doc/ccbuild
 awk '/^\s*$/{exit}//{print}' < ChangeLog > release.md
 
 echo "Version is now $VERSION"
+echo "::set-output name=version::$VERSION"
 git archive --format=tar --prefix=ccbuild-$VERSION/ HEAD | gzip > ccbuild-$VERSION.tar.gz
