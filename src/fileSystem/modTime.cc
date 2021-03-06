@@ -16,7 +16,7 @@
 */
 
 #include "fileSystem.ih"
-time_t FileSystem::modTime(string const &file) throw (Problem) {
+time_t FileSystem::modTime(string const &file) {
     OpenMP::ScopedLock asdf(fsLock);
 
     struct stat statbuff;

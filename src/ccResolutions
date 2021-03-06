@@ -1,4 +1,4 @@
-#& --args "-Wall -pg -g -Wstrict-null-sentinel -Wformat -Wformat-security -Wwrite-strings -ansi -DVERSION=\\\"2.0.8\\\" -fstack-protector --param=ssp-buffer-size=4"
+#& --args "-std=c++17 -p -Wall -Werror -pg -g -Wstrict-null-sentinel -Wformat -Wformat-security -Wwrite-strings -DVERSION=\\\"0.0.1-dev\\\" -fstack-protector --param=ssp-buffer-size=4"
 #Left out -Wconversion and -pedantic because of the ugly yylex.cc
 # This file now requires ccbuild > 1.5.7
 #  Some options have no resolution, they should

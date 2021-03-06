@@ -19,42 +19,25 @@
 cd "`dirname "$0"`"
 set -e
 
-VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+echo "]]] Clean cmake config"
+./update_cmakelists.sh clean
+
+# VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+
+echo "]]] Update cmake config"
+. ./update_cmakelists.sh
+
 if [ -z "$VERSION" ]; then
     echo EMPTY VERSION FOUND
     exit 1
 fi
 
-ccbuild distclean
-rm -f src/ccbuild
+sed -r 's/PROJECT_NUMBER         = [0-9.]+/PROJECT_NUMBER         = '$VERSION'/' -i Doxyfile
+sed 's/<version>.*/<version>'$VERSION'/' -i doc/ccbuild/ccbuild.sgml
 
-echo "]]] Documentation"
+echo "]]] Update documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
-YYLEX=src/sourceScanner/yylex.cc
-
-
-echo "]]] Makefile"
-if [ ! -f "$YYLEX" ];	then
-	make -f Makefile.human "$YYLEX"
-fi;
-
-ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefile.ccbuild;
-
-echo "]]] MD5 sum list of source"
-rm -f "$YYLEX"
-rm -f MD5SUMS
-ccbuild md5 src/ccbuild.cc > MD5SUMS
-
-ccbuild -C src distclean
-
-echo "]]] Configure scripts for distribution: create, distclean, create"
-./bootstrap clean
-./bootstrap
-
-echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'
 echo "Version is now $VERSION"
-sed -r 's/PROJECT_NUMBER         = [0-9.]+/PROJECT_NUMBER         = '$VERSION'/' -i Doxyfile
-sed 's/<version>.*/<version>'$VERSION'/' -i doc/ccbuild/ccbuild.sgml
-echo "Update the version by changing src/ccResolutions"
+echo 'You can create a test archive using: git archive --format=tar --prefix=ccbuild-test/ HEAD | gzip > /tmp/ccbuild-test.tar.gz'

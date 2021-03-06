@@ -17,7 +17,7 @@
 
 #include "system.ih"
 
-int System::system(std::string const &command, bool simulate) throw (Problem) {
+int System::system(std::string const &command, bool simulate) {
     boost::circular_buffer_space_optimized<string> output(1024);
     if(Options::showCommands) {
         cout << command << "\n";
