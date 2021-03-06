@@ -37,7 +37,8 @@ fi
 
 ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS
 SOURCES=`egrep .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
-VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
+VERSION=$(git describe --abbrev=0 --dirty)
+# VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
 
 #Write CMakeLists.txt
 cat > CMakeLists.txt <<EOF

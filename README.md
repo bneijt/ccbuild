@@ -7,9 +7,6 @@ See [INSTALL](INSTALL) for installation instructions.
 
 Thank you for downloading `ccbuild`!
 
-![Travis CI build status](https://api.travis-ci.org/bneijt/ccbuild.svg)
-
-
 Documentation
 -------------
 All documentation can be found in the doc directory. If you want to hack ccbuild, don't forget to run `doxygen` first.
