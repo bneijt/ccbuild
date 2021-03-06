@@ -1,11 +1,9 @@
 name: release
 
-on: [push]
-
-# on: 
-#   push:
-#     tags:
-#     - '*'
+on: 
+  push:
+    tags:
+    - '*'
 
 jobs:
   build:
@@ -25,6 +23,5 @@ jobs:
       with:
         artifacts: "build/ccbuild*.tar.gz"
         bodyFile: "build/release.md"
-        token: ASDF
         tag: ${{ steps.package.outputs.version }}
-        # token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}

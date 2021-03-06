@@ -38,6 +38,7 @@ echo "]]] Update documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
+rm -rf build
 mkdir -p build
 
 awk '/^\s*$/{exit}//{print}' < ChangeLog > build/release.md
