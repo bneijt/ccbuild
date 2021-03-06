@@ -1,6 +1,6 @@
 f1cbc85bea3f70d88362d7e7989a6074  src/ccbuild.cc
 bad9bd0cafa0b1552f03b4ec3799783c  src/misc/debug.hh
-1eb06a3c7cd7be60632055d44f2dbd5b  src/MD5Info/MD5Info.hh
+48298fd9899a634a15644cbe1ac3a754  src/MD5Info/MD5Info.hh
 ca475bbd58f6c3096f945ccb5f307ec0  src/MD5Info/statics.cc
 1aa3a0f0ddfc2c30d8d754da153efa45  src/MD5Info/MD5Info.ih
 6c8662c8d1d75633db009bea901eb21d  src/MD5Info/save.cc

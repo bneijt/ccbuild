@@ -97,7 +97,7 @@ class MD5Info {
 
         MD5Info();
 
-        ///\brief Destory the cache, saving any memory data to disk
+        ///\brief Destroy the cache, saving any memory data to disk
         ~MD5Info();
 
         ///\brief Not implemented
