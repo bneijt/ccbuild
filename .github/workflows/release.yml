@@ -23,8 +23,8 @@ jobs:
       id: package
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "ccbuild*.tar.gz"
-        bodyFile: "release.md"
+        artifacts: "build/ccbuild*.tar.gz"
+        bodyFile: "build/release.md"
         token: ASDF
         tag: ${{ steps.package.outputs.version }}
         # token: ${{ secrets.GITHUB_TOKEN }}
