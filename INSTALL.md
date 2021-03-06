@@ -3,11 +3,11 @@ from plain, vanilla, Linux. However, please consider giving it a try on any
 system you can find and report any problems online at
  https://github.com/bneijt/ccbuild/issues
 
-Shortcut: cmake .; make install
+Shortcut: `cmake . && make install`
 
-Shortcut for other prefix: cmake .; make DESTDIR=/tmp/prefix install
+Shortcut for other prefix: `cmake . && make DESTDIR=/tmp/prefix install`
 
-Currently there is only one binary, so installation should be easy...
+There is only one binary, so installation should be easy...
 1)
     Install the dependences:
     libbobcat 2.0 or higher (correct API of Process class)
@@ -27,6 +27,7 @@ Currently there is only one binary, so installation should be easy...
     question.
 
     If you have some rights on the system and have cmake installed:
+
         cmake .
         make
         sudo make install
@@ -36,30 +37,3 @@ Currently there is only one binary, so installation should be easy...
     headers as empty resolutions by copying the tools/ccResolutions.d
     directory to ~/.ccbuild (this is not automatically done by any
     of the install scripts).
-
-If anything (or everything) fails mail me or try the manual way:
-
-Manually building and installing...
-===================================
-1) Build ccbuild
-        Using make: type 'make -f Makefile.human'
-
-2) Install
-        Copy 'ccbuild' to any directory given by 'echo $PATH'
-
-3) Default configuration (optional)
-        You can copy the default configuration from the tools directory
-        your local .ccbuild directory:
-        mkdir ~/.ccbuild
-        cp -r tools/ccResolutions.d ~/.ccbuild
-
-4) Source code documentation (optional)
-    Run doxygen in the root directory of ccbuild, this will generate
-    documentation in the ./doc/html directory.
-
-The test sources, usable for examples, are now separately packaged.
-If you want to try some examples, download the example codes from the
-ccbuild homepage.
-Also, don't forget to place any source you can find in a directory
- and run ccbuild, you never know, it might just compile!
-See also "Compatible projects" on the ccbuild homepage.

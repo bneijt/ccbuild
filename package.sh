@@ -32,23 +32,6 @@ echo "]]] Documentation"
 make -C doc/ccbuild clean
 make -C doc/ccbuild
 
-YYLEX=src/sourceScanner/yylex.cc
-
-
-echo "]]] Makefile"
-if [ ! -f "$YYLEX" ];	then
-	make -f Makefile.human "$YYLEX"
-fi;
-
-ccbuild --addres src/ccResolutions --nodefargs makefile src/ccbuild.cc > Makefile.ccbuild;
-
-echo "]]] MD5 sum list of source"
-rm -f "$YYLEX"
-rm -f MD5SUMS
-ccbuild md5 src/ccbuild.cc > MD5SUMS
-
-ccbuild -C src distclean
-
 echo "]]] Configure scripts for distribution: create, distclean, create"
 ./bootstrap clean
 ./bootstrap

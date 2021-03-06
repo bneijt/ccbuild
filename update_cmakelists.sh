@@ -1,7 +1,5 @@
 #!/bin/bash
-#This script is used to re-create the Makefile.am using ccbuild
-# and then run allt the necessary autotools. Configure.in should
-# be edited separately.
+#This script is used to re-create the CMakeLists.txt using ccbuild
 #
 #  This file is part of ccbuild.
 
@@ -17,12 +15,17 @@
 
 #  You should have received a copy of the GNU General Public License
 #  along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
+set -e
 
 if [ "x$1" = "xclean" ]; then
     echo cleaning
-    rm -rf cmakefiles
+    ccbuild distclean
+    rm -rf CMakeFiles
+    rm -f CMakeCache.txt
+    rm -f src/sourceScanner/yylex.cc
     exit
 fi
+
 ## Generate Makefile.am from ccbuild
 PSOURCE=src/ccbuild.cc
 PNAME=`basename "${PSOURCE}" .cc`
@@ -32,14 +35,16 @@ if [ -f "src/sourceScanner/yylex.cc" ]; then
     rm src/sourceScanner/yylex.cc
 fi
 
-which ccbuild && (ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS)
+ccbuild md5 --recursive-include . "${PSOURCE}" > MD5SUMS
 SOURCES=`egrep .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
 VERSION=`egrep -o 'VERSION=.+"[0-9.]+' src/ccResolutions |cut -d '"' -f 2`
 
 #Write CMakeLists.txt
 cat > CMakeLists.txt <<EOF
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
 project (ccbuild)
+
+set(CMAKE_CXX_STANDARD 20)
 
 find_package(FLEX)
 FLEX_TARGET(SourceScanner "src/sourceScanner/lexer"  "src/sourceScanner/yylex.cc" )

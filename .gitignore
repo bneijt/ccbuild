@@ -12,3 +12,5 @@
 /cmake_install.cmake
 /autom4te.cache
 /src/sourceScanner/yylex.cc
+/ccbuild
+*.gch

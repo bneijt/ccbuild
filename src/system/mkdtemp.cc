@@ -17,7 +17,7 @@
 
 #include "system.ih"
 
-std::string System::mkdtemp(std::string const& nameTemplate) throw (Problem) {
+std::string System::mkdtemp(std::string const& nameTemplate) {
     char * tmpDirName = new char[nameTemplate.size() +1];
     tmpDirName[nameTemplate.size()] = '\0';
     ::strcpy(tmpDirName, nameTemplate.c_str());

@@ -135,7 +135,7 @@ class FileSystem {
         static bool newer(std::string const &file1, std::string const &file2);
 
         ///\brief Return the modification time for the given file
-        static time_t modTime(std::string const &file) throw (Problem);
+        static time_t modTime(std::string const &file);
 
         ///\brief Returns true when the given file is readable
         static bool isReadable(std::string const &file);

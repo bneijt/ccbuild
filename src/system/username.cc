@@ -16,7 +16,7 @@
 */
 #include "system.ih"
 
-std::string System::username() throw (Problem) {
+std::string System::username() {
     size_t uid = getuid();
     struct passwd *pwd;
     std::string username;

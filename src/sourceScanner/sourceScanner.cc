@@ -20,9 +20,5 @@
 SourceScanner::SourceScanner(istream *newYyin)
     :
     d_hasMainFunction(false) {
-#if FLEX_VERSION_MAJOR <= 2 && FLEX_VERSION_MINOR <= 5
-    switch_streams(newYyin, yyout);
-#else
-    switch_streams(*newYyin, *yyout);
-#endif
+    switch_streams(*newYyin, yyout);
 }
