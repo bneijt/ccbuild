@@ -1,0 +1,15 @@
+name: main
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup
+      run: cmake .
+    - name: Build
+      run: cmake --build . --config Release
+    - name: Test
+      run: cd src; ../ccbuild
