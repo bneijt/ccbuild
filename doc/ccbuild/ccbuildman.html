@@ -9,9 +9,6 @@
   <title>ccbuild(1) General Commands Manual</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -23,17 +20,23 @@
       padding-top: 50px;
       padding-bottom: 50px;
       hyphens: auto;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       text-rendering: optimizeLegibility;
       font-kerning: normal;
     }
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -57,6 +60,10 @@
       color: #1a1a1a;
     }
     img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
       max-width: 100%;
     }
     h1, h2, h3, h4, h5, h6 {
@@ -83,9 +90,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -94,6 +102,7 @@
     pre code {
       padding: 0;
       overflow: visible;
+      overflow-wrap: normal;
     }
     .sourceCode {
      background-color: transparent;
@@ -135,25 +144,37 @@
     #TOC li {
       list-style: none;
     }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
     #TOC a:not(:hover) {
       text-decoration: none;
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">ccbuild(1) General Commands Manual</h1>
-<p class="author">A. Bram Neijt <a href="mailto:bneijt@gmail.com" class="email">bneijt@gmail.com</a></p>
+<p class="author">A. Bram Neijt <a href="mailto:bneijt@gmail.com"
+class="email">bneijt@gmail.com</a></p>
 <p class="date">August 8, 2014</p>
 </header>
 <h1 id="name">NAME</h1>
@@ -161,192 +182,373 @@
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>ccbuild</strong> <a href="#options">options</a> [command]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p><strong>ccbuild</strong> is a build utility that will read C++ source. It collects all source surrounding your local includes and links these to your main program. Global include statements (#include <something>) are used to make sure the compiler gets the` right arguments. The link between com‐ piler arguments and these global includes is made using configuration files. These files contain lines with a global header file name and the extra arguments the compiler needs to find and use this file. The file name and arguments are separated by tab character(s) or a space. ccbuild reads these configuration files in order. Only the first men‐ tion of a global header file in these files is used. Usually only <strong>./ccResolutions</strong> is used, but there are more possibilities. See the sec‐ tion FILES for more information.</p>
-<p><strong>ccbuild</strong> will follow any local include (#include “something.hh”) to try to find more source code to compile. To keep <strong>ccbuild</strong> from following up on an include statement, separate the #-sign and the include statement by a single space (“# include”).</p>
+<p><strong>ccbuild</strong> is a build utility that will read C++
+source. It collects all source surrounding your local includes and links
+these to your main program. Global include statements (#include
+<something>) are used to make sure the compiler gets the` right
+arguments. The link between com‐ piler arguments and these global
+includes is made using configuration files. These files contain lines
+with a global header file name and the extra arguments the compiler
+needs to find and use this file. The file name and arguments are
+separated by tab character(s) or a space. ccbuild reads these
+configuration files in order. Only the first men‐ tion of a global
+header file in these files is used. Usually only
+<strong>./ccResolutions</strong> is used, but there are more
+possibilities. See the sec‐ tion FILES for more information.</p>
+<p><strong>ccbuild</strong> will follow any local include (#include
+“something.hh”) to try to find more source code to compile. To keep
+<strong>ccbuild</strong> from following up on an include statement,
+separate the #-sign and the include statement by a single space (“#
+include”).</p>
 <h1 id="commands">COMMANDS</h1>
 <dl>
 <dt>build [filename.cc]</dt>
-<dd>Build everything or the given source.
+<dd>
+Build everything or the given source.
 </dd>
 <dt>lib [filename.cc]</dt>
-<dd><p>Collect all objects into an archive. If a version is given, using –pversion, then a shared library is also build with symbolic links. This currently forces the -fPIC argument addition. The name of your library is given the name of the current directory or it’s parent when the current directory is called src.</p>
-<p>Example: create an empty .cc file which simply includes all the local libraries, run ccbuild –pversion 0.0.1 lib that‐ file.cc</p>
+<dd>
+<p>Collect all objects into an archive. If a version is given, using
+–pversion, then a shared library is also build with symbolic links. This
+currently forces the -fPIC argument addition. The name of your library
+is given the name of the current directory or it’s parent when the
+current directory is called src.</p>
+<p>Example: create an empty .cc file which simply includes all the local
+libraries, run ccbuild –pversion 0.0.1 lib that‐ file.cc</p>
 </dd>
 <dt>clean [filename.cc]</dt>
-<dd>Clean everything or the given source.
+<dd>
+Clean everything or the given source.
 </dd>
 <dt>distclean</dt>
-<dd>Recursively remove all “o” directories after removing all .md5 and .o files therein. And removes all .gch files.
+<dd>
+Recursively remove all “o” directories after removing all .md5 and .o
+files therein. And removes all .gch files.
 </dd>
 <dt>deps [filename.cc]</dt>
-<dd>List all files this source depends on. It lists three lines separated by empty lines. The first contains the local dependencies, the second the ignored headers (for the file) and the last contains all global includes needed.
+<dd>
+List all files this source depends on. It lists three lines separated by
+empty lines. The first contains the local dependencies, the second the
+ignored headers (for the file) and the last contains all global includes
+needed.
 </dd>
 <dt>dot [filename.cc]</dt>
-<dd>Generate dot graph files for sources on the stdout. If no source file name is given, then for all binary targets in the local directory a .dot file will be created. If the –verbose flag is used the dot graph will also contain all object file names and their dependencies and lists of ignored headers. Objects will be coloured light grey, binary targets light blue, ignored headers by a red line.
+<dd>
+Generate dot graph files for sources on the stdout. If no source file
+name is given, then for all binary targets in the local directory a .dot
+file will be created. If the –verbose flag is used the dot graph will
+also contain all object file names and their dependencies and lists of
+ignored headers. Objects will be coloured light grey, binary targets
+light blue, ignored headers by a red line.
 </dd>
 <dt>makefile [filename.cc]</dt>
-<dd>Generate a Makefile on stdout. If no file name is given, an all rule will be generated. Otherwise only the rules for the given file are generated.
+<dd>
+Generate a Makefile on stdout. If no file name is given, an all rule
+will be generated. Otherwise only the rules for the given file are
+generated.
 </dd>
 <dt>aap [filename.cc]</dt>
-<dd>Generate an A-A-P file on stdout. If the file name is not given, an “all” rule will be added and all local binary tar‐ gets will be listed.
+<dd>
+Generate an A-A-P file on stdout. If the file name is not given, an
+“all” rule will be added and all local binary tar‐ gets will be listed.
 </dd>
 <dt>check [filename.cc]</dt>
-<dd>Display source status and file name on the stdout. Status and source path are separated with a tab character. Status is either “old” or “ok”. When the –verbose flag is used, another tab separated column will be inserted containing a two letter file type ccbuild identifies it as. This file type is “bt”, “ot”, “ih” or “hh” for binary target, object target, internal header and header respectively.
+<dd>
+Display source status and file name on the stdout. Status and source
+path are separated with a tab character. Status is either “old” or “ok”.
+When the –verbose flag is used, another tab separated column will be
+inserted containing a two letter file type ccbuild identifies it as.
+This file type is “bt”, “ot”, “ih” or “hh” for binary target, object
+target, internal header and header respectively.
 </dd>
 <dt>icmake [filename.cc]</dt>
-<dd>icmake slave mode. This will output the used directories with one directory per line. If a CLASSES file already exists, it will only output the class directories not mentioned in the CLASSES file. If –verbose is given, all classes will be listed. The output will not contain directories with only header files. Updating the CLASSES is typically done by run‐ ning: ccbuild icmake &gt;&gt; CLASSES
+<dd>
+icmake slave mode. This will output the used directories with one
+directory per line. If a CLASSES file already exists, it will only
+output the class directories not mentioned in the CLASSES file. If
+–verbose is given, all classes will be listed. The output will not
+contain directories with only header files. Updating the CLASSES is
+typically done by run‐ ning: ccbuild icmake &gt;&gt; CLASSES
 </dd>
 <dt>resolve [filename.cc]</dt>
-<dd>Print all unresolved globals onto the stdout followed by a tab character. These can be appended to the ccResolutions file using: ccbuild resolve &gt;&gt; ccResolutions .
+<dd>
+Print all unresolved globals onto the stdout followed by a tab
+character. These can be appended to the ccResolutions file using:
+ccbuild resolve &gt;&gt; ccResolutions .
 </dd>
 <dt>md5 [filename.cc]</dt>
-<dd>MD5 sum all sources needed to compile all binary targets, or the given source on stdout.
+<dd>
+MD5 sum all sources needed to compile all binary targets, or the given
+source on stdout.
 </dd>
 </dl>
 <h1 id="options">OPTIONS</h1>
-<p>Options are used to change the behaviour of the commands. Some options are useless for some commands.</p>
+<p>Options are used to change the behaviour of the commands. Some
+options are useless for some commands.</p>
 <dl>
 <dt>-f –force-update</dt>
-<dd>Update everything by labelling everything as old.
+<dd>
+Update everything by labelling everything as old.
 </dd>
 <dt>-h –help</dt>
-<dd>Get a list of options and commands.
+<dd>
+Get a list of options and commands.
 </dd>
 <dt>–gnutouch</dt>
-<dd>Touch files part of the GNU software standard. They will be touched in ../ except when there is a directory called src in the current directory, then the current directory will be used. This will touch AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.
+<dd>
+Touch files part of the GNU software standard. They will be touched in
+../ except when there is a directory called src in the current
+directory, then the current directory will be used. This will touch
+AUTHORS, NEWS, README, INSTALL, COPYING, TODO and ChangeLog.
 </dd>
 <dt>-s –no-act</dt>
-<dd>Simulate, don’t really execute any writing commands.
+<dd>
+Simulate, don’t really execute any writing commands.
 </dd>
 <dt>–compiler cmd</dt>
-<dd>Set the compiler command. The default is “g++”.
+<dd>
+Set the compiler command. The default is “g++”.
 </dd>
 <dt>-a –args argument</dt>
-<dd>Set these default compiler arguments, removing the standard default arguments (“-Wall -g”). Multiple uses of this option are concate‐ nated with spaces.
+<dd>
+Set these default compiler arguments, removing the standard default
+arguments (“-Wall -g”). Multiple uses of this option are concate‐ nated
+with spaces.
 </dd>
 <dt>-C path</dt>
-<dd>Change directory before anything else.
+<dd>
+Change directory before anything else.
 </dd>
 <dt>-p –precompile-ih</dt>
-<dd>Pre-compile only internal headers. This requires g++ version 3.4 up.
+<dd>
+Pre-compile only internal headers. This requires g++ version 3.4 up.
 </dd>
 <dt>–precompile-all</dt>
-<dd>Pre-compile both internal headers and normal headers. This requires g++ version 3.4 up. When you use internal headers, this will only slow you down. However, when you don’t use internal headers, this pre-compilation is all you’ve got.
+<dd>
+Pre-compile both internal headers and normal headers. This requires g++
+version 3.4 up. When you use internal headers, this will only slow you
+down. However, when you don’t use internal headers, this pre-compilation
+is all you’ve got.
 </dd>
 <dt>–brute</dt>
-<dd>Continue on compiler errors.
+<dd>
+Continue on compiler errors.
 </dd>
 <dt>–md5</dt>
-<dd>Use MD5 hashes to check for file changes. The hashes are store in “o/filename.md5” for every file. These sums are only stored after a clean exit from ccbuild (last line showing “[WR] MD5 data”) or a successful compilation.
+<dd>
+Use MD5 hashes to check for file changes. The hashes are store in
+“o/filename.md5” for every file. These sums are only stored after a
+clean exit from ccbuild (last line showing “[WR] MD5 data”) or a
+successful compilation.
 </dd>
 <dt>-I path</dt>
-<dd>Add this path to the local include search path of ccbuild and the compiler (which will receive the same argument).
+<dd>
+Add this path to the local include search path of ccbuild and the
+compiler (which will receive the same argument).
 </dd>
 <dt>–recursive-include path</dt>
-<dd>This is just like -I, but for the given path and every non-empty directory with a name other then “o”. Make sure you do not come to depend on this behaviour, that would be bad practice.
+<dd>
+This is just like -I, but for the given path and every non-empty
+directory with a name other then “o”. Make sure you do not come to
+depend on this behaviour, that would be bad practice.
 </dd>
 <dt>-l –highlight</dt>
-<dd>Highlight the output of the compiler using a red terminal colour.
+<dd>
+Highlight the output of the compiler using a red terminal colour.
 </dd>
 <dt>–xof –exec-on-fail command</dt>
-<dd>Execute this command when the command (pre)compilation returns any‐ thing but 0. The first argument given to the command will be rela‐ tive path to the file the command was executed on (which is either a C++ source or header). If you don’t want to use the file name, you can append an echo command like “sleep 2; echo”.
+<dd>
+Execute this command when the command (pre)compilation returns any‐
+thing but 0. The first argument given to the command will be rela‐ tive
+path to the file the command was executed on (which is either a C++
+source or header). If you don’t want to use the file name, you can
+append an echo command like “sleep 2; echo”.
 </dd>
 <dt>–xop –exec-on-pass cmd</dt>
-<dd>This is the same as –exec-on-fail, except it only works when the command returns 0. The first argument given to the command will be the relative path to the file the command was executed on.
+<dd>
+This is the same as –exec-on-fail, except it only works when the command
+returns 0. The first argument given to the command will be the relative
+path to the file the command was executed on.
 </dd>
 <dt>–clearpc</dt>
-<dd>Clear the screen just before executing the command (clear per com‐ mand).
+<dd>
+Clear the screen just before executing the command (clear per com‐
+mand).
 </dd>
 <dt>–append cmd</dt>
-<dd>Append this to every command. This can be used to redirect output or set up pipes for compiler output.
+<dd>
+Append this to every command. This can be used to redirect output or set
+up pipes for compiler output.
 </dd>
 <dt>–loop</dt>
-<dd>Loop the system with one second intervals. This only works for the build command at the moment. All sources who are touched will be reloaded. If a file is removed, the whole source tree is reloaded.
+<dd>
+Loop the system with one second intervals. This only works for the build
+command at the moment. All sources who are touched will be reloaded. If
+a file is removed, the whole source tree is reloaded.
 </dd>
 <dt>–nodefargs</dt>
-<dd>Do not read the first line of ./ccResolutions for extra arguments.
+<dd>
+Do not read the first line of ./ccResolutions for extra arguments.
 </dd>
 <dt>–nodefres</dt>
-<dd>Do not load any ccResolutions files outside of ./ccResolutions. This can be used to create a monolithic ccResolutions file or dis‐ cover your project’s dependencies with the resolve command.
+<dd>
+Do not load any ccResolutions files outside of ./ccResolutions. This can
+be used to create a monolithic ccResolutions file or dis‐ cover your
+project’s dependencies with the resolve command.
 </dd>
 <dt>–addres filename</dt>
-<dd>Load the given resolution file before any other.
+<dd>
+Load the given resolution file before any other.
 </dd>
 <dt>–pversion version</dt>
-<dd>Set the program version you are working on to version. This is cur‐ rently only used for the library command. When defined, the library command can make a shared object (.so) and symbolic links by using the version number. It should not contain any file system special characters like slashes.
+<dd>
+Set the program version you are working on to version. This is cur‐
+rently only used for the library command. When defined, the library
+command can make a shared object (.so) and symbolic links by using the
+version number. It should not contain any file system special characters
+like slashes.
 </dd>
 <dt>–ar</dt>
-<dd>Archive the objects before linking. This should reduce the binary size because it leaves out unused objects.
+<dd>
+Archive the objects before linking. This should reduce the binary size
+because it leaves out unused objects.
 </dd>
 <dt>–verbose</dt>
-<dd>Show commands and produce more output for dot and check commands.
+<dd>
+Show commands and produce more output for dot and check commands.
 </dd>
 <dt>-V –version</dt>
-<dd>Output version number on stdout and copyright/license on stderr.
+<dd>
+Output version number on stdout and copyright/license on stderr.
 </dd>
 <dt>–xml</dt>
-<dd>Output in XML where supported. Currently this is only the check command.
+<dd>
+Output in XML where supported. Currently this is only the check command.
 </dd>
 <dt>–nowarn</dt>
-<dd>Leave out most warnings.
+<dd>
+Leave out most warnings.
 </dd>
 <dt>–batch</dt>
-<dd>Compile a batch of files with one g++ call before any other compi‐ lation. This effectively disables any multi-threading, but may speed things up for larger collections of small files. This process involves creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact behaviour of this option may change in the future based on performance results and user experience.
+<dd>
+Compile a batch of files with one g++ call before any other compi‐
+lation. This effectively disables any multi-threading, but may speed
+things up for larger collections of small files. This process involves
+creating a temporary directory in /tmp/ccbuild_batch.XXXX. The exact
+behaviour of this option may change in the future based on performance
+results and user experience.
 </dd>
 <dt>-j number_threads</dt>
-<dd>Set the maximum number of threads used during build. Only available when OpenMP is enabled.
+<dd>
+Set the maximum number of threads used during build. Only available when
+OpenMP is enabled.
 </dd>
 </dl>
 <h1 id="resolution-configuration">RESOLUTION CONFIGURATION</h1>
-<p>The ccResolutions file links global headers to compiler arguments. Every line should be either empty, start with a comment character “#” or contain a con‐ figuration line. A configuration line contains the name of the global header, followed by one or more tab characters and then the additional argu‐ ments needed when a source depends on this global header. The arguments are POSIX shell expanded.</p>
-<p>If the first line of the ccResolutions file starts with “#&amp;”, the rest of this line is shell expanded and used and appended to the argument list of <em>ccbuild</em>.</p>
+<p>The ccResolutions file links global headers to compiler arguments.
+Every line should be either empty, start with a comment character “#” or
+contain a con‐ figuration line. A configuration line contains the name
+of the global header, followed by one or more tab characters and then
+the additional argu‐ ments needed when a source depends on this global
+header. The arguments are POSIX shell expanded.</p>
+<p>If the first line of the ccResolutions file starts with “#&amp;”, the
+rest of this line is shell expanded and used and appended to the
+argument list of <em>ccbuild</em>.</p>
 <h1 id="examples">EXAMPLES</h1>
 <p>Examples of program use.</p>
 <dl>
 <dt>ccbuild resolve &gt;&gt; ccResolutions</dt>
-<dd>Add any of the unknown global headers to the ccResolutions file. You can also use –nowarn to keep ccbuild quiet, but you will have to think twice if you get compilation errors.
+<dd>
+Add any of the unknown global headers to the ccResolutions file. You can
+also use –nowarn to keep ccbuild quiet, but you will have to think twice
+if you get compilation errors.
 </dd>
 <dt>ccbuild –brute</dt>
-<dd>Get back to development after a distclean. This will update as much objects as will compile. Which will allow you to focus on the errors in the next ccbuild call.
+<dd>
+Get back to development after a distclean. This will update as much
+objects as will compile. Which will allow you to focus on the errors in
+the next ccbuild call.
 </dd>
-<dt>ccbuild -p –compiler ‘g++-3.4’ –args -Wall –args ‘-Wextra -ansi’</dt>
-<dd>Precompile internal headers using g++-3.4 and highlight all com‐ piler output (-l). Also give all compiler commands the parameters “-Wall -Wextra -ansi”.
+<dt>ccbuild -p –compiler ‘g++-3.4’ –args -Wall –args ‘-Wextra
+-ansi’</dt>
+<dd>
+Precompile internal headers using g++-3.4 and highlight all com‐ piler
+output (-l). Also give all compiler commands the parameters “-Wall
+-Wextra -ansi”.
 </dd>
 <dt>ccbuild -f –args -O3</dt>
-<dd>Recompiling your project for benchmarking tests. Forces the update of all code (-f) and sets the compiler argument to -O3.
+<dd>
+Recompiling your project for benchmarking tests. Forces the update of
+all code (-f) and sets the compiler argument to -O3.
 </dd>
 <dt>ccbuild –verbose dot; dotty *.dot</dt>
-<dd>Graph the dependencies for all programs with colours. Then view these using dotty. This can help you to discover irregular depen‐ dencies and what test programs use.
+<dd>
+Graph the dependencies for all programs with colours. Then view these
+using dotty. This can help you to discover irregular depen‐ dencies and
+what test programs use.
 </dd>
 <dt>ccbuild –xof ‘gedit’</dt>
-<dd>Try to compile the program and open the first file that does not compile correctly. Open all error producing sources in gedit. Very useful for when you change the interface of a class.
+<dd>
+Try to compile the program and open the first file that does not compile
+correctly. Open all error producing sources in gedit. Very useful for
+when you change the interface of a class.
 </dd>
 <dt>ccbuild –compiler distcc -j 20</dt>
-<dd>Use 20 distcc compilers to compile the project.
+<dd>
+Use 20 distcc compilers to compile the project.
 </dd>
 </dl>
 <h1 id="files">FILES</h1>
 <p>Configuration files used by ccbuild</p>
 <dl>
 <dt>./ccResolutions[.USERNAME,.HOSTNAME,.KERNEL_NAME,.MACHINE,]</dt>
-<dd>Local configuration which is project specific. It will load the first existing file of: ./ccResolutions.USERNAME, ./ccResolu‐ tions.HOSTNAME, ./ccResolutions.KERNEL_NAME, ./ccResolu‐ tions.MACHINE, ./ccResolutions. Hostname, kernel name and machine can be found with uname -nsm.
+<dd>
+Local configuration which is project specific. It will load the first
+existing file of: ./ccResolutions.USERNAME, ./ccResolu‐ tions.HOSTNAME,
+./ccResolutions.KERNEL_NAME, ./ccResolu‐ tions.MACHINE, ./ccResolutions.
+Hostname, kernel name and machine can be found with uname -nsm.
 </dd>
 <dt>~/.ccbuild/ccResolutions</dt>
-<dd>Global configuration file.
+<dd>
+Global configuration file.
 </dd>
 <dt>~/.ccbuild/ccResolutions.d</dt>
-<dd>The resolution configuration directory. All files in this directory are considered configuration files.
+<dd>
+The resolution configuration directory. All files in this directory are
+considered configuration files.
 </dd>
 </dl>
 <h1 id="caveats">CAVEATS</h1>
-<p>Do not place any file into o directories, these will be removed when using the distclean command. Also don’t use files with the same basename, but different C++ extensions, this will give problems with the objects created (for example “add.cc” and “add.cpp” in the same directory).</p>
-<p>Currently there is no way to allow one object file to effect the command-line parameters of another. This means that if all objects need a flag, you must use the –args argument and cannot use a global header resolution line. Exam‐ ples of these flags that need to be defined everywhere are -pthreads, -mthreads and -threads. Please read the g++ manual for more information on usage of flags.</p>
-<p>ccbuild seems to be incompatible with flex 2.5.4. That version of flex places an int main function in the resulting scanner and there doesn’t seem to be a way to stop it from mentioning it. The result is that ccbuild will think that the generated scanner is a test program for your class and won’t link it into the main program. A solution is to move to a newer version of flex or find a way to remove the int main function from the resulting scanner file.</p>
+<p>Do not place any file into o directories, these will be removed when
+using the distclean command. Also don’t use files with the same
+basename, but different C++ extensions, this will give problems with the
+objects created (for example “add.cc” and “add.cpp” in the same
+directory).</p>
+<p>Currently there is no way to allow one object file to effect the
+command-line parameters of another. This means that if all objects need
+a flag, you must use the –args argument and cannot use a global header
+resolution line. Exam‐ ples of these flags that need to be defined
+everywhere are -pthreads, -mthreads and -threads. Please read the g++
+manual for more information on usage of flags.</p>
+<p>ccbuild seems to be incompatible with flex 2.5.4. That version of
+flex places an int main function in the resulting scanner and there
+doesn’t seem to be a way to stop it from mentioning it. The result is
+that ccbuild will think that the generated scanner is a test program for
+your class and won’t link it into the main program. A solution is to
+move to a newer version of flex or find a way to remove the int main
+function from the resulting scanner file.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
-<p>Report any issue with ccbuild at: https://github.com/bneijt/ccbuild</p>
+<p>Report any issue with ccbuild at:
+https://github.com/bneijt/ccbuild</p>
 <h1 id="restrictions">RESTRICTIONS</h1>
-<p>ccbuild will not follow or act on any include statements with a single space between the #-sign and the include. So all include statements starting with “# include” will be ignored, all other combinations will be acted on. This is a feature, not a bug. In verbose mode (–verbose) these are mentioned as warnings.</p>
+<p>ccbuild will not follow or act on any include statements with a
+single space between the #-sign and the include. So all include
+statements starting with “# include” will be ignored, all other
+combinations will be acted on. This is a feature, not a bug. In verbose
+mode (–verbose) these are mentioned as warnings.</p>
 <h1 id="see-also">SEE ALSO</h1>
-<p><code>pkg-config</code>(1), <code>dotty</code>(1), <code>make</code>(1), <code>icmake</code>(1), <code>g++</code>(1), <code>aap</code>(1), <code>svn</code>(1)</p>
+<p><code>pkg-config</code>(1), <code>dotty</code>(1),
+<code>make</code>(1), <code>icmake</code>(1), <code>g++</code>(1),
+<code>aap</code>(1), <code>svn</code>(1)</p>
 </body>
 </html>
