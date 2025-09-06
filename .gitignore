@@ -15,3 +15,5 @@
 /src/sourceScanner/yylex.cc
 /ccbuild
 *.gch
+/tmp
+gmon.out

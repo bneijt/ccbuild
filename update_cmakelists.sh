@@ -38,7 +38,7 @@ if [ -f "src/sourceScanner/yylex.cc" ]; then
 fi
 
 $CCBUILD md5 --recursive-include . "${PSOURCE}" > MD5SUMS
-SOURCES=`egrep .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
+SOURCES=`grep -E .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
 VERSION=$(git tag --points-at HEAD)
 if [ -z "$VERSION" ]; then
     VERSION=$(git describe --tags)
@@ -46,10 +46,10 @@ fi
 
 #Write CMakeLists.txt
 cat > CMakeLists.txt <<EOF
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required (VERSION 3.5)
 project (ccbuild)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 23)
 
 find_package(FLEX)
 FLEX_TARGET(SourceScanner "src/sourceScanner/lexer"  "src/sourceScanner/yylex.cc" )
@@ -57,7 +57,7 @@ string(SUBSTRING \${FLEX_VERSION} 0 1 FLEX_VERSION_MAJOR)
 string(SUBSTRING \${FLEX_VERSION} 2 1 FLEX_VERSION_MINOR)
 
 add_definitions(-DVERSION="${VERSION}" -DFLEX_VERSION_MAJOR=\${FLEX_VERSION_MAJOR} -DFLEX_VERSION_MINOR=\${FLEX_VERSION_MINOR})
-link_libraries(gomp bobcat gnutls)
+link_libraries(gomp gnutls)
 add_definitions(-fopenmp)
 add_executable(ccbuild ${SOURCES} \${FLEX_SourceScanner_OUTPUTS})
 install(TARGETS ccbuild DESTINATION bin)
