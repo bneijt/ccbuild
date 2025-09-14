@@ -39,10 +39,7 @@ fi
 
 $CCBUILD md5 --recursive-include . "${PSOURCE}" > MD5SUMS
 SOURCES=`grep -E .cc$ MD5SUMS | sed  -r 's/^[a-z0-9]+  //; s/ /\\ /' | tr '\n' ' '`
-VERSION=$(git tag --points-at HEAD)
-if [ -z "$VERSION" ]; then
-    VERSION=$(git describe --tags)
-fi
+VERSION=$(git describe --tags)
 
 #Write CMakeLists.txt
 cat > CMakeLists.txt <<EOF
