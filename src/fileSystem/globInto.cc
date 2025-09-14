@@ -20,7 +20,7 @@ void FileSystem::globInto(vector<string> *list, string const &pattern, bool sort
     OpenMP::ScopedLock asdf(fsLock);
     glob_t globbuf; //Needs to be globfreed at the end
 
-    //Use glob to get canditates
+    //Use glob to get candidates
     if(sort) {
         ::glob(pattern.c_str(), GLOB_TILDE, NULL, &globbuf);
     } else {

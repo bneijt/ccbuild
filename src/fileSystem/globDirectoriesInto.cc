@@ -35,8 +35,8 @@ void FileSystem::globDirectoriesInto(vector<string> *list, string const &pattern
     OpenMP::ScopedLock asdf(fsLock);
     glob_t globbuf; //Needs to be globfreed at the end
 
-    //Use glob to get canditates
-    //XXX GLOB_ONLYDIR doesn't seem to work well with simlinks
+    //Use glob to get candidates
+    //XXX GLOB_ONLYDIR doesn't seem to work well with symlinks
     if(sort) {
         ::glob(pattern.c_str(), GLOB_ONLYDIR | GLOB_TILDE, NULL, &globbuf);
     } else {

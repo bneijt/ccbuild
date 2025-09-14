@@ -26,7 +26,7 @@
 ///
 ///If DEBUGLEVEL is set to 1, Level1 debug info is printed. If DEBUGLEVEL is set to 2, all Level2 and lower are printed. etc.
 ///
-///To set the debuglevel of a class, place \#define DEBUGLEVEL in the internal header file (in contrast to the header). This will keep multiple defenitions from occuring when compiling.
+///To set the debuglevel of a class, place \#define DEBUGLEVEL in the internal header file (in contrast to the header). This will keep multiple definitions from occuring when compiling.
 ///
 ///The output generated is: "[Filename]:[Line number]: [information]\n"
 ///
@@ -38,7 +38,7 @@
 /// _debugLevel3("And thinking about running it" << i << " times.");
 ///\endcode
 
-//No include guards, to keep the defenitions as much up to date as possible, due to the dependencie on DEBUGLEVEL.
+//No include guards, to keep the definitions as much up to date as possible, due to the dependencie on DEBUGLEVEL.
 #ifdef NODEBUG
 #ifdef DEBUGLEVEL
 #undef DEBUGLEVEL

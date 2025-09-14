@@ -60,7 +60,7 @@ std::string FileSystem::cleanPath(string const &filename) {
         clean = clean.substr(0, clean.length() -1);
     }
 
-    //Strip superflourous './' for local path
+    //Strip superfluous './' for local path
     if(clean[0] == '.' && clean[1] == '/') {
         clean = clean.substr(2);
     }

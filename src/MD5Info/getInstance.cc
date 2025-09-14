@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "MD5Info.ih"
 
 MD5Info &MD5Info::getInstance() {

@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 
 void System::dotgraphFor(Source *target, ostream &str) {

@@ -42,7 +42,7 @@ std::string System::uname(char const field) {
             rvalue = sysinfo.sysname;
             break;
         default:
-            throw Problem(Problem::Unable, "Not implemented field requisted from uname.");
+            throw Problem(Problem::Unable, "Not implemented field requested from uname.");
         }
     }
     return rvalue;

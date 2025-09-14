@@ -14,7 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "compiler.ih"
 
 std::string const Compiler::s_highLightOff("\x1b\x5b\x30\x6d");     //\\e[0m

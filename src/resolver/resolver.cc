@@ -17,8 +17,6 @@
 
 #include "resolver.ih"
 
-
-
 Resolver::Resolver()
     :
     d_staticLinks(),
