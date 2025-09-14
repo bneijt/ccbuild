@@ -75,5 +75,4 @@ Another option is using `cmake` which is used in the [Travis-CI build](https://t
         rm src/sourceScanner/yylex.cc; make -f Makefile.human src/sourceScanner/yylex.cc
 
   Use this if the compiler complains about something with `SourceScanner`
-* If the compiler complains about `FFB::Process` constructor called incorrectly,
-  make sure you have `libbobcat 2.02.03` or higher.
+

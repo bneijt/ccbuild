@@ -10,7 +10,6 @@ Shortcut for other prefix: `cmake . && make DESTDIR=/tmp/prefix install`
 There is only one binary, so installation should be easy...
 1)
     Install the dependences:
-    libbobcat 2.0 or higher (correct API of Process class)
     libgomp 1.0+ (OpenMP)
     libgnutls (for MD5 algorithm)
     libboost 1.37 or higher.
@@ -18,12 +17,12 @@ There is only one binary, so installation should be easy...
     flex 2.5.31 or newer (for the source scanner)
 
 2)
-    If you have absolutly no rights on the system, add a writable (for example ${HOME}/bin) to your path and run "sh localinstall.sh".
+    If you have absolutely no rights on the system, add a writable (for example ${HOME}/bin) to your path and run "sh localinstall.sh".
 
     This will use the first writeable PATH path as binary directory
     and install the configuration files to your home directory.
 
-    Don't forget to awnser "yes" to the final do-you-really-want-this
+    Don't forget to answer "yes" to the final do-you-really-want-this
     question.
 
     If you have some rights on the system and have cmake installed:
