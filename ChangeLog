@@ -3,7 +3,7 @@
  - Spell check run
 
 2.0.10:
- - Refresh build dependencies and upgrade to C++17
+ - Upgrade cmake and C++ requirements
 
 2.0.9:
  - Refresh build dependencies and upgrade to C++17
