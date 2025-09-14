@@ -17,3 +17,4 @@
 *.gch
 /tmp
 gmon.out
+/.vscode
