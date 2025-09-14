@@ -38,7 +38,7 @@ First initialize the singleton with options and the commandline arguments.
 
 Arguments can be tested using the functions flagged, value and rest.
 Options should be a 3xN array of character pointers, ending in {0,0,0}. Options are defined with:
-{"flagges and long names, space seperated", "valuename, if any", "Help text explaning what the option is."}
+{"flags and long names, space separated", "valuename, if any", "Help text explaning what the option is."}
 
   WARNING: Arguments only supports up to 39 long options currently! See the TODO in Arguments.cc
 
@@ -103,13 +103,13 @@ class Arguments {
         std::string d_empty;                                        ///<A non const empty string
 
         static Arguments *s_instance;   ///<Pointer to the singleton instance
-        static OpenMP::Lock s_instanceLock; ///<Lock for autmoatic instantiation and destruction
+        static OpenMP::Lock s_instanceLock; ///<Lock for automatic instantiation and destruction
 
 
     public:
-        ///\brief A structure containing the defenition of a commandline option
+        ///\brief A structure containing the definition of a commandline option
         struct Option {
-            std::string flags;  ///<All flags it can be called with, space seperated ("f force" will allow "-f" and "--force")
+            std::string flags;  ///<All flags it can be called with, space separated ("f force" will allow "-f" and "--force")
             std::string value;  ///<The value, if any, the argument of the option is called. "<value>" for required, "[value]" for optional.
             std::string helpText;   ///< The help text, describing this option. This is used when generating the help output.
         };

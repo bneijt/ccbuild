@@ -27,7 +27,7 @@ int Compiler::compile(std::string target,
     assert(target != outputFile);
     string command = compileCommand(target, outputFile);
 
-    //If possible fork this... if(Options::optino<unsigned>("numThreadsLeft") > 0) fork exit(system)
+    //If possible fork this... if(Options::option<unsigned>("numThreadsLeft") > 0) fork exit(system)
 
     int retValue = System::system(command);
 

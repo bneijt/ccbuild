@@ -60,7 +60,7 @@ class Source {
         unsigned char d_update; ///<  Do we need an update? 0=unknown, 1=true, 2=false;
         bool d_hasMainFunction; ///< Does this source have a main function
 
-        ///\brief Internallly used source type defenitions
+        ///\brief Internallly used source type definitions
         enum SourceType {
             Unknown,
             LocalHeader,

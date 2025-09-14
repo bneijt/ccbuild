@@ -67,7 +67,7 @@ void System::build(Source *source, Compiler &cc) {
     srcList.erase(last, srcList.end());//TODO do a real check for memory leaks on this, but I think Sources will track this.
     srcList.push_back(source);//Add the root binTarget again
 
-    //Seperate sources into lists
+    //Separate sources into lists
     __foreach(src, srcList) {
         if((*src)->isObjectTarget()) {
             objectTargets.push_back(*src);

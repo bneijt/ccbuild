@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "sources.ih"
 Sources *Sources::s_instance(0); ///<Static member of sources to keep the pointer to the singleton
 OpenMP::Lock Sources::s_instanceLock; ///<Instance pointer mutex

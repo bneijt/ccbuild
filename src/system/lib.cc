@@ -69,7 +69,7 @@ int System::lib(std::string const &version, Source *source) {
     srcList.erase(last, srcList.end());//TODO do a real check for memory leaks on this, but I think Sources will track this.
 
 
-    //Seperate sources into lists
+    //Separate sources into lists
     __foreach(src, srcList) {
         if((*src)->isObjectTarget()) {
             objectTargets.push_back(*src);
@@ -159,7 +159,7 @@ int System::lib(std::string const &version, Source *source) {
         //Test whether linking is needed
         needLink = (numNeedLink > 0 ? true : needLink);
 
-        //Acuumulate the compilers
+        //Accumulate the compilers
         cc = accumulate(compilers.begin(), compilers.end(), cc);
 
     }//encaps iter

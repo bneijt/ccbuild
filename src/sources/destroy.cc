@@ -22,7 +22,7 @@ void Sources::destroy() {
     if(s_instance) {
         delete s_instance;
     } else {
-        _debugLevel1("Already destoryed!!");
+        _debugLevel1("Already destroyed!!");
     }
     s_instance = 0;
 }

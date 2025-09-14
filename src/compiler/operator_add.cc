@@ -16,8 +16,6 @@
 */
 
 //See GNU manual for options: http://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#Link-Options
-
-
 #include "compiler.ih"
 Compiler const Compiler::operator+(Compiler const &rvalue) {
     //Adding two compilers will merge their options

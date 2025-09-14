@@ -40,7 +40,7 @@ bool System::addArguments(int &argc, char ** &argv) {
     return false;
 #else
     cerr << "ccbuild: Adding ccResolutions arguments.\n";
-    _debugLevel1("ccbuild: Arugment line: '" << confLine << "'");
+    _debugLevel1("ccbuild: Argument line: '" << confLine << "'");
 
     wordexp_t p;
 

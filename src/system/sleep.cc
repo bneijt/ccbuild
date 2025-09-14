@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "system.ih"
 //This function is only here to keep ccbuild header list smaller
 unsigned System::sleep(unsigned const seconds) {

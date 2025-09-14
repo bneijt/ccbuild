@@ -15,11 +15,6 @@
   along with ccbuild.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-
-
 #include "source.ih"
 bool Source::isHeader() const {
     return isLocalHeader() || isInternalHeader();

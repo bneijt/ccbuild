@@ -118,7 +118,7 @@ Arguments::Arguments(Option const *options, int argc, char *argv[])
         ++optionIndex;
     }
 
-    //Add empty element, superflourisch if newly allocated space contains zeros
+    //Add empty element, superfluous if newly allocated space contains zeros
     longOpts[nlongOpts].name = 0;
     longOpts[nlongOpts].has_arg = 0;
     longOpts[nlongOpts].flag = 0;
